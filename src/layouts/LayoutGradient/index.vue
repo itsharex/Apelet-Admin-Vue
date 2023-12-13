@@ -8,7 +8,7 @@
             <ToolRight />
         </el-header>
         <el-container class="relative">
-            <Aside :class="!appStore.isMobile && '!mx-4 !my-2'" class="!border-none !b-rounded" />
+            <Aside :class="showPadding && '!mx-4 !my-2'" class="!border-none !b-rounded" />
             <el-container direction="vertical" class="!my-2">
                 <MainApp class="!bg-[transparent] !shadow-none !b-rounded" />
             </el-container>
@@ -28,6 +28,7 @@ import { settingConfig } from '@/config/settings';
 const appStore = useAppStore();
 const containerRef = ref<HTMLElement | null>(null);
 const showAppMask = computed(() => appStore.isMobile && !appStore.isCollapse);
+const showPadding = computed(() => !appStore.isMobile && !appStore.isCollapse);
 const closeAppMask = () => appStore.$patch({ isCollapse: true });
 const { asideMaxWidth } = settingConfig;
 

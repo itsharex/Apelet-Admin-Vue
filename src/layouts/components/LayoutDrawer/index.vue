@@ -142,7 +142,7 @@ const { switchDark, setThemeColor, resetThief, setGrayMode, setWeakNessMode, set
 const predefineColors = ref(['#ff4500', '#ff8c00', '#ffd700', '#90ee90', '#00ced1', '#1e90ff', '#c71585']);
 
 // 是否是渐变布局
-const isGradient = computed(() => layoutStore.layout.includes('gradient'));
+const isGradient = computed(() => layoutStore.layout === 'gradient');
 
 // 改变菜单栏背景色
 const changeMenuMode = () => setMenuMode();

@@ -1,4 +1,3 @@
-import { createPinia, Pinia } from 'pinia';
 // 安装pinia持久化插件， 并导入
 import { createPersistedState } from 'pinia-plugin-persistedstate';
 
