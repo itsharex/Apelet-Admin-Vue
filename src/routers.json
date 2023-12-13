@@ -1,0 +1,167 @@
+[
+    {
+        "path": "/system",
+        "name": "System",
+        "component": "Layout",
+        "redirect": "noRedirect",
+        "meta": {
+            "icon": "Tools",
+            "hidden": false,
+            "title": "system"
+        },
+        "children": [
+            {
+                "path": "user",
+                "name": "User",
+                "component": "system/user/index",
+                "meta": {
+                    "icon": "UserFilled",
+                    "hidden": false,
+                    "title": "user"
+                }
+            },
+            {
+                "path": "role",
+                "name": "Role",
+                "component": "system/role/index",
+                "meta": {
+                    "icon": "Avatar",
+                    "hidden": false,
+                    "title": "role"
+                }
+            },
+            {
+                "path": "menu",
+                "name": "Menu",
+                "component": "system/user/index",
+                "meta": {
+                    "icon": "Menu",
+                    "hidden": false,
+                    "title": "menu"
+                }
+            }
+        ]
+    },
+    {
+        "path": "/monitor",
+        "name": "Monitor",
+        "component": "Layout",
+        "redirect": "/monitor/onlineUser",
+        "meta": {
+            "icon": "Monitor",
+            "hidden": false,
+            "title": "monitor"
+        },
+        "children": [
+            {
+                "path": "onlineUser",
+                "name": "OnlineUser",
+                "component": "monitor/onlineUser/index",
+                "meta": {
+                    "icon": "Platform",
+                    "hidden": false,
+                    "title": "onlineUser"
+                }
+            },
+            {
+                "path": "serviceMonitor",
+                "name": "ServiceMonitor",
+                "component": "monitor/serviceMonitor/index",
+                "meta": {
+                    "icon": "View",
+                    "hidden": false,
+                    "title": "serviceMonitor"
+                }
+            }
+        ]
+    },
+    {
+        "path": "/abc",
+        "name": "Abc",
+        "component": "Layout",
+        "redirect": "/abc/a/ab",
+        "meta": {
+            "icon": "Monitor",
+            "hidden": false,
+            "title": "审计成果管理"
+        },
+        "children": [
+            {
+                "path": "a",
+                "name": "A",
+                "component": "Layout",
+                "redirect": "/abc/a/ab",
+                "meta": {
+                    "icon": "Platform",
+                    "hidden": false,
+                    "title": "A"
+                },
+                "children": [
+                    {
+                        "path": "ab",
+                        "name": "AB",
+                        "component": "monitor/onlineUser/index",
+                        "meta": {
+                            "icon": "Platform",
+                            "hidden": false,
+                            "title": "AB"
+                        }
+                    },
+                    {
+                        "path": "ac",
+                        "name": "AC",
+                        "component": "monitor/serviceMonitor/index",
+                        "meta": {
+                            "icon": "View",
+                            "hidden": false,
+                            "title": "AC"
+                        }
+                    }
+                ]
+            },
+            {
+                "path": "b",
+                "name": "B",
+                "component": "monitor/serviceMonitor/index",
+                "meta": {
+                    "icon": "View",
+                    "hidden": false,
+                    "title": "B"
+                }
+            },
+            {
+                "path": "c",
+                "name": "C",
+                "component": "Layout",
+                "redirect": "/abc/c/ca",
+                "meta": {
+                    "icon": "Platform",
+                    "hidden": false,
+                    "title": "C"
+                },
+                "children": [
+                    {
+                        "path": "ca",
+                        "name": "CA",
+                        "component": "monitor/onlineUser/index",
+                        "meta": {
+                            "icon": "Platform",
+                            "hidden": false,
+                            "title": "CA"
+                        }
+                    },
+                    {
+                        "path": "cb",
+                        "name": "CB",
+                        "component": "monitor/serviceMonitor/index",
+                        "meta": {
+                            "icon": "View",
+                            "hidden": false,
+                            "title": "CB"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+]

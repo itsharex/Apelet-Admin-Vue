@@ -1,0 +1,60 @@
+import { useRoute } from 'vue-router';
+import { usePermissionStore } from '@/store';
+
+// 垂直、横向菜单hooks
+export const useMenu = () => {
+    const permissionStore = usePermissionStore();
+    const route = useRoute();
+    const { allRoutes, currRouteName } = storeToRefs(permissionStore);
+    const horizontalMenu = computed(() => {
+        return allRoutes.value
+            .filter(menu => !menu.meta?.hidden) // 去除需要隐藏的路由
+            .map(menu => {
+                // 只有一个子路由的时候，切父级路由没有title等信息时，需要使用子路由作为父级路由展示
+                if (!menu.meta?.title && menu.children?.length === 1) {
+                    menu = reactive({ ...menu.children[0] });
+                }
+                return menu;
+            });
+    });
+    let currName = ref<string | undefined>(currRouteName.value);
+    // 根据子级查询对应所有父级
+    const findFatherByChild = (data: Menu.SubMenuOptions[], target: string): Menu.SubMenuOptions[] | undefined => {
+        for (let i in data) {
+            if (data[i].name === target) {
+                return [data[i]];
+            }
+            if (data[i].children?.length) {
+                let node = findFatherByChild(data[i].children, target);
+                if (node !== undefined) {
+                    return node.concat(data[i]);
+                }
+            }
+        }
+    };
+
+    const initRoutes = (routeName?: string) => {
+        if (!routeName) {
+            routeName = route.name as string;
+        }
+        let allParentRoute = findFatherByChild(allRoutes.value, routeName);
+        // 取出最外层父级
+        let firstRouteName = allParentRoute?.filter(item => item.meta?.title).at(-1);
+        currName.value = firstRouteName?.name;
+        // 把选中的菜单name进行持久化
+        permissionStore.$patch({ currRouteName: currName.value });
+        // 处理展示路由数据
+        permissionStore.handleCopyRoutes();
+    };
+
+    onMounted(() => {
+        // 每次刷新或初始化进入初始化渐变布局的路由菜单
+        initRoutes(currName.value);
+    });
+
+    return {
+        horizontalMenu,
+        currName,
+        initRoutes
+    };
+};

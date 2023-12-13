@@ -1,0 +1,43 @@
+@import './reset.scss';
+@import './transform.scss';
+
+/* 自定义nprogress颜色 */
+#nprogress .bar {
+    background: var(--el-color-primary) !important;
+}
+
+/* 上传文字描述样式 */
+.upload-desc {
+    font-size: 12px;
+    color: red;
+}
+
+/* mask image */
+%mask-image {
+    mask-image: linear-gradient(90deg, #000000 0%, #000000 calc(100% - 50px), transparent);
+}
+.mask-image-right {
+    @extend %mask-image;
+
+    padding-right: 50px;
+}
+.mask-image-left {
+    @extend %mask-image;
+}
+
+/* 去除el-drawer头部margin */
+.el-drawer {
+    .el-drawer__header {
+        margin: 0;
+    }
+}
+
+/* 灰色模式 */
+.html-grey {
+    filter: grayscale(100%); // 灰色
+}
+
+/* 色弱模式 */
+.html-weakness {
+    filter: invert(80%); // 色弱
+}

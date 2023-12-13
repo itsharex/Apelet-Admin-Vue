@@ -1,0 +1,95 @@
+<template>
+    <div v-if="breadcrumbs && !appStore.isMobile" class="breadcrumb mask-image-right">
+        <el-breadcrumb :separator-icon="ArrowRight">
+            <el-breadcrumb-item v-for="item in breadcrumbsMenu" :key="item.path">
+                <div
+                    class="breadcrumb-inner"
+                    :class="{ pointer: route.path !== item.path && item.redirect !== 'noRedirect' }"
+                    @click.prevent="handleLink(item)"
+                >
+                    <el-icon v-show="breadcrumbsIcon">
+                        <component :is="item.meta.icon" />
+                    </el-icon>
+                    <span>{{ $t(`menus.${item.meta.title}`) }}</span>
+                </div>
+            </el-breadcrumb-item>
+        </el-breadcrumb>
+    </div>
+</template>
+
+<script setup lang="ts">
+import { ArrowRight } from '@element-plus/icons-vue';
+import { useLayoutStore, useAppStore } from '@/store';
+import { RouteLocationMatched } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+const route = useRoute();
+const router = useRouter();
+const layoutStore = useLayoutStore();
+const appStore = useAppStore();
+
+const { breadcrumbsIcon, breadcrumbs } = storeToRefs(layoutStore);
+let breadcrumbsMenu = ref<RouteLocationMatched[]>([]);
+
+const handleBreadCrumb = () => {
+    let matched = route.matched.filter(item => item.meta?.title);
+    // 添加首页面包屑
+    if (matched[0].name !== 'Index') {
+        matched = [
+            { path: '/index', meta: { title: 'dashboard', icon: 'HomeFilled' } } as RouteLocationMatched,
+            ...matched
+        ];
+    }
+    breadcrumbsMenu.value = matched;
+};
+
+const handleLink = (item: RouteLocationMatched) => {
+    // 后端添加菜单时，根据目录或菜单添加对应的redirect
+    if (route.path === item.path || item.redirect === 'noRedirect') return;
+    // 如果存在redirect， 则跳转redirect
+    if (item.redirect) {
+        router.push(item.redirect as string);
+    }
+    router.push(item.path as string);
+};
+
+watchEffect(() => {
+    handleBreadCrumb();
+});
+handleBreadCrumb();
+</script>
+
+<style scoped lang="scss">
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    .el-breadcrumb {
+        white-space: nowrap;
+        .el-breadcrumb__item {
+            // 设置面包屑响应式不换行
+            float: none;
+            .breadcrumb-inner {
+                display: inline-flex;
+                & .el-icon {
+                    margin-top: 3px;
+                    margin-right: 6px;
+                    font-size: 14px;
+                }
+                & > span {
+                    margin-top: 3px;
+                }
+                &.pointer {
+                    cursor: pointer;
+                    transition: all 0.4s ease;
+                }
+                &.pointer:hover {
+                    color: var(--el-color-primary);
+                }
+            }
+            :deep(.el-breadcrumb__separator) {
+                margin-top: 2px;
+            }
+        }
+    }
+}
+</style>

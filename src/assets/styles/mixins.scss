@@ -1,0 +1,83 @@
+@mixin bgColor() {
+    color: var(--lc-header-text-color);
+    background-color: transparent;
+    border-bottom: none;
+}
+
+// 侧边栏菜单背景公共样式
+@mixin bgHover() {
+    position: relative;
+    &.is-active {
+        position: relative;
+        color: var(--lc-header-text-color) !important;
+        background-color: transparent;
+    }
+    &.is-active::before {
+        position: absolute;
+        bottom: 20%;
+        left: 10%;
+        width: 80%;
+        height: 2px;
+        content: '';
+        background-color: var(--lc-header-text-color);
+    }
+    &::after {
+        position: absolute;
+        bottom: 20%;
+        left: 60%;
+        width: 0;
+        height: 2px;
+        content: '';
+        background-color: var(--lc-header-text-color);
+        transition: all 0.1s ease-in-out;
+    }
+    &:hover::after {
+        left: 10%;
+        width: 80%;
+    }
+}
+
+// 媒体查询
+$breakPoints: (
+    phone: (
+        320px,
+        480px
+    ),
+    pad: (
+        481px,
+        768px
+    ),
+    nodeBook: (
+        769px,
+        1024px
+    ),
+    desktop: (
+        1025px,
+        1280px
+    ),
+    tv: 1281px
+);
+
+@mixin respondTo($breakName) {
+    /* 1. 读取断点对象属性值 */
+    $bp: map-get($breakPoints, $breakName);
+
+    /* 2. 类型判断是否为数组 */
+    @if type-of($bp) == 'list' {
+        /* 3. 取出数组中的数据 */
+        $min: nth($bp, 1);
+        $max: nth($bp, 2);
+
+        @media screen and (min-width: $min) and (max-width: $max) {
+            @content;
+        }
+
+        /* 4. tv 大屏 */
+    } @else if type-of($bp) == 'number' {
+        @media screen and (min-width: $bp) {
+            @content;
+        }
+    } @else {
+        @warn "`$breakName` is not a valid breakpoint name.";
+    }
+}
