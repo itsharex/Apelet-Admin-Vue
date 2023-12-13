@@ -1,5 +1,5 @@
 <template>
-    <horizontal-scroll v-show="isMobile">
+    <horizontal-scroll v-show="!appStore.isMobile">
         <div class="menu-list" @click="changeMenu">
             <div
                 v-for="menu in horizontalMenu"
@@ -20,8 +20,6 @@ import { useMenu } from '@/hooks/useMenu';
 
 const route = useRoute();
 const appStore = useAppStore();
-
-const isMobile = computed(() => !appStore.isMobile);
 const { horizontalMenu, initRoutes, currName } = useMenu();
 // 冒泡获取dataSet, 需要点击对于的DOM元素
 const changeMenu = (e: Event) => {

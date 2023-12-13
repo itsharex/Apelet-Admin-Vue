@@ -16,7 +16,7 @@ export function deviceDetection(target: MaybeComputedElementRef | MaybeComputedE
     useResizeObserver(target, entries => {
         const { width } = entries[0].contentRect;
         // 兼容移动端
-        if (width <= 960 && width > 640) {
+        if (width <= 768 && width > 640) {
             !appStore.isCollapse && appStore.$patch({ isCollapse: true });
         } else if (width <= 640) {
             !appStore.isMobile && appStore.$patch({ isMobile: true });

@@ -1,9 +1,10 @@
 import { useRoute } from 'vue-router';
-import { usePermissionStore } from '@/store';
+import { usePermissionStore, useAppStore } from '@/store';
 
 // 垂直、横向菜单hooks
 export const useMenu = () => {
     const permissionStore = usePermissionStore();
+    const appStore = useAppStore();
     const route = useRoute();
     const { allRoutes, currRouteName } = storeToRefs(permissionStore);
     const horizontalMenu = computed(() => {
@@ -46,10 +47,23 @@ export const useMenu = () => {
         // 处理展示路由数据
         permissionStore.handleCopyRoutes();
     };
+    watch(
+        () => appStore.isMobile,
+        value => {
+            if (value) {
+                permissionStore.$patch({ asideBarRoutes: permissionStore.copyMenuRoutes });
+            } else {
+                initRoutes(currName.value);
+            }
+        },
+        {
+            immediate: true
+        }
+    );
 
     onMounted(() => {
         // 每次刷新或初始化进入初始化渐变布局的路由菜单
-        initRoutes(currName.value);
+        // initRoutes(currName.value);
     });
 
     return {

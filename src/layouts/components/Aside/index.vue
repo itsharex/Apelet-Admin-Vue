@@ -14,7 +14,6 @@ import { settingConfig } from '@/config/settings';
 const appStore = useAppStore();
 const layoutStore = useLayoutStore();
 const { asideMaxWidth, asideMinWidth } = settingConfig;
-const display = computed(() => ['vertical', 'lattice', 'horizontal'].includes(layoutStore.layout) || appStore.isMobile);
 const collapseWidth = computed(() => {
     if (appStore.isMobile || ['lattice', 'gradient'].includes(layoutStore.layout)) {
         return appStore.isCollapse ? '0' : asideMaxWidth;
@@ -22,10 +21,11 @@ const collapseWidth = computed(() => {
         return appStore.isCollapse ? asideMinWidth : asideMaxWidth;
     }
 });
+const display = computed(() => ['vertical', 'lattice', 'horizontal'].includes(layoutStore.layout) || appStore.isMobile);
 </script>
 
 <style scoped lang="scss">
 .aside {
-    @apply pt-2 pb-2 flex-col-stretch bg-background border-r-1 border-solid border-[var(--el-color-info-light-8)] transition-width duration-300;
+    @apply py-2 flex-col-stretch bg-background border-r-1 border-solid border-[var(--el-color-info-light-8)] transition-width duration-300;
 }
 </style>

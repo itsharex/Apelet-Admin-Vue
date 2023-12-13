@@ -25,7 +25,7 @@ export const useTheme = () => {
             menuMode = layoutStore.menuMode;
         }
         const dark = isDark.value ? 'dark' : '';
-        html.className = `layout-menu-${menuMode} ${dark}`;
+        html.className = `layout-menu-${menuMode} ${dark} `;
     };
 
     // 设置主题颜色
@@ -83,20 +83,19 @@ export const useTheme = () => {
         }
     };
 
-    // 设置渐变背景配置
-    const setGradientColor = ({ color, layout }: { color?: string; layout?: string } = {}) => {
-        if (!layout) layout = layoutStore.layout;
-        if (!color || !(layout as string).includes('gradient')) {
+    // 设置渐变背景
+    const setGradientColor = (color?: string) => {
+        if (layoutStore.layout === 'gradient') {
+            html.className = `layout-gradient-color`;
         } else {
+            html.classList.remove('layout-gradient-color');
         }
-        layoutStore.$patch({ gradientTextColor: color });
     };
 
     const initTheme = () => {
         // 初始化
         setMenuMode(layoutStore.menuMode);
         switchDark();
-        setGradientColor({ color: layoutStore.gradientTextColor });
         setColorThief(layoutStore.backgroundColor);
         layoutStore.grayMode && setGrayMode();
         layoutStore.weakness && setWeakNessMode();

@@ -57,6 +57,6 @@ onUnmounted(() => {
 
 <style scoped lang="scss">
 .aside {
-    @apply pt-2 pb-2 flex-col-stretch bg-background  border-r-1  border-[var(--el-color-info-light-8)] transition-width duration-300;
+    @apply py-2 flex-col-stretch bg-background  border-r-1  border-[var(--el-color-info-light-8)] transition-width duration-300;
 }
 </style>
