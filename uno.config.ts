@@ -19,6 +19,7 @@ export default defineConfig({
         'flex-col-center': 'flex-center flex-col',
         'flex-x-center': 'flex justify-center',
         'flex-y-center': 'flex items-center',
+        'flex-between': 'flex-y-center justify-between',
         'i-flex-center': 'inline-flex justify-center items-center',
         'i-flex-x-center': 'inline-flex justify-center',
         'i-flex-y-center': 'inline-flex items-center',
