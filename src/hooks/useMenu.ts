@@ -7,6 +7,7 @@ export const useMenu = () => {
     const appStore = useAppStore();
     const route = useRoute();
     const { allRoutes, currRouteName } = storeToRefs(permissionStore);
+    const timer = ref();
     const horizontalMenu = computed(() => {
         return allRoutes.value
             .filter(menu => !menu.meta?.hidden) // 去除需要隐藏的路由
@@ -51,7 +52,11 @@ export const useMenu = () => {
         () => appStore.isMobile,
         value => {
             if (value) {
-                permissionStore.$patch({ asideBarRoutes: permissionStore.copyMenuRoutes });
+                // 优化为等到侧边栏完全隐藏再触发,解决渐变布局侧边栏隐藏动画卡顿效果
+                clearTimeout(timer.value);
+                timer.value = setTimeout(() => {
+                    permissionStore.$patch({ asideBarRoutes: permissionStore.copyMenuRoutes });
+                }, 300);
             } else {
                 initRoutes(currName.value);
             }

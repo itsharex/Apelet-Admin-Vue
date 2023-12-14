@@ -24,7 +24,9 @@ const permissionStore = usePermissionStore();
 const appStore = useAppStore();
 const route = useRoute();
 
-const isCollapse = computed(() => appStore.isCollapse);
+const isCollapse = computed(() => {
+    return appStore.isCollapse;
+});
 const menuUnique = computed(() => layoutStore.menuUnique);
 //菜单模式
 const menuList = computed<Menu.SubMenuOptions[]>(() => permissionStore.asideBarRoutes);

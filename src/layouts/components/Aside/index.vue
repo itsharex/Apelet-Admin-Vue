@@ -10,10 +10,12 @@ import Logo from './logo.vue';
 import Menu from '../Menu/index.vue';
 import { useAppStore, useLayoutStore } from '@/store';
 import { settingConfig } from '@/config/settings';
+import { SettingType } from '@/config/interface';
 
 const appStore = useAppStore();
 const layoutStore = useLayoutStore();
-const { asideMaxWidth, asideMinWidth } = settingConfig;
+const { asideMaxWidth, asideMinWidth } = reactive<SettingType>(settingConfig);
+const display = computed(() => ['vertical', 'lattice', 'horizontal'].includes(layoutStore.layout) || appStore.isMobile);
 const collapseWidth = computed(() => {
     if (appStore.isMobile || ['lattice', 'gradient'].includes(layoutStore.layout)) {
         return appStore.isCollapse ? '0' : asideMaxWidth;
@@ -21,7 +23,6 @@ const collapseWidth = computed(() => {
         return appStore.isCollapse ? asideMinWidth : asideMaxWidth;
     }
 });
-const display = computed(() => ['vertical', 'lattice', 'horizontal'].includes(layoutStore.layout) || appStore.isMobile);
 </script>
 
 <style scoped lang="scss">

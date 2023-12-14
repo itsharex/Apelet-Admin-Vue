@@ -56,7 +56,7 @@
             <!-- 菜单手风琴模式 -->
             <div class="drawer-item">
                 <span>{{ $t('setting.menuUnique') }}</span>
-                <el-switch v-model="layoutStore.menuUnique" :disabled="isGradient" inline-prompt />
+                <el-switch v-model="layoutStore.menuUnique" inline-prompt />
             </div>
             <!-- 标签页 -->
             <div class="drawer-item">
