@@ -28,6 +28,7 @@ import components from '@/components/index';
 
 //全局密码加密
 import { AES_Encrypt, AES_Decrypt } from '@/utils/crypto';
+import Particles from 'particles.vue3';
 
 // i18n
 import i18n from '@/i18n';
@@ -41,6 +42,6 @@ const app = createApp(App);
 app.config.globalProperties.$Encrypt = AES_Encrypt;
 app.config.globalProperties.$Decrypt = AES_Decrypt;
 
-app.use(components).use(directives);
+app.use(components).use(directives).use(Particles);
 app.use(router).use(pinia).use(i18n);
 app.mount('#app');

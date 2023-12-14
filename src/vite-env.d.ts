@@ -1,8 +1,11 @@
 /// <reference types="vite/client" />
-import type { Directives } from '@/directives/interface/type';
-import { Component } from 'vue';
+
 declare module 'nprogress';
 declare module 'colorthief';
+declare module 'particles.vue3';
+
+import type { Directives } from '@/directives/interface/type';
+import { Component } from 'vue';
 
 declare module '*.vue' {
     import type { DefineComponent } from 'vue';
