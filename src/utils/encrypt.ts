@@ -1,6 +1,6 @@
 import { JSEncrypt } from 'jsencrypt';
 
-// 公钥,
+// 公钥，可以使用支付宝的加密工具
 const PUBLIC_KEY = `MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCLwhOR32UlNXdY2wJ1DRx53s/nzSbwKRNRkwSqjTx3UxQ9y8bdKZpkCLi94ifi7pH4d4o4f+AnzdpTUA0KSlqzVVvwEYXKUGBo/HPdJ2clQ11Ekq/nrFDr8OCoTsuI3S8d8CUAIkLg0gNQ49aYzRESqN9UCBTJFWgOTHNXeWvHkwIDAQAB`;
 
 //私钥用于解密
