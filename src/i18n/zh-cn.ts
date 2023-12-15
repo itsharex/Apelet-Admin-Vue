@@ -41,12 +41,14 @@ export default {
         404: '404'
     },
     login: {
-        login: '登录',
+        login: '登 录',
+        personal: '个人中心',
         loginOut: '退出登录',
-        register: '注册',
         remember: '记住密码',
         forgetPassword: '忘记密码?',
         usernamePlaceholder: '请输入用户名',
-        passwordPlaceholder: '请输入密码'
+        passwordPlaceholder: '请输入密码',
+        verifyCodePlaceholder: '请输入验证码',
+        usernameVerify: ''
     }
 };

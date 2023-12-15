@@ -44,11 +44,12 @@ export default {
     },
     login: {
         login: 'Sign in',
+        personal: 'Personal Center',
         loginOut: 'LoginOut',
-        register: 'Register',
         remember: 'Remember Password',
         forgetPassword: 'Forget password?',
-        usernamePlaceholder: 'Please input username',
-        passwordPlaceholder: 'Please input password'
+        usernamePlaceholder: 'Please input your username',
+        passwordPlaceholder: 'Please input your password',
+        verifyCodePlaceholder: 'Please input verifyCode'
     }
 };

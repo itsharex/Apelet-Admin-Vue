@@ -2,7 +2,7 @@
     <div class="flex-between w-full px-20 absolute left-0 top-0 right-0 h-20 <sm:px-5">
         <div class="flex-center">
             <Icon name="local-icon-logo" color="var(--el-color-primary)" size="30" />
-            <h3 class="ml-2 text-4 text-primary truncate font-bold">Apelet Admin</h3>
+            <h3 class="ml-2 text-4 text-primary font-bold">Apelet Admin</h3>
         </div>
         <div class="flex-center">
             <el-switch
@@ -33,12 +33,10 @@ import { Moon, Sunny } from '@element-plus/icons-vue';
 import { useTheme } from '@/hooks/useTheme';
 import { LocaleKey } from '@/i18n/locales';
 import { useAppStore } from '@/store';
-// 引入i18n
 import { useI18n } from 'vue-i18n';
 const { locale } = useI18n();
 const appStore = useAppStore();
 const layoutStore = useLayoutStore();
-
 // 切换语言
 const handleCommand = (val: LocaleKey) => {
     locale.value = val;

@@ -12,5 +12,4 @@ const i18n = createI18n({
 });
 
 const asyncI18nFunc = () => {};
-
 export default i18n;
