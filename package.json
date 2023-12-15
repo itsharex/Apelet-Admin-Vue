@@ -27,6 +27,7 @@
     "dayjs": "^1.11.9",
     "element-plus": "^2.3.14",
     "js-cookie": "^3.0.5",
+    "jsencrypt": "^3.3.2",
     "lodash": "^4.17.21",
     "mitt": "^3.0.1",
     "nprogress": "^0.2.0",

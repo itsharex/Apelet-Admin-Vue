@@ -1,3 +1,6 @@
+/**
+ * crypto-js 则更偏向于消息摘要算法、对称加密和简单的哈希函数，支持 AES、DES、SHA-1、HMAC 等诸多算法，适用于对客户端本地存储的数据进行加密、散列或签名处理等场景
+ */
 import CryptoJS from 'crypto-js';
 
 /**

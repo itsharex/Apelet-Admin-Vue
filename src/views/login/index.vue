@@ -27,7 +27,9 @@
                 </el-form-item>
                 <el-form-item>
                     <div class="w-full flex-between">
-                        <el-checkbox class="<sm:text-sm"> {{ $t(`login.remember`) }} </el-checkbox>
+                        <el-checkbox v-model:model-value="rememberPassword" class="<sm:text-sm">
+                            {{ $t(`login.remember`) }}
+                        </el-checkbox>
                         <el-text type="primary" class="cursor-pointer <sm:!text-sm">
                             {{ $t(`login.forgetPassword`) }}
                         </el-text>
@@ -51,7 +53,7 @@ import { useLoginForm } from './hooks/useLoginForm';
 
 const { options } = toRefs(particles);
 const { particlesInit, particlesLoaded } = useParticles();
-const { ruleFormRef, rules, loginForm, submitForm } = useLoginForm();
+const { ruleFormRef, rules, loginForm, rememberPassword, submitForm } = useLoginForm();
 </script>
 
 <style scoped lang="scss">

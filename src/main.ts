@@ -14,24 +14,13 @@ import 'animate.css';
 
 import { createApp } from 'vue';
 
-import App from './App.vue';
+import { install } from './plugins';
 
+import App from './App.vue';
 // pinia
 import pinia from '@/store';
 // router
 import router from '@/router';
-
-// 自定义指令
-import directives from '@/directives';
-// 全局组件
-import components from '@/components/index';
-
-//全局密码加密
-import { AES_Encrypt, AES_Decrypt } from '@/utils/crypto';
-
-// 粒子动画
-import Particles from 'particles.vue3';
-
 // i18n
 import i18n from '@/i18n';
 
@@ -40,11 +29,8 @@ import './permission';
 
 const app = createApp(App);
 
-// 注册全局方法
-app.config.globalProperties.$Encrypt = AES_Encrypt;
-app.config.globalProperties.$Decrypt = AES_Decrypt;
+install(app);
 
-app.use(components).use(directives);
 app.use(router).use(pinia).use(i18n);
-app.use(Particles);
+
 app.mount('#app');
