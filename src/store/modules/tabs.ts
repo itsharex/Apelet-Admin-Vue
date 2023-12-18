@@ -3,7 +3,6 @@ import { TabsMenuState } from '@/store/interface';
 import { useRouter, useRoute } from 'vue-router';
 import { useLayoutStore } from '@/store';
 import { setStorage, getStorage, removeStorage } from '@/utils/storage';
-import path from 'path';
 
 // 标签栏持久化key
 const persistKey = 'tabs';

@@ -28,7 +28,8 @@ export default {
         tipDesc: '配置栏仅用于开发环境预览，生产环境不会展现，若需自定义请手动修改配置文件 /src/config/theme'
     },
     menus: {
-        dashboard: '首页',
+        homepage: '首页',
+        dashboard: '工作台',
         internal: '字典管理',
         login: '登录',
         system: '系统管理',

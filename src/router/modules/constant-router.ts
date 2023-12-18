@@ -3,7 +3,7 @@ import Layout from '@/layouts/index.vue';
 
 export const constantRoutes: Array<RouteRecordRaw> = [
     {
-        path: '',
+        path: '/',
         name: 'Layout',
         redirect: '/index',
         component: Layout,
@@ -15,12 +15,28 @@ export const constantRoutes: Array<RouteRecordRaw> = [
                 meta: {
                     icon: 'HomeFilled',
                     hidden: false,
-                    title: 'dashboard',
+                    title: 'homepage',
                     isCache: true,
                     isFixed: true
                 }
+            },
+            {
+                path: 'dashboard',
+                name: 'DashBoard',
+                component: () => import('@/views/home/index.vue'),
+                meta: {
+                    icon: 'HomeFilled',
+                    hidden: false,
+                    title: 'dashboard',
+                    isCache: true
+                }
             }
-        ]
+        ],
+        meta: {
+            icon: 'HomeFilled',
+            hidden: false,
+            title: 'homepage'
+        }
     },
     {
         path: '/audit',
@@ -31,7 +47,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
             {
                 path: 'internal',
                 name: 'Internal',
-                component: () => import('@/views/login/index.vue'),
+                component: () => import('@/views/home/index.vue'),
                 meta: {
                     icon: 'HomeFilled',
                     hidden: false,

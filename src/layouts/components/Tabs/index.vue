@@ -129,15 +129,18 @@ watch(
 .smooth-tabs {
     .el-tabs--card {
         & > :deep(.el-tabs__header) {
+            height: 34px;
             margin: 0;
             margin-top: 10px;
             border: none;
         }
         & > :deep(.el-tabs__header .el-tabs__nav) {
+            height: 34px;
             padding: 0 10px;
             border: none;
         }
         & > :deep(.el-tabs__header .el-tabs__item) {
+            height: 34px;
             padding: 0;
             padding-right: 20px;
             border-left: none;
@@ -168,18 +171,18 @@ watch(
 .card-tabs {
     .el-tabs--card {
         & > :deep(.el-tabs__header) {
-            height: 36px;
+            height: 30px;
             margin: 0;
             margin: 7px 0;
             border: none;
         }
         & > :deep(.el-tabs__header .el-tabs__nav) {
-            height: 36px;
+            height: 30px;
             padding: 0 10px;
             border: none;
         }
         & > :deep(.el-tabs__header .el-tabs__item) {
-            height: 36px;
+            height: 30px;
             padding: 0;
             padding-right: 20px;
             margin-left: 6px;
@@ -198,18 +201,18 @@ watch(
 .nimble-tabs {
     .el-tabs--card {
         & > :deep(.el-tabs__header) {
-            height: 36px;
+            height: 30px;
             margin: 0;
             margin: 7px 0;
             border: none;
         }
         & > :deep(.el-tabs__header .el-tabs__nav) {
-            height: 36px;
+            height: 30px;
             padding: 0 10px;
             border: none;
         }
         & > :deep(.el-tabs__header .el-tabs__item) {
-            height: 36px;
+            height: 30px;
             padding: 0;
             padding-right: 20px;
             margin-left: 6px;
@@ -247,4 +250,3 @@ watch(
     }
 }
 </style>
-@/hooks/useTabContextMenu

@@ -30,6 +30,7 @@ export default {
             'If customization is required, please manually modify the configuration file /src/config/theme'
     },
     menus: {
+        homepage: 'HomePage',
         dashboard: 'DashBoard',
         internal: 'Internal',
         login: 'Login',
