@@ -1,0 +1,118 @@
+<template>
+    <div class="h-full">
+        <el-card shadow="never">
+            <el-row :gutter="10">
+                <el-col :span="16" :xs="24">
+                    <div class="flex items-center h-full">
+                        <img src="@/assets/images/avatar.jpg" class="w-20 rounded-full px-3" alt="avatar" />
+                        <div class="flex-col justify-around">
+                            <h3 class="font-bold text-lg">Admin, 欢迎你!</h3>
+                            <span class="text-gray text-sm">
+                                一天写点，天天写点，不知道写了个啥，今天在下雪，天气很冷!
+                            </span>
+                        </div>
+                    </div>
+                </el-col>
+                <el-col :span="8" :xs="24">
+                    <div class="h-full flex-center justify-around py-4">
+                        <div class="flex-col-center">
+                            <span class="text-zinc-500">项目数</span>
+                            <span class="text-6 font-medium">16</span>
+                        </div>
+                        <div class="flex-col-center">
+                            <span class="text-zinc-500">待办任务</span>
+                            <span class="text-6 font-medium">10/<span class="text-zinc-500">24</span></span>
+                        </div>
+                        <div class="flex-col-center">
+                            <span class="text-zinc-500">项目访问</span>
+                            <span class="text-6 font-medium">2,222</span>
+                        </div>
+                    </div>
+                </el-col>
+            </el-row>
+        </el-card>
+        <el-row :gutter="10" class="my-4">
+            <el-col :xs="24" :md="18" :lg="16">
+                <el-card shadow="never">
+                    <div class="flex justify-between">
+                        <h3 class="font-semibold text-base antialiased">进行中的项目</h3>
+                        <el-link type="primary" :underline="false">全部项目</el-link>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4 <sm:grid-cols-2 py-2">
+                        <div v-for="(item, index) in projectList" :key="index">
+                            <div class="flex items-center">
+                                <Icon :name="item.icon" size="20" color="var(--el-color-primary)" />
+                                <span class="pl-2 font-700">{{ item.projectName }}</span>
+                            </div>
+                            <p>{{ item.projectDesc }}</p>
+                            <div>
+                                <span>{{ item.author }}</span>
+                                <span>{{ item.createTime }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </el-card>
+            </el-col>
+            <el-col :xs="24" :md="6" :lg="8">
+                <el-card shadow="never"></el-card>
+            </el-col>
+        </el-row>
+        <el-row :gutter="10" class="my-4">
+            <el-col :span="16" :xs="24">
+                <el-card shadow="never"></el-card>
+            </el-col>
+            <el-col :span="8" :xs="24">
+                <el-card shadow="never"></el-card>
+            </el-col>
+        </el-row>
+    </div>
+</template>
+
+<script setup lang="ts">
+const projectList = reactive([
+    {
+        icon: 'el-icon-checked',
+        projectName: '消息列表体验优化',
+        projectDesc: '这是一条描述信息这是一条描述信息这是一条描述信息',
+        author: '特怪小分队',
+        createTime: '2小时前'
+    },
+    {
+        icon: 'el-icon-checked',
+        projectName: 'xx 平台',
+        projectDesc: '这是一条描述信息这是一条描述信息这是一条描述信息',
+        author: '特怪小分队',
+        createTime: '2小时前'
+    },
+    {
+        icon: 'el-icon-checked',
+        projectName: '5月日常小需求',
+        projectDesc: '这是一条描述信息这是一条描述信息这是一条描述信息',
+        author: '特怪小分队',
+        createTime: '2小时前'
+    },
+    {
+        icon: 'el-icon-checked',
+        projectName: '功能效能',
+        projectDesc: '这是一条描述信息这是一条描述信息这是一条描述信息',
+        author: '特怪小分队',
+        createTime: '2小时前'
+    },
+    {
+        icon: 'el-icon-checked',
+        projectName: '智能运营中心',
+        projectDesc: '这是一条描述信息这是一条描述信息这是一条描述信息',
+        author: '特怪精英战队',
+        createTime: '2小时前'
+    },
+    {
+        icon: 'el-icon-checked',
+        projectName: 'bug处理',
+        projectDesc: '这是一条描述信息这是一条描述信息这是一条描述信息',
+        author: '特怪二分队',
+        createTime: '2小时前'
+    }
+]);
+</script>
+
+<style scoped lang="scss"></style>

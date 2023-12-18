@@ -11,7 +11,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
             {
                 path: 'index',
                 name: 'Index',
-                component: () => import('@/views/home/index.vue'),
+                component: () => import('@/views/home/homepage/index.vue'),
                 meta: {
                     icon: 'HomeFilled',
                     hidden: false,
@@ -23,7 +23,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
             {
                 path: 'dashboard',
                 name: 'DashBoard',
-                component: () => import('@/views/home/index.vue'),
+                component: () => import('@/views/home/dashboard/index.vue'),
                 meta: {
                     icon: 'HomeFilled',
                     hidden: false,
@@ -47,7 +47,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
             {
                 path: 'internal',
                 name: 'Internal',
-                component: () => import('@/views/home/index.vue'),
+                component: () => import('@/views/home/homepage/index.vue'),
                 meta: {
                     icon: 'HomeFilled',
                     hidden: false,
