@@ -1,6 +1,16 @@
 @import './reset.scss';
 @import './transform.scss';
 
+/* 灰色模式 */
+.html-grey {
+    filter: grayscale(100%); // 灰色
+}
+
+/* 色弱模式 */
+.html-weakness {
+    filter: invert(80%); // 色弱
+}
+
 /* 自定义nprogress颜色 */
 #nprogress .bar {
     background: var(--el-color-primary) !important;
@@ -25,19 +35,12 @@
     @extend %mask-image;
 }
 
-/* 去除el-drawer头部margin */
-.el-drawer {
-    .el-drawer__header {
-        margin: 0;
-    }
-}
-
-/* 灰色模式 */
-.html-grey {
-    filter: grayscale(100%); // 灰色
-}
-
-/* 色弱模式 */
-.html-weakness {
-    filter: invert(80%); // 色弱
+// title前的伪类
+.title-before::before {
+    position: absolute;
+    left: 0;
+    width: 3px;
+    height: calc(100%);
+    content: '';
+    background-color: var(--el-color-primary);
 }

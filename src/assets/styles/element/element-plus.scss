@@ -115,3 +115,10 @@
         width: 100%;
     }
 }
+
+/* 去除el-drawer头部margin */
+.el-drawer {
+    .el-drawer__header {
+        margin: 0;
+    }
+}

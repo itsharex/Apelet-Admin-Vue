@@ -2,7 +2,7 @@
     <div class="h-full">
         <el-card shadow="never">
             <el-row :gutter="10">
-                <el-col :span="15" :xs="24">
+                <el-col :xs="24" :sm="24" :md="16">
                     <div class="flex items-center h-full">
                         <img src="@/assets/images/avatar.jpg" class="w-20 rounded-full px-3" alt="avatar" />
                         <div class="flex-col justify-around">
@@ -13,7 +13,7 @@
                         </div>
                     </div>
                 </el-col>
-                <el-col :span="9" :xs="24">
+                <el-col :xs="24" :sm="24" :md="8">
                     <div class="h-full flex-center justify-around py-4">
                         <div class="flex-col-center">
                             <span class="text-zinc-500">项目数</span>
@@ -32,13 +32,15 @@
             </el-row>
         </el-card>
         <el-row :gutter="10" class="my-4">
-            <el-col :xs="24" :md="18" :lg="16">
+            <el-col :xs="24" :lg="16">
                 <el-card shadow="never">
-                    <div class="flex justify-between">
-                        <h3 class="font-semibold text-base antialiased">进行中的项目</h3>
+                    <div class="flex justify-between relative">
+                        <h3 class="font-semibold text-base antialiased ml-2 title-before">进行中的项目</h3>
                         <el-link type="primary" :underline="false">全部项目</el-link>
                     </div>
-                    <div class="grid grid-cols-3 gap-8 <sm:grid-cols-2 py-4">
+                    <div
+                        class="grid gap-8 <lg:grid-cols-2 <sm:grid-cols-1 py-4 <md:grid-cols-2 <xl:grid-cols-2 grid-cols-3"
+                    >
                         <div v-for="(item, index) in projectList" :key="index">
                             <div class="flex items-center">
                                 <Icon :name="item.icon" size="20" color="var(--el-color-primary)" />
@@ -53,8 +55,8 @@
                     </div>
                 </el-card>
             </el-col>
-            <el-col :xs="24" :md="6" :lg="8">
-                <el-card shadow="never"></el-card>
+            <el-col :xs="24" :lg="8">
+                <el-card shadow="never"> </el-card>
             </el-col>
         </el-row>
         <el-row :gutter="10" class="my-4">
