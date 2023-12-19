@@ -2,7 +2,7 @@
     <div class="h-full">
         <el-card shadow="never">
             <el-row :gutter="10">
-                <el-col :span="16" :xs="24">
+                <el-col :span="15" :xs="24">
                     <div class="flex items-center h-full">
                         <img src="@/assets/images/avatar.jpg" class="w-20 rounded-full px-3" alt="avatar" />
                         <div class="flex-col justify-around">
@@ -13,7 +13,7 @@
                         </div>
                     </div>
                 </el-col>
-                <el-col :span="8" :xs="24">
+                <el-col :span="9" :xs="24">
                     <div class="h-full flex-center justify-around py-4">
                         <div class="flex-col-center">
                             <span class="text-zinc-500">项目数</span>
@@ -38,16 +38,16 @@
                         <h3 class="font-semibold text-base antialiased">进行中的项目</h3>
                         <el-link type="primary" :underline="false">全部项目</el-link>
                     </div>
-                    <div class="grid grid-cols-3 gap-4 <sm:grid-cols-2 py-2">
+                    <div class="grid grid-cols-3 gap-8 <sm:grid-cols-2 py-4">
                         <div v-for="(item, index) in projectList" :key="index">
                             <div class="flex items-center">
                                 <Icon :name="item.icon" size="20" color="var(--el-color-primary)" />
                                 <span class="pl-2 font-700">{{ item.projectName }}</span>
                             </div>
-                            <p>{{ item.projectDesc }}</p>
-                            <div>
-                                <span>{{ item.author }}</span>
-                                <span>{{ item.createTime }}</span>
+                            <p class="text-gray py-2 <sm:truncate">{{ item.projectDesc }}</p>
+                            <div class="flex justify-between">
+                                <span class="text-neutral-500">{{ item.author }}</span>
+                                <span class="text-neutral-400">{{ item.createTime }}</span>
                             </div>
                         </div>
                     </div>
