@@ -31,16 +31,14 @@
                 </el-col>
             </el-row>
         </el-card>
-        <el-row :gutter="10" class="my-4">
-            <el-col :xs="24" :lg="16">
+        <el-row :gutter="10">
+            <el-col :xs="24" :lg="16" class="mt-4">
                 <el-card shadow="never">
                     <div class="flex justify-between relative">
                         <h3 class="font-semibold text-base antialiased ml-4 title-before">进行中的项目</h3>
                         <el-link type="primary" :underline="false">全部项目</el-link>
                     </div>
-                    <div
-                        class="grid gap-8 py-4 <lg:grid-cols-2 <sm:grid-cols-1 <md:grid-cols-2 <xl:grid-cols-2 grid-cols-3"
-                    >
+                    <div class="grid gap-8 py-4 lg:h-66 <lg:grid-cols-2 <sm:grid-cols-1 <md:grid-cols-2 grid-cols-3">
                         <div v-for="(item, index) in projectList" :key="index">
                             <div class="flex items-center">
                                 <Icon :name="item.icon" size="20" color="var(--el-color-primary)" />
@@ -55,12 +53,12 @@
                     </div>
                 </el-card>
             </el-col>
-            <el-col :xs="24" :lg="8">
+            <el-col :xs="24" :lg="8" class="mt-4">
                 <el-card shadow="never">
                     <div class="flex justify-between relative">
                         <h3 class="font-semibold text-base antialiased ml-4 title-before">项目指数</h3>
                     </div>
-                    <div></div>
+                    <div ref="radarEcharts" class="w-full h-66"></div>
                 </el-card>
             </el-col>
         </el-row>
@@ -76,6 +74,9 @@
 </template>
 
 <script setup lang="ts">
+import { ECOption } from '@/config/echarts';
+import { useEcharts } from '@/hooks/useEcharts';
+
 const projectList = reactive([
     {
         icon: 'el-icon-checked',
@@ -120,6 +121,48 @@ const projectList = reactive([
         createTime: '2小时前'
     }
 ]);
+
+const radarEcharts = ref<HTMLDivElement | null>(null);
+
+const radarOptions = ref<ECOption>({
+    title: {
+        // text: 'Basic Radar Chart'
+    },
+    legend: {
+        data: ['Allocated Budget', 'Actual Spending']
+    },
+    radar: {
+        // shape: 'circle',
+        indicator: [
+            { name: 'Sales' },
+            { name: 'Administration' },
+            { name: 'Information Technology' },
+            { name: 'Customer Support' },
+            { name: 'Development' },
+            { name: 'Marketing' }
+        ]
+    },
+    series: [
+        {
+            name: 'Budget vs spending',
+            type: 'radar',
+            data: [
+                {
+                    value: [4200, 3000, 20000, 35000, 50000, 18000],
+                    name: 'Allocated Budget'
+                },
+                {
+                    value: [5000, 14000, 28000, 26000, 42000, 21000],
+                    name: 'Actual Spending'
+                }
+            ]
+        }
+    ]
+});
+
+onMounted(() => {
+    useEcharts(radarEcharts.value as HTMLDivElement, radarOptions);
+});
 </script>
 
 <style scoped lang="scss"></style>

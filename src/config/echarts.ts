@@ -5,10 +5,12 @@ import {
     LineChart,
     BarChart,
     PieChart,
+    RadarChart,
     MapChart,
     type LineSeriesOption,
     type PieSeriesOption,
     type BarSeriesOption,
+    type RadarSeriesOption,
     type MapSeriesOption
 } from 'echarts/charts';
 
@@ -19,10 +21,12 @@ import {
     GridComponent,
     LegendComponent,
     TransformComponent,
-    type ToolboxComponentOption,
+    RadarComponent,
+    type TooltipComponentOption,
+    type RadarComponentOption,
     type TitleComponentOption,
     type LegendComponentOption,
-    type GraphicComponentOption
+    type GridComponentOption
 } from 'echarts/components';
 
 // 引入标签自动布局、全局过度动画等特性
@@ -38,22 +42,26 @@ export type ECOption = ComposeOption<
     | LineSeriesOption
     | PieSeriesOption
     | BarSeriesOption
+    | RadarSeriesOption
     | MapSeriesOption
-    | ToolboxComponentOption
+    | TooltipComponentOption
     | TitleComponentOption
     | LegendComponentOption
-    | GraphicComponentOption
+    | GridComponentOption
+    | RadarComponentOption
 >;
 
 // 注册必须的组件
 echarts.use([
     LineChart,
+    RadarChart,
     BarChart,
     PieChart,
     MapChart,
     TitleComponent,
     TooltipComponent,
     GridComponent,
+    RadarComponent,
     LegendComponent,
     TransformComponent,
     LabelLayout,
