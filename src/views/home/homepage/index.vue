@@ -35,11 +35,11 @@
             <el-col :xs="24" :lg="16">
                 <el-card shadow="never">
                     <div class="flex justify-between relative">
-                        <h3 class="font-semibold text-base antialiased ml-2 title-before">进行中的项目</h3>
+                        <h3 class="font-semibold text-base antialiased ml-4 title-before">进行中的项目</h3>
                         <el-link type="primary" :underline="false">全部项目</el-link>
                     </div>
                     <div
-                        class="grid gap-8 <lg:grid-cols-2 <sm:grid-cols-1 py-4 <md:grid-cols-2 <xl:grid-cols-2 grid-cols-3"
+                        class="grid gap-8 py-4 <lg:grid-cols-2 <sm:grid-cols-1 <md:grid-cols-2 <xl:grid-cols-2 grid-cols-3"
                     >
                         <div v-for="(item, index) in projectList" :key="index">
                             <div class="flex items-center">
@@ -56,7 +56,12 @@
                 </el-card>
             </el-col>
             <el-col :xs="24" :lg="8">
-                <el-card shadow="never"> </el-card>
+                <el-card shadow="never">
+                    <div class="flex justify-between relative">
+                        <h3 class="font-semibold text-base antialiased ml-4 title-before">项目指数</h3>
+                    </div>
+                    <div></div>
+                </el-card>
             </el-col>
         </el-row>
         <el-row :gutter="10" class="my-4">

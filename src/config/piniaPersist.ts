@@ -26,17 +26,17 @@ const secureStorage: StorageLike = {
 export const piniaPersist = (
     persistOptions: PersistType | PersistType[]
 ): PersistedStateOptions | PersistedStateOptions[] => {
-    // if (!persistOptions) return {};
-    // if (Array.isArray(persistOptions)) {
-    //     persistOptions.map(el => {
-    //         if (!el.secureLs) {
-    //             el.secureLs = true;
-    //             el.storage = secureStorage;
-    //         }
-    //     });
-    // } else {
-    //     const { secureLs } = persistOptions;
-    //     if (!secureLs) persistOptions.storage = secureStorage;
-    // }
+    if (!persistOptions) return {};
+    if (Array.isArray(persistOptions)) {
+        persistOptions.map(el => {
+            if (!el.secureLs) {
+                el.secureLs = true;
+                el.storage = secureStorage;
+            }
+        });
+    } else {
+        const { secureLs } = persistOptions;
+        if (!secureLs) persistOptions.storage = secureStorage;
+    }
     return persistOptions;
 };

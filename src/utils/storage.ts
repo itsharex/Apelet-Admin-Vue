@@ -1,5 +1,5 @@
 // TODO 后期对持久化内容进行加密
-import { AES_Encrypt, AES_Decrypt } from './crypto';
+import { AES_Encrypt, AES_Decrypt } from './encrypt';
 export function setStorage<T>(key: string, value: T): void {
     return localStorage.setItem(key, AES_Encrypt(JSON.stringify(value)));
 }

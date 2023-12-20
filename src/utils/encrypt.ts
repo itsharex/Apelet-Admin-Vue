@@ -1,3 +1,7 @@
+/**
+ * crypto-js 则更偏向于消息摘要算法、对称加密和简单的哈希函数，支持 AES、DES、SHA-1、HMAC 等诸多算法，适用于对客户端本地存储的数据进行加密、散列或签名处理等场景
+ */
+import CryptoJS from 'crypto-js';
 import { JSEncrypt } from 'jsencrypt';
 
 // 公钥，可以使用支付宝的加密工具
@@ -5,6 +9,16 @@ const PUBLIC_KEY = `MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCLwhOR32UlNXdY2wJ1DRx5
 
 //私钥用于解密
 const PRIVATE_KEY = `MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAIvCE5HfZSU1d1jbAnUNHHnez+fNJvApE1GTBKqNPHdTFD3Lxt0pmmQIuL3iJ+Lukfh3ijh/4CfN2lNQDQpKWrNVW/ARhcpQYGj8c90nZyVDXUSSr+esUOvw4KhOy4jdLx3wJQAiQuDSA1Dj1pjNERKo31QIFMkVaA5Mc1d5a8eTAgMBAAECgYBmvw7OHnNo0I7mZ1S+Ix59Rl6I5x0qULhgL3qtvFnoy85ExCx2aeCUjIjtKHf0cToldhTLBtAP01ogB+keWJ2mwNAEJhbAZXHEb5pi7kaDnzHR1DWDDwbTJxiRqUSwCVvsneblLoGjQFlWGVJAcF7juNasCEZ/q8EwjkH4mF/+KQJBAOWNrv4Rf7MEAkfj0taCOjdQbfFH/7impciNwbYjAQMdZnewKWVF7sbMhVE10ss3WCOtqnq/h2RbeSoswvJ3Zl0CQQCb3AVq8DCOpyIj+8O7CnkcOg9L8erkfFQ6QJu+UotAiU766pjUs8hcbhPjeSoCxJjcq4dfNfYpZsIZE1mjVyavAkB4f5FWaRUhgX85AYyRcbbhhmTP/T1tTn1D87W1yFYlrm81cNGqCbW3wXBSGvDWH+0yfV06JgQKWEIYM3r6EFc5AkA7qMayHmqX0EXzPCW57NJbCaZdTaa5+xVKjvyOp44CEA0ZYr9Je9/P8ZrPUcvQ72wL2+Sff0pQorLdYljHe06lAkEAhGCBAGDdlmqmMFzmCwGAULVo5B9364GWf9F2JrAQFpLJGmBS6crbyMBh6pNP+x3fBB3eu6t7EWwcOVW/vFG1BA==`;
+
+/**
+ * AES 加密
+ * mode: ECB  需要前后端保持一致
+ * padding: Pkcs7  前端 Pkcs7 对应 后端 Pkcs5
+ */
+// 密钥和偏移量长度需要是16的倍数
+// 加密 和 解密 过程中 key，应该用 CryptoJS.enc.Utf8.parse(key) 解析一下
+const SECRET_KEY = CryptoJS.enc.Utf8.parse('1234123412341234');
+const SECRET_IV = CryptoJS.enc.Utf8.parse('1234123412341234');
 
 /**
  * RSA非对称加密
@@ -26,3 +40,35 @@ export function rsaDecrypt(data: string) {
     decrypt.setPrivateKey(PRIVATE_KEY);
     return decrypt.decrypt(data) as string;
 }
+
+/**
+ * 加密方法
+ * @param encryptStr
+ * @returns {string}
+ */
+export const AES_Encrypt = (encryptStr: string): string => {
+    const dataHex = CryptoJS.enc.Utf8.parse(encryptStr);
+    const encrypted = CryptoJS.AES.encrypt(dataHex, SECRET_KEY, {
+        iv: SECRET_IV,
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Pkcs7
+    });
+    return encrypted.ciphertext.toString();
+};
+
+/**
+ * 解密方法
+ * @param decryptStr
+ * @returns {string}
+ */
+export const AES_Decrypt = (decryptStr: string): string => {
+    const encryptedHexStr = CryptoJS.enc.Hex.parse(decryptStr);
+    const str = CryptoJS.enc.Base64.stringify(encryptedHexStr);
+    const decrypt = CryptoJS.AES.decrypt(str, SECRET_KEY, {
+        iv: SECRET_IV,
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Pkcs7
+    });
+    const decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);
+    return decryptedStr.toString();
+};
