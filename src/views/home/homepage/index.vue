@@ -69,11 +69,11 @@
                         <h3 class="font-semibold text-base antialiased ml-4 title-before">动态</h3>
                     </div>
                     <div class="w-full h-100 py-4">
-                        <el-scrollbar class="!w-full" :noresize="false">
+                        <el-scrollbar>
                             <div v-for="(_, index) in 10" :key="index" class="flex w-full items-center">
                                 <img src="@/assets/images/avatar.jpg" class="w-15 rounded-full p-3" alt="avatar" />
                                 <div class="flex-col h-full">
-                                    <span class="font-500 subpixel-antialiased truncate"
+                                    <span class="font-500 subpixel-antialiased truncate <sm:w-80"
                                         >林冬冬 在 特怪小分队 新建项目 xxxxxxxxxxxxxxxxxxxxxxxxxx</span
                                     >
                                     <span class="text-neutral-400">2 分钟前</span>
@@ -87,7 +87,12 @@
             <el-col :xs="24" :lg="8" class="mt-4">
                 <el-card shadow="never">
                     <div class="flex justify-between relative">
-                        <h3 class="font-semibold text-base antialiased ml-4 title-before">团队</h3>
+                        <h3 class="font-semibold text-base antialiased ml-4 title-before">团队贡献值</h3>
+                    </div>
+                </el-card>
+                <el-card shadow="never">
+                    <div class="flex justify-between relative">
+                        <h3 class="font-semibold text-base antialiased ml-4 title-before">团队人员</h3>
                     </div>
                 </el-card>
             </el-col>

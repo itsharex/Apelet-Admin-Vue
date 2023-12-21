@@ -1,7 +1,7 @@
 <template>
-    <el-main class="!p-4 bg-[var(--el-bg-color-page)] h-full overflow-x-hidden shadow-inner">
-        <!-- 自定义指令实现 滚动加载 -->
-        <el-scrollbar>
+    <el-scrollbar>
+        <el-main class="!p-4 bg-[var(--el-bg-color-page)] h-full shadow-inner">
+            <!-- 自定义指令实现 滚动加载 -->
             <div class="h-full">
                 <router-view>
                     <template #default="{ Component, route }">
@@ -14,8 +14,8 @@
                     </template>
                 </router-view>
             </div>
-        </el-scrollbar>
-    </el-main>
+        </el-main>
+    </el-scrollbar>
 </template>
 
 <script setup lang="ts" name="AppMain">
