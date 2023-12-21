@@ -1,98 +1,98 @@
 <template>
-	<div class="h-full">
-		<el-card shadow="never">
-			<el-row :gutter="10">
-				<el-col :xs="24" :sm="24" :md="16">
-					<div class="flex items-center h-full">
-						<img src="@/assets/images/avatar.jpg" class="w-20 rounded-full p-3" alt="avatar" />
-						<div class="flex-col justify-around">
-							<h3 class="font-bold text-lg">Admin, 欢迎你!</h3>
-							<span class="text-gray text-sm">
-								一天写点，天天写点，不知道写了个啥，今天在下雪，天气很冷!
-							</span>
-						</div>
-					</div>
-				</el-col>
-				<el-col :xs="24" :sm="24" :md="8">
-					<div class="h-full flex-center justify-around py-4">
-						<div class="flex-col-center">
-							<span class="text-zinc-500">项目数</span>
-							<span class="text-6 font-medium">16</span>
-						</div>
-						<div class="flex-col-center">
-							<span class="text-zinc-500">待办任务</span>
-							<span class="text-6 font-medium">10/<span class="text-zinc-500">24</span></span>
-						</div>
-						<div class="flex-col-center">
-							<span class="text-zinc-500">项目访问</span>
-							<span class="text-6 font-medium">2,222</span>
-						</div>
-					</div>
-				</el-col>
-			</el-row>
-		</el-card>
-		<el-row :gutter="10">
-			<el-col :xs="24" :lg="16" class="mt-4">
-				<el-card shadow="never">
-					<div class="flex justify-between relative">
-						<h3 class="font-semibold text-base antialiased ml-4 title-before">进行中的项目</h3>
-						<el-link type="primary" :underline="false">全部项目</el-link>
-					</div>
-					<div class="grid gap-8 py-4 lg:h-66 <lg:grid-cols-2 <sm:grid-cols-1 <md:grid-cols-2 grid-cols-3">
-						<div v-for="(item, index) in projectList" :key="index">
-							<div class="flex items-center">
-								<Icon :name="item.icon" size="20" color="var(--el-color-primary)" />
-								<span class="pl-2 font-700">{{ item.projectName }}</span>
-							</div>
-							<p class="text-gray py-2 <sm:truncate">{{ item.projectDesc }}</p>
-							<div class="flex justify-between">
-								<span class="text-neutral-500">{{ item.author }}</span>
-								<span class="text-neutral-400">{{ item.createTime }}</span>
-							</div>
-						</div>
-					</div>
-				</el-card>
-			</el-col>
-			<el-col :xs="24" :lg="8" class="mt-4">
-				<el-card shadow="never">
-					<div class="flex justify-between relative">
-						<h3 class="font-semibold text-base antialiased ml-4 title-before">项目指数</h3>
-					</div>
-					<div ref="radarEcharts" class="w-full h-66"></div>
-				</el-card>
-			</el-col>
-		</el-row>
-		<el-row :gutter="10">
-			<el-col :xs="24" :lg="16" class="mt-4">
-				<el-card shadow="never">
-					<div class="flex justify-between relative">
-						<h3 class="font-semibold text-base antialiased ml-4 title-before">动态</h3>
-					</div>
-					<div class="w-full h-100 py-4">
-						<el-scrollbar class="!w-full" :noresize="false">
-							<div v-for="(_, index) in 10" :key="index" class="flex w-full items-center">
-								<img src="@/assets/images/avatar.jpg" class="w-15 rounded-full p-3" alt="avatar" />
-								<div class="flex-col h-full">
-									<span class="font-500 subpixel-antialiased truncate"
-										>林冬冬 在 特怪小分队 新建项目 xxxxxxxxxxxxxxxxxxxxxxxxxx</span
-									>
-									<span class="text-neutral-400">2 分钟前</span>
-								</div>
-							</div>
-						</el-scrollbar>
-					</div>
-				</el-card>
-			</el-col>
-			<!-- 通用组件封装 以及 navbar的组件 -->
-			<el-col :xs="24" :lg="8" class="mt-4">
-				<el-card shadow="never">
-					<div class="flex justify-between relative">
-						<h3 class="font-semibold text-base antialiased ml-4 title-before">团队</h3>
-					</div>
-				</el-card>
-			</el-col>
-		</el-row>
-	</div>
+    <div class="h-full">
+        <el-card shadow="never">
+            <el-row :gutter="10">
+                <el-col :xs="24" :sm="24" :md="16">
+                    <div class="flex items-center h-full">
+                        <img src="@/assets/images/avatar.jpg" class="w-20 rounded-full p-3" alt="avatar" />
+                        <div class="flex-col justify-around">
+                            <h3 class="font-bold text-lg">Admin, 欢迎你!</h3>
+                            <span class="text-gray text-sm">
+                                一天写点，天天写点，不知道写了个啥，今天在下雪，天气很冷!
+                            </span>
+                        </div>
+                    </div>
+                </el-col>
+                <el-col :xs="24" :sm="24" :md="8">
+                    <div class="h-full flex-center justify-around py-4">
+                        <div class="flex-col-center">
+                            <span class="text-zinc-500">项目数</span>
+                            <span class="text-6 font-medium">16</span>
+                        </div>
+                        <div class="flex-col-center">
+                            <span class="text-zinc-500">待办任务</span>
+                            <span class="text-6 font-medium">10/<span class="text-zinc-500">24</span></span>
+                        </div>
+                        <div class="flex-col-center">
+                            <span class="text-zinc-500">项目访问</span>
+                            <span class="text-6 font-medium">2,222</span>
+                        </div>
+                    </div>
+                </el-col>
+            </el-row>
+        </el-card>
+        <el-row :gutter="10">
+            <el-col :xs="24" :lg="16" class="mt-4">
+                <el-card shadow="never">
+                    <div class="flex justify-between relative">
+                        <h3 class="font-semibold text-base antialiased ml-4 title-before">进行中的项目</h3>
+                        <el-link type="primary" :underline="false">全部项目</el-link>
+                    </div>
+                    <div class="grid gap-8 py-4 lg:h-66 <lg:grid-cols-2 <sm:grid-cols-1 <md:grid-cols-2 grid-cols-3">
+                        <div v-for="(item, index) in projectList" :key="index">
+                            <div class="flex items-center">
+                                <Icon :name="item.icon" size="20" color="var(--el-color-primary)" />
+                                <span class="pl-2 font-700">{{ item.projectName }}</span>
+                            </div>
+                            <p class="text-gray py-2 <sm:truncate">{{ item.projectDesc }}</p>
+                            <div class="flex justify-between">
+                                <span class="text-neutral-500">{{ item.author }}</span>
+                                <span class="text-neutral-400">{{ item.createTime }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </el-card>
+            </el-col>
+            <el-col :xs="24" :lg="8" class="mt-4">
+                <el-card shadow="never">
+                    <div class="flex justify-between relative">
+                        <h3 class="font-semibold text-base antialiased ml-4 title-before">项目指数</h3>
+                    </div>
+                    <div ref="radarEcharts" class="w-full h-66"></div>
+                </el-card>
+            </el-col>
+        </el-row>
+        <el-row :gutter="10">
+            <el-col :xs="24" :lg="16" class="mt-4">
+                <el-card shadow="never">
+                    <div class="flex justify-between relative">
+                        <h3 class="font-semibold text-base antialiased ml-4 title-before">动态</h3>
+                    </div>
+                    <div class="w-full h-100 py-4">
+                        <el-scrollbar class="!w-full" :noresize="false">
+                            <div v-for="(_, index) in 10" :key="index" class="flex w-full items-center">
+                                <img src="@/assets/images/avatar.jpg" class="w-15 rounded-full p-3" alt="avatar" />
+                                <div class="flex-col h-full">
+                                    <span class="font-500 subpixel-antialiased truncate"
+                                        >林冬冬 在 特怪小分队 新建项目 xxxxxxxxxxxxxxxxxxxxxxxxxx</span
+                                    >
+                                    <span class="text-neutral-400">2 分钟前</span>
+                                </div>
+                            </div>
+                        </el-scrollbar>
+                    </div>
+                </el-card>
+            </el-col>
+            <!-- 通用组件封装 以及 navbar的组件 -->
+            <el-col :xs="24" :lg="8" class="mt-4">
+                <el-card shadow="never">
+                    <div class="flex justify-between relative">
+                        <h3 class="font-semibold text-base antialiased ml-4 title-before">团队</h3>
+                    </div>
+                </el-card>
+            </el-col>
+        </el-row>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -100,90 +100,90 @@ import { ECOption } from '@/config/echarts';
 import { useEcharts } from '@/hooks/useEcharts';
 
 const projectList = reactive([
-	{
-		icon: 'el-icon-checked',
-		projectName: '消息列表体验优化',
-		projectDesc: '这是一条描述信息这是一条描述信息这是一条描述信息',
-		author: '特怪小分队',
-		createTime: '2小时前'
-	},
-	{
-		icon: 'el-icon-checked',
-		projectName: 'xx 平台',
-		projectDesc: '这是一条描述信息这是一条描述信息这是一条描述信息',
-		author: '特怪小分队',
-		createTime: '2小时前'
-	},
-	{
-		icon: 'el-icon-checked',
-		projectName: '5月日常小需求',
-		projectDesc: '这是一条描述信息这是一条描述信息这是一条描述信息',
-		author: '特怪小分队',
-		createTime: '2小时前'
-	},
-	{
-		icon: 'el-icon-checked',
-		projectName: '功能效能',
-		projectDesc: '这是一条描述信息这是一条描述信息这是一条描述信息',
-		author: '特怪小分队',
-		createTime: '2小时前'
-	},
-	{
-		icon: 'el-icon-checked',
-		projectName: '智能运营中心',
-		projectDesc: '这是一条描述信息这是一条描述信息这是一条描述信息',
-		author: '特怪精英战队',
-		createTime: '2小时前'
-	},
-	{
-		icon: 'el-icon-checked',
-		projectName: 'bug处理',
-		projectDesc: '这是一条描述信息这是一条描述信息这是一条描述信息',
-		author: '特怪二分队',
-		createTime: '2小时前'
-	}
+    {
+        icon: 'el-icon-checked',
+        projectName: '消息列表体验优化',
+        projectDesc: '这是一条描述信息这是一条描述信息这是一条描述信息',
+        author: '特怪小分队',
+        createTime: '2小时前'
+    },
+    {
+        icon: 'el-icon-checked',
+        projectName: 'xx 平台',
+        projectDesc: '这是一条描述信息这是一条描述信息这是一条描述信息',
+        author: '特怪小分队',
+        createTime: '2小时前'
+    },
+    {
+        icon: 'el-icon-checked',
+        projectName: '5月日常小需求',
+        projectDesc: '这是一条描述信息这是一条描述信息这是一条描述信息',
+        author: '特怪小分队',
+        createTime: '2小时前'
+    },
+    {
+        icon: 'el-icon-checked',
+        projectName: '功能效能',
+        projectDesc: '这是一条描述信息这是一条描述信息这是一条描述信息',
+        author: '特怪小分队',
+        createTime: '2小时前'
+    },
+    {
+        icon: 'el-icon-checked',
+        projectName: '智能运营中心',
+        projectDesc: '这是一条描述信息这是一条描述信息这是一条描述信息',
+        author: '特怪精英战队',
+        createTime: '2小时前'
+    },
+    {
+        icon: 'el-icon-checked',
+        projectName: 'bug处理',
+        projectDesc: '这是一条描述信息这是一条描述信息这是一条描述信息',
+        author: '特怪二分队',
+        createTime: '2小时前'
+    }
 ]);
 
 const radarEcharts = ref<HTMLDivElement | null>(null);
 
 const radarOptions = ref<ECOption>({
-	title: {
-		// text: 'Basic Radar Chart'
-	},
-	legend: {
-		data: ['Allocated Budget', 'Actual Spending']
-	},
-	radar: {
-		// shape: 'circle',
-		indicator: [
-			{ name: 'Sales' },
-			{ name: 'Administration' },
-			{ name: 'Information Technology' },
-			{ name: 'Customer Support' },
-			{ name: 'Development' },
-			{ name: 'Marketing' }
-		]
-	},
-	series: [
-		{
-			name: 'Budget vs spending',
-			type: 'radar',
-			data: [
-				{
-					value: [4200, 3000, 20000, 35000, 50000, 18000],
-					name: 'Allocated Budget'
-				},
-				{
-					value: [5000, 14000, 28000, 26000, 42000, 21000],
-					name: 'Actual Spending'
-				}
-			]
-		}
-	]
+    title: {
+        // text: 'Basic Radar Chart'
+    },
+    legend: {
+        data: ['Allocated Budget', 'Actual Spending']
+    },
+    radar: {
+        // shape: 'circle',
+        indicator: [
+            { name: 'Sales' },
+            { name: 'Administration' },
+            { name: 'Information Technology' },
+            { name: 'Customer Support' },
+            { name: 'Development' },
+            { name: 'Marketing' }
+        ]
+    },
+    series: [
+        {
+            name: 'Budget vs spending',
+            type: 'radar',
+            data: [
+                {
+                    value: [4200, 3000, 20000, 35000, 50000, 18000],
+                    name: 'Allocated Budget'
+                },
+                {
+                    value: [5000, 14000, 28000, 26000, 42000, 21000],
+                    name: 'Actual Spending'
+                }
+            ]
+        }
+    ]
 });
 
 onMounted(() => {
-	useEcharts(radarEcharts.value as HTMLDivElement, radarOptions);
+    useEcharts(radarEcharts.value as HTMLDivElement, radarOptions);
 });
 </script>
 
