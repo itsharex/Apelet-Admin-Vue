@@ -7,15 +7,15 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 const modules = import.meta.glob('./**/*.vue');
 
 export default {
-    install(app: App) {
-        // 注册全局组件
-        Object.keys(modules).forEach((key: string) => {
-            let name = key.replaceAll(/\.\/|\/index.vue/g, '');
-            app.component(name, modules[key]);
-        });
-        // 注册element Plus所有图标
-        for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
-            app.component(key, component);
-        }
-    }
+	install(app: App) {
+		// 注册全局组件
+		Object.keys(modules).forEach((key: string) => {
+			let name = key.replaceAll(/\.\/|\/index.vue/g, '');
+			app.component(name, modules[key]);
+		});
+		// 注册element Plus所有图标
+		for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+			app.component(key, component);
+		}
+	}
 };

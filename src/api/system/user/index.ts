@@ -7,9 +7,9 @@ import { LoginForm, LoginResponseType } from './interface';
  * @returns
  */
 export const login = (data: LoginForm) => {
-    return request<LoginResponseType>({
-        url: '/login',
-        method: 'POST',
-        data
-    });
+	return request<LoginResponseType>({
+		url: '/login',
+		method: 'POST',
+		data
+	});
 };

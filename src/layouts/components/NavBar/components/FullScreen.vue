@@ -1,7 +1,7 @@
 <template>
-    <div class="flex-center h-14 w-10 cursor-pointer hover:bg-fill" @click="handleFull">
-        <svg-icon :name="!isFullscreen ? 'fullscreen' : 'fullscreen-exit'" width="20" height="20" />
-    </div>
+	<div class="flex-center h-14 w-10 cursor-pointer hover:bg-fill" @click="handleFull">
+		<svg-icon :name="!isFullscreen ? 'fullscreen' : 'fullscreen-exit'" width="20" height="20" />
+	</div>
 </template>
 
 <script lang="ts" setup>

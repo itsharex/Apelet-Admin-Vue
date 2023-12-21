@@ -1,5 +1,5 @@
 <template>
-    <div>serviceMonitor</div>
+	<div>serviceMonitor</div>
 </template>
 
 <script setup lang="ts"></script>

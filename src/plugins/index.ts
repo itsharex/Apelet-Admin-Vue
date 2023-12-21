@@ -3,6 +3,6 @@ import { initGlobal } from './global';
 import { initInstall } from './install';
 
 export const install = (app: App) => {
-    initGlobal(app);
-    initInstall(app);
+	initGlobal(app);
+	initInstall(app);
 };

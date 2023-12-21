@@ -1,16 +1,15 @@
 <template>
-    <horizontal-scroll v-show="!appStore.isMobile">
-        <div class="menu-list" @click="changeMenu">
-            <div
-                v-for="menu in horizontalMenu"
-                :key="menu.name"
-                :data-name="menu.name"
-                :class="['menu-item', { active: menu.name === currName }]"
-            >
-                {{ $t(`menus.${menu.meta?.title}`) }}
-            </div>
-        </div>
-    </horizontal-scroll>
+	<horizontal-scroll v-show="!appStore.isMobile">
+		<div class="menu-list" @click="changeMenu">
+			<div
+				v-for="menu in horizontalMenu"
+				:key="menu.name"
+				:data-name="menu.name"
+				:class="['menu-item', { active: menu.name === currName }]">
+				{{ $t(`menus.${menu.meta?.title}`) }}
+			</div>
+		</div>
+	</horizontal-scroll>
 </template>
 
 <script setup lang="ts">
@@ -23,54 +22,54 @@ const appStore = useAppStore();
 const { horizontalMenu, initRoutes, currName } = useMenu();
 // 冒泡获取dataSet, 需要点击对于的DOM元素
 const changeMenu = (e: Event) => {
-    let routeName = (e.target as HTMLElement).dataset.name as string;
-    if (!routeName || route.name === routeName) return;
-    initRoutes(routeName);
+	let routeName = (e.target as HTMLElement).dataset.name as string;
+	if (!routeName || route.name === routeName) return;
+	initRoutes(routeName);
 };
 </script>
 
 <style scoped lang="scss">
 .menu-list {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
 }
 .menu-item {
-    position: relative;
-    padding: 10px;
-    margin: 0 10px;
-    font-size: 14px;
-    white-space: nowrap;
-    cursor: pointer;
-    &.active {
-        position: relative;
-        color: var(--el-color-primary);
-    }
-    &.active::before {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        content: '';
-        background-color: var(--el-color-primary);
-    }
-    &::after {
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        width: 0;
-        height: 2px;
-        content: '';
-        background-color: var(--el-color-primary);
-        transition: all 0.3s ease;
-    }
-    &:hover::after {
-        left: 0%;
-        width: 100%;
-    }
+	position: relative;
+	padding: 10px;
+	margin: 0 10px;
+	font-size: 14px;
+	white-space: nowrap;
+	cursor: pointer;
+	&.active {
+		position: relative;
+		color: var(--el-color-primary);
+	}
+	&.active::before {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		width: 100%;
+		height: 2px;
+		content: '';
+		background-color: var(--el-color-primary);
+	}
+	&::after {
+		position: absolute;
+		top: 100%;
+		left: 50%;
+		width: 0;
+		height: 2px;
+		content: '';
+		background-color: var(--el-color-primary);
+		transition: all 0.3s ease;
+	}
+	&:hover::after {
+		left: 0%;
+		width: 100%;
+	}
 }
 </style>

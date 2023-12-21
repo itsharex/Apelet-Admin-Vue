@@ -1,7 +1,7 @@
 <template>
-    <component :is="layoutComponent[layout]" />
-    <!-- 布局设置 -->
-    <layout-drawer />
+	<component :is="layoutComponent[layout]" />
+	<!-- 布局设置 -->
+	<layout-drawer />
 </template>
 
 <script setup lang="ts" name="Layout">
@@ -14,11 +14,11 @@ import LayoutGradient from './LayoutGradient/index.vue';
 import { LayoutType } from '@/config/interface';
 import { useLayoutStore } from '@/store';
 const layoutComponent: Record<LayoutType, Component> = {
-    vertical: LayoutVertical,
-    basic: LayoutBasic,
-    horizontal: LayoutHorizontal,
-    lattice: LayoutLattice,
-    gradient: LayoutGradient
+	vertical: LayoutVertical,
+	basic: LayoutBasic,
+	horizontal: LayoutHorizontal,
+	lattice: LayoutLattice,
+	gradient: LayoutGradient
 };
 const layoutStore = useLayoutStore();
 const layout = computed(() => layoutStore.layout);

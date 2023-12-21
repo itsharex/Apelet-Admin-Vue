@@ -1,18 +1,18 @@
 <template>
-    <el-container class="h-full" ref="containerRef">
-        <AppMask v-show="showAppMask" @click.prevent="closeAppMask" />
-        <Aside v-if="appStore.isMobile" />
-        <el-header class="flex justify-between !p-0 border-b-1 border-[var(--el-color-info-light-8)]">
-            <Logo v-show="!appStore.isMobile" :style="{ width: asideMaxWidth }" />
-            <CollapseIcon v-show="appStore.isMobile" />
-            <HorizontalElMenu />
-            <ToolRight />
-        </el-header>
-        <el-container direction="vertical" class="relative">
-            <Tabs />
-            <MainApp />
-        </el-container>
-    </el-container>
+	<el-container class="h-full" ref="containerRef">
+		<AppMask v-show="showAppMask" @click.prevent="closeAppMask" />
+		<Aside v-if="appStore.isMobile" />
+		<el-header class="flex justify-between !p-0 border-b-1 border-[var(--el-color-info-light-8)]">
+			<Logo v-show="!appStore.isMobile" :style="{ width: asideMaxWidth }" />
+			<CollapseIcon v-show="appStore.isMobile" />
+			<HorizontalElMenu />
+			<ToolRight />
+		</el-header>
+		<el-container direction="vertical" class="relative">
+			<Tabs />
+			<MainApp />
+		</el-container>
+	</el-container>
 </template>
 
 <script setup lang="ts" name="LayoutHorizontal">

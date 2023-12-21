@@ -1,8 +1,8 @@
 <template>
-    <el-header class="header">
-        <tool-left />
-        <tool-right />
-    </el-header>
+	<el-header class="header">
+		<tool-left />
+		<tool-right />
+	</el-header>
 </template>
 
 <script setup lang="ts" name="NavBar">
@@ -12,6 +12,6 @@ import ToolRight from './ToolRight.vue';
 
 <style scoped lang="scss">
 .header {
-    @apply w-full flex-y-center justify-between border-b-1 border-solid border-[var(--el-color-info-light-8)] h-14 p-x-0 bg-[var(--el-bg-color)];
+	@apply w-full flex-y-center justify-between border-b-1 border-solid border-[var(--el-color-info-light-8)] h-14 p-x-0 bg-[var(--el-bg-color)];
 }
 </style>

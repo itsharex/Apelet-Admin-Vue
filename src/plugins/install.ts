@@ -8,7 +8,7 @@ import components from '@/components/index';
 import Particles from 'particles.vue3';
 
 export const initInstall = (app: App) => {
-    app.use(components);
-    app.use(directives);
-    app.use(Particles);
+	app.use(components);
+	app.use(directives);
+	app.use(Particles);
 };

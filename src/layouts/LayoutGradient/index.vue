@@ -1,19 +1,19 @@
 <template>
-    <el-container class="h-full" ref="containerRef">
-        <AppMask v-show="showAppMask" @click.prevent="closeAppMask" />
-        <el-header class="flex justify-between !p-0 !bg-[transparent]">
-            <Logo v-show="!appStore.isMobile" :style="{ width: asideMaxWidth }" />
-            <CollapseIcon v-show="appStore.isMobile" />
-            <HorizontalMenu />
-            <ToolRight />
-        </el-header>
-        <el-container class="relative">
-            <Aside :class="showPadding && '!mx-4 !my-2'" class="!border-none !b-rounded" />
-            <el-container direction="vertical" class="!my-2">
-                <MainApp class="!bg-[transparent] !shadow-none !b-rounded" />
-            </el-container>
-        </el-container>
-    </el-container>
+	<el-container class="h-full" ref="containerRef">
+		<AppMask v-show="showAppMask" @click.prevent="closeAppMask" />
+		<el-header class="flex justify-between !p-0 !bg-[transparent]">
+			<Logo v-show="!appStore.isMobile" :style="{ width: asideMaxWidth }" />
+			<CollapseIcon v-show="appStore.isMobile" />
+			<HorizontalMenu />
+			<ToolRight />
+		</el-header>
+		<el-container class="relative">
+			<Aside :class="showPadding && '!mx-4 !my-2'" class="!border-none !b-rounded" />
+			<el-container direction="vertical" class="!my-2">
+				<MainApp class="!bg-[transparent] !shadow-none !b-rounded" />
+			</el-container>
+		</el-container>
+	</el-container>
 </template>
 
 <script setup lang="ts" name="LayoutGradient">

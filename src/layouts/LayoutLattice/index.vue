@@ -1,14 +1,14 @@
 <template>
-    <el-container class="h-full" ref="containerRef">
-        <AppMask v-show="showAppMask" @click.prevent="closeAppMask" />
-        <VerticalMenu />
-        <Aside />
-        <el-container direction="vertical" class="relative">
-            <NavBar />
-            <Tabs />
-            <MainApp />
-        </el-container>
-    </el-container>
+	<el-container class="h-full" ref="containerRef">
+		<AppMask v-show="showAppMask" @click.prevent="closeAppMask" />
+		<VerticalMenu />
+		<Aside />
+		<el-container direction="vertical" class="relative">
+			<NavBar />
+			<Tabs />
+			<MainApp />
+		</el-container>
+	</el-container>
 </template>
 
 <script setup lang="ts" name="LayoutLattice">
