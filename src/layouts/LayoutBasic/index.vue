@@ -1,20 +1,21 @@
 <template>
-	<el-container class="h-full" ref="containerRef">
-		<AppMask v-show="showAppMask" @click.prevent="closeAppMask" />
-		<el-header class="flex justify-between !p-0 border-b-1 border-[var(--el-color-info-light-8)]">
-			<Logo v-show="!appStore.isMobile" :style="{ width: asideMaxWidth }" />
-			<NavBar
-				:style="{ width: !appStore.isMobile ? `calc(100% - ${asideMaxWidth})` : '100%' }"
-				class="!h-full !border-none" />
-		</el-header>
-		<el-container class="relative">
-			<Aside />
-			<el-container direction="vertical">
-				<Tabs />
-				<MainApp />
-			</el-container>
-		</el-container>
-	</el-container>
+    <el-container class="h-full" ref="containerRef">
+        <AppMask v-show="showAppMask" @click.prevent="closeAppMask" />
+        <el-header class="flex justify-between !p-0 border-b-1 border-[var(--el-color-info-light-8)]">
+            <Logo v-show="!appStore.isMobile" :style="{ width: asideMaxWidth }" />
+            <NavBar
+                :style="{ width: !appStore.isMobile ? `calc(100% - ${asideMaxWidth})` : '100%' }"
+                class="!h-full !border-none"
+            />
+        </el-header>
+        <el-container class="relative">
+            <Aside />
+            <el-container direction="vertical">
+                <Tabs />
+                <MainApp />
+            </el-container>
+        </el-container>
+    </el-container>
 </template>
 
 <script setup lang="ts" name="LayoutBasic">

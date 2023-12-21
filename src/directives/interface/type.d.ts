@@ -2,9 +2,9 @@ import type { Directive } from 'vue';
 
 // 第一个为string，第二个参数为 Directive类型
 export interface Directives {
-	vHasPerms: Directive;
-	vHasRoles: Directive;
-	vRightMenu: Directive<any, MenuOptions[]>;
+    vHasPerms: Directive;
+    vHasRoles: Directive;
+    vRightMenu: Directive<any, MenuOptions[]>;
 }
 export type Keys = keyof Directives;
 
@@ -13,6 +13,6 @@ type LowerDirectiveName<T extends Keys> = T extends `v${infer V}` ? V : never;
 
 // 指令对象类型
 export interface DirectiveOptions<T extends Keys> {
-	name: LowerDirectiveName<T>;
-	directive: Directives[T];
+    name: LowerDirectiveName<T>;
+    directive: Directives[T];
 }

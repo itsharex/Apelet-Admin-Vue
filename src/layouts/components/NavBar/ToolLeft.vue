@@ -1,8 +1,8 @@
 <template>
-	<div class="flex-y-center h-full overflow-hidden">
-		<collapse-icon />
-		<bread-crumb />
-	</div>
+    <div class="flex-y-center h-full overflow-hidden">
+        <collapse-icon />
+        <bread-crumb />
+    </div>
 </template>
 
 <script setup lang="ts">

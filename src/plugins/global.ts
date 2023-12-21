@@ -5,5 +5,5 @@ import { App } from 'vue';
  * @param app
  */
 export const initGlobal = (app: App) => {
-	// 注册全局方法
+    // 注册全局方法
 };

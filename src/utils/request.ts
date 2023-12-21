@@ -5,46 +5,46 @@ type RequestHeader = AxiosRequestHeaders & { token?: string };
 
 // 自定义请求接口request参数类型，可以加一些自己自定义的参数
 interface RequestConfig extends AxiosRequestConfig {
-	// 放入请求头
-	headers?: RequestHeader;
+    // 放入请求头
+    headers?: RequestHeader;
 }
 interface RequestInterceptorsConfig extends RequestConfig {
-	// 请求拦截器使用
-	headers: RequestHeader;
+    // 请求拦截器使用
+    headers: RequestHeader;
 }
 
 import { useUserStore } from '@/store';
 
 const service = axios.create({
-	baseURL: import.meta.env.VITE_APP_BASE_API,
-	timeout: 5000
+    baseURL: import.meta.env.VITE_APP_BASE_API,
+    timeout: 5000
 });
 
 service.interceptors.request.use((config: RequestInterceptorsConfig) => {
-	const userStore = useUserStore();
-	if (userStore.token) {
-		config.headers['token'] = userStore.token;
-	}
-	return config;
+    const userStore = useUserStore();
+    if (userStore.token) {
+        config.headers['token'] = userStore.token;
+    }
+    return config;
 });
 
 service.interceptors.response.use(
-	(response: AxiosResponse) => {
-		return response.data;
-	},
-	(err: AxiosResponse) => {
-		return Promise.reject(err);
-	}
+    (response: AxiosResponse) => {
+        return response.data;
+    },
+    (err: AxiosResponse) => {
+        return Promise.reject(err);
+    }
 );
 
 // 传入泛型约束返回数据类型
 // ApiResponse 主体后端返回格式
 interface ApiResponse<T = any> {
-	code: number;
-	msg: string;
-	data: T; // 这里定义请求返回data数据类型
+    code: number;
+    msg: string;
+    data: T; // 这里定义请求返回data数据类型
 }
 export default async function request<T>(config: RequestConfig) {
-	// axios实例的 request 接受的第一个泛型参数，就是返回数据data的类型
-	return service.request<ApiResponse<T>>(config).then(res => res.data); // 返回axios的里data数据
+    // axios实例的 request 接受的第一个泛型参数，就是返回数据data的类型
+    return service.request<ApiResponse<T>>(config).then(res => res.data); // 返回axios的里data数据
 }

@@ -1,19 +1,19 @@
 <template>
-	<!-- 搜索 -->
-	<Search />
-	<!-- 系统消息 -->
-	<SystemMessage />
-	<!-- i18图标 -->
-	<Language />
-	<!-- 布局尺寸图标 -->
-	<!-- 刷新 -->
-	<Refresh />
-	<!-- 全屏 -->
-	<FullScreen />
-	<!-- 用户信息 -->
-	<ClassicUser />
-	<!-- 布局设置 -->
-	<SystemSetting />
+    <!-- 搜索 -->
+    <Search />
+    <!-- 系统消息 -->
+    <SystemMessage />
+    <!-- i18图标 -->
+    <Language />
+    <!-- 布局尺寸图标 -->
+    <!-- 刷新 -->
+    <Refresh />
+    <!-- 全屏 -->
+    <FullScreen />
+    <!-- 用户信息 -->
+    <ClassicUser />
+    <!-- 布局设置 -->
+    <SystemSetting />
 </template>
 
 <script setup lang="ts">

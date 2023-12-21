@@ -1,7 +1,7 @@
 <template>
-	<div class="flex-y-center h-full">
-		<tool-item />
-	</div>
+    <div class="flex-y-center h-full">
+        <tool-item />
+    </div>
 </template>
 
 <script setup lang="ts">

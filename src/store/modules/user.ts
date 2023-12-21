@@ -5,22 +5,22 @@ import { LoginForm } from '@/api/system/user/interface';
 import { UserState } from '@/store/interface/index';
 
 export const useUserStore = defineStore('user', {
-	state: (): UserState => ({
-		token: '',
-		userInfo: {
-			username: '',
-			roles: [],
-			permissions: []
-		}
-	}),
-	getters: {},
-	actions: {
-		async loginAction(form: LoginForm) {
-			const { data } = await login(form);
-			this.token = data.token;
-		},
+    state: (): UserState => ({
+        token: '',
+        userInfo: {
+            username: '',
+            roles: [],
+            permissions: []
+        }
+    }),
+    getters: {},
+    actions: {
+        async loginAction(form: LoginForm) {
+            const { data } = await login(form);
+            this.token = data.token;
+        },
 
-		async getUserInfo() {}
-	},
-	persist: piniaPersist({ key: 'user', paths: ['token'] })
+        async getUserInfo() {}
+    },
+    persist: piniaPersist({ key: 'user', paths: ['token'] })
 });
