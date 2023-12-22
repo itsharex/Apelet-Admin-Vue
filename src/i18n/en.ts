@@ -31,6 +31,7 @@ export default {
     },
     menus: {
         homepage: 'HomePage',
+        workbench: 'WorkBench',
         dashboard: 'DashBoard',
         internal: 'Internal',
         login: 'Login',

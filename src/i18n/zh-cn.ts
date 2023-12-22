@@ -29,7 +29,8 @@ export default {
     },
     menus: {
         homepage: '首页',
-        dashboard: '工作台',
+        workbench: '工作台',
+        dashboard: '分析页',
         internal: '字典管理',
         login: '登录',
         system: '系统管理',

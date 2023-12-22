@@ -1,11 +1,11 @@
 <template>
-    <el-scrollbar>
-        <el-main class="!p-4 bg-[var(--el-bg-color-page)] h-full shadow-inner">
-            <!-- 自定义指令实现 滚动加载 -->
-            <div class="h-full">
+    <el-main class="!p-0 h-full bg-[var(--el-bg-color-page)] overflow-x-hidden">
+        <!-- 自定义指令实现 滚动加载 -->
+        <el-scrollbar>
+            <div class="h-full p-4">
                 <router-view>
                     <template #default="{ Component, route }">
-                        <el-backtop title="回到顶部" target=".el-main .el-scrollbar__wrap" />
+                        <el-backtop title="回到顶部" />
                         <transition :name="layoutStore.animateMode" mode="out-in" appear>
                             <keep-alive>
                                 <component :is="Component" :key="route.fullPath" v-if="appStore.reload" />
@@ -14,8 +14,8 @@
                     </template>
                 </router-view>
             </div>
-        </el-main>
-    </el-scrollbar>
+        </el-scrollbar>
+    </el-main>
 </template>
 
 <script setup lang="ts" name="AppMain">

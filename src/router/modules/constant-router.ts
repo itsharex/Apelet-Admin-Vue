@@ -11,11 +11,11 @@ export const constantRoutes: Array<RouteRecordRaw> = [
             {
                 path: 'index',
                 name: 'Index',
-                component: () => import('@/views/home/homepage/index.vue'),
+                component: () => import('@/views/home/workbench/index.vue'),
                 meta: {
                     icon: 'HomeFilled',
                     hidden: false,
-                    title: 'homepage',
+                    title: 'workbench',
                     isCache: true,
                     isFixed: true
                 }
@@ -47,7 +47,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
             {
                 path: 'internal',
                 name: 'Internal',
-                component: () => import('@/views/home/homepage/index.vue'),
+                component: () => import('@/views/home/workbench/index.vue'),
                 meta: {
                     icon: 'HomeFilled',
                     hidden: false,
