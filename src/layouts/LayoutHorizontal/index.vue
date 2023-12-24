@@ -8,7 +8,7 @@
             <HorizontalElMenu />
             <ToolRight />
         </el-header>
-        <el-container direction="vertical" class="relative">
+        <el-container direction="vertical" class="relative !h-[calc(100%-60px)]">
             <Tabs />
             <MainApp />
         </el-container>

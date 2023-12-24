@@ -7,9 +7,9 @@
             <HorizontalMenu />
             <ToolRight />
         </el-header>
-        <el-container class="relative">
+        <el-container class="relative !h-[calc(100%-60px)]">
             <Aside :class="showPadding && '!mx-4 !my-2'" class="!border-none !b-rounded" />
-            <el-container direction="vertical" class="!my-2">
+            <el-container class="!my-2">
                 <MainApp class="!bg-[transparent] !shadow-none !b-rounded" />
             </el-container>
         </el-container>

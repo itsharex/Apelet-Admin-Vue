@@ -8,7 +8,7 @@
                 class="!h-full !border-none"
             />
         </el-header>
-        <el-container class="relative">
+        <el-container class="relative !h-[calc(100%-60px)]">
             <Aside />
             <el-container direction="vertical">
                 <Tabs />

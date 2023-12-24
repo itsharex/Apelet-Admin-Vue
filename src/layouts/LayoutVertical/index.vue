@@ -1,7 +1,7 @@
 <template>
     <el-container class="h-full" ref="containerRef">
         <AppMask v-show="showAppMask" @click.prevent="closeAppMask" />
-        <Aside />
+        <Aside class="!p-0" />
         <el-container direction="vertical" class="relative">
             <NavBar />
             <Tabs />
