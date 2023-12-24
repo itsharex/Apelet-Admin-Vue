@@ -32,7 +32,7 @@
             </el-row>
         </el-card>
         <el-row :gutter="10">
-            <el-col :xs="24" :lg="16" class="mt-4">
+            <el-col :xs="24" :lg="16" class="mt-3">
                 <el-card shadow="never">
                     <div class="flex justify-between relative">
                         <h3 class="font-semibold text-base antialiased ml-4 title-before">进行中的项目</h3>
@@ -44,7 +44,7 @@
                                 <Icon :name="item.icon" size="20" color="var(--el-color-primary)" />
                                 <span class="pl-2 font-700">{{ item.projectName }}</span>
                             </div>
-                            <p class="text-gray py-2 <sm:truncate">{{ item.projectDesc }}</p>
+                            <p class="text-gray py-2 <sm:truncate line-clamp-2">{{ item.projectDesc }}</p>
                             <div class="flex justify-between">
                                 <span class="text-neutral-500">{{ item.author }}</span>
                                 <span class="text-neutral-400">{{ item.createTime }}</span>
@@ -53,7 +53,7 @@
                     </div>
                 </el-card>
             </el-col>
-            <el-col :xs="24" :lg="8" class="mt-4">
+            <el-col :xs="24" :lg="8" class="mt-3">
                 <el-card shadow="never">
                     <div class="flex justify-between relative">
                         <h3 class="font-semibold text-base antialiased ml-4 title-before">岗位分布</h3>
@@ -63,45 +63,72 @@
             </el-col>
         </el-row>
         <el-row :gutter="10">
-            <el-col :xs="24" :lg="16" class="mt-4">
+            <el-col :xs="24" :lg="16" class="mt-3">
                 <el-card shadow="never">
                     <div class="flex justify-between relative">
-                        <h3 class="font-semibold text-base antialiased ml-4 title-before">动态</h3>
+                        <h3 class="font-semibold text-base antialiased ml-4 title-before">内容数据</h3>
                     </div>
-                    <div class="w-full h-100 py-4">
-                        <el-scrollbar>
-                            <div v-for="(_, index) in 10" :key="index" class="flex w-full items-center">
-                                <img src="@/assets/images/avatar.jpg" class="w-15 rounded-full p-3" alt="avatar" />
-                                <div class="flex-col h-full">
-                                    <span class="font-500 subpixel-antialiased truncate <sm:w-75"
-                                        >林冬冬 在 特怪小分队 新建项目 xxxxxxxxxxxxxxxxxxxxxxxxxx</span
-                                    >
-                                    <span class="text-neutral-400">2 分钟前</span>
-                                </div>
-                            </div>
-                        </el-scrollbar>
-                    </div>
+                    <div ref="barEcharts" class="w-full h-105.5"></div>
                 </el-card>
             </el-col>
-            <!-- 通用组件封装 以及 navbar的组件 -->
-            <el-col :xs="24" :lg="8" class="mt-4">
-                <el-card shadow="never">
-                    <div class="flex justify-between relative">
-                        <h3 class="font-semibold text-base antialiased ml-4 title-before">团队分布</h3>
-                    </div>
-                </el-card>
-                <el-card shadow="never">
-                    <div class="flex justify-between relative">
-                        <h3 class="font-semibold text-base antialiased ml-4 title-before">团队人员</h3>
-                    </div>
-                </el-card>
+            <el-col :xs="24" :lg="8" class="mt-3">
+                <el-row>
+                    <el-col>
+                        <el-card shadow="never">
+                            <div class="flex justify-between relative">
+                                <h3 class="font-semibold text-base antialiased ml-4 title-before">动态</h3>
+                            </div>
+                            <div class="w-full h-50 py-4">
+                                <el-scrollbar>
+                                    <div v-for="(_, index) in 10" :key="index" class="flex w-full items-center">
+                                        <img
+                                            src="@/assets/images/avatar.jpg"
+                                            class="w-15 rounded-full p-3"
+                                            alt="avatar"
+                                        />
+                                        <div class="flex-col h-full">
+                                            <span class="font-500 subpixel-antialiased truncate <sm:w-75"
+                                                >林冬冬 在 特怪小分队 新建项目 xxxxxxxxxxxxxxxxxxxxxxxxxx</span
+                                            >
+                                            <span class="text-neutral-400">2 分钟前</span>
+                                        </div>
+                                    </div>
+                                </el-scrollbar>
+                            </div>
+                        </el-card>
+                    </el-col>
+                    <el-col class="mt-3">
+                        <el-card shadow="never">
+                            <div class="flex justify-between relative">
+                                <h3 class="font-semibold text-base antialiased ml-4 title-before">消息提醒</h3>
+                            </div>
+                            <div class="w-full h-36 py-4">
+                                <el-scrollbar>
+                                    <div
+                                        v-for="(item, index) in messageList"
+                                        :key="index"
+                                        class="flex w-full p-3 flex-nowrapitems-center"
+                                    >
+                                        <span :class="echoDictColor(messageType, item.type)" class="flex-none">{{
+                                            echoDictLabel(messageType, item.type)
+                                        }}</span>
+                                        <span class="font-500 subpixel-antialiased truncate flex-1 px-4 <sm:w-75">
+                                            {{ item.desc }}
+                                        </span>
+                                        <span class="text-neutral-400 flex-none">{{ item.createTime }}</span>
+                                    </div>
+                                </el-scrollbar>
+                            </div>
+                        </el-card>
+                    </el-col>
+                </el-row>
             </el-col>
         </el-row>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ECOption } from '@/config/echarts';
+import echarts, { ECOption } from '@/config/echarts';
 import { useEcharts } from '@/hooks/useEcharts';
 
 const projectList = reactive([
@@ -149,46 +176,224 @@ const projectList = reactive([
     }
 ]);
 
+type dictsType = {
+    dictLabel: string;
+    dictValue: string | number;
+    color?: string;
+};
+
+// TODO: 实现字典中的dictValue值是什么类型，该函数就传入什么类型， 后期改为通用方法
+const echoDictLabel = (dicts: dictsType[], dictValue: string | number) => {
+    return dicts.find(item => item.dictValue == dictValue)?.dictLabel;
+};
+
+const echoDictColor = (dicts: dictsType[], dictValue: string | number) => {
+    return dicts.find(item => item.dictValue == dictValue)?.color;
+};
+
+// 消息类型，后面改为字典
+const messageType = [
+    {
+        dictLabel: '消息',
+        dictValue: '01',
+        color: 'text-emerald-500'
+    },
+    {
+        dictLabel: '公告',
+        dictValue: '02',
+        color: 'text-orange-500'
+    },
+    {
+        dictLabel: '通知',
+        dictValue: '03',
+        color: 'text-blue-500'
+    },
+    {
+        dictLabel: '活动',
+        dictValue: '04',
+        color: 'text-indigo-500'
+    }
+];
+
+const messageList = reactive([
+    {
+        type: '01',
+        desc: 'xxx即将于2023年12月25日入职, 请提前准备相关流程',
+        createTime: '2023-12-20'
+    },
+    {
+        type: '02',
+        desc: 'xxx即将于2023年12月25日入职, 请提前准备相关流程',
+        createTime: '2023-12-20'
+    },
+    {
+        type: '03',
+        desc: 'xxx即将于2023年12月25日入职, 请提前准备相关流程',
+        createTime: '2023-12-20'
+    },
+    {
+        type: '04',
+        desc: 'xxx即将于2023年12月25日入职, 请提前准备相关流程',
+        createTime: '2023-12-20'
+    }
+]);
+
 const radarEcharts = ref<HTMLDivElement | null>(null);
+const barEcharts = ref<HTMLDivElement | null>(null);
 
 const radarOptions = ref<ECOption>({
     title: {
         // text: 'Basic Radar Chart'
     },
-    legend: {
-        data: ['Allocated Budget', 'Actual Spending']
+    tooltip: {
+        show: true,
+        trigger: 'item'
     },
     radar: {
-        // shape: 'circle',
+        // 雷达区域分割颜色
+        // splitArea: {
+        //     areaStyle: {
+        //         color: ['rgba(201, 223, 255, 0.15)', 'rgba(201, 223, 255, 0.95)'].reverse()
+        //     }
+        // },
         indicator: [
-            { name: 'Sales' },
-            { name: 'Administration' },
-            { name: 'Information Technology' },
-            { name: 'Customer Support' },
-            { name: 'Development' },
-            { name: 'Marketing' }
+            { name: '前端开发', min: 0, max: 20 },
+            { name: '后端开发', min: 0, max: 20 },
+            { name: '产品经理', min: 0, max: 20 },
+            { name: 'UI设计', min: 0, max: 20 },
+            { name: '测试', min: 0, max: 20 }
         ]
     },
     series: [
         {
-            name: 'Budget vs spending',
+            name: '岗位',
             type: 'radar',
+            symbol: 'circle',
+            symbolSize: 6,
+            itemStyle: {
+                borderColor: 'rgba(108,254,255, 0.6)',
+                color: '#fff',
+                borderWidth: 1
+            },
+            lineStyle: {
+                color: 'rgba(108,254,255, 0.6)'
+            },
+            areaStyle: {
+                // 单项区域填充样式
+                color: new echarts.graphic.LinearGradient(
+                    0,
+                    0,
+                    0,
+                    1,
+                    [
+                        {
+                            offset: 0,
+                            color: 'rgba(108,254,255, 0.6)'
+                        },
+                        {
+                            offset: 1,
+                            color: 'rgba(255,255,255, 0.65)'
+                        }
+                    ],
+                    false
+                ),
+                // opacity:0.75, // 区域透明度
+                // 设置扇形的阴影
+                shadowBlur: 12,
+                shadowColor: 'rgba(108,254,255, 0.5)',
+                shadowOffsetX: 6,
+                shadowOffsetY: 6
+            },
             data: [
                 {
-                    value: [4200, 3000, 20000, 35000, 50000, 18000],
-                    name: 'Allocated Budget'
-                },
-                {
-                    value: [5000, 14000, 28000, 26000, 42000, 21000],
-                    name: 'Actual Spending'
+                    value: [10, 19, 5, 3, 3]
                 }
             ]
         }
     ]
 });
 
+const barOptions = ref<ECOption>({
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        }
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis: [
+        {
+            type: 'category',
+            boundaryGap: true,
+            axisLine: {
+                show: false
+            },
+            axisTick: {
+                show: false
+            },
+            data: ['2017', '2018', '2019', '2020', '2021', '2022', '2023']
+        }
+    ],
+    yAxis: [
+        {
+            type: 'value'
+        }
+    ],
+    series: [
+        {
+            name: '总内容量',
+            type: 'line',
+            smooth: true,
+            symbol: 'circle',
+            showSymbol: true, // 只有在 tooltip hover 的时候显示
+            symbolSize: 5,
+            label: {
+                show: true
+            },
+            // 折线拐点标志的样式。
+            itemStyle: {
+                color: 'rgba(0,144,255, 0.8)'
+            },
+            lineStyle: {
+                color: 'rgba(54,206,158, 0.8)'
+            },
+            areaStyle: {
+                color: new echarts.graphic.LinearGradient(
+                    0,
+                    0,
+                    0,
+                    1,
+                    [
+                        {
+                            offset: 0,
+                            color: 'rgba(173,235,216, 0.8)'
+                        },
+                        {
+                            offset: 1,
+                            color: 'rgba(198,230,255, 0.6)'
+                        }
+                    ],
+                    false
+                ),
+                shadowColor: 'rgba(198,230,255, 0.5)',
+                shadowBlur: 10
+            },
+            emphasis: {
+                focus: 'series'
+            },
+            data: [120, 132, 101, 134, 90, 230, 210]
+        }
+    ]
+});
+
 onMounted(() => {
     useEcharts(radarEcharts.value as HTMLDivElement, radarOptions);
+    useEcharts(barEcharts.value as HTMLDivElement, barOptions);
 });
 </script>
 

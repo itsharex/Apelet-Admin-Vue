@@ -8,7 +8,7 @@ export const useEcharts = (el: HTMLDivElement, options: Ref<ECOption>) => {
     const layoutStore = useLayoutStore();
 
     const initCharts = () => {
-        const theme = layoutStore.isDark ? 'dark' : 'default';
+        const theme = layoutStore.isDark ? 'dark' : 'light';
         myChart = markRaw(echarts.init(el, theme));
         setOptions(options.value);
     };
@@ -19,7 +19,7 @@ export const useEcharts = (el: HTMLDivElement, options: Ref<ECOption>) => {
 
     // 根据屏幕大小切换
     const resize = useDebounceFn(() => {
-        myChart && myChart.resize();
+        myChart && myChart.resize({ animation: { duration: 300 } });
     }, 200);
 
     // 初始化执行

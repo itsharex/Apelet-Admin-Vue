@@ -46,7 +46,6 @@ export default defineComponent({
             menuLeft.value = x;
         };
         const listenerFunc = (e: MouseEvent) => {
-            console.log(123, e.currentTarget);
             if (rightMenu.value && !rightMenu.value.contains(e.currentTarget as HTMLElement)) {
                 open.value = false;
                 document.oncontextmenu = null;
