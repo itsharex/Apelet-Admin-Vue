@@ -46,7 +46,7 @@ const activeMenu = computed<string>(() => {
         }
         .el-sub-menu__title {
             &:hover::before {
-                background: transparent;
+                background: transparent !important;
             }
         }
     }
@@ -59,7 +59,8 @@ const activeMenu = computed<string>(() => {
         }
         &:hover::before,
         &.is-active::before {
-            background: transparent;
+            display: none !important;
+            background: transparent !important;
         }
     }
 }
