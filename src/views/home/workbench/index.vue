@@ -247,7 +247,8 @@ const radarOptions = ref<ECOption>({
     },
     tooltip: {
         show: true,
-        trigger: 'item'
+        trigger: 'item',
+        position: 'right'
     },
     radar: {
         // 雷达区域分割颜色

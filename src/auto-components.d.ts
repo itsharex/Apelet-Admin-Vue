@@ -48,6 +48,5 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SvgIcon: typeof import('./components/SvgIcon/index.vue')['default']
-    VEcharts: typeof import('./components/VEcharts/index.vue')['default']
   }
 }
