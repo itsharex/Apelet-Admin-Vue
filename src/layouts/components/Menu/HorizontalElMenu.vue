@@ -1,7 +1,7 @@
 <template>
     <horizontal-scroll v-show="isMobile">
         <el-menu
-            class="!border-0 !w-full !h-full"
+            class="horizontal-menu !border-0 !w-full !h-full"
             :default-active="activeMenu"
             router
             :ellipsis="false"
@@ -37,7 +37,7 @@ const activeMenu = computed<string>(() => {
 </script>
 
 <style scoped lang="scss">
-:deep(.el-menu) {
+:deep(.horizontal-menu) {
     --el-menu-hover-bg-color: transparent;
     --el-menu-bg-color: transparent;
     .el-sub-menu {
@@ -59,7 +59,6 @@ const activeMenu = computed<string>(() => {
         }
         &:hover::before,
         &.is-active::before {
-            display: none !important;
             background: transparent !important;
         }
     }

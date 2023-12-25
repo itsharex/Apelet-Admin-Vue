@@ -21,6 +21,7 @@
             }
         }
         .el-menu-item {
+            padding: 0 20px;
             & > * {
                 z-index: 1;
             }
@@ -75,6 +76,7 @@
             }
         }
         .el-menu-item {
+            padding: 0 20px;
             color: #bbbbbb;
             & > * {
                 z-index: 1;

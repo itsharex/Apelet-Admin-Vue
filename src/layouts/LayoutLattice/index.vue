@@ -2,7 +2,7 @@
     <el-container class="h-full" ref="containerRef">
         <AppMask v-show="showAppMask" @click.prevent="closeAppMask" />
         <VerticalMenu />
-        <Aside />
+        <Aside :class="appStore.isCollapse && `!border-0`" />
         <el-container direction="vertical" class="relative">
             <NavBar />
             <Tabs />
