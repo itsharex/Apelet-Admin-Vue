@@ -5,7 +5,8 @@ export const defaultTheme = {
      * hex ----> getThemeLightOrDarkHexColor
      * rgb ----> getThemeLightOrDarkRgbColor
      */
-    themeColor: '#1e90ff' // 根据自己需求写格式，需要更改useTheme 中的 方法
+    themeColor: '#1e90ff', // 根据自己需求写格式，需要更改useTheme 中的 方法
+    gradientBgColor: ['sky-500', 'sky-200', 'sky-100']
 };
 
 const themeConfig: GlobalState = {
@@ -22,7 +23,7 @@ const themeConfig: GlobalState = {
     // 是否重置渐变背景为主题颜色
     isResetGradient: false,
     // 渐变背景颜色
-    backgroundColor: [],
+    gradientBgColor: [],
     // 渐变背景索引
     hoverIndex: -1,
     // 渐变背景文字颜色

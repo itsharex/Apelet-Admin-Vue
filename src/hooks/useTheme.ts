@@ -77,18 +77,10 @@ export const useTheme = () => {
     // 重置渐变背景
     const resetThief = () => {};
 
-    // 设置主题背景
-    const setColorThief = (colors: string[] = []) => {
-        if (colors?.length === 0) {
-        }
-    };
-
     // 设置渐变背景
-    const setGradientColor = (color?: string) => {
-        if (layoutStore.layout === 'gradient') {
-            html.className = `layout-gradient-color`;
-        } else {
-            html.classList.remove('layout-gradient-color');
+    const setGradientColor = (color: string[] = []) => {
+        if (color.length === 0) {
+            color = defaultTheme.gradientBgColor;
         }
     };
 
@@ -96,7 +88,6 @@ export const useTheme = () => {
         // 初始化
         setMenuMode(layoutStore.menuMode);
         switchDark();
-        setColorThief(layoutStore.backgroundColor);
         layoutStore.grayMode && setGrayMode();
         layoutStore.weakness && setWeakNessMode();
     };
@@ -105,7 +96,6 @@ export const useTheme = () => {
         initTheme,
         switchDark,
         setThemeColor,
-        setColorThief,
         resetThief,
         setGrayMode,
         setWeakNessMode,
