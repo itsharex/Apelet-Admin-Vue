@@ -21,7 +21,7 @@ import { useMenu } from '@/hooks/useMenu';
 const route = useRoute();
 const appStore = useAppStore();
 const { horizontalMenu, initRoutes, currName } = useMenu();
-// 冒泡获取dataSet, 需要点击对于的DOM元素
+// 冒泡获取dataSet, 需要点击对应的DOM元素
 const changeMenu = (e: Event) => {
     let routeName = (e.target as HTMLElement).dataset.name as string;
     if (!routeName || route.name === routeName) return;
@@ -43,11 +43,11 @@ const changeMenu = (e: Event) => {
     padding: 10px;
     margin: 0 10px;
     font-size: 14px;
+    color: #ffffff;
     white-space: nowrap;
     cursor: pointer;
     &.active {
         position: relative;
-        color: var(--el-color-primary);
     }
     &.active::before {
         position: absolute;
@@ -56,7 +56,7 @@ const changeMenu = (e: Event) => {
         width: 100%;
         height: 2px;
         content: '';
-        background-color: var(--el-color-primary);
+        background-color: #ffffff;
     }
     &::after {
         position: absolute;
@@ -65,7 +65,7 @@ const changeMenu = (e: Event) => {
         width: 0;
         height: 2px;
         content: '';
-        background-color: var(--el-color-primary);
+        background-color: #ffffff;
         transition: all 0.3s ease;
     }
     &:hover::after {

@@ -4,7 +4,7 @@
         <div class="h-full">
             <el-scrollbar>
                 <!-- 解决子元素超出父元素高度问题 -->
-                <div class="p-4">
+                <div :class="['p-4', { 'py-0': isGradient }]">
                     <router-view>
                         <template #default="{ Component, route }">
                             <el-backtop title="回到顶部" />
@@ -25,6 +25,8 @@
 import { useLayoutStore, useAppStore } from '@/store';
 const layoutStore = useLayoutStore();
 const appStore = useAppStore();
+
+const isGradient = computed(() => layoutStore.layout === 'gradient');
 </script>
 
 <style scoped lang="scss"></style>

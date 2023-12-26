@@ -1,5 +1,5 @@
 <template>
-    <el-container class="h-full bg-[var(--el-color-primary-light-5)]" ref="containerRef">
+    <el-container class="h-full bg-gradient-to-b from-sky-500 via-sky-200 to-sky-100" ref="containerRef">
         <AppMask v-show="showAppMask" @click.prevent="closeAppMask" />
         <el-header class="flex justify-between !p-0 !bg-[transparent]">
             <Logo v-show="!appStore.isMobile" :style="{ width: asideMaxWidth }" />
@@ -10,7 +10,7 @@
         <el-container class="relative !h-[calc(100%-60px)]">
             <Aside :class="showPadding && '!ml-4 !my-4'" class="!border-none !b-rounded" />
             <el-container>
-                <MainApp class="!bg-[transparent] !shadow-none !b-rounded" />
+                <MainApp class="!bg-[transparent] !shadow-none !b-rounded !py-4" />
             </el-container>
         </el-container>
     </el-container>
