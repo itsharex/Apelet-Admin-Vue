@@ -78,16 +78,18 @@ export const useTheme = () => {
     const resetThief = () => {};
 
     // 设置渐变背景
-    const setGradientColor = (color: string[] = []) => {
-        if (color.length === 0) {
+    const setGradientColor = (color?: string) => {
+        if (!color) {
             color = defaultTheme.gradientBgColor;
         }
+        layoutStore.gradientBgColor = color;
     };
 
     const initTheme = () => {
         // 初始化
         setMenuMode(layoutStore.menuMode);
         switchDark();
+        setGradientColor(layoutStore.gradientBgColor);
         layoutStore.grayMode && setGrayMode();
         layoutStore.weakness && setWeakNessMode();
     };

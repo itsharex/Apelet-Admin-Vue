@@ -36,7 +36,7 @@ export interface GlobalState {
     isDark: boolean;
     themeColor: string;
     isResetGradient: boolean;
-    gradientBgColor: string[];
+    gradientBgColor: string;
     hoverIndex: number;
     gradientTextColor: string;
     tabsHidden: boolean;

@@ -40,6 +40,18 @@
                     @change="resetThief"
                 />
             </div>
+            <!-- 渐变颜色 -->
+            <div class="drawer-item">
+                <span>渐变颜色</span>
+                <el-select v-model="layoutStore.gradientBgColor" class="w-35" @change="setGradientColor">
+                    <el-option
+                        v-for="item in gradientBgColors"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                    />
+                </el-select>
+            </div>
             <el-divider> {{ $t('setting.interfaceSetting') }} </el-divider>
             <!-- 深色菜单栏 -->
             <div class="drawer-item">
@@ -128,7 +140,7 @@ import { Moon, Sunny } from '@element-plus/icons-vue';
 import mittBus from '@/utils/mittBus';
 import { useTheme } from '@/hooks/useTheme';
 import { useLayoutStore, useTabsStore, usePermissionStore } from '@/store';
-import { animateMode, tabsStyle, layoutMode } from '@/config/settings';
+import { animateMode, tabsStyle, layoutMode, gradientBgColors } from '@/config/settings';
 
 const layoutStore = useLayoutStore();
 const permissionStore = usePermissionStore();
@@ -136,7 +148,8 @@ const { handlePersistTabs } = useTabsStore();
 
 // 暗黑模式、主题
 let layoutDrawer = ref<boolean>(false);
-const { switchDark, setThemeColor, resetThief, setGrayMode, setWeakNessMode, setMenuMode } = useTheme();
+const { switchDark, setThemeColor, resetThief, setGrayMode, setWeakNessMode, setMenuMode, setGradientColor } =
+    useTheme();
 
 // 主题颜色
 const predefineColors = ref(['#ff4500', '#ff8c00', '#ffd700', '#90ee90', '#00ced1', '#1e90ff', '#c71585']);

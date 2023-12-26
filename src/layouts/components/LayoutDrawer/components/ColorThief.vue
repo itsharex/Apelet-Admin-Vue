@@ -10,14 +10,13 @@
                 }"
                 @mouseenter="handleMouseEnter(index)"
                 @mouseleave="handleMouseLeave"
-                @click="handleChange($event.target, index)"
+                @click="handleChange($event.target)"
             />
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { useTheme } from '@/hooks/useTheme';
 import { useLayoutStore } from '@/store';
 // 获取图片主色工具库
 import ColorThief from 'colorthief';
@@ -26,10 +25,8 @@ import img02 from '@/assets/images/gradient/2.jpg';
 import img03 from '@/assets/images/gradient/3.jpg';
 import img04 from '@/assets/images/gradient/4.jpg';
 
-const { setColorThief } = useTheme();
 const layoutStore = useLayoutStore();
 const currIndex = computed(() => layoutStore.hoverIndex);
-const { isResetGradient } = storeToRefs(layoutStore);
 
 const hoverIndex = ref<number>(-1);
 let images = ref<string[]>([img01, img02, img03, img04]);
@@ -38,13 +35,9 @@ const colorThief = new ColorThief();
 const handleMouseEnter = async (i: number) => {
     hoverIndex.value = i;
 };
-const handleChange = async (target: EventTarget | null, index: number) => {
+const handleChange = async (target: EventTarget | null) => {
     let colors = await colorThief.getPalette(target, 3);
     colors = colors.map((c: number[]) => `rgb(${c[0]},${c[1]},${c[2]})`);
-    if (!isResetGradient.value) return;
-    layoutStore.$patch({ backgroundColor: colors });
-    setColorThief(colors);
-    layoutStore.$patch({ hoverIndex: index });
 };
 const handleMouseLeave = () => {
     hoverIndex.value = -1;

@@ -80,3 +80,19 @@ export const tabsStyle = [
     { label: '灵动', value: 'nimble' },
     { label: '圆滑', value: 'smooth' }
 ];
+
+// 渐变背景
+export const gradientBgColors = [
+    {
+        label: '渐变蓝',
+        value: 'from-sky-500 via-sky-200 to-sky-100'
+    },
+    {
+        label: '渐变绿',
+        value: 'from-emerald-500 via-emerald-200 to-emerald-100'
+    },
+    {
+        label: '渐变青',
+        value: 'from-cyan-500 via-cyan-200 to-cyan-100'
+    }
+];
