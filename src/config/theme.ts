@@ -5,8 +5,7 @@ export const defaultTheme = {
      * hex ----> getThemeLightOrDarkHexColor
      * rgb ----> getThemeLightOrDarkRgbColor
      */
-    themeColor: '#1e90ff', // 根据自己需求写格式，需要更改useTheme 中的 方法
-    gradientBgColor: 'from-sky-500 via-sky-200 to-sky-100'
+    themeColor: '#1e90ff' // 根据自己需求写格式，需要更改useTheme 中的 方法
 };
 
 const themeConfig: GlobalState = {
