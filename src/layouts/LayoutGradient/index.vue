@@ -1,16 +1,16 @@
 <template>
     <el-container class="h-full layout-gradient" ref="containerRef">
         <AppMask v-show="showAppMask" @click.prevent="closeAppMask" />
-        <el-header class="flex flex-row justify-between !p-0 !bg-[transparent]">
-            <Logo v-show="!appStore.isMobile" :style="{ 'min-width': asideMaxWidth }" class="basis-1/6" />
+        <el-header class="flex flex-row justify-between !p-0 !bg-[transparent] !h-18">
+            <Logo v-show="!appStore.isMobile" :style="{ 'min-width': asideMaxWidth }" class="!h-18 basis-1/8" />
             <CollapseIcon v-show="appStore.isMobile" />
             <HorizontalMenu />
-            <ToolRight />
+            <ToolRight class="basis-1/8" />
         </el-header>
-        <el-container class="relative !h-[calc(100%-60px)]">
-            <Aside :class="showPadding && '!m-4 !mr-0'" class="!border-none !b-rounded" />
+        <el-container class="relative !h-[calc(100%-72px)]">
+            <Aside :class="showPadding && '!mb-4 !ml-4'" class="!border-none !b-rounded" />
             <el-container>
-                <MainApp class="!bg-[transparent] !shadow-none !b-rounded !py-4" />
+                <MainApp class="!bg-[transparent] !shadow-none !b-rounded !pb-4" />
             </el-container>
         </el-container>
     </el-container>
