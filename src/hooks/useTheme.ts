@@ -75,7 +75,9 @@ export const useTheme = () => {
     };
 
     // 重置渐变背景
-    const resetThief = () => {};
+    const resetThief = () => {
+        html.style.setProperty('--al-gradient-text-color', 'red');
+    };
 
     const initTheme = () => {
         // 初始化

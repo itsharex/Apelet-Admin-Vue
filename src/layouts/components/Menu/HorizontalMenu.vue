@@ -43,7 +43,7 @@ const changeMenu = (e: Event) => {
     padding: 10px;
     margin: 0 10px;
     font-size: 14px;
-    color: #ffffff;
+    color: var(--al-gradient-text-color);
     white-space: nowrap;
     cursor: pointer;
     &.active {
@@ -56,7 +56,7 @@ const changeMenu = (e: Event) => {
         width: 100%;
         height: 2px;
         content: '';
-        background-color: #ffffff;
+        background-color: var(--al-gradient-text-color);
     }
     &::after {
         position: absolute;
@@ -65,7 +65,7 @@ const changeMenu = (e: Event) => {
         width: 0;
         height: 2px;
         content: '';
-        background-color: #ffffff;
+        background-color: var(--al-gradient-text-color);
         transition: all 0.3s ease;
     }
     &:hover::after {
