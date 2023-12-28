@@ -1,11 +1,11 @@
 <template>
     <component :is="layoutComponent[layout]" />
     <!-- 布局设置 -->
-    <layout-drawer />
+    <app-setting />
 </template>
 
 <script setup lang="ts" name="Layout">
-import LayoutDrawer from './components/LayoutDrawer/index.vue';
+import AppSetting from './components/AppSetting/index.vue';
 import LayoutVertical from './LayoutVertical/index.vue';
 import LayoutBasic from './LayoutBasic/index.vue';
 import LayoutHorizontal from './LayoutHorizontal/index.vue';

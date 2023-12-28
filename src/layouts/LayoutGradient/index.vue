@@ -1,8 +1,8 @@
 <template>
     <el-container class="h-full layout-gradient" ref="containerRef">
         <AppMask v-show="showAppMask" @click.prevent="closeAppMask" />
-        <el-header class="flex justify-between !p-0 !bg-[transparent]">
-            <Logo v-show="!appStore.isMobile" :style="{ width: asideMaxWidth }" />
+        <el-header class="flex flex-row justify-between !p-0 !bg-[transparent]">
+            <Logo v-show="!appStore.isMobile" :style="{ 'min-width': asideMaxWidth }" class="basis-1/6" />
             <CollapseIcon v-show="appStore.isMobile" />
             <HorizontalMenu />
             <ToolRight />

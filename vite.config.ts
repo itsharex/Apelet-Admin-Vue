@@ -35,6 +35,8 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
         },
         // command === 'serve' 表示serve独有配置     command === 'build' 表示 build 独有配置
         plugins: createVitePlugins(env, command === 'build'),
-        server: {}
+        server: {
+            port: 80
+        }
     };
 });

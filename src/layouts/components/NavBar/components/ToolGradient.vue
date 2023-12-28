@@ -1,33 +1,33 @@
 <template>
-    <div>
-        <div class="item btn">
-            <span>数据大屏</span>
-        </div>
-        <div class="item">
-            <el-icon><BellFilled /></el-icon>
-            <span>待办消息</span>
-        </div>
-        <div class="item">
-            <el-icon><UserFilled /></el-icon>
-            <span>系统管理员</span>
-        </div>
-        <div class="item">
-            <el-icon><SwitchButton /></el-icon>
-            <span>退出</span>
-        </div>
-        <div class="item" @click="openSetting">
-            <el-icon><Tools /></el-icon>
-            <span>设置</span>
-        </div>
+    <div class="w-20 px-2 py-1 cursor-pointer b-1 b-[var(--al-gradient-text-color)]">
+        <span class="text-[var(--al-gradient-text-color)]">数据大屏</span>
+    </div>
+    <div class="w-30 flex-center cursor-pointer" v-for="(item, index) in toolList" :key="index">
+        <el-icon color="var(--al-gradient-text-color)">
+            <component :is="item.icon" />
+        </el-icon>
+        <span class="text-[var(--al-gradient-text-color)] pl-1">{{ item.name }}</span>
     </div>
 </template>
 
 <script setup lang="ts">
-import mittBus from '@/utils/mittBus';
-
-const openSetting = () => {
-    mittBus.emit('openLayoutDrawer');
-};
+const toolList = reactive([
+    {
+        icon: 'BellFilled',
+        name: '待办消息',
+        handle: () => {}
+    },
+    {
+        icon: 'UserFilled',
+        name: '系统管理员',
+        handle: () => {}
+    },
+    {
+        icon: 'SwitchButton',
+        name: '退出',
+        handle: () => {}
+    }
+]);
 </script>
 
 <style scoped lang="scss"></style>

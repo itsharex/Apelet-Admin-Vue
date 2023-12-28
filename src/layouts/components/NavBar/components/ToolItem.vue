@@ -12,8 +12,6 @@
     <FullScreen />
     <!-- 用户信息 -->
     <ClassicUser />
-    <!-- 布局设置 -->
-    <SystemSetting />
 </template>
 
 <script setup lang="ts">
@@ -23,7 +21,6 @@ import SystemMessage from './SystemMessage.vue';
 import Language from './Language.vue';
 import Search from './Search.vue';
 import FullScreen from './FullScreen.vue';
-import SystemSetting from './SystemSetting.vue';
 </script>
 
 <style scoped lang="scss"></style>

@@ -34,13 +34,3 @@
 .mask-image-left {
     @extend %mask-image;
 }
-
-// title前的伪类
-.title-before::before {
-    position: absolute;
-    left: 0;
-    width: 3px;
-    height: calc(100%);
-    content: '';
-    background-color: var(--el-color-primary);
-}

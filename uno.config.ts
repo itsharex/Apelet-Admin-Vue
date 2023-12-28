@@ -1,5 +1,6 @@
 import { defineConfig } from '@unocss/vite';
 import presetUno from '@unocss/preset-uno';
+import presetRemToPx from '@unocss/preset-rem-to-px';
 import transformerDirectives from '@unocss/transformer-directives';
 
 export default defineConfig({
@@ -9,7 +10,7 @@ export default defineConfig({
         }
     },
     // css预设
-    presets: [presetUno({ dark: 'class' })],
+    presets: [presetUno({ dark: 'class' }), presetRemToPx()],
     // unoCss 转换器
     transformers: [transformerDirectives()],
     // 自定义预设别名
