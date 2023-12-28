@@ -1,5 +1,5 @@
 <template>
-    <el-container class="h-full bg-gradient-to-b from-sky-500 via-sky-200 to-sky-100" ref="containerRef">
+    <el-container class="h-full layout-gradient" ref="containerRef">
         <AppMask v-show="showAppMask" @click.prevent="closeAppMask" />
         <el-header class="flex justify-between !p-0 !bg-[transparent]">
             <Logo v-show="!appStore.isMobile" :style="{ width: asideMaxWidth }" />

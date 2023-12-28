@@ -27,6 +27,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
                     // elementPlus 主题配置 @use "@/assets/styles/elementPlus/index.scss" as *;
                     additionalData: `
                         @use "~/assets/styles/element/element-plus.scss" as *;
+						@use "@/assets/styles/variable.scss" as *;
                         @use "~/assets/styles/mixins.scss" as *;
                     `
                 }
