@@ -1,13 +1,8 @@
 <template>
-    <div class="w-25 text-center px-1 py-0.5 cursor-pointer b-1 b-[var(--al-gradient-text-color)]">
+    <div class="text-center px-1 py-0.5 cursor-pointer b-1 b-[var(--al-gradient-text-color)]">
         <span class="text-[var(--al-gradient-text-color)]">数据大屏</span>
     </div>
-    <div
-        class="text-center flex-center cursor-pointer"
-        v-for="(item, index) in toolList"
-        :key="index"
-        :class="item.width"
-    >
+    <div class="text-center flex-center cursor-pointer" v-for="(item, index) in toolList" :key="index">
         <el-icon color="var(--al-gradient-text-color)" size="16">
             <component :is="item.icon" />
         </el-icon>
