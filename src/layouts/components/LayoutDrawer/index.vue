@@ -31,7 +31,7 @@
         </div>
         <!-- 渐变功能 -->
         <div class="drawer-item">
-            <span>渐变功能</span>
+            <span>渐变背景</span>
             <el-switch
                 v-model="layoutStore.isResetGradient"
                 :disabled="!isGradient"
@@ -39,18 +39,10 @@
                 @change="resetThief"
             />
         </div>
-        <!-- 渐变颜色 -->
-        <!-- <div class="drawer-item">
-                <span>渐变颜色</span>
-                <el-select v-model="layoutStore.gradientBgColor" class="w-35" @change="setGradientColor">
-                    <el-option
-                        v-for="item in gradientBgColors"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value"
-                    />
-                </el-select>
-            </div> -->
+        <!-- 渐变文字 -->
+        <div class="drawer-item">
+            <span>渐变文字</span>
+        </div>
         <el-divider> {{ $t('setting.interfaceSetting') }} </el-divider>
         <!-- 深色菜单栏 -->
         <div class="drawer-item">

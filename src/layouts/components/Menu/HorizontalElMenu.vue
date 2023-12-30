@@ -1,5 +1,5 @@
 <template>
-    <horizontal-scroll v-show="isMobile">
+    <horizontal-scroll v-show="!appStore.isMobile">
         <el-menu
             class="horizontal-menu !border-0 !w-full !h-full"
             :default-active="activeMenu"
@@ -24,7 +24,6 @@ const permissionStore = usePermissionStore();
 const appStore = useAppStore();
 const route = useRoute();
 
-const isMobile = computed(() => !appStore.isMobile);
 const menuUnique = computed(() => layoutStore.menuUnique);
 //菜单模式
 const menuList = computed<Menu.SubMenuOptions[]>(() => permissionStore.asideBarRoutes);
