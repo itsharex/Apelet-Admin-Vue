@@ -3,7 +3,7 @@
         <AppMask v-show="showAppMask" @click.prevent="closeAppMask" />
         <el-header class="flex flex-row justify-between !p-0 !bg-[transparent] !h-18">
             <el-container>
-                <Logo v-show="!appStore.isMobile" :style="{ 'min-width': asideMaxWidth }" class="!h-18 basis-2/12" />
+                <Logo v-show="!appStore.isMobile" class="!h-18 !w-fit !px-10" />
                 <CollapseIcon v-show="appStore.isMobile" />
                 <HorizontalMenu />
             </el-container>
@@ -25,14 +25,12 @@ import ToolRight from '../components/NavBar/ToolRight.vue';
 import { MainApp, AppMask, Aside, Logo } from '../components';
 import { useAppStore } from '@/store';
 import { deviceDetection } from '../helpers/deviceDetection';
-import { settingConfig } from '@/config/settings';
 
 const appStore = useAppStore();
 const containerRef = ref<HTMLElement | null>(null);
 const showAppMask = computed(() => appStore.isMobile && !appStore.isCollapse);
 const showPadding = computed(() => !appStore.isMobile && !appStore.isCollapse);
 const closeAppMask = () => appStore.$patch({ isCollapse: true });
-const { asideMaxWidth } = settingConfig;
 
 deviceDetection(containerRef);
 </script>

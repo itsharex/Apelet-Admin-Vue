@@ -42,6 +42,11 @@ export default {
         serviceMonitor: '服务监控',
         404: '404'
     },
+    tools: {
+        dataScreen: '数据大屏',
+        todoMessage: '待办消息',
+        admin: '系统管理员'
+    },
     login: {
         login: '登 录',
         personal: '个人中心',

@@ -44,10 +44,15 @@ export default {
         serviceMonitor: 'ServiceMonitor',
         404: '404'
     },
+    tools: {
+        dataScreen: 'Data Screen',
+        todoMessage: 'Todo Message',
+        admin: 'Admin'
+    },
     login: {
         login: 'Sign in',
         personal: 'Personal Center',
-        loginOut: 'LoginOut',
+        loginOut: 'Login Out',
         remember: 'Remember Password',
         forgetPassword: 'Forget password?',
         usernamePlaceholder: 'Please input your username',
