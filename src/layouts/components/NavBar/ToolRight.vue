@@ -1,7 +1,5 @@
 <template>
-    <div class="flex-y-center h-full">
-        <component :is="dynamicTool[dynamic]"></component>
-    </div>
+    <component :is="dynamicTool[dynamic]"></component>
 </template>
 
 <script setup lang="ts">

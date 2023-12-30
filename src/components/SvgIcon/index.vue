@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts" name="SvgIcon">
-// 用来辅助无障碍访问的，表明这个svg图标对屏幕阅读器是不可见的
+// aria-hidden 用来辅助无障碍访问的，表明这个svg图标对屏幕阅读器是不可见的
 const props = defineProps({
     //xlink:href属性值的前缀
     prefix: {

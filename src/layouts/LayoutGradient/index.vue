@@ -2,10 +2,12 @@
     <el-container class="h-full layout-gradient" ref="containerRef">
         <AppMask v-show="showAppMask" @click.prevent="closeAppMask" />
         <el-header class="flex flex-row justify-between !p-0 !bg-[transparent] !h-18">
-            <Logo v-show="!appStore.isMobile" :style="{ 'min-width': asideMaxWidth }" class="!h-18 basis-1/8" />
-            <CollapseIcon v-show="appStore.isMobile" />
-            <HorizontalMenu />
-            <ToolRight class="basis-1/8" />
+            <el-container>
+                <Logo v-show="!appStore.isMobile" :style="{ 'min-width': asideMaxWidth }" class="!h-18 basis-2/12" />
+                <CollapseIcon v-show="appStore.isMobile" />
+                <HorizontalMenu />
+            </el-container>
+            <ToolRight />
         </el-header>
         <el-container class="relative !h-[calc(100%-72px)]">
             <Aside :class="showPadding && '!mb-4 !ml-4'" class="!border-none !b-rounded" />

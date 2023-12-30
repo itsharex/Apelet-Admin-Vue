@@ -18,7 +18,7 @@ const appStore = useAppStore();
 
 const displayTitle = computed(() => layoutStore.layout === 'vertical' && appStore.isCollapse);
 const displayIcon = computed(() => layoutStore.layout !== 'lattice' || appStore.isMobile);
-const isGradient = computed(() => layoutStore.layout === 'gradient');
+const isGradient = computed(() => layoutStore.layout === 'gradient' && !appStore.isMobile);
 const logoColor = computed(() => (isGradient.value ? 'var(--al-gradient-text-color)' : 'var(--el-color-primary)'));
 </script>
 

@@ -1,12 +1,19 @@
 <template>
-    <div class="flex-center h-14 p-10px cursor-pointer hover:bg-fill" @click="triggerCollapse">
-        <svg-icon :name="appStore.isCollapse ? 'align-right' : 'align-left'" width="20" height="20" />
+    <div
+        :class="['flex-center h-18 p-2.5 cursor-pointer', !isGradient && '!h-14 hover:bg-fill']"
+        @click="triggerCollapse"
+    >
+        <Icon :name="alignArrow" size="20" :color="alignArrowColor" />
     </div>
 </template>
 
 <script setup lang="ts">
-import { useAppStore } from '@/store';
+import { useAppStore, useLayoutStore } from '@/store';
 const appStore = useAppStore();
+const layoutStore = useLayoutStore();
+const isGradient = computed(() => layoutStore.layout === 'gradient');
+const alignArrowColor = computed(() => (isGradient.value ? 'var(--al-gradient-text-color)' : ''));
+const alignArrow = computed(() => (appStore.isCollapse ? 'local-icon-align-right' : 'local-icon-align-left'));
 const triggerCollapse = () => {
     appStore.$patch({ isCollapse: !appStore.isCollapse });
 };
