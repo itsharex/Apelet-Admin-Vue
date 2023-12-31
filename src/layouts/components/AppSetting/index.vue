@@ -23,6 +23,10 @@
                     <FullScreen />
                 </div>
             </el-popover>
+            <div class="mt-2 p-2 bg-[var(--el-color-error-light-9)] b-rounded flex-col-center" @click="clearCache">
+                <Icon name="el-icon-setting" size="16" color="var(--el-color-error)" />
+                <span class="text-error text-3">清除缓存</span>
+            </div>
         </el-card>
     </div>
     <el-drawer
@@ -47,6 +51,11 @@ import LayoutDrawer from '@/layouts/components/LayoutDrawer/index.vue';
 const settingVisible = ref<boolean>(false);
 // 生产模式不需要可自行修改
 const isShow = import.meta.env.DEV || import.meta.env.VITE_APP_SETTING === 'Y';
+
+const clearCache = () => {
+    localStorage.clear();
+    window.location.reload();
+};
 </script>
 
 <style lang="scss" scoped></style>

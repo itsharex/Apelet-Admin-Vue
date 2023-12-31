@@ -29,19 +29,15 @@
                 @change="switchDark"
             />
         </div>
-        <!-- 渐变功能 -->
-        <div class="drawer-item">
-            <span>渐变背景</span>
-            <el-switch
-                v-model="layoutStore.isResetGradient"
-                :disabled="!isGradient"
-                inline-prompt
-                @change="resetThief"
-            />
-        </div>
         <!-- 渐变文字 -->
         <div class="drawer-item">
-            <span>渐变文字</span>
+            <span>{{ $t('setting.gradientText') }}</span>
+            <el-color-picker
+                v-model="layoutStore.gradientTextColor"
+                color-format="hex"
+                :predefine="predefineGradientColors"
+                @change="setGradientTextColor"
+            />
         </div>
         <el-divider> {{ $t('setting.interfaceSetting') }} </el-divider>
         <!-- 深色菜单栏 -->
@@ -130,10 +126,13 @@ const layoutStore = useLayoutStore();
 const permissionStore = usePermissionStore();
 const { handlePersistTabs } = useTabsStore();
 
-const { switchDark, setThemeColor, resetThief, setGrayMode, setWeakNessMode, setMenuMode } = useTheme();
+const { switchDark, setThemeColor, setGrayMode, setWeakNessMode, setMenuMode, setGradientTextColor } = useTheme();
 
 // 主题颜色
 const predefineColors = ref(['#ff4500', '#ff8c00', '#ffd700', '#90ee90', '#00ced1', '#1e90ff', '#c71585']);
+
+// 渐变文字颜色
+const predefineGradientColors = ref(['#ff4500', '#ffffff', '#ffd700', '#c71585']);
 
 // 是否是渐变布局
 const isGradient = computed(() => layoutStore.layout === 'gradient');

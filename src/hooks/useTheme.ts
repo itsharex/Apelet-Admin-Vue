@@ -17,6 +17,7 @@ export const useTheme = () => {
             html.classList.remove('dark');
         }
         setThemeColor(layoutStore.themeColor);
+        setGradientTextColor(layoutStore.gradientTextColor);
     };
 
     // 设置菜单栏深色模式
@@ -74,9 +75,13 @@ export const useTheme = () => {
         html.classList.toggle('html-weakness');
     };
 
-    // 重置渐变背景
-    const resetThief = () => {
-        html.style.setProperty('--al-gradient-text-color', 'red');
+    // 设置渐变文字颜色
+    const setGradientTextColor = (color: string | null) => {
+        if (!color) {
+            color = defaultTheme.gradientTextColor;
+        }
+        html.style.setProperty('--al-gradient-text-color', color);
+        layoutStore.$patch({ gradientTextColor: color });
     };
 
     const initTheme = () => {
@@ -91,9 +96,9 @@ export const useTheme = () => {
         initTheme,
         switchDark,
         setThemeColor,
-        resetThief,
         setGrayMode,
         setWeakNessMode,
-        setMenuMode
+        setMenuMode,
+        setGradientTextColor
     };
 };
