@@ -12,6 +12,7 @@ export default {
         themeSetting: 'Theme',
         themeColor: 'Theme color',
         darkTheme: 'Dark theme',
+        gradientText: 'Gradient Text',
         interfaceSetting: 'Interface',
         menuMode: 'Menu Mode',
         menuUnique: 'Menu Unique',
