@@ -1,7 +1,7 @@
 import { LoginForm } from '@/api/system/user/interface';
 import { getCookie, removeCookie, setCookie } from '@/utils/cookie';
 import { rsaEncrypt, rsaDecrypt } from '@/utils/encrypt';
-import { FormInstance, FormRules } from 'element-plus';
+import { ElNotification, FormInstance, FormRules } from 'element-plus';
 import { useI18n } from 'vue-i18n';
 import { useUserStore } from '@/store';
 import { useRouter, useRoute } from 'vue-router';

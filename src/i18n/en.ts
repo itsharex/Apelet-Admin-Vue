@@ -34,6 +34,7 @@ export default {
         homepage: 'HomePage',
         workbench: 'WorkBench',
         dashboard: 'DashBoard',
+        analysis: 'Analysis',
         internal: 'Internal',
         login: 'Login',
         system: 'System Manage',

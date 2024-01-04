@@ -11,23 +11,43 @@ export const constantRoutes: Array<RouteRecordRaw> = [
             {
                 path: 'index',
                 name: 'Index',
-                component: () => import('@/views/home/workbench/index.vue'),
+                component: () => import('@/views/home/index.vue'),
                 meta: {
                     icon: 'HomeFilled',
                     hidden: false,
-                    title: 'workbench',
+                    title: 'homepage',
+                    isCache: true,
+                    isFixed: true
+                }
+            }
+        ]
+    },
+    {
+        path: '/workbench',
+        name: 'Workbench',
+        redirect: '/index',
+        component: Layout,
+        children: [
+            {
+                path: 'dashboard',
+                name: 'DashBoard',
+                component: () => import('@/views/workbench/dashboard/index.vue'),
+                meta: {
+                    icon: 'HomeFilled',
+                    hidden: false,
+                    title: 'dashboard',
                     isCache: true,
                     isFixed: true
                 }
             },
             {
-                path: 'dashboard',
-                name: 'DashBoard',
-                component: () => import('@/views/home/dashboard/index.vue'),
+                path: 'analysis',
+                name: 'Analysis',
+                component: () => import('@/views/workbench/analysis/index.vue'),
                 meta: {
                     icon: 'HomeFilled',
                     hidden: false,
-                    title: 'dashboard',
+                    title: 'analysis',
                     isCache: true
                 }
             }
@@ -35,7 +55,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
         meta: {
             icon: 'HomeFilled',
             hidden: false,
-            title: 'homepage'
+            title: 'workbench'
         }
     },
     {
@@ -47,7 +67,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
             {
                 path: 'internal',
                 name: 'Internal',
-                component: () => import('@/views/home/workbench/index.vue'),
+                component: () => import('@/views/home/index.vue'),
                 meta: {
                     icon: 'HomeFilled',
                     hidden: false,

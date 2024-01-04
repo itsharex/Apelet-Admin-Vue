@@ -31,7 +31,8 @@ export default {
     menus: {
         homepage: '首页',
         workbench: '工作台',
-        dashboard: '分析页',
+        dashboard: '仪表盘',
+        analysis: '分析页',
         internal: '字典管理',
         login: '登录',
         system: '系统管理',
