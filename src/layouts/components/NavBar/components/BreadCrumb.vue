@@ -33,7 +33,7 @@ let breadcrumbsMenu = ref<RouteLocationMatched[]>([]);
 const handleBreadCrumb = () => {
     let matched = route.matched.filter(item => item.meta?.title && item.name);
     // 添加首页面包屑
-    if (matched[0].name !== 'Index') {
+    if (matched[0].name !== 'HomePage') {
         matched = [{ path: '/', meta: { title: 'homepage', icon: 'HomeFilled' } } as RouteLocationMatched, ...matched];
     }
     breadcrumbsMenu.value = matched;

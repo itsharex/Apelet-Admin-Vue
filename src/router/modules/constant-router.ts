@@ -4,13 +4,12 @@ import Layout from '@/layouts/index.vue';
 export const constantRoutes: Array<RouteRecordRaw> = [
     {
         path: '/',
-        name: 'Layout',
         redirect: '/index',
         component: Layout,
         children: [
             {
                 path: 'index',
-                name: 'Index',
+                name: 'HomePage',
                 component: () => import('@/views/home/index.vue'),
                 meta: {
                     icon: 'HomeFilled',
@@ -24,8 +23,8 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     },
     {
         path: '/workbench',
-        name: 'Workbench',
-        redirect: '/index',
+        name: 'WorkBench',
+        redirect: '/workbench/dashboard',
         component: Layout,
         children: [
             {
@@ -33,7 +32,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
                 name: 'DashBoard',
                 component: () => import('@/views/workbench/dashboard/index.vue'),
                 meta: {
-                    icon: 'HomeFilled',
+                    icon: 'Odometer',
                     hidden: false,
                     title: 'dashboard',
                     isCache: true,
@@ -45,7 +44,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
                 name: 'Analysis',
                 component: () => import('@/views/workbench/analysis/index.vue'),
                 meta: {
-                    icon: 'HomeFilled',
+                    icon: 'PieChart',
                     hidden: false,
                     title: 'analysis',
                     isCache: true
@@ -53,7 +52,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
             }
         ],
         meta: {
-            icon: 'HomeFilled',
+            icon: 'Platform',
             hidden: false,
             title: 'workbench'
         }
