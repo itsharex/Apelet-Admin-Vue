@@ -107,7 +107,7 @@
                                     <div
                                         v-for="(item, index) in messageList"
                                         :key="index"
-                                        class="flex w-full p-3 flex-nowrapitems-center"
+                                        class="flex w-full p-3 flex-nowrap items-center"
                                     >
                                         <span :class="echoDictColor(messageType, item.type)" class="flex-none">{{
                                             echoDictLabel(messageType, item.type)

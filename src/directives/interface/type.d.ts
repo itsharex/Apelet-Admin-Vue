@@ -4,7 +4,6 @@ import type { Directive } from 'vue';
 export interface Directives {
     vHasPerms: Directive;
     vHasRoles: Directive;
-    vRightMenu: Directive<any, MenuOptions[]>;
 }
 export type Keys = keyof Directives;
 

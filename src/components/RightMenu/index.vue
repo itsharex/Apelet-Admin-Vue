@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts" name="RightMenu">
-import { MenuOptions } from '@/directives/interface';
+import { MenuOptions } from '@/hooks/interface';
 import { PropType } from 'vue';
 export default defineComponent({
     name: 'RightMenu',

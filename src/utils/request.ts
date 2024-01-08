@@ -1,4 +1,5 @@
 import axios, { AxiosResponse, AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
+import { useUserStore } from '@/store';
 
 // 自定义请求接口headers头参数类型
 type RequestHeader = AxiosRequestHeaders & { token?: string };
@@ -12,8 +13,6 @@ interface RequestInterceptorsConfig extends RequestConfig {
     // 请求拦截器使用
     headers: RequestHeader;
 }
-
-import { useUserStore } from '@/store';
 
 const service = axios.create({
     baseURL: import.meta.env.VITE_APP_BASE_API,
