@@ -1,7 +1,7 @@
 import router from '@/router';
 import { NavigationGuardNext, RouteLocationNormalized, RouteRecordRaw } from 'vue-router';
 import { start, done } from '@/config/nprogress';
-// 这里小仓库在大仓库外面，无法获取，需要有大仓库
+// 单独导入，如果小仓库在大仓库外面，无法获取，需要有大仓库
 import { useUserStore, usePermissionStore } from '@/store';
 import { settingConfig } from '@/config/settings';
 
@@ -16,9 +16,9 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
     if (to.meta.title) {
         document.title = title + '-' + to.meta.title;
     }
-    if (userStore.token == '') {
-        userStore.token = '123456';
-    }
+    // if (userStore.token == '') {
+    //     userStore.token = '123456';
+    // }
     start();
     if (userStore.token) {
         if (to.path === '/login') {

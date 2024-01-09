@@ -25,6 +25,16 @@
                         :placeholder="$t(`login.passwordPlaceholder`)"
                     />
                 </el-form-item>
+                <el-form-item prop="verifyCode">
+                    <mi-captcha
+                        ref="captcha"
+                        theme-color="var(--el-color-primary)"
+                        border-color="var(--el-color-primary)"
+                        box-shadow-color="var(--el-color-primary)"
+                        bg-color="transparent"
+                        text-color="var(--el-text-color-regular)"
+                    />
+                </el-form-item>
                 <el-form-item>
                     <div class="w-full flex-between">
                         <el-checkbox v-model:model-value="rememberPassword" class="<sm:text-sm">

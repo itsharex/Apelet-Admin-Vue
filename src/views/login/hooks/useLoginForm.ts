@@ -18,7 +18,8 @@ export const useLoginForm = () => {
     });
     const loginForm = reactive<LoginForm>({
         username: 'admin',
-        password: '123456'
+        password: '123456',
+        verifyCode: ''
     });
 
     let rememberPassword = ref(false);

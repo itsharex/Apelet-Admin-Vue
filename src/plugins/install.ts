@@ -4,11 +4,14 @@ import { App } from 'vue';
 import directives from '@/directives';
 // 全局组件
 import components from '@/components/index';
+// 验证码
+import MakeitCaptcha from 'makeit-captcha';
 // 粒子动画
 import Particles from 'particles.vue3';
 
 export const initInstall = (app: App) => {
     app.use(components);
+    app.use(MakeitCaptcha);
     app.use(directives);
     app.use(Particles);
 };
