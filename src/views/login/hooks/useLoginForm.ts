@@ -1,10 +1,11 @@
-import { LoginForm } from '@/api/system/user/interface';
+import { LoginForm } from '@/api/system/interface/interface';
 import { getCookie, removeCookie, setCookie } from '@/utils/cookie';
 import { rsaEncrypt, rsaDecrypt } from '@/utils/encrypt';
 import { ElNotification, FormInstance, FormRules } from 'element-plus';
 import { useI18n } from 'vue-i18n';
 import { useUserStore } from '@/store';
 import { useRouter, useRoute } from 'vue-router';
+import { getCaptchaImage } from '@/api/system/user';
 
 export const useLoginForm = () => {
     const { t } = useI18n();
@@ -19,10 +20,16 @@ export const useLoginForm = () => {
     const loginForm = reactive<LoginForm>({
         username: 'admin',
         password: '123456',
-        verifyCode: ''
+        verifyCode: '',
+        captchaCodeKey: ''
     });
 
+    // 记住密码
     let rememberPassword = ref(false);
+    // 验证码开关
+    let captchaEnabled = ref(false);
+    // 验证码base64图片
+    let captchaUrl = ref<string>('');
 
     const submitForm = async (formEl: FormInstance | undefined) => {
         if (!formEl) return;
@@ -67,8 +74,19 @@ export const useLoginForm = () => {
         if (username) rememberPassword.value = !!remember;
     };
 
+    // 获取验证码
+    const getCaptchaCode = async () => {
+        let res = await getCaptchaImage();
+        captchaEnabled.value = res.data.isCaptchaOn;
+        if (captchaEnabled.value) {
+            captchaUrl.value = 'data:image/gif;base64,' + res.data.captchaCodeImg;
+            loginForm.captchaCodeKey = res.data.captchaCodeKey;
+        }
+    };
+
     onMounted(() => {
         readCookie();
+        getCaptchaCode();
     });
 
     return {
@@ -76,6 +94,9 @@ export const useLoginForm = () => {
         rules,
         loginForm,
         rememberPassword,
-        submitForm
+        captchaEnabled,
+        captchaUrl,
+        submitForm,
+        getCaptchaCode
     };
 };

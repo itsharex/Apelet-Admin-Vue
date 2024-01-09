@@ -1,4 +1,4 @@
-import { UserInfoOption } from '@/api/system/user/interface';
+import { UserInfoOption } from '@/api/system/interface/interface';
 
 export interface TabsMenuState {
     icon: string;

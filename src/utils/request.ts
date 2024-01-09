@@ -1,5 +1,6 @@
 import axios, { AxiosResponse, AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
 import { useUserStore } from '@/store';
+import { ElNotification } from 'element-plus';
 
 // 自定义请求接口headers头参数类型
 type RequestHeader = AxiosRequestHeaders & { token?: string };
@@ -29,7 +30,16 @@ service.interceptors.request.use((config: RequestInterceptorsConfig) => {
 
 service.interceptors.response.use(
     (response: AxiosResponse) => {
-        return response.data;
+        // 设置默认状态码
+        const code = response.data.code || 200;
+        // 获取错误信息
+        const msg = response.data.msg;
+        if (code !== 200) {
+            ElNotification.error({ title: msg });
+            return Promise.reject('error');
+        } else {
+            return Promise.resolve(response);
+        }
     },
     (err: AxiosResponse) => {
         return Promise.reject(err);

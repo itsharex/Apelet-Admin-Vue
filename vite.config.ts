@@ -35,6 +35,17 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
         },
         // command === 'serve' 表示serve独有配置     command === 'build' 表示 build 独有配置
         plugins: createVitePlugins(env, command === 'build'),
-        server: {}
+        server: {
+            port: 80,
+            host: '0.0.0.0',
+            open: false,
+            proxy: {
+                '/dev-api': {
+                    target: 'http://localhost:8080',
+                    changeOrigin: true,
+                    rewrite: api => api.replace(/^\/dev-api/, '')
+                }
+            }
+        }
     };
 });

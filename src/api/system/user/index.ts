@@ -1,5 +1,5 @@
 import request from '@/utils/request';
-import { LoginForm, LoginResponseType } from './interface';
+import { LoginForm, LoginResponseType, CaptchaOption } from '../interface/interface';
 
 /**
  * 登录
@@ -11,5 +11,16 @@ export const login = (data: LoginForm) => {
         url: '/login',
         method: 'POST',
         data
+    });
+};
+
+/**
+ * 获取验证码
+ * @returns
+ */
+export const getCaptchaImage = () => {
+    return request<CaptchaOption>({
+        url: '/captchaImage',
+        method: 'get'
     });
 };

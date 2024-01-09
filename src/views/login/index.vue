@@ -15,6 +15,7 @@
                         v-model="loginForm.username"
                         size="large"
                         :placeholder="$t(`login.usernamePlaceholder`)"
+                        :suffix-icon="User"
                     />
                 </el-form-item>
                 <el-form-item prop="password">
@@ -25,15 +26,26 @@
                         :placeholder="$t(`login.passwordPlaceholder`)"
                     />
                 </el-form-item>
-                <el-form-item prop="verifyCode">
-                    <mi-captcha
+                <el-form-item prop="verifyCode" v-if="captchaEnabled">
+                    <!-- <mi-captcha
                         ref="captcha"
                         theme-color="var(--el-color-primary)"
                         border-color="var(--el-color-primary)"
                         box-shadow-color="var(--el-color-primary)"
                         bg-color="transparent"
                         text-color="var(--el-text-color-regular)"
-                    />
+                    /> -->
+                    <el-input
+                        v-model="loginForm.verifyCode"
+                        size="large"
+                        class="!w-60"
+                        :placeholder="$t(`login.verifyCodePlaceholder`)"
+                    >
+                        <template #suffix>
+                            <Icon name="local-icon-verifyCode" size="14" />
+                        </template>
+                    </el-input>
+                    <img :src="captchaUrl" @click="getCaptchaCode" class="w-28 b-rounded ml-2" />
                 </el-form-item>
                 <el-form-item>
                     <div class="w-full flex-between">
@@ -57,13 +69,15 @@
 
 <script setup lang="ts" name="Login">
 import TopNav from './components/TopNav.vue';
+import { User } from '@element-plus/icons-vue';
 import { particles } from './helpers/particlesConfig';
 import { useParticles } from './hooks/useParticles';
 import { useLoginForm } from './hooks/useLoginForm';
 
 const { options } = toRefs(particles);
 const { particlesInit, particlesLoaded } = useParticles();
-const { ruleFormRef, rules, loginForm, rememberPassword, submitForm } = useLoginForm();
+const { ruleFormRef, rules, loginForm, rememberPassword, captchaEnabled, captchaUrl, submitForm, getCaptchaCode } =
+    useLoginForm();
 </script>
 
 <style scoped lang="scss">
