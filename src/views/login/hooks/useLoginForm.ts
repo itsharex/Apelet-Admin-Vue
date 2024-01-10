@@ -1,11 +1,11 @@
-import { LoginForm } from '@/api/system/interface/interface';
+import { LoginForm } from '@/api/interface/login';
 import { getCookie, removeCookie, setCookie } from '@/utils/cookie';
 import { rsaEncrypt, rsaDecrypt } from '@/utils/encrypt';
 import { ElNotification, FormInstance, FormRules } from 'element-plus';
 import { useI18n } from 'vue-i18n';
 import { useUserStore } from '@/store';
 import { useRouter, useRoute } from 'vue-router';
-import { getCaptchaImage } from '@/api/system/user';
+import { getCaptchaImage } from '@/api/modules/login';
 
 export const useLoginForm = () => {
     const { t } = useI18n();
@@ -33,7 +33,7 @@ export const useLoginForm = () => {
 
     const submitForm = async (formEl: FormInstance | undefined) => {
         if (!formEl) return;
-        await formEl.validate(async (valid, fields) => {
+        await formEl.validate(async valid => {
             if (valid) {
                 await userStore.loginAction(loginForm);
                 rememberPass();
@@ -45,7 +45,7 @@ export const useLoginForm = () => {
                     message: `欢迎回来，${userStore.userInfo.username}`
                 });
             } else {
-                console.log('error submit!');
+                throw new Error('校验失败');
             }
         });
     };

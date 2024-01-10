@@ -16,9 +16,6 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
     if (to.meta.title) {
         document.title = title + '-' + to.meta.title;
     }
-    // if (userStore.token == '') {
-    //     userStore.token = '123456';
-    // }
     start();
     if (userStore.token) {
         if (to.path === '/login') {

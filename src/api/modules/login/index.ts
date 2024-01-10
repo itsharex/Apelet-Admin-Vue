@@ -1,5 +1,5 @@
 import request from '@/utils/request';
-import { LoginForm, LoginResponseType, CaptchaOption } from '../interface/interface';
+import { LoginForm, LoginResponseOption, CaptchaOption } from '@/api/interface/login';
 
 /**
  * 登录
@@ -7,7 +7,7 @@ import { LoginForm, LoginResponseType, CaptchaOption } from '../interface/interf
  * @returns
  */
 export const login = (data: LoginForm) => {
-    return request<LoginResponseType>({
+    return request<LoginResponseOption>({
         url: '/login',
         method: 'POST',
         data

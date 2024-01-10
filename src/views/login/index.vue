@@ -38,14 +38,14 @@
                     <el-input
                         v-model="loginForm.verifyCode"
                         size="large"
-                        class="!w-60"
+                        class="!w-60 <sm:!w-52"
                         :placeholder="$t(`login.verifyCodePlaceholder`)"
                     >
                         <template #suffix>
                             <Icon name="local-icon-verifyCode" size="14" />
                         </template>
                     </el-input>
-                    <img :src="captchaUrl" @click="getCaptchaCode" class="w-28 b-rounded ml-2" />
+                    <img :src="captchaUrl" @click="getCaptchaCode" class="w-28 b-rounded ml-2 <sm:w-20" />
                 </el-form-item>
                 <el-form-item>
                     <div class="w-full flex-between">

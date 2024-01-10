@@ -5,7 +5,7 @@ export type LoginForm = {
     captchaCodeKey?: string;
 };
 
-export type LoginResponseType = {
+export type LoginResponseOption = {
     token: string;
 };
 
