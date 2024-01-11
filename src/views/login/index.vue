@@ -26,16 +26,8 @@
                         :placeholder="$t(`login.passwordPlaceholder`)"
                     />
                 </el-form-item>
-                <el-form-item prop="verifyCode" v-if="captchaEnabled">
-                    <!-- <mi-captcha
-                        ref="captcha"
-                        theme-color="var(--el-color-primary)"
-                        border-color="var(--el-color-primary)"
-                        box-shadow-color="var(--el-color-primary)"
-                        bg-color="transparent"
-                        text-color="var(--el-text-color-regular)"
-                    /> -->
-                    <el-input
+                <el-form-item prop="verifyCode">
+                    <!-- <el-input
                         v-model="loginForm.verifyCode"
                         size="large"
                         class="!w-60 <sm:!w-52"
@@ -45,7 +37,7 @@
                             <Icon name="local-icon-verifyCode" size="14" />
                         </template>
                     </el-input>
-                    <img :src="captchaUrl" @click="getCaptchaCode" class="w-28 b-rounded ml-2 <sm:w-20" />
+                    <img :src="captchaUrl" @click="getCaptchaCode" class="w-28 b-rounded ml-2 <sm:w-20" /> -->
                 </el-form-item>
                 <el-form-item>
                     <div class="w-full flex-between">
