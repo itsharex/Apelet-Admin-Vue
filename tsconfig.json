@@ -44,7 +44,8 @@
         "vite/**/*.d.ts",
         "typings/**/*.ts",
         "typings/**/*.d.ts",
-        "vite.config.ts"
+        "vite.config.ts",
+        "src/components/VeriyCode/verifition/utils/util.js"
     ],
     "exclude": ["node_modules", "dist", "**/*.js"],
     "references": [{ "path": "./tsconfig.node.json" }]
