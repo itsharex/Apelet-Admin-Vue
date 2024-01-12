@@ -1,5 +1,13 @@
 import request from '@/utils/request';
-import { LoginForm, LoginResponseOption, CaptchaOption } from '@/api/interface/login';
+import {
+    LoginForm,
+    LoginResponse,
+    GraphCaptcha,
+    SlideCaptcha,
+    RequestSlideCaptcha,
+    RequestCheckSlideCaptcha,
+    CheckSlideCaptcha
+} from '@/api/interface/login';
 
 /**
  * 登录
@@ -7,7 +15,7 @@ import { LoginForm, LoginResponseOption, CaptchaOption } from '@/api/interface/l
  * @returns
  */
 export const login = (data: LoginForm) => {
-    return request<LoginResponseOption>({
+    return request<LoginResponse>({
         url: '/login',
         method: 'POST',
         data
@@ -19,15 +27,15 @@ export const login = (data: LoginForm) => {
  * @returns
  */
 export const getCaptchaImage = () => {
-    return request<CaptchaOption>({
+    return request<GraphCaptcha>({
         url: '/captchaImage',
         method: 'get'
     });
 };
 
-//获取验证图片  以及token
-export function reqGet(data) {
-    return request({
+//获取验证图片
+export function reqGet(data: RequestSlideCaptcha) {
+    return request<SlideCaptcha>({
         url: '/captcha/get',
         method: 'post',
         data
@@ -35,8 +43,8 @@ export function reqGet(data) {
 }
 
 //滑动或者点选验证
-export function reqCheck(data) {
-    return request({
+export function reqCheck(data: RequestCheckSlideCaptcha) {
+    return request<CheckSlideCaptcha>({
         url: '/captcha/check',
         method: 'post',
         data

@@ -1,4 +1,4 @@
-import { UserInfoOption } from '@/api/system/interface/interface';
+import { UserInfo } from '@/api/interface/login';
 
 export interface TabsMenuState {
     icon: string;
@@ -18,7 +18,7 @@ export interface AppState {
 
 export interface UserState {
     token: string;
-    userInfo: UserInfoOption;
+    userInfo: UserInfo;
 }
 
 // keyof是取得对象的key值组成的联合类型
