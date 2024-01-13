@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
-import { useMenu } from '@/hooks/useMenu';
+import { useMenu } from '@/hooks';
 import { MenuItemClicked } from 'element-plus';
 import mittBus from '@/utils/mittBus';
 import { settingConfig } from '@/config/settings';

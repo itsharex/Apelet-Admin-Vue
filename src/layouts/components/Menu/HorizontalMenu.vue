@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 import { useAppStore } from '@/store';
-import { useMenu } from '@/hooks/useMenu';
+import { useMenu } from '@/hooks';
 
 const route = useRoute();
 const appStore = useAppStore();

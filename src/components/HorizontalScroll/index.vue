@@ -19,7 +19,7 @@ const h = reactive<hType>({
     width: 0,
     height: 0
 });
-const horizontalRef = ref<HTMLElement | null>(null);
+const horizontalRef = ref<HTMLElement>();
 const { width, height } = useElementSize(horizontalRef);
 // 后面优化为自定义指令
 watchEffect(() => {

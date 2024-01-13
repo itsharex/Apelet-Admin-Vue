@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import echarts, { ECOption } from '@/config/echarts';
+import echarts, { type ECOption } from '@/config/echarts';
 import { useLayoutStore } from '@/store';
 import { type EChartsType } from 'echarts/core';
 import { useDebounceFn } from '@vueuse/core';
@@ -24,7 +24,7 @@ const props = withDefaults(defineProps<Props>(), {
     loading: false
 });
 
-const echartRef = ref<HTMLDivElement | null>(null);
+const echartRef = ref<HTMLDivElement>();
 const chartInstance = ref<EChartsType>();
 
 const draw = () => {

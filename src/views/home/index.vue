@@ -128,8 +128,8 @@
 </template>
 
 <script setup lang="ts">
-import echarts, { ECOption } from '@/config/echarts';
-import { useEcharts } from '@/hooks/useEcharts';
+import echarts, { type ECOption } from '@/config/echarts';
+import { useEcharts } from '@/hooks';
 
 const projectList = reactive([
     {
@@ -393,9 +393,10 @@ const barOptions = ref<ECOption>({
 });
 
 onMounted(() => {
-    useEcharts(radarEcharts.value as HTMLDivElement, radarOptions);
-    useEcharts(barEcharts.value as HTMLDivElement, barOptions);
+    useEcharts(radarEcharts.value as HTMLDivElement, radarOptions as Ref<ECOption>);
+    useEcharts(barEcharts.value as HTMLDivElement, barOptions as Ref<ECOption>);
 });
 </script>
 
 <style scoped lang="scss"></style>
+@/hooks/modules/useEcharts

@@ -30,7 +30,7 @@
 <script setup lang="ts">
 import { useLayoutStore } from '@/store';
 import { Moon, Sunny } from '@element-plus/icons-vue';
-import { useTheme } from '@/hooks/useTheme';
+import { useTheme } from '@/hooks';
 import { LocaleKey } from '@/i18n/locales';
 import { useAppStore } from '@/store';
 import { useI18n } from 'vue-i18n';

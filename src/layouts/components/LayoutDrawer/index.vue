@@ -118,7 +118,7 @@
 
 <script setup lang="ts" name="LayoutDrawer">
 import { Moon, Sunny } from '@element-plus/icons-vue';
-import { useTheme } from '@/hooks/useTheme';
+import { useTheme } from '@/hooks';
 import { useLayoutStore, useTabsStore, usePermissionStore } from '@/store';
 import { animateMode, tabsStyle, layoutMode } from '@/config/settings';
 

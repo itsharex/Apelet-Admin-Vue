@@ -1,4 +1,4 @@
-import { ContextMenuType } from './interface';
+import { ContextMenuType } from '../interface';
 import { useEventListener } from '@vueuse/core';
 import { useTabsStore } from '@/store';
 import { useRoute } from 'vue-router';
