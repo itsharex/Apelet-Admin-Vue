@@ -33,7 +33,7 @@ export const getCaptchaImage = () => {
     });
 };
 
-//获取验证图片
+//获取滑动或者点选验证图片
 export function reqGet(data: RequestSlideCaptcha) {
     return request<SlideCaptcha>({
         url: '/captcha/get',

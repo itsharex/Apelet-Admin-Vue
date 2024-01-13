@@ -17,21 +17,27 @@ export const useLoginForm = () => {
         username: [{ required: true, message: t(`login.usernamePlaceholder`), trigger: 'blur' }],
         password: [{ required: true, message: t(`login.passwordPlaceholder`), trigger: 'blur' }]
     });
+
     const loginForm = reactive<LoginForm>({
         username: 'admin',
         password: '123456',
         verifyCode: '',
-        captchaCodeKey: ''
+        captchaCodeKey: '',
+        captchaType: ''
     });
 
     // 记住密码
     let rememberPassword = ref(false);
     // 验证码开关
     let captchaEnabled = ref(false);
-    // 验证码base64图片
+    // 图片验证码base64图片
     let captchaUrl = ref<string>('');
 
+    const verify = ref();
+    const captchaType = ref('blockPuzzle'); // blockPuzzle 滑块 clickWord 点击文字
+
     const submitForm = async (formEl: FormInstance | undefined) => {
+        verify.value.show();
         if (!formEl) return;
         await formEl.validate(async valid => {
             if (valid) {
@@ -86,7 +92,7 @@ export const useLoginForm = () => {
 
     onMounted(() => {
         readCookie();
-        getCaptchaCode();
+        // getCaptchaCode();
     });
 
     return {
@@ -96,6 +102,8 @@ export const useLoginForm = () => {
         rememberPassword,
         captchaEnabled,
         captchaUrl,
+        captchaType,
+        verify,
         submitForm,
         getCaptchaCode
     };

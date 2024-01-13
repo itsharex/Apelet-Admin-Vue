@@ -26,7 +26,7 @@
                         :placeholder="$t(`login.passwordPlaceholder`)"
                     />
                 </el-form-item>
-                <el-form-item prop="verifyCode" v-if="captchaEnabled">
+                <!-- <el-form-item prop="verifyCode" v-if="captchaEnabled">
                     <el-input
                         v-model="loginForm.verifyCode"
                         size="large"
@@ -38,6 +38,15 @@
                         </template>
                     </el-input>
                     <img :src="captchaUrl" @click="getCaptchaCode" class="w-28 b-rounded ml-2 <sm:w-20" />
+                </el-form-item> -->
+                <el-form-item>
+                    <VerifyCode
+                        ref="verify"
+                        :captcha-type="captchaType"
+                        :img-size="{ width: '400px', height: '200px' }"
+                        mode="pop"
+                        @success="submitForm"
+                    />
                 </el-form-item>
                 <el-form-item>
                     <div class="w-full flex-between">
@@ -61,6 +70,7 @@
 
 <script setup lang="ts" name="Login">
 import TopNav from './components/TopNav.vue';
+import { VerifyCode } from '@/components/Verifition';
 import { User } from '@element-plus/icons-vue';
 import { particles } from './helpers/particlesConfig';
 import { useParticles } from './hooks/useParticles';
@@ -68,8 +78,19 @@ import { useLoginForm } from './hooks/useLoginForm';
 
 const { options } = toRefs(particles);
 const { particlesInit, particlesLoaded } = useParticles();
-const { ruleFormRef, rules, loginForm, rememberPassword, captchaEnabled, captchaUrl, submitForm, getCaptchaCode } =
-    useLoginForm();
+
+const {
+    ruleFormRef,
+    rules,
+    loginForm,
+    rememberPassword,
+    captchaEnabled,
+    captchaType,
+    captchaUrl,
+    submitForm,
+    getCaptchaCode,
+    verify
+} = useLoginForm();
 </script>
 
 <style scoped lang="scss">

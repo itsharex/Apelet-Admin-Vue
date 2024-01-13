@@ -11,5 +11,5 @@ const i18n = createI18n({
     legacy: false // 如果要支持compositionAPI，此项必须设置为false;
 });
 
-const asyncI18nFunc = () => {};
+export const asyncI18nFunc = async () => {};
 export default i18n;

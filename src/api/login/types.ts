@@ -7,12 +7,13 @@ export interface LoginForm {
     password: string;
     verifyCode?: string;
     captchaCodeKey?: string;
+    captchaType?: string;
 }
 
 // 获取滑动验证码
 export interface RequestSlideCaptcha {
     captchaType: string;
-    clientUid: string;
+    clientUid?: string;
 }
 
 // 滑动验证码校验请求
