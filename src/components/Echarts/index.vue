@@ -1,5 +1,5 @@
 <template>
-    <div ref="echartRef" :style="{ width: props.width, height: props.height }"></div>
+    <div ref="echartRef" :style="{ width, height }"></div>
 </template>
 
 <script setup lang="ts">

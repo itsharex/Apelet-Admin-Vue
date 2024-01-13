@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
 import { piniaPersist } from '@/config/piniaPersist';
 import { UserState } from '@/store/interface/index';
-import { login } from '@/api/modules/login';
-import { LoginForm } from '@/api/interface/login';
+import { login } from '@/api/login';
+import { LoginForm } from '@/api/login/types';
 import { rsaEncrypt } from '@/utils/encrypt';
 import { deepClone } from '@/utils/common';
 

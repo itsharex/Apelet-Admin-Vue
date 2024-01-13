@@ -7,7 +7,7 @@ import {
     RequestSlideCaptcha,
     RequestCheckSlideCaptcha,
     CheckSlideCaptcha
-} from '@/api/interface/login';
+} from './types';
 
 /**
  * 登录

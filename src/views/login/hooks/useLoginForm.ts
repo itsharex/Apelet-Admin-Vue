@@ -1,11 +1,11 @@
-import { LoginForm } from '@/api/interface/login';
+import { LoginForm } from '@/api/login/types';
 import { getCookie, removeCookie, setCookie } from '@/utils/cookie';
 import { rsaEncrypt, rsaDecrypt } from '@/utils/encrypt';
 import { ElNotification, FormInstance, FormRules } from 'element-plus';
 import { useI18n } from 'vue-i18n';
 import { useUserStore } from '@/store';
 import { useRouter, useRoute } from 'vue-router';
-import { getCaptchaImage } from '@/api/modules/login';
+import { getCaptchaImage } from '@/api/login';
 
 export const useLoginForm = () => {
     const { t } = useI18n();

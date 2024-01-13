@@ -23,10 +23,13 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
         } else {
             if (permissionStore.allRoutes?.length === 0) {
                 const rewriteRoutes = await permissionStore.getAsyncRoutes();
-                (rewriteRoutes as RouteRecordRaw[]).forEach(route => {
+                (rewriteRoutes as unknown as RouteRecordRaw[]).forEach(route => {
                     router.addRoute(route);
                 });
-                next({ ...to, replace: true });
+                const redirectPath = from.query.redirect || to.path;
+                const redirect = decodeURIComponent(redirectPath as string);
+                const nextRoute = to.path === redirect ? { ...to, replace: true } : { path: redirect };
+                next(nextRoute);
             } else {
                 next();
             }

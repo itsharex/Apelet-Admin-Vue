@@ -1,4 +1,4 @@
-import { UserInfo } from '@/api/interface/login';
+import { UserInfo } from '@/api/login/types';
 
 export interface TabsMenuState {
     icon: string;
