@@ -7,17 +7,18 @@ export interface LoginForm {
     password: string;
     verifyCode?: string;
     captchaCodeKey?: string;
-    captchaType?: string;
+    captchaCategory?: string;
+    captchaVerification?: string;
 }
 
-// 获取滑动验证码
-export interface RequestSlideCaptcha {
+// 获取滑块点击验证码
+export interface RequestBlockAndClickCaptcha {
     captchaType: string;
     clientUid?: string;
 }
 
-// 滑动验证码校验请求
-export interface RequestCheckSlideCaptcha {
+// 滑块点击验证码校验请求
+export interface RequestCheckBlockAndClickCaptcha {
     captchaType: string;
     pointJson: string;
     token: string;
@@ -42,29 +43,31 @@ export interface UserInfo {
 // 图形验证码
 export interface GraphCaptcha {
     isCaptchaOn: boolean;
+    isGraphical: boolean;
+    captchaCategory: string;
     captchaCodeKey: string;
     captchaCodeImg: string;
 }
 
-// 滑动验证码响应
-export interface SlideCaptcha {
+// 滑块点击验证码响应
+export interface blockAndClickCaptcha {
     originalImageBase64: string;
-    point: SlideCaptchaPoint;
+    point: blockAndClickCaptchaPoint;
     jigsawImageBase64: string;
     token: string;
     result: boolean;
     opAdmin: boolean;
 }
 
-// 核验验证码
-export interface CheckSlideCaptcha {
+// 核验滑块点击验证码
+export interface CheckBlockAndClickCaptcha {
     captchaType: string;
     token: string;
     result: boolean;
     opAdmin: boolean;
 }
 
-interface SlideCaptchaPoint {
+interface blockAndClickCaptchaPoint {
     x: number;
     y: number;
 }

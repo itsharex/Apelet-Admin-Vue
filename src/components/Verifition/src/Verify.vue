@@ -80,7 +80,7 @@ export default {
             type: Object
         }
     },
-    setup(props, { expose }) {
+    setup(props) {
         const { t } = useI18n();
         const { captchaType, mode } = toRefs(props);
         const clickShow = ref(false);
@@ -126,7 +126,6 @@ export default {
                     break;
             }
         });
-        expose({ show });
         return {
             t,
             clickShow,

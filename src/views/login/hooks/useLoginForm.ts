@@ -15,7 +15,8 @@ export const useLoginForm = () => {
     const route = useRoute();
     const rules = reactive<FormRules<LoginForm>>({
         username: [{ required: true, message: t(`login.usernamePlaceholder`), trigger: 'blur' }],
-        password: [{ required: true, message: t(`login.passwordPlaceholder`), trigger: 'blur' }]
+        password: [{ required: true, message: t(`login.passwordPlaceholder`), trigger: 'blur' }],
+        verifyCode: [{ required: true, message: t(`login.verifyCodePlaceholder`), trigger: 'blur' }]
     });
 
     const loginForm = reactive<LoginForm>({
@@ -23,21 +24,42 @@ export const useLoginForm = () => {
         password: '123456',
         verifyCode: '',
         captchaCodeKey: '',
-        captchaType: ''
+        // 验证码类别  blockPuzzle 滑块 clickWord 点击文字 graphical 图形
+        captchaCategory: '',
+        // 滑块、点击验证码二次校验参数
+        captchaVerification: ''
     });
 
     // 记住密码
     let rememberPassword = ref(false);
     // 验证码开关
     let captchaEnabled = ref(false);
+    // 是否是图形验证码
+    let isGraphical = ref(false);
     // 图片验证码base64图片
     let captchaUrl = ref<string>('');
 
-    const verify = ref();
-    const captchaType = ref('blockPuzzle'); // blockPuzzle 滑块 clickWord 点击文字
+    const verifyRef = ref();
 
+    const getCode = () => {
+        // 开启验证码并且为滑动或点击
+        if (captchaEnabled.value && !isGraphical.value) {
+            verifyRef.value.show();
+        } else {
+            submitForm(ruleFormRef.value);
+        }
+    };
+
+    // 滑动点击验证码校验成功回调函数
+    const successVerify = ({ captchaVerification }: { captchaVerification: string }) => {
+        if (captchaVerification) {
+            loginForm.captchaVerification = captchaVerification;
+            submitForm(ruleFormRef.value);
+        }
+    };
+
+    // 登录提交
     const submitForm = async (formEl: FormInstance | undefined) => {
-        verify.value.show();
         if (!formEl) return;
         await formEl.validate(async valid => {
             if (valid) {
@@ -84,27 +106,31 @@ export const useLoginForm = () => {
     const getCaptchaCode = async () => {
         let res = await getCaptchaImage();
         captchaEnabled.value = res.data.isCaptchaOn;
-        if (captchaEnabled.value) {
+        isGraphical.value = res.data.isGraphical;
+        loginForm.captchaCategory = res.data.captchaCategory;
+        if (captchaEnabled.value && isGraphical.value) {
             captchaUrl.value = 'data:image/gif;base64,' + res.data.captchaCodeImg;
             loginForm.captchaCodeKey = res.data.captchaCodeKey;
         }
     };
 
+    getCaptchaCode();
+
     onMounted(() => {
         readCookie();
-        // getCaptchaCode();
     });
 
     return {
         ruleFormRef,
+        verifyRef,
         rules,
         loginForm,
         rememberPassword,
         captchaEnabled,
+        isGraphical,
         captchaUrl,
-        captchaType,
-        verify,
-        submitForm,
-        getCaptchaCode
+        getCode,
+        getCaptchaCode,
+        successVerify
     };
 };

@@ -24,29 +24,22 @@
                         show-password
                         size="large"
                         :placeholder="$t(`login.passwordPlaceholder`)"
+                        @keyup.enter="getCode()"
                     />
                 </el-form-item>
-                <!-- <el-form-item prop="verifyCode" v-if="captchaEnabled">
+                <el-form-item prop="verifyCode" v-if="captchaEnabled && isGraphical">
                     <el-input
                         v-model="loginForm.verifyCode"
                         size="large"
                         class="!w-60 <sm:!w-52"
                         :placeholder="$t(`login.verifyCodePlaceholder`)"
+                        @keyup.enter="getCode()"
                     >
                         <template #suffix>
                             <Icon name="local-icon-verifyCode" size="14" />
                         </template>
                     </el-input>
                     <img :src="captchaUrl" @click="getCaptchaCode" class="w-28 b-rounded ml-2 <sm:w-20" />
-                </el-form-item> -->
-                <el-form-item>
-                    <VerifyCode
-                        ref="verify"
-                        :captcha-type="captchaType"
-                        :img-size="{ width: '400px', height: '200px' }"
-                        mode="pop"
-                        @success="submitForm"
-                    />
                 </el-form-item>
                 <el-form-item>
                     <div class="w-full flex-between">
@@ -59,12 +52,20 @@
                     </div>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" class="w-full" size="large" @click="submitForm(ruleFormRef)">
+                    <el-button type="primary" class="w-full" size="large" @click="getCode">
                         {{ $t(`login.login`) }}
                     </el-button>
                 </el-form-item>
             </el-form>
         </el-card>
+        <!-- 滑动、点击验证码 -->
+        <VerifyCode
+            ref="verifyRef"
+            :captcha-type="loginForm.captchaCategory"
+            :img-size="{ width: '400px', height: '200px' }"
+            mode="pop"
+            @success="successVerify"
+        />
     </div>
 </template>
 
@@ -81,15 +82,16 @@ const { particlesInit, particlesLoaded } = useParticles();
 
 const {
     ruleFormRef,
+    verifyRef,
     rules,
     loginForm,
     rememberPassword,
     captchaEnabled,
-    captchaType,
+    isGraphical,
     captchaUrl,
-    submitForm,
     getCaptchaCode,
-    verify
+    successVerify,
+    getCode
 } = useLoginForm();
 </script>
 

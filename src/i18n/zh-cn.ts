@@ -57,7 +57,6 @@ export default {
         forgetPassword: '忘记密码?',
         usernamePlaceholder: '请输入用户名',
         passwordPlaceholder: '请输入密码',
-        verifyCodePlaceholder: '请输入验证码',
-        usernameVerify: ''
+        verifyCodePlaceholder: '请输入验证码'
     }
 };
