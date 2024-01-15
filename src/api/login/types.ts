@@ -50,13 +50,26 @@ export interface GraphCaptcha {
 }
 
 // 滑块点击验证码响应
-export interface blockAndClickCaptcha {
+export interface BlockAndClickCaptcha {
+    captchaId?: string;
+    projectCode?: string;
+    captchaType?: string;
+    captchaOriginalPath?: string;
+    captchaFontType?: string;
+    captchaFontSize?: number;
+    secretKey: string;
     originalImageBase64: string;
-    point: blockAndClickCaptchaPoint;
-    jigsawImageBase64: string;
+    point?: BlockAndClickCaptchaPoint;
+    jigsawImageBase64?: string;
+    wordList: string[];
+    pointList?: BlockAndClickCaptchaPoint[];
+    pointJson?: string;
     token: string;
     result: boolean;
-    opAdmin: boolean;
+    captchaVerification?: string;
+    clientUid?: string;
+    ts?: number;
+    browserInfo?: string;
 }
 
 // 核验滑块点击验证码
@@ -67,7 +80,8 @@ export interface CheckBlockAndClickCaptcha {
     opAdmin: boolean;
 }
 
-interface blockAndClickCaptchaPoint {
+interface BlockAndClickCaptchaPoint {
+    secretKey?: string;
     x: number;
     y: number;
 }

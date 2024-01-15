@@ -61,7 +61,7 @@
         <!-- 滑动、点击验证码 -->
         <VerifyCode
             ref="verifyRef"
-            :captcha-type="loginForm.captchaCategory"
+            :captcha-type="captchaCategory"
             :img-size="{ width: '400px', height: '200px' }"
             mode="pop"
             @success="successVerify"
@@ -79,6 +79,7 @@ import { useLoginForm } from './hooks/useLoginForm';
 
 const { options } = toRefs(particles);
 const { particlesInit, particlesLoaded } = useParticles();
+const captchaCategory = computed(() => loginForm.captchaCategory as string);
 
 const {
     ruleFormRef,

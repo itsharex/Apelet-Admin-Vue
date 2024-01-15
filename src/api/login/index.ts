@@ -3,10 +3,10 @@ import {
     LoginForm,
     LoginResponse,
     GraphCaptcha,
-    blockAndClickCaptcha,
     RequestBlockAndClickCaptcha,
     RequestCheckBlockAndClickCaptcha,
-    CheckBlockAndClickCaptcha
+    CheckBlockAndClickCaptcha,
+    BlockAndClickCaptcha
 } from './types';
 
 /**
@@ -33,9 +33,9 @@ export const getCaptchaImage = () => {
     });
 };
 
-//获取滑块或者点击验证图片
+//获取滑块或者点击获取图片
 export function reqGet(data: RequestBlockAndClickCaptcha) {
-    return request<blockAndClickCaptcha>({
+    return request<BlockAndClickCaptcha>({
         url: '/captcha/get',
         method: 'post',
         data

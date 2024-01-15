@@ -72,11 +72,22 @@
  * VerifySlide
  * @description 滑块
  * */
-import { ComponentInternalInstance } from 'vue';
+import { ComponentInternalInstance, ComponentPublicInstance } from 'vue';
 import { aesEncrypt } from './../utils/ase';
 import { resetSize } from './../utils/util';
 import { reqGet, reqCheck } from '@/api/login';
 import { useI18n } from 'vue-i18n';
+
+// 定义父组件暴露属性类型
+interface ParentComponentInstance extends ComponentPublicInstance {
+    clickShow: boolean;
+    closeBox: () => void;
+}
+
+interface SizeType {
+    width: string;
+    height: string;
+}
 
 interface Props {
     //弹出式pop，固定fixed
@@ -86,9 +97,9 @@ interface Props {
     explain: string;
     //间隔
     vSpace: number;
-    imgSize: { width: string; height: string };
-    barSize: { width: string; height: string };
-    blockSize: { width: string; height: string };
+    imgSize: SizeType;
+    barSize: SizeType;
+    blockSize: SizeType;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -189,11 +200,9 @@ watch(type, () => {
 onMounted(() => {
     // 禁止拖拽
     init();
-    if (proxy) {
-        proxy.$el.onselectstart = function () {
-            return false;
-        };
-    }
+    (proxy as ParentComponentInstance).$el.onselectstart = function () {
+        return false;
+    };
 });
 //鼠标按下
 const start = (e: MouseEvent | TouchEvent) => {
@@ -267,9 +276,7 @@ const end = () => {
                 isEnd.value = true;
                 if (mode.value == 'pop') {
                     setTimeout(() => {
-                        if (proxy?.$parent) {
-                            proxy.$parent.clickShow = false;
-                        }
+                        (proxy?.$parent as ParentComponentInstance).clickShow = false;
                         refresh();
                     }, 1500);
                 }
@@ -284,7 +291,7 @@ const end = () => {
                     : backToken.value + '---' + JSON.stringify({ x: moveLeftDistance, y: 5.0 });
                 setTimeout(() => {
                     tipWords.value = '';
-                    proxy?.$parent?.closeBox();
+                    (proxy?.$parent as ParentComponentInstance).closeBox();
                     proxy?.$parent?.$emit('success', { captchaVerification });
                 }, 1000);
             } else {

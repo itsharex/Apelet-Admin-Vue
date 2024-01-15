@@ -68,6 +68,23 @@ import { reqGet, reqCheck } from '@/api/login';
 import { useI18n } from 'vue-i18n';
 import { getCurrentInstance, nextTick, onMounted, reactive, ref, toRefs } from 'vue';
 import { ComponentInternalInstance } from 'vue';
+import { ComponentPublicInstance } from 'vue';
+
+// 定义父组件暴露属性类型
+interface ParentComponentInstance extends ComponentPublicInstance {
+    clickShow: boolean;
+    closeBox: () => void;
+}
+
+interface PointType {
+    x: number;
+    y: number;
+}
+
+interface SizeType {
+    width: string;
+    height: string;
+}
 
 interface Props {
     //弹出式pop，固定fixed
@@ -75,14 +92,10 @@ interface Props {
     captchaType: string;
     //间隔
     vSpace: number;
-    imgSize: { width: string; height: string };
-    barSize: { width: string; height: string };
+    imgSize: SizeType;
+    barSize: SizeType;
 }
 
-interface pointType {
-    x: number;
-    y: number;
-}
 const props = withDefaults(defineProps<Props>(), {
     mode: 'fixed',
     captchaType: '',
@@ -97,10 +110,10 @@ const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 let secretKey = ref(''), //后端返回的ase加密秘钥
     checkNum = ref(3), //默认需要点击的字数
     fontPos = reactive([]), //选中的坐标信息
-    checkPosArr = reactive<pointType[]>([]), //用户点击的坐标
+    checkPosArr = reactive<PointType[]>([]), //用户点击的坐标
     num = ref(1), //点击的记数
     pointBackImgBase = ref(''), //后端获取到的背景图片
-    poinTextList = reactive([]), //后端返回的点击字体顺序
+    poinTextList = reactive<Array<string>>([]), //后端返回的点击字体顺序
     backToken = ref(''), //后端返回的token值
     setSize = reactive({
         imgHeight: 0,
@@ -108,7 +121,7 @@ let secretKey = ref(''), //后端返回的ase加密秘钥
         barHeight: 0,
         barWidth: 0
     }),
-    tempPoints = reactive<pointType[]>([]),
+    tempPoints = reactive<PointType[]>([]),
     text = ref(''),
     barAreaColor = ref(''),
     barAreaBorderColor = ref(''),
@@ -133,8 +146,8 @@ const init = () => {
 onMounted(() => {
     // 禁止拖拽
     init();
-    if (!proxy) return;
-    proxy.$el.onselectstart = function () {
+    // 对于需要赋值，又包含可选链的 可以对不确定的进行类型断言
+    (proxy as ParentComponentInstance).$el.onselectstart = function () {
         return false;
     };
 });
@@ -169,7 +182,7 @@ const canvasClick = (e: MouseEvent) => {
                     bindingClick.value = false;
                     if (mode.value == 'pop') {
                         setTimeout(() => {
-                            if (proxy?.$parent) proxy.$parent.clickShow = false;
+                            (proxy?.$parent as ParentComponentInstance).clickShow = false;
                             refresh();
                         }, 1500);
                     }
@@ -191,13 +204,13 @@ const canvasClick = (e: MouseEvent) => {
     }
 };
 //获取坐标
-const getMousePos = function (obj: HTMLImageElement | undefined, e: MouseEvent): pointType {
+const getMousePos = function (obj: HTMLImageElement | undefined, e: MouseEvent): PointType {
     let x = e.offsetX;
     let y = e.offsetY;
     return { x, y };
 };
 //创建坐标点
-const createPoint = function (pos: pointType) {
+const createPoint = function (pos: PointType) {
     tempPoints.push(Object.assign({}, pos));
     return num.value + 1;
 };
@@ -223,14 +236,14 @@ const getPictrue = async () => {
         pointBackImgBase.value = res.repData.originalImageBase64;
         backToken.value = res.repData.token;
         secretKey.value = res.repData.secretKey;
-        poinTextList.value = res.repData.wordList;
-        text.value = t('captcha.point') + '【' + poinTextList.value.join(',') + '】';
+        poinTextList = res.repData.wordList;
+        text.value = t('captcha.point') + '【' + poinTextList.join(',') + '】';
     } else {
         text.value = res.repMsg;
     }
 };
 //坐标转换函数
-const pointTransfrom = function (pointArr: pointType[], imgSize: typeof setSize): pointType[] {
+const pointTransfrom = function (pointArr: PointType[], imgSize: typeof setSize): PointType[] {
     let newPointArr = pointArr.map(p => {
         let x = Math.round((310 * p.x) / imgSize.imgWidth);
         let y = Math.round((155 * p.y) / imgSize.imgHeight);

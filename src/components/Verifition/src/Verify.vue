@@ -42,16 +42,16 @@ type VerifyType = 'VerifyPoints' | 'VerifySlide';
 interface Props {
     //弹出式pop，固定fixed
     mode: string;
-    figure: number;
-    arith: number;
-    type: string;
+    figure?: number;
+    arith?: number;
+    type?: string;
     captchaType: string;
-    explain: string;
+    explain?: string;
     //间隔
-    vSpace: number;
+    vSpace?: number;
     imgSize: { width: string; height: string };
-    barSize: {};
-    blockSize: {};
+    barSize?: {};
+    blockSize?: {};
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -69,7 +69,7 @@ const verifyComponent: Record<VerifyType, Component> = {
     VerifySlide
 };
 
-const instance = ref<HTMLElement>();
+const instance = ref<InstanceType<typeof VerifyPoints> | InstanceType<typeof VerifySlide>>();
 
 const showBox = computed(() => {
     if (mode.value == 'pop') {
@@ -96,7 +96,9 @@ const show = () => {
 };
 
 defineExpose({
-    show
+    clickShow,
+    show,
+    closeBox
 });
 watchEffect(() => {
     switch (captchaType.value) {
