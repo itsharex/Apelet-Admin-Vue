@@ -10,8 +10,8 @@
             <div :style="{ padding: mode == 'pop' ? '10px' : '0' }" class="verifybox-bottom">
                 <!-- 验证码容器 -->
                 <component
-                    :is="componentType"
-                    v-if="componentType"
+                    :is="verifyComponent[componentType]"
+                    v-if="verifyComponent[componentType]"
                     ref="instance"
                     :arith="arith"
                     :bar-size="barSize"
@@ -28,7 +28,7 @@
         </div>
     </div>
 </template>
-<script type="text/babel" name="Vue3Verify">
+<script setup lang="ts" name="Vue3Verify">
 /**
  * Verify 验证码组件
  * @description 分发验证码使用
@@ -37,107 +37,79 @@ import { VerifyPoints, VerifySlide } from './Verify';
 import { computed, ref, toRefs, watchEffect } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-export default {
-    name: 'Vue3Verify',
-    components: {
-        VerifySlide,
-        VerifyPoints
-    },
-    props: {
-        captchaType: {
-            type: String,
-            required: true
-        },
-        figure: {
-            type: Number
-        },
-        arith: {
-            type: Number
-        },
-        mode: {
-            type: String,
-            default: 'pop'
-        },
-        vSpace: {
-            type: Number
-        },
-        explain: {
-            type: String
-        },
-        imgSize: {
-            type: Object,
-            default() {
-                return {
-                    width: '310px',
-                    height: '155px'
-                };
-            }
-        },
-        blockSize: {
-            type: Object
-        },
-        barSize: {
-            type: Object
-        }
-    },
-    setup(props) {
-        const { t } = useI18n();
-        const { captchaType, mode } = toRefs(props);
-        const clickShow = ref(false);
-        const verifyType = ref(undefined);
-        const componentType = ref(undefined);
+type VerifyType = 'VerifyPoints' | 'VerifySlide';
 
-        const instance = ref({});
+interface Props {
+    //弹出式pop，固定fixed
+    mode: string;
+    figure: number;
+    arith: number;
+    type: string;
+    captchaType: string;
+    explain: string;
+    //间隔
+    vSpace: number;
+    imgSize: { width: string; height: string };
+    barSize: {};
+    blockSize: {};
+}
 
-        const showBox = computed(() => {
-            if (mode.value == 'pop') {
-                return clickShow.value;
-            } else {
-                return true;
-            }
-        });
-        /**
-         * refresh
-         * @description 刷新
-         * */
-        const refresh = () => {
-            if (instance.value.refresh) {
-                instance.value.refresh();
-            }
-        };
-        const closeBox = () => {
-            clickShow.value = false;
-            refresh();
-        };
-        const show = () => {
-            if (mode.value == 'pop') {
-                clickShow.value = true;
-            }
-        };
-        watchEffect(() => {
-            switch (captchaType.value) {
-                case 'blockPuzzle':
-                    verifyType.value = '2';
-                    componentType.value = 'VerifySlide';
-                    break;
-                case 'clickWord':
-                    verifyType.value = '';
-                    componentType.value = 'VerifyPoints';
-                    break;
-            }
-        });
-        return {
-            t,
-            clickShow,
-            verifyType,
-            componentType,
-            instance,
-            showBox,
-            closeBox,
-            show
-        };
+const props = withDefaults(defineProps<Props>(), {
+    mode: 'pop',
+    imgSize: () => ({ width: '310px', height: '155px' })
+});
+
+const { t } = useI18n();
+const { captchaType, mode } = toRefs(props);
+const clickShow = ref(false);
+const verifyType = ref('');
+const componentType = ref('');
+const verifyComponent: Record<VerifyType, Component> = {
+    VerifyPoints,
+    VerifySlide
+};
+
+const instance = ref<HTMLElement>();
+
+const showBox = computed(() => {
+    if (mode.value == 'pop') {
+        return clickShow.value;
+    } else {
+        return true;
+    }
+});
+/**
+ * refresh
+ * @description 刷新
+ * */
+const refresh = () => {
+    instance.value?.refresh && instance.value?.refresh();
+};
+const closeBox = () => {
+    clickShow.value = false;
+    refresh();
+};
+const show = () => {
+    if (mode.value == 'pop') {
+        clickShow.value = true;
     }
 };
+
+defineExpose({
+    show
+});
+watchEffect(() => {
+    switch (captchaType.value) {
+        case 'blockPuzzle':
+            verifyType.value = '2';
+            componentType.value = 'VerifySlide';
+            break;
+        case 'clickWord':
+            verifyType.value = '';
+            componentType.value = 'VerifyPoints';
+            break;
+    }
+});
 </script>
 <style>
 .verifybox {
