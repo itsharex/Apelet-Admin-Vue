@@ -27,8 +27,8 @@
                         @keyup.enter="getCode()"
                     />
                 </el-form-item>
-                <el-form-item prop="verifyCode" v-if="captchaEnabled && isGraphical">
-                    <el-input
+                <el-form-item v-if="captchaEnabled">
+                    <!-- <el-input
                         v-model="loginForm.verifyCode"
                         size="large"
                         class="!w-60 <sm:!w-52"
@@ -39,7 +39,15 @@
                             <Icon name="local-icon-verifyCode" size="14" />
                         </template>
                     </el-input>
-                    <img :src="captchaUrl" @click="getCaptchaCode" class="w-28 b-rounded ml-2 <sm:w-20" />
+                    <img :src="captchaUrl" @click="getCaptchaCode" class="w-28 b-rounded ml-2 <sm:w-20" /> -->
+                    <!-- 滑动、点击验证码 -->
+                    <VerifyCode
+                        ref="verifyRef"
+                        captcha-type="xxx"
+                        :img-size="{ width: '400px', height: '200px' }"
+                        mode="pop"
+                        @success="successVerify"
+                    />
                 </el-form-item>
                 <el-form-item>
                     <div class="w-full flex-between">
@@ -58,14 +66,6 @@
                 </el-form-item>
             </el-form>
         </el-card>
-        <!-- 滑动、点击验证码 -->
-        <VerifyCode
-            ref="verifyRef"
-            :captcha-type="captchaCategory"
-            :img-size="{ width: '400px', height: '200px' }"
-            mode="pop"
-            @success="successVerify"
-        />
     </div>
 </template>
 
@@ -79,21 +79,9 @@ import { useLoginForm } from './hooks/useLoginForm';
 
 const { options } = toRefs(particles);
 const { particlesInit, particlesLoaded } = useParticles();
-const captchaCategory = computed(() => loginForm.captchaCategory as string);
 
-const {
-    ruleFormRef,
-    verifyRef,
-    rules,
-    loginForm,
-    rememberPassword,
-    captchaEnabled,
-    isGraphical,
-    captchaUrl,
-    getCaptchaCode,
-    successVerify,
-    getCode
-} = useLoginForm();
+const { ruleFormRef, verifyRef, rules, loginForm, rememberPassword, captchaEnabled, successVerify, getCode } =
+    useLoginForm();
 </script>
 
 <style scoped lang="scss">

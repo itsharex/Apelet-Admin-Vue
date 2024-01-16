@@ -7,8 +7,6 @@ export interface LoginForm {
     password: string;
     verifyCode?: string;
     captchaCodeKey?: string;
-    captchaCategory?: string;
-    captchaVerification?: string;
 }
 
 // 获取滑块点击验证码
@@ -44,7 +42,6 @@ export interface UserInfo {
 export interface GraphCaptcha {
     isCaptchaOn: boolean;
     isGraphical: boolean;
-    captchaCategory: string;
     captchaCodeKey: string;
     captchaCodeImg: string;
 }
