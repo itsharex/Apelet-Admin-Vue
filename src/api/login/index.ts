@@ -23,7 +23,18 @@ export const login = (data: LoginForm) => {
 };
 
 /**
- * 获取验证码
+ * 获取验证码类别
+ * @returns
+ */
+export const getCaptchaType = () => {
+    return request<GraphCaptcha>({
+        url: '/reCaptcha/type',
+        method: 'get'
+    });
+};
+
+/**
+ * 获取图形验证码
  * @returns
  */
 export const getCaptchaImage = () => {
@@ -34,19 +45,19 @@ export const getCaptchaImage = () => {
 };
 
 //获取滑块或者点击获取图片
-export function reqGet(data: RequestBlockAndClickCaptcha) {
+export const reqGet = (data: RequestBlockAndClickCaptcha) => {
     return request<BlockAndClickCaptcha>({
-        url: '/captcha/get',
+        url: '/reCaptcha/get',
         method: 'post',
         data
     });
-}
+};
 
 //滑块或者点击校验
-export function reqCheck(data: RequestCheckBlockAndClickCaptcha) {
+export const reqCheck = (data: RequestCheckBlockAndClickCaptcha) => {
     return request<CheckBlockAndClickCaptcha>({
-        url: '/captcha/check',
+        url: '/reCaptcha/check',
         method: 'post',
         data
     });
-}
+};

@@ -175,7 +175,7 @@ const canvasClick = (e: MouseEvent) => {
                 token: backToken.value
             };
             reqCheck(data).then(res => {
-                if (res.repCode == '0000') {
+                if (res.code == 0) {
                     barAreaColor.value = '#4cae4c';
                     barAreaBorderColor.value = '#5cb85c';
                     text.value = t('captcha.success');
@@ -232,14 +232,14 @@ const getPictrue = async () => {
         captchaType: captchaType.value
     };
     const res = await reqGet(data);
-    if (res.repCode == '0000') {
-        pointBackImgBase.value = res.repData.originalImageBase64;
-        backToken.value = res.repData.token;
-        secretKey.value = res.repData.secretKey;
-        poinTextList = res.repData.wordList;
+    if (res.code == 0) {
+        pointBackImgBase.value = res.data.originalImageBase64;
+        backToken.value = res.data.token;
+        secretKey.value = res.data.secretKey;
+        poinTextList = res.data.wordList;
         text.value = t('captcha.point') + '【' + poinTextList.join(',') + '】';
     } else {
-        text.value = res.repMsg;
+        text.value = res.msg;
     }
 };
 //坐标转换函数

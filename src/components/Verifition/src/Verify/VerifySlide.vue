@@ -1,6 +1,10 @@
 <template>
     <div style="position: relative">
-        <div v-if="type === '2'" :style="{ height: setSize.imgHeight + vSpace + 'px' }" class="verify-img-out">
+        <div
+            v-if="type === '2'"
+            :style="{ height: parseInt(setSize.imgHeight) + vSpace + 'px' }"
+            class="verify-img-out"
+        >
             <div :style="{ width: setSize.imgWidth, height: setSize.imgHeight }" class="verify-img-panel">
                 <img
                     :src="'data:image/png;base64,' + backImgBase"
@@ -28,7 +32,7 @@
                     width: leftBarWidth !== undefined ? leftBarWidth : barSize.height,
                     height: barSize.height,
                     'border-color': leftBarBorderColor,
-                    transition: transitionWidth
+                    transaction: transitionWidth
                 }"
                 class="verify-left-bar"
             >
@@ -49,9 +53,9 @@
                     <div
                         v-if="type === '2'"
                         :style="{
-                            width: Math.floor((setSize.imgWidth * 47) / 310) + 'px',
+                            width: Math.floor((parseInt(setSize.imgWidth) * 47) / 310) + 'px',
                             height: setSize.imgHeight,
-                            top: '-' + (setSize.imgHeight + vSpace) + 'px',
+                            top: '-' + (parseInt(setSize.imgHeight) + vSpace) + 'px',
                             'background-size': setSize.imgWidth + ' ' + setSize.imgHeight
                         }"
                         class="verify-sub-block"
@@ -67,61 +71,76 @@
         </div>
     </div>
 </template>
-<script setup lang="ts">
+<script setup type="text/babel">
 /**
  * VerifySlide
  * @description 滑块
  * */
-import { ComponentInternalInstance, ComponentPublicInstance } from 'vue';
 import { aesEncrypt } from './../utils/ase';
 import { resetSize } from './../utils/util';
 import { reqGet, reqCheck } from '@/api/login';
 import { useI18n } from 'vue-i18n';
 
-// 定义父组件暴露属性类型
-interface ParentComponentInstance extends ComponentPublicInstance {
-    clickShow: boolean;
-    closeBox: () => void;
-}
-
-interface SizeType {
-    width: string;
-    height: string;
-}
-
-interface Props {
+const props = defineProps({
+    captchaType: {
+        type: String
+    },
+    type: {
+        type: String,
+        default: '1'
+    },
     //弹出式pop，固定fixed
-    mode: string;
-    type: string;
-    captchaType: string;
-    explain: string;
-    //间隔
-    vSpace: number;
-    imgSize: SizeType;
-    barSize: SizeType;
-    blockSize: SizeType;
-}
-
-const props = withDefaults(defineProps<Props>(), {
-    mode: 'pop',
-    captchaType: '',
-    type: '1',
-    vSpace: 5,
-    explain: '',
-    imgSize: () => ({ width: '310px', height: '155px' }),
-    barSize: () => ({ width: '310px', height: '40px' }),
-    blockSize: () => ({ width: '50px', height: '50px' })
+    mode: {
+        type: String,
+        default: 'fixed'
+    },
+    vSpace: {
+        type: Number,
+        default: 5
+    },
+    explain: {
+        type: String,
+        default: ''
+    },
+    imgSize: {
+        type: Object,
+        default() {
+            return {
+                width: '310px',
+                height: '155px'
+            };
+        }
+    },
+    blockSize: {
+        type: Object,
+        default() {
+            return {
+                width: '50px',
+                height: '50px'
+            };
+        }
+    },
+    barSize: {
+        type: Object,
+        default() {
+            return {
+                width: '310px',
+                height: '30px'
+            };
+        }
+    }
 });
+
 const { t } = useI18n();
 const { mode, captchaType, type, blockSize, explain } = toRefs(props);
-const { proxy } = getCurrentInstance() as ComponentInternalInstance;
+const { proxy } = getCurrentInstance();
 let secretKey = ref(''), //后端返回的ase加密秘钥
-    passFlag = ref(false), //是否通过的标识
+    passFlag = ref(''), //是否通过的标识
     backImgBase = ref(''), //验证码背景图片
     blockBackImgBase = ref(''), //验证滑块的背景图片
     backToken = ref(''), //后端返回的唯一token值
-    startMoveTime = ref(0), //移动开始的时间
-    endMovetime = ref(0), //移动结束的时间
+    startMoveTime = ref(''), //移动开始的时间
+    endMovetime = ref(''), //移动结束的时间
     tipWords = ref(''),
     text = ref(''),
     finishText = ref(''),
@@ -131,12 +150,12 @@ let secretKey = ref(''), //后端返回的ase加密秘钥
         barHeight: 0,
         barWidth: 0
     }),
-    moveBlockLeft = ref(''),
-    leftBarWidth = ref(''),
+    moveBlockLeft = ref(undefined),
+    leftBarWidth = ref(undefined),
     // 移动中样式
-    moveBlockBackgroundColor = ref(''),
+    moveBlockBackgroundColor = ref(undefined),
     leftBarBorderColor = ref('#ddd'),
-    iconColor = ref(''),
+    iconColor = ref(undefined),
     iconClass = ref('icon-right'),
     status = ref(false), //鼠标状态
     isEnd = ref(false), //是够验证完成
@@ -146,7 +165,7 @@ let secretKey = ref(''), //后端返回的ase加密秘钥
     startLeft = ref(0);
 
 const barArea = computed(() => {
-    return proxy?.$el.querySelector('.verify-bar-area');
+    return proxy.$el.querySelector('.verify-bar-area');
 });
 const init = () => {
     if (explain.value === '') {
@@ -161,7 +180,7 @@ const init = () => {
         setSize.imgWidth = imgWidth;
         setSize.barHeight = barHeight;
         setSize.barWidth = barWidth;
-        proxy?.$parent?.$emit('ready', proxy);
+        proxy.$parent.$emit('ready', proxy);
     });
 
     window.removeEventListener('touchmove', function (e) {
@@ -200,20 +219,20 @@ watch(type, () => {
 onMounted(() => {
     // 禁止拖拽
     init();
-    (proxy as ParentComponentInstance).$el.onselectstart = function () {
+    proxy.$el.onselectstart = function () {
         return false;
     };
 });
 //鼠标按下
-const start = (e: MouseEvent | TouchEvent) => {
+const start = e => {
     e = e || window.event;
     let x = 0;
-    if (!(e as TouchEvent).touches) {
+    if (!e.touches) {
         //兼容PC端
-        x = (e as MouseEvent).clientX;
+        x = e.clientX;
     } else {
         //兼容移动端
-        x = (e as TouchEvent).touches[0].pageX;
+        x = e.touches[0].pageX;
     }
     startLeft.value = Math.floor(x - barArea.value.getBoundingClientRect().left);
     startMoveTime.value = +new Date(); //开始滑动的时间
@@ -227,24 +246,24 @@ const start = (e: MouseEvent | TouchEvent) => {
     }
 };
 //鼠标移动
-const move = (e: MouseEvent | TouchEvent) => {
+const move = e => {
     e = e || window.event;
     let x = 0;
     if (status.value && isEnd.value == false) {
-        if (!(e as TouchEvent).touches) {
+        if (!e.touches) {
             //兼容PC端
-            x = (e as MouseEvent).clientX;
+            x = e.clientX;
         } else {
             //兼容移动端
-            x = (e as TouchEvent).touches[0].pageX;
+            x = e.touches[0].pageX;
         }
         let bar_area_left = barArea.value.getBoundingClientRect().left;
         let move_block_left = x - bar_area_left; //小方块相对于父元素的left值
-        if (move_block_left >= barArea.value.offsetWidth - parseInt(blockSize.value.width) / 2 - 2) {
-            move_block_left = barArea.value.offsetWidth - parseInt(blockSize.value.width) / 2 - 2;
+        if (move_block_left >= barArea.value.offsetWidth - parseInt(parseInt(blockSize.value.width) / 2) - 2) {
+            move_block_left = barArea.value.offsetWidth - parseInt(parseInt(blockSize.value.width) / 2) - 2;
         }
         if (move_block_left <= 0) {
-            move_block_left = parseInt(blockSize.value.width) / 2;
+            move_block_left = parseInt(parseInt(blockSize.value.width) / 2);
         }
         //拖动后小方块的left值
         moveBlockLeft.value = move_block_left - startLeft.value + 'px';
@@ -258,7 +277,7 @@ const end = () => {
     //判断是否重合
     if (status.value && isEnd.value == false) {
         let moveLeftDistance = parseInt((moveBlockLeft.value || '0').replace('px', ''));
-        moveLeftDistance = (moveLeftDistance * 310) / setSize.imgWidth;
+        moveLeftDistance = (moveLeftDistance * 310) / parseInt(setSize.imgWidth);
         let data = {
             captchaType: captchaType.value,
             pointJson: secretKey.value
@@ -267,7 +286,7 @@ const end = () => {
             token: backToken.value
         };
         reqCheck(data).then(res => {
-            if (res.repCode == '0000') {
+            if (res.code == 0) {
                 moveBlockBackgroundColor.value = '#5cb85c';
                 leftBarBorderColor.value = '#5cb85c';
                 iconColor.value = '#fff';
@@ -276,7 +295,7 @@ const end = () => {
                 isEnd.value = true;
                 if (mode.value == 'pop') {
                     setTimeout(() => {
-                        (proxy?.$parent as ParentComponentInstance).clickShow = false;
+                        proxy.$parent.clickShow = false;
                         refresh();
                     }, 1500);
                 }
@@ -291,8 +310,8 @@ const end = () => {
                     : backToken.value + '---' + JSON.stringify({ x: moveLeftDistance, y: 5.0 });
                 setTimeout(() => {
                     tipWords.value = '';
-                    (proxy?.$parent as ParentComponentInstance).closeBox();
-                    proxy?.$parent?.$emit('success', { captchaVerification });
+                    proxy.$parent.closeBox();
+                    proxy.$parent.$emit('success', { captchaVerification });
                 }, 1000);
             } else {
                 moveBlockBackgroundColor.value = '#d9534f';
@@ -303,7 +322,7 @@ const end = () => {
                 setTimeout(function () {
                     refresh();
                 }, 1000);
-                proxy?.$parent?.$emit('error', proxy);
+                proxy.$parent.$emit('error', proxy);
                 tipWords.value = t('captcha.fail');
                 setTimeout(() => {
                     tipWords.value = '';
@@ -319,9 +338,9 @@ const refresh = async () => {
     finishText.value = '';
 
     transitionLeft.value = 'left .3s';
-    moveBlockLeft.value = '0';
+    moveBlockLeft.value = 0;
 
-    leftBarWidth.value = '0';
+    leftBarWidth.value = undefined;
     transitionWidth.value = 'width .3s';
 
     leftBarBorderColor.value = '#ddd';
@@ -344,17 +363,13 @@ const getPictrue = async () => {
         captchaType: captchaType.value
     };
     const res = await reqGet(data);
-    if (res.repCode == '0000') {
-        backImgBase.value = res.repData.originalImageBase64;
-        blockBackImgBase.value = res.repData.jigsawImageBase64;
-        backToken.value = res.repData.token;
-        secretKey.value = res.repData.secretKey;
+    if (res.code == 0) {
+        backImgBase.value = res.data.originalImageBase64;
+        blockBackImgBase.value = res.data.jigsawImageBase64;
+        backToken.value = res.data.token;
+        secretKey.value = res.data.secretKey;
     } else {
-        tipWords.value = res.repMsg;
+        tipWords.value = res.msg;
     }
 };
-
-defineExpose({
-    refresh
-});
 </script>

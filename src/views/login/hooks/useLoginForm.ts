@@ -5,7 +5,7 @@ import { ElNotification, FormInstance, FormRules } from 'element-plus';
 import { useI18n } from 'vue-i18n';
 import { useUserStore } from '@/store';
 import { useRouter, useRoute } from 'vue-router';
-import { getCaptchaImage } from '@/api/login';
+import { getCaptchaImage, getCaptchaType } from '@/api/login';
 
 export const useLoginForm = () => {
     const { t } = useI18n();
@@ -28,6 +28,8 @@ export const useLoginForm = () => {
     let rememberPassword = ref(false);
     // 验证码开关
     let captchaEnabled = ref(false);
+    // 验证码类别
+    let captchaType = ref('');
     // 图片验证码base64图片
     let captchaUrl = ref<string>('');
 
@@ -45,6 +47,7 @@ export const useLoginForm = () => {
     // 滑动点击验证码校验成功回调函数
     const successVerify = ({ captchaVerification }: { captchaVerification: string }) => {
         if (captchaVerification) {
+            loginForm.captchaVerification = captchaVerification;
             submitForm(ruleFormRef.value);
         }
     };
@@ -95,12 +98,16 @@ export const useLoginForm = () => {
 
     // 获取验证码
     const getCaptchaCode = async () => {
-        let res = await getCaptchaImage();
+        let res = await getCaptchaType();
         captchaEnabled.value = res.data.isCaptchaOn;
         if (captchaEnabled.value) {
-            captchaUrl.value = 'data:image/gif;base64,' + res.data.captchaCodeImg;
-            loginForm.captchaCodeKey = res.data.captchaCodeKey;
+            captchaType.value = res.data.captchaCategory;
         }
+        // 图形验证码
+        // if (captchaEnabled.value) {
+        //     captchaUrl.value = 'data:image/gif;base64,' + res.data.captchaCodeImg;
+        //     loginForm.captchaCodeKey = res.data.captchaCodeKey;
+        // }
     };
 
     getCaptchaCode();
@@ -117,6 +124,7 @@ export const useLoginForm = () => {
         rememberPassword,
         captchaEnabled,
         captchaUrl,
+        captchaType,
         getCode,
         getCaptchaCode,
         successVerify

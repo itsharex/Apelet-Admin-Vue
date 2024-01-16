@@ -43,7 +43,7 @@
                     <!-- 滑动、点击验证码 -->
                     <VerifyCode
                         ref="verifyRef"
-                        captcha-type="xxx"
+                        :captcha-type="captchaType"
                         :img-size="{ width: '400px', height: '200px' }"
                         mode="pop"
                         @success="successVerify"
@@ -80,8 +80,17 @@ import { useLoginForm } from './hooks/useLoginForm';
 const { options } = toRefs(particles);
 const { particlesInit, particlesLoaded } = useParticles();
 
-const { ruleFormRef, verifyRef, rules, loginForm, rememberPassword, captchaEnabled, successVerify, getCode } =
-    useLoginForm();
+const {
+    ruleFormRef,
+    verifyRef,
+    rules,
+    loginForm,
+    rememberPassword,
+    captchaEnabled,
+    captchaType,
+    successVerify,
+    getCode
+} = useLoginForm();
 </script>
 
 <style scoped lang="scss">
