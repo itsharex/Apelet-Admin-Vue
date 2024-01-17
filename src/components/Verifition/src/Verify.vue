@@ -69,7 +69,7 @@ const verifyComponent: Record<VerifyType, Component> = {
     VerifySlide
 };
 
-const instance = ref<InstanceType<typeof VerifyPoints> | InstanceType<typeof VerifySlide>>();
+const instance = ref<any>();
 
 const showBox = computed(() => {
     if (mode.value == 'pop') {
@@ -83,7 +83,7 @@ const showBox = computed(() => {
  * @description 刷新
  * */
 const refresh = () => {
-    instance.value?.refresh && instance.value?.refresh();
+    instance.value.refresh && instance.value.refresh();
 };
 const closeBox = () => {
     clickShow.value = false;

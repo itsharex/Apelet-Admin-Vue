@@ -51,6 +51,12 @@ export default {
         todoMessage: 'Todo Message',
         admin: 'Admin'
     },
+    captcha: {
+        verification: 'Please complete security verification',
+        point: 'Please click on them one by one',
+        slide: 'Swipe right to complete verification',
+        success: 'Verification successful'
+    },
     login: {
         login: 'Sign in',
         personal: 'Personal Center',

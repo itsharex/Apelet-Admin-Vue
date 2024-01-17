@@ -28,7 +28,7 @@ export const useLoginForm = () => {
     let rememberPassword = ref(false);
     // 验证码开关
     let captchaEnabled = ref(false);
-    // 验证码类别
+    // 验证码类别 滑块、点选
     let captchaType = ref('');
     // 图片验证码base64图片
     let captchaUrl = ref<string>('');
@@ -96,7 +96,7 @@ export const useLoginForm = () => {
         if (username) rememberPassword.value = !!remember;
     };
 
-    // 获取验证码
+    // 获取滑块、点选验证码
     const getCaptchaCode = async () => {
         let res = await getCaptchaType();
         captchaEnabled.value = res.data.isCaptchaOn;
@@ -104,6 +104,8 @@ export const useLoginForm = () => {
             captchaType.value = res.data.captchaCategory;
         }
         // 图形验证码
+        // let res = await getCaptchaImage();
+        // captchaEnabled.value = res.data.isCaptchaOn;
         // if (captchaEnabled.value) {
         //     captchaUrl.value = 'data:image/gif;base64,' + res.data.captchaCodeImg;
         //     loginForm.captchaCodeKey = res.data.captchaCodeKey;

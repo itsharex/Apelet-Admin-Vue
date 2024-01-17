@@ -49,6 +49,12 @@ export default {
         todoMessage: '待办消息',
         admin: '系统管理员'
     },
+    captcha: {
+        verification: '请完成安全验证',
+        point: '请依次点击',
+        slide: '向右滑动完成验证',
+        success: '验证成功'
+    },
     login: {
         login: '登 录',
         personal: '个人中心',
