@@ -44,7 +44,7 @@ export const getCaptchaImage = () => {
     });
 };
 
-//获取滑块或者点击获取图片
+//获取滑块或者点选获取图片
 export const reqGet = (data: RequestBlockAndClickCaptcha) => {
     return request<BlockAndClickCaptcha>({
         url: '/reCaptcha/get',
@@ -53,7 +53,7 @@ export const reqGet = (data: RequestBlockAndClickCaptcha) => {
     });
 };
 
-//滑块或者点击校验
+//滑块或者点选校验
 export const reqCheck = (data: RequestCheckBlockAndClickCaptcha) => {
     return request<CheckBlockAndClickCaptcha>({
         url: '/reCaptcha/check',
