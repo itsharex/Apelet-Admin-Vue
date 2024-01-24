@@ -15,7 +15,7 @@ import { MainApp, NavBar, Aside, Tabs, AppMask } from '../components';
 import { useAppStore } from '@/store';
 import { deviceDetection } from '../helpers/deviceDetection';
 const appStore = useAppStore();
-const containerRef = ref<HTMLElement | null>(null);
+const containerRef = ref<HTMLElement>();
 const showAppMask = computed(() => appStore.isMobile && !appStore.isCollapse);
 const closeAppMask = () => appStore.$patch({ isCollapse: true });
 deviceDetection(containerRef);

@@ -26,6 +26,11 @@ export const constantRoutes: Array<RouteRecordRaw> = [
         name: 'WorkBench',
         redirect: '/workbench/dashboard',
         component: Layout,
+        meta: {
+            icon: 'Platform',
+            hidden: false,
+            title: 'workbench'
+        },
         children: [
             {
                 path: 'dashboard',
@@ -35,8 +40,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
                     icon: 'Odometer',
                     hidden: false,
                     title: 'dashboard',
-                    isCache: true,
-                    isFixed: true
+                    isCache: true
                 }
             },
             {
@@ -50,12 +54,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
                     isCache: true
                 }
             }
-        ],
-        meta: {
-            icon: 'Platform',
-            hidden: false,
-            title: 'workbench'
-        }
+        ]
     },
     {
         path: '/audit',

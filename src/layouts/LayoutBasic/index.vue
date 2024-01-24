@@ -26,7 +26,7 @@ import { settingConfig } from '@/config/settings';
 import { SettingType } from '@/config/interface';
 
 const appStore = useAppStore();
-const containerRef = ref<HTMLElement | null>(null);
+const containerRef = ref<HTMLElement>();
 const showAppMask = computed(() => appStore.isMobile && !appStore.isCollapse);
 const closeAppMask = () => appStore.$patch({ isCollapse: true });
 const { asideMaxWidth } = reactive<SettingType>(settingConfig);

@@ -8,7 +8,7 @@ import { deepClone } from '@/utils/common';
 
 export const useUserStore = defineStore('user', {
     state: (): UserState => ({
-        token: '',
+        token: '123456',
         userInfo: {
             username: '',
             roles: [],
