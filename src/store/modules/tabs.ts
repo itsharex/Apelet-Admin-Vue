@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { TabsMenuState } from '@/store/interface';
-import { useRouter, useRoute } from 'vue-router';
+import router from '@/router';
 import { useLayoutStore } from '@/store';
 import { setStorage, getStorage, removeStorage } from '@/utils/storage';
 
@@ -11,10 +11,10 @@ export const useTabsStore = defineStore('tabs', () => {
     // tab菜单列表
     let tabsMenuList = ref<TabsMenuState[]>(getStorage<TabsMenuState[]>(persistKey) || []);
 
-    const router = useRouter();
-    const route = useRoute();
     const layoutStore = useLayoutStore();
     const { tabsCache } = toRefs(layoutStore);
+    const route = router.currentRoute.value;
+
     // 添加tabs
     const addTabs = (tabsMenu: TabsMenuState) => {
         // 判断路由是否存在list中、不存在、则push， every() 对空数组 始终返回true

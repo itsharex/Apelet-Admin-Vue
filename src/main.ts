@@ -35,8 +35,10 @@ const setupApp = async () => {
     install(app);
 
     app.use(i18n);
-    app.use(pinia);
+
     app.use(router);
+
+    app.use(pinia);
 
     await router.isReady();
 
