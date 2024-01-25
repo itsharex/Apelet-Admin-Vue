@@ -7,7 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    Echarts: typeof import('./components/Echarts/index.vue')['default']
+    Echarts: typeof import('./components/Echarts/src/Echarts.vue')['default']
     ElAlert: typeof import('element-plus/es')['ElAlert']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
@@ -47,9 +47,9 @@ declare module 'vue' {
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElText: typeof import('element-plus/es')['ElText']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
-    HorizontalScroll: typeof import('./components/HorizontalScroll/index.vue')['default']
+    HorizontalScroll: typeof import('./components/HorizontalScroll')['default']
     Icon: typeof import('./components/Icon/src/Icon.vue')['default']
-    MultiUpload: typeof import('./components/MultiUpload/index.vue')['default']
+    MultiUpload: typeof import('./components/MultiUpload/src/MultiUpload.vue')['default']
     RightMenu: typeof import('./components/RightMenu/src/RightMenu.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
