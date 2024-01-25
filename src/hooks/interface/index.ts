@@ -1,4 +1,4 @@
-export interface ContextMenuType {
+export interface ContextMenuOptins {
     icon: string;
     label: string;
     prop: string;

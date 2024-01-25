@@ -1,13 +1,13 @@
 import type { StorageLike, PersistedStateOptions } from 'pinia-plugin-persistedstate';
-export type LayoutType = 'basic' | 'vertical' | 'lattice' | 'horizontal' | 'gradient';
+export type LayoutConfig = 'basic' | 'vertical' | 'lattice' | 'horizontal' | 'gradient';
 
 // 是否开启滚动条加载进度跟随
-export interface ProgressType {
+export interface ProgressConfig {
     el?: HTMLElement;
     isOpenProgress: boolean;
 }
 // 持久化参数类型
-export interface PersistType extends PersistedStateOptions {
+export interface PersistConfig extends PersistedStateOptions {
     key?: string;
     paths?: string[];
     storage?: StorageLike;
@@ -15,7 +15,7 @@ export interface PersistType extends PersistedStateOptions {
 }
 
 // 配置类型
-export interface SettingType {
+export interface SettingConfig {
     title: string;
     screenSize: number;
     asideMaxWidth: string;
@@ -23,14 +23,14 @@ export interface SettingType {
 }
 
 // 布局模式
-export interface LayoutMode {
+export interface LayoutModeConfig {
     label: string;
-    value: LayoutType;
+    value: LayoutConfig;
 }
 
 // 布局类型
 export interface GlobalState {
-    layout: LayoutType;
+    layout: LayoutConfig;
     menuMode: string;
     isOpenProgress: boolean;
     isDark: boolean;

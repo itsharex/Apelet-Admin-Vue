@@ -11,9 +11,9 @@ import LayoutBasic from './LayoutBasic/index.vue';
 import LayoutHorizontal from './LayoutHorizontal/index.vue';
 import LayoutLattice from './LayoutLattice/index.vue';
 import LayoutGradient from './LayoutGradient/index.vue';
-import { LayoutType } from '@/config/interface';
+import { LayoutConfig } from '@/config/interface';
 import { useLayoutStore } from '@/store';
-const layoutComponent: Record<LayoutType, Component> = {
+const layoutComponent: Record<LayoutConfig, Component> = {
     vertical: LayoutVertical,
     basic: LayoutBasic,
     horizontal: LayoutHorizontal,

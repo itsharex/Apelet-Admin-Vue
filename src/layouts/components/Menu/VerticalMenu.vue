@@ -29,13 +29,13 @@ import { useMenu } from '@/hooks';
 import { MenuItemClicked } from 'element-plus';
 import mittBus from '@/utils/mittBus';
 import { settingConfig } from '@/config/settings';
-import { SettingType } from '@/config/interface';
+import { SettingConfig } from '@/config/interface';
 import { useAppStore } from '@/store';
 
 const route = useRoute();
 const appStore = useAppStore();
 const { horizontalMenu, currName, initRoutes } = useMenu();
-const { asideMinWidth } = reactive<SettingType>(settingConfig);
+const { asideMinWidth } = reactive<SettingConfig>(settingConfig);
 
 const changeMenu = (instance: MenuItemClicked) => {
     let routeName = instance.index;

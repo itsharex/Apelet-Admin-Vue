@@ -1,4 +1,4 @@
-import { ContextMenuType } from '../interface';
+import { ContextMenuOptins } from '../interface';
 import { useEventListener } from '@vueuse/core';
 import { useTabsStore } from '@/store';
 import { useRoute } from 'vue-router';
@@ -15,7 +15,7 @@ export const useTabContextMenu = () => {
     const route = useRoute();
 
     // 菜单列表
-    const contextMenuOptions = reactive<ContextMenuType[]>(contextMenu);
+    const contextMenuOptions = reactive<ContextMenuOptins[]>(contextMenu);
 
     /**
      *

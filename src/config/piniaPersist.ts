@@ -1,5 +1,5 @@
 import type { StorageLike, PersistedStateOptions } from 'pinia-plugin-persistedstate';
-import { PersistType } from './interface';
+import { PersistConfig } from './interface';
 // 持久化加密
 import SecureLS from 'secure-ls';
 
@@ -24,7 +24,7 @@ const secureStorage: StorageLike = {
 //     paths // paths --- state中的字段
 //     serializer 可以自定义序列化工具 如 pnpm install zipson -S      import { parse, stringify } from 'zipson'
 export const piniaPersist = (
-    persistOptions: PersistType | PersistType[]
+    persistOptions: PersistConfig | PersistConfig[]
 ): PersistedStateOptions | PersistedStateOptions[] => {
     if (!persistOptions) return {};
     if (Array.isArray(persistOptions)) {

@@ -1,6 +1,6 @@
-import { ContextMenuType } from '@/hooks/interface';
-import { SettingType, LayoutMode } from './interface';
-export const settingConfig: SettingType = {
+import { ContextMenuOptins } from '@/hooks/interface';
+import { SettingConfig, LayoutModeConfig } from './interface';
+export const settingConfig: SettingConfig = {
     // 系统标题
     title: 'Apelet Admin',
     // 侧边栏展开与搜索临界点
@@ -12,7 +12,7 @@ export const settingConfig: SettingType = {
 };
 
 // 右键菜单配置项
-export const contextMenu: Array<ContextMenuType> = [
+export const contextMenu: Array<ContextMenuOptins> = [
     {
         icon: 'local-icon-refresh',
         label: '刷新页面',
@@ -58,7 +58,7 @@ export const contextMenu: Array<ContextMenuType> = [
 ];
 
 // 布局模式
-export const layoutMode: LayoutMode[] = [
+export const layoutMode: LayoutModeConfig[] = [
     { label: '纵向', value: 'vertical' },
     { label: '经典', value: 'basic' },
     { label: '横向', value: 'horizontal' },

@@ -4,7 +4,7 @@
             <el-breadcrumb-item v-for="item in breadcrumbsMenu" :key="item.path">
                 <div
                     class="breadcrumb-inner"
-                    :class="{ pointer: route.path !== item.path && item.redirect !== 'noRedirect' }"
+                    :class="{ pointer: pointerCondition(item) }"
                     @click.prevent="handleLink(item)"
                 >
                     <el-icon v-show="breadcrumbsIcon">
@@ -20,8 +20,7 @@
 <script setup lang="ts">
 import { ArrowRight } from '@element-plus/icons-vue';
 import { useLayoutStore, useAppStore } from '@/store';
-import { RouteLocationMatched } from 'vue-router';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute, useRouter, type RouteLocationMatched } from 'vue-router';
 const route = useRoute();
 const router = useRouter();
 const layoutStore = useLayoutStore();
@@ -39,9 +38,13 @@ const handleBreadCrumb = () => {
     breadcrumbsMenu.value = matched;
 };
 
+const pointerCondition = (item: RouteLocationMatched) => {
+    return route.path !== item.path && item.redirect && item.redirect !== 'noRedirect';
+};
+
 const handleLink = (item: RouteLocationMatched) => {
     // 后端添加菜单时，根据目录或菜单添加对应的redirect
-    if (route.path === item.path || item.redirect === 'noRedirect') return;
+    if (route.path === item.path || !item.redirect || item.redirect === 'noRedirect') return;
     // 如果存在redirect， 则跳转redirect
     if (item.redirect) {
         router.push(item.redirect as string);

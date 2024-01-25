@@ -47,7 +47,7 @@ declare module 'vue' {
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElText: typeof import('element-plus/es')['ElText']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
-    HorizontalScroll: typeof import('./components/HorizontalScroll')['default']
+    HorizontalScroll: typeof import('./components/HorizontalScroll/src/HorizontalScroll.vue')['default']
     Icon: typeof import('./components/Icon/src/Icon.vue')['default']
     MultiUpload: typeof import('./components/MultiUpload/src/MultiUpload.vue')['default']
     RightMenu: typeof import('./components/RightMenu/src/RightMenu.vue')['default']
