@@ -8,7 +8,7 @@ import { deepClone } from '@/utils/common';
 
 export const useUserStore = defineStore('user', {
     state: (): UserState => ({
-        token: '123456',
+        token: '',
         userInfo: {
             username: '',
             roles: [],
@@ -21,7 +21,7 @@ export const useUserStore = defineStore('user', {
             let cloneForm = deepClone(form);
             cloneForm.password = rsaEncrypt(cloneForm.password);
             const { data } = await login(cloneForm);
-            this.token = data?.token;
+            this.token = data.token;
         },
 
         async getUserInfo() {}

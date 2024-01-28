@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { constantRoutes } from '@/router/modules/constant-router';
-import asyncRoutes from '@/routers.json';
+// import asyncRoutes from '@/routers.json';
 import Layout from '@/layouts/index.vue';
 import { piniaPersist } from '@/config/piniaPersist';
 // 在 Vue3 中, 以hook函数引入 import { useRouter, useRoute } from 'vue-router'; 没有任何问题。
@@ -10,6 +10,7 @@ import { piniaPersist } from '@/config/piniaPersist';
 import router from '@/router';
 import { deepClone } from '@/utils/common';
 import { useAppStore } from '@/store';
+import { getRouters } from '@/api/login';
 
 const modules = import.meta.glob('../../views/**/*.vue');
 
@@ -34,10 +35,11 @@ export const usePermissionStore = defineStore(
 
         // 获取异步路由
         const getAsyncRoutes = () => {
-            return new Promise(resolve => {
+            return new Promise(async resolve => {
                 // 后续从服务器获取路由
-                let cloneAsyncRoutes: MenuType[] = deepClone<MenuType[]>(asyncRoutes as MenuType[]);
-                let cloneRewriteRoutes: MenuType[] = deepClone<MenuType[]>(asyncRoutes as MenuType[]);
+                const asyncRoutes = (await getRouters()).data;
+                let cloneAsyncRoutes: MenuType[] = deepClone<MenuType[]>(asyncRoutes);
+                let cloneRewriteRoutes: MenuType[] = deepClone<MenuType[]>(asyncRoutes);
                 const constantRoutes = handleFilterConstantRoutes();
                 const rewriteRoutes = handleFilterAsyncRoute(cloneRewriteRoutes);
                 const sideBarRoutes = handleFilterAsyncRoute(cloneAsyncRoutes);
@@ -103,8 +105,15 @@ export const usePermissionStore = defineStore(
                 } else {
                     route.component = resolveView(route.component as string);
                 }
+                // 为目录
                 if (route.children?.length) {
+                    // 处理目录的重定向
+                    route.redirect = getDirectoryRedirect(route.path, route.children);
+                    // 处理子路由
                     route.children = filterChildrenRoutes(route, route.children);
+                } else {
+                    const { newParentPath } = generateRoutePath(route.path, '');
+                    route.path = newParentPath;
                 }
             });
             return filterRoutes;
@@ -114,14 +123,15 @@ export const usePermissionStore = defineStore(
         const filterChildrenRoutes = (parentRoutes: MenuType, childrenRoutes: MenuType[]): MenuType[] => {
             let children: MenuType[] = [];
             childrenRoutes.forEach(el => {
-                if (typeof el.component === 'string') {
+                if (el.component && typeof el.component === 'string') {
                     el.component = resolveView(el.component);
                 }
-                if (parentRoutes.path === '/') {
-                    el.path = parentRoutes.path + el.path;
-                } else {
-                    el.path = parentRoutes.path + '/' + el.path;
-                }
+                // 处理路由path
+                const { newParentPath, newPath } = generateRoutePath(parentRoutes.path, el.path);
+                // 更改父级path
+                parentRoutes.path = newParentPath;
+                // 更改当前path
+                el.path = newParentPath + newPath;
                 children.push(el);
                 if (el.children?.length) {
                     filterChildrenRoutes(el, el.children);
@@ -130,15 +140,33 @@ export const usePermissionStore = defineStore(
             return children;
         };
 
-        // 去除 hidden = true 的路由
-        // const filterHiddenRoutes = (routes: MenuType[]): MenuType[] => {
-        //     return routes.filter(item => {
-        //         if (item.children?.length) {
-        //             filterHiddenRoutes(item.children);
-        //         }
-        //         return !item.meta?.hidden;
-        //     });
-        // };
+        // 处理目录重定向路由
+        const getDirectoryRedirect = (parentPath: string, children: MenuType[]) => {
+            if (!children || children.length === 0) {
+                return parentPath;
+            }
+            const { newParentPath, newPath } = generateRoutePath(parentPath, children[0].path);
+            const path = newParentPath + newPath;
+            // 递归子节点
+            if (children[0].children) return getDirectoryRedirect(path, children[0].children);
+            return path;
+        };
+        // 处理路由path
+        const generateRoutePath = (parentPath: string, path: string) => {
+            if (!parentPath.startsWith('/')) {
+                parentPath = '/' + parentPath;
+            }
+            if (parentPath.endsWith('/')) {
+                parentPath = parentPath.slice(0, -1);
+            }
+            if (!path.startsWith('/')) {
+                path = '/' + path;
+            }
+            return {
+                newParentPath: parentPath,
+                newPath: path
+            };
+        };
 
         // 解析异步路由
         const resolveView = (component: string): (() => Promise<unknown>) => {

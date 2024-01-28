@@ -17,5 +17,11 @@ declare module 'vue-router' {
         isFixed?: boolean;
         // 是否缓存
         isCache?: boolean;
+        // 需要内嵌的iframe链接地址
+        iframeSrc?: string;
+        // 页面级别权限设置
+        roles?: string[];
+        // 按钮级别权限设置
+        auths?: string[];
     }
 }

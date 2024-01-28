@@ -1,4 +1,5 @@
 /// <reference types="vite/client" />
+
 // 声明菜单的命名空间
 declare namespace Menu {
     interface SubMenuOptions {

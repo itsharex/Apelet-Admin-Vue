@@ -23,7 +23,7 @@ const service = axios.create({
 service.interceptors.request.use((config: RequestInterceptorsConfig) => {
     const userStore = useUserStore();
     if (userStore.token) {
-        config.headers['token'] = userStore.token;
+        config.headers['Authorization'] = userStore.token;
     }
     return config;
 });

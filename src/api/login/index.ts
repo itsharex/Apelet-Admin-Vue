@@ -44,7 +44,10 @@ export const getCaptchaImage = () => {
     });
 };
 
-//获取滑块或者点选获取图片
+/**
+ * 获取滑块或者点选获取图片
+ * @returns
+ */
 export const reqGet = (data: RequestBlockAndClickCaptcha) => {
     return request<BlockAndClickCaptcha>({
         url: '/reCaptcha/get',
@@ -53,11 +56,26 @@ export const reqGet = (data: RequestBlockAndClickCaptcha) => {
     });
 };
 
-//滑块或者点选校验
+/**
+ * 滑块或者点选校验
+ * @param data
+ * @returns
+ */
 export const reqCheck = (data: RequestCheckBlockAndClickCaptcha) => {
     return request<CheckBlockAndClickCaptcha>({
         url: '/reCaptcha/check',
         method: 'post',
         data
+    });
+};
+
+/**
+ * 获取所有路由
+ * @returns
+ */
+export const getRouters = () => {
+    return request<Menu.SubMenuOptions[]>({
+        url: '/getRouters',
+        method: 'get'
     });
 };
