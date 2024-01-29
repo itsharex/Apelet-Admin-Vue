@@ -20,4 +20,23 @@ declare namespace Menu {
         isFixed?: boolean;
         isCache?: boolean;
     }
+
+    interface ContextMenuOptions {
+        icon: string;
+        label: string;
+        prop: string;
+        show: boolean;
+        disabled: boolean;
+    }
+
+    // 右键菜单参数类型
+    interface RightMenuOptions {
+        unique?: string | number;
+        label: string;
+        icon?: string;
+        tips?: string;
+        hidden?: boolean;
+        disabled?: boolean;
+        children?: MenuOptions[];
+    }
 }

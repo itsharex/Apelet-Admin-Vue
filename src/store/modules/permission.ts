@@ -29,7 +29,7 @@ export const usePermissionStore = defineStore(
         // 需要扁平化的标签路由
         let flatTabsRoutes = ref<MenuType[]>([]);
         // 当前选中的最外层父级路由Name
-        let currParentouteName = ref<string>();
+        let currParentRouteName = ref<string>();
         // 复制一份菜单路由做备用
         let copyMenuRoutes = ref<MenuType[]>([]);
 
@@ -54,7 +54,7 @@ export const usePermissionStore = defineStore(
 
         // 处理点击顶部菜单后的一系列操作
         const handleCopyRoutes = () => {
-            let currName = currParentouteName.value;
+            let currName = currParentRouteName.value;
             const children = allRoutes.value.find(el => el.name === currName)?.children;
             if (children) {
                 // 扁平化所有子路由，查找当前路由是否在所有子路由中
@@ -151,6 +151,7 @@ export const usePermissionStore = defineStore(
             if (children[0].children) return getDirectoryRedirect(path, children[0].children);
             return path;
         };
+
         // 处理路由path
         const generateRoutePath = (parentPath: string, path: string) => {
             if (!parentPath.startsWith('/')) {
@@ -179,13 +180,13 @@ export const usePermissionStore = defineStore(
             allRoutes,
             asideBarRoutes,
             flatTabsRoutes,
-            currParentouteName,
+            currParentRouteName,
             copyMenuRoutes,
             getAsyncRoutes,
             handleCopyRoutes
         };
     },
     {
-        persist: piniaPersist({ key: 'permission', paths: ['currParentouteName'] })
+        persist: piniaPersist({ key: 'permission', paths: ['currParentRouteName'] })
     }
 );

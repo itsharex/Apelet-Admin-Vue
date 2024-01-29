@@ -6,7 +6,7 @@ export const useMenu = () => {
     const permissionStore = usePermissionStore();
     const appStore = useAppStore();
     const route = useRoute();
-    const { allRoutes, currParentouteName } = storeToRefs(permissionStore);
+    const { allRoutes, currParentRouteName } = storeToRefs(permissionStore);
     const timer = ref();
     const horizontalMenu = computed(() => {
         return allRoutes.value
@@ -19,7 +19,7 @@ export const useMenu = () => {
                 return menu;
             });
     });
-    let currName = ref<string | undefined>(currParentouteName.value);
+    let currName = ref<string | undefined>(currParentRouteName.value);
     // 根据子级查询对应所有父级
     const findFatherByChild = (data: Menu.SubMenuOptions[], target: string): Menu.SubMenuOptions[] | undefined => {
         for (let i in data) {
@@ -44,7 +44,7 @@ export const useMenu = () => {
         let firstParentRouteName = allParentRoute?.filter(item => item.meta?.title).at(-1);
         currName.value = firstParentRouteName?.name;
         // 把选中的菜单name进行持久化
-        permissionStore.$patch({ currParentouteName: currName.value });
+        permissionStore.$patch({ currParentRouteName: currName.value });
         // 处理展示路由数据
         permissionStore.handleCopyRoutes();
     };

@@ -16,7 +16,6 @@
 </template>
 
 <script lang="ts" name="RightMenu">
-import { MenuOptions } from '@/hooks/interface';
 import { PropType } from 'vue';
 export default defineComponent({
     name: 'RightMenu',
@@ -30,7 +29,7 @@ export default defineComponent({
             default: true
         },
         menuList: {
-            type: Array as PropType<MenuOptions[]>,
+            type: Array as PropType<Menu.RightMenuOptions[]>,
             default: () => []
         }
     },
