@@ -43,11 +43,15 @@ export const usePermissionStore = defineStore(
                 const constantRoutes = handleFilterConstantRoutes();
                 const rewriteRoutes = handleFilterAsyncRoute(cloneRewriteRoutes);
                 const sideBarRoutes = handleFilterAsyncRoute(cloneAsyncRoutes);
-                const tabsRoutes = handleFlatRoutes(constantRoutes.concat(sideBarRoutes));
                 allRoutes.value = constantRoutes.concat(rewriteRoutes);
                 asideBarRoutes.value = constantRoutes.concat(sideBarRoutes);
-                copyMenuRoutes.value = deepClone(asideBarRoutes.value);
-                flatTabsRoutes.value = tabsRoutes;
+                flatTabsRoutes.value = handleFlatRoutes(deepClone(asideBarRoutes.value));
+                copyMenuRoutes.value = deepClone(allRoutes.value);
+                rewriteRoutes.push({
+                    path: '/:pathMatch(.*)*',
+                    redirect: '/404',
+                    meta: { hidden: true }
+                });
                 resolve(rewriteRoutes);
             });
         };
@@ -108,12 +112,14 @@ export const usePermissionStore = defineStore(
                 // 为目录
                 if (route.children?.length) {
                     // 处理目录的重定向
-                    route.redirect = getDirectoryRedirect(route.path, route.children);
+                    route.redirect = handleRedirectRoutes(route.path, route.children);
                     // 处理子路由
                     route.children = filterChildrenRoutes(route, route.children);
                 } else {
+                    // 没有子路由
                     const { newParentPath } = generateRoutePath(route.path, '');
                     route.path = newParentPath;
+                    delete route['children'];
                 }
             });
             return filterRoutes;
@@ -141,14 +147,14 @@ export const usePermissionStore = defineStore(
         };
 
         // 处理目录重定向路由
-        const getDirectoryRedirect = (parentPath: string, children: MenuType[]) => {
+        const handleRedirectRoutes = (parentPath: string, children: MenuType[]) => {
             if (!children || children.length === 0) {
                 return parentPath;
             }
             const { newParentPath, newPath } = generateRoutePath(parentPath, children[0].path);
             const path = newParentPath + newPath;
             // 递归子节点
-            if (children[0].children) return getDirectoryRedirect(path, children[0].children);
+            if (children[0].children) return handleRedirectRoutes(path, children[0].children);
             return path;
         };
 

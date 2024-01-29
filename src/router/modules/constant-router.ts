@@ -2,7 +2,6 @@ import { RouteRecordRaw } from 'vue-router';
 import Layout from '@/layouts/index.vue';
 
 /**
- * redirect: noRedirect        	当设置 noRedirect 的时候该路由在面包屑导航中不可被点击
  * name:'routerName'          	设定路由的名字，一定要填写不然使用<keep-alive>时会出现各种问题
  * meta : {
         hidden: true              	当设置 true 的时候该路由不会再侧边栏出现 如404，login等页面(默认 false)
@@ -100,14 +99,6 @@ export const constantRoutes: Array<RouteRecordRaw> = [
 ];
 
 export const errorRoutes: Array<RouteRecordRaw> = [
-    {
-        path: '/:pathMatch(.*)*',
-        component: () => import('@/views/error/404.vue'),
-        meta: {
-            hidden: true,
-            title: '网页走丢了~'
-        }
-    },
     {
         path: '/404',
         name: '404',

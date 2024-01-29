@@ -39,12 +39,12 @@ const handleBreadCrumb = () => {
 };
 
 const pointerCondition = (item: RouteLocationMatched) => {
-    return route.path !== item.path && item.redirect && item.redirect !== 'noRedirect';
+    return route.path !== item.path && item.redirect;
 };
 
 const handleLink = (item: RouteLocationMatched) => {
     // 后端添加菜单时，根据目录或菜单添加对应的redirect
-    if (route.path === item.path || !item.redirect || item.redirect === 'noRedirect') return;
+    if (route.path === item.path || !item.redirect) return;
     // 如果存在redirect， 则跳转redirect
     if (item.redirect) {
         router.push(item.redirect as string);
