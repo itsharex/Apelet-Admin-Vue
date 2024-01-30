@@ -22,3 +22,14 @@ export function deepClone<T>(value: T): T {
     }
     return value;
 }
+
+/**
+ * 树结构转为数组
+ * @param array 树型
+ * @returns
+ */
+export const flatTreetoArray = <T>(array: T[]): T[] => {
+    return array.reduce((arr: T[], { children, ...item }) => {
+        return arr.concat(item as T, children && children.length ? flatTreetoArray(children) : []);
+    }, []);
+};

@@ -48,7 +48,7 @@ service.interceptors.response.use(
 
 // 传入泛型约束返回数据类型
 // ApiResponse 主体后端返回格式
-interface ApiResponse<T = any> {
+export interface ApiResponse<T = any> {
     code: number;
     msg: string;
     data: T; // 这里定义请求返回data数据类型

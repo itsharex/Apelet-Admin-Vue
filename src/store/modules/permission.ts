@@ -8,7 +8,7 @@ import { piniaPersist } from '@/config/piniaPersist';
 // 由于现在路由时异步的，在useRouter或useRoute一定要放在setup方法内的顶层，否则作用域改变useRouter()执行返回的是undefined。
 // import { useRouter, useRoute } from 'vue-router';
 import router from '@/router';
-import { deepClone } from '@/utils/common';
+import { deepClone, flatTreetoArray } from '@/utils/common';
 import { useAppStore } from '@/store';
 import { getRouters } from '@/api/login';
 
@@ -38,14 +38,13 @@ export const usePermissionStore = defineStore(
             return new Promise(async resolve => {
                 // 后续从服务器获取路由
                 const asyncRoutes = (await getRouters()).data;
-                let cloneAsyncRoutes: MenuType[] = deepClone<MenuType[]>(asyncRoutes);
-                let cloneRewriteRoutes: MenuType[] = deepClone<MenuType[]>(asyncRoutes);
-                const constantRoutes = handleFilterConstantRoutes();
+                let cloneAsyncRoutes = deepClone(asyncRoutes);
+                let cloneRewriteRoutes = deepClone(asyncRoutes);
                 const rewriteRoutes = handleFilterAsyncRoute(cloneRewriteRoutes);
                 const sideBarRoutes = handleFilterAsyncRoute(cloneAsyncRoutes);
-                allRoutes.value = constantRoutes.concat(rewriteRoutes);
-                asideBarRoutes.value = constantRoutes.concat(sideBarRoutes);
-                flatTabsRoutes.value = handleFlatRoutes(deepClone(asideBarRoutes.value));
+                allRoutes.value = (constantRoutes as MenuType[]).concat(rewriteRoutes);
+                asideBarRoutes.value = (constantRoutes as MenuType[]).concat(sideBarRoutes);
+                flatTabsRoutes.value = flatTreetoArray(deepClone(asideBarRoutes.value));
                 copyMenuRoutes.value = deepClone(allRoutes.value);
                 rewriteRoutes.push({
                     path: '/:pathMatch(.*)*',
@@ -62,7 +61,7 @@ export const usePermissionStore = defineStore(
             const children = allRoutes.value.find(el => el.name === currName)?.children;
             if (children) {
                 // 扁平化所有子路由，查找当前路由是否在所有子路由中
-                let flatEveryRoutes = handleFlatRoutes(children);
+                let flatEveryRoutes = flatTreetoArray(children);
                 currName = flatEveryRoutes.find(el => el.name === route.name)?.name;
                 // 如果不存在，则默认跳转第一个路由的最后一层的子路由
                 if (!currName) currName = getCurrRouteLastChild(children[0]);
@@ -76,16 +75,6 @@ export const usePermissionStore = defineStore(
             router.push({ name: currName });
         };
 
-        // 过滤常量路由
-        const handleFilterConstantRoutes = (): MenuType[] => {
-            return (constantRoutes as MenuType[]).map(route => {
-                if (route.children?.length) {
-                    route.children = filterChildrenRoutes(route, route.children);
-                }
-                return route;
-            });
-        };
-
         // 获取当前数组第一个的最后一级的子路由
         const getCurrRouteLastChild = (currRoute: MenuType) => {
             if (currRoute.children?.length) {
@@ -94,85 +83,43 @@ export const usePermissionStore = defineStore(
             return currRoute.name;
         };
 
-        // 扁平化路由
-        const handleFlatRoutes = (asyncRoutes: MenuType[]): MenuType[] => {
-            return asyncRoutes.reduce((arr: MenuType[], { children, ...item }) => {
-                return arr.concat(item as any, children && children.length ? handleFlatRoutes(children) : []);
-            }, []);
-        };
-
-        // 对从服务器请求回来的异步路由进行解析
-        const handleFilterAsyncRoute = (filterRoutes: MenuType[]): MenuType[] => {
-            filterRoutes.map(route => {
+        // 处理异步加载路由
+        const handleFilterAsyncRoute = (asyncRoutes: MenuType[], parentRoute?: MenuType) => {
+            if (!asyncRoutes || asyncRoutes.length === 0) return [];
+            asyncRoutes.map(route => {
                 if (route.component === 'Layout') {
                     route.component = markRaw(Layout as any);
                 } else {
                     route.component = resolveView(route.component as string);
                 }
-                // 为目录
-                if (route.children?.length) {
-                    // 处理目录的重定向
-                    route.redirect = handleRedirectRoutes(route.path, route.children);
-                    // 处理子路由
-                    route.children = filterChildrenRoutes(route, route.children);
-                } else {
-                    // 没有子路由
-                    const { newParentPath } = generateRoutePath(route.path, '');
-                    route.path = newParentPath;
-                    delete route['children'];
-                }
-            });
-            return filterRoutes;
-        };
-
-        // 过滤子路由，并处理path
-        const filterChildrenRoutes = (parentRoutes: MenuType, childrenRoutes: MenuType[]): MenuType[] => {
-            let children: MenuType[] = [];
-            childrenRoutes.forEach(el => {
-                if (el.component && typeof el.component === 'string') {
-                    el.component = resolveView(el.component);
-                }
                 // 处理路由path
-                const { newParentPath, newPath } = generateRoutePath(parentRoutes.path, el.path);
-                // 更改父级path
-                parentRoutes.path = newParentPath;
-                // 更改当前path
-                el.path = newParentPath + newPath;
-                children.push(el);
-                if (el.children?.length) {
-                    filterChildrenRoutes(el, el.children);
+                route.path = generateRoutePath(parentRoute?.path, route.path);
+                if (route.children?.length) {
+                    // 处理目录redirect
+                    handleRedirectRoutes(route, route.children);
+                    route.children = handleFilterAsyncRoute(route.children, route);
                 }
             });
-            return children;
+            return asyncRoutes;
         };
-
-        // 处理目录重定向路由
-        const handleRedirectRoutes = (parentPath: string, children: MenuType[]) => {
-            if (!children || children.length === 0) {
-                return parentPath;
-            }
-            const { newParentPath, newPath } = generateRoutePath(parentPath, children[0].path);
-            const path = newParentPath + newPath;
-            // 递归子节点
-            if (children[0].children) return handleRedirectRoutes(path, children[0].children);
-            return path;
-        };
-
         // 处理路由path
-        const generateRoutePath = (parentPath: string, path: string) => {
-            if (!parentPath.startsWith('/')) {
-                parentPath = '/' + parentPath;
-            }
+        const generateRoutePath = (parentPath: string = '', path: string) => {
             if (parentPath.endsWith('/')) {
                 parentPath = parentPath.slice(0, -1);
             }
             if (!path.startsWith('/')) {
                 path = '/' + path;
             }
-            return {
-                newParentPath: parentPath,
-                newPath: path
-            };
+            return parentPath + path;
+        };
+        // 处理目录redirect
+        const handleRedirectRoutes = (route: MenuType, children?: MenuType[]) => {
+            if (children?.length) {
+                children.map((el, index) => {
+                    if (index === 0) route.redirect = generateRoutePath(route.path, el.path);
+                    if (el.children?.length) handleRedirectRoutes(el, el.children);
+                });
+            }
         };
 
         // 解析异步路由

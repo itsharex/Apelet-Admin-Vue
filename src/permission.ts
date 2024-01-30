@@ -30,6 +30,7 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
                 const redirect = decodeURIComponent(redirectPath as string);
                 const nextRoute = to.path === redirect ? { ...to, replace: true } : { path: redirect };
                 next(nextRoute);
+                next();
             } else {
                 next();
             }
