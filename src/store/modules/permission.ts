@@ -8,7 +8,7 @@ import { piniaPersist } from '@/config/piniaPersist';
 // 由于现在路由时异步的，在useRouter或useRoute一定要放在setup方法内的顶层，否则作用域改变useRouter()执行返回的是undefined。
 // import { useRouter, useRoute } from 'vue-router';
 import router from '@/router';
-import { deepClone, flatTreetoArray } from '@/utils/common';
+import { deepClone, flatTreeToArray } from '@/utils/common';
 import { useAppStore } from '@/store';
 import { getRouters } from '@/api/login';
 
@@ -44,7 +44,7 @@ export const usePermissionStore = defineStore(
                 const sideBarRoutes = handleFilterAsyncRoute(cloneAsyncRoutes);
                 allRoutes.value = (constantRoutes as MenuType[]).concat(rewriteRoutes);
                 asideBarRoutes.value = (constantRoutes as MenuType[]).concat(sideBarRoutes);
-                flatTabsRoutes.value = flatTreetoArray(deepClone(asideBarRoutes.value));
+                flatTabsRoutes.value = flatTreeToArray(deepClone(asideBarRoutes.value));
                 copyMenuRoutes.value = deepClone(allRoutes.value);
                 rewriteRoutes.push({
                     path: '/:pathMatch(.*)*',
@@ -61,7 +61,7 @@ export const usePermissionStore = defineStore(
             const children = allRoutes.value.find(el => el.name === currName)?.children;
             if (children) {
                 // 扁平化所有子路由，查找当前路由是否在所有子路由中
-                let flatEveryRoutes = flatTreetoArray(children);
+                let flatEveryRoutes = flatTreeToArray(children);
                 currName = flatEveryRoutes.find(el => el.name === route.name)?.name;
                 // 如果不存在，则默认跳转第一个路由的最后一层的子路由
                 if (!currName) currName = getCurrRouteLastChild(children[0]);
@@ -75,7 +75,7 @@ export const usePermissionStore = defineStore(
             router.push({ name: currName });
         };
 
-        // 获取当前数组第一个的最后一级的子路由
+        // 获取当前路由树第一个父级的最后一级的子路由
         const getCurrRouteLastChild = (currRoute: MenuType) => {
             if (currRoute.children?.length) {
                 return getCurrRouteLastChild(currRoute.children[0]);
@@ -102,6 +102,17 @@ export const usePermissionStore = defineStore(
             });
             return asyncRoutes;
         };
+
+        // 处理目录redirect
+        const handleRedirectRoutes = (route: MenuType, children?: MenuType[]) => {
+            if (children?.length) {
+                children.map((el, index) => {
+                    if (index === 0) route.redirect = generateRoutePath(route.path, el.path);
+                    if (el.children?.length) handleRedirectRoutes(el, el.children);
+                });
+            }
+        };
+
         // 处理路由path
         const generateRoutePath = (parentPath: string = '', path: string) => {
             if (parentPath.endsWith('/')) {
@@ -111,15 +122,6 @@ export const usePermissionStore = defineStore(
                 path = '/' + path;
             }
             return parentPath + path;
-        };
-        // 处理目录redirect
-        const handleRedirectRoutes = (route: MenuType, children?: MenuType[]) => {
-            if (children?.length) {
-                children.map((el, index) => {
-                    if (index === 0) route.redirect = generateRoutePath(route.path, el.path);
-                    if (el.children?.length) handleRedirectRoutes(el, el.children);
-                });
-            }
         };
 
         // 解析异步路由

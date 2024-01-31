@@ -28,8 +28,8 @@ export function deepClone<T>(value: T): T {
  * @param array 树型
  * @returns
  */
-export const flatTreetoArray = <T>(array: T[]): T[] => {
+export const flatTreeToArray = <T extends { children?: T[] }>(array: T[]): T[] => {
     return array.reduce((arr: T[], { children, ...item }) => {
-        return arr.concat(item as T, children && children.length ? flatTreetoArray(children) : []);
+        return arr.concat(item as T, children && children.length ? flatTreeToArray(children) : []);
     }, []);
 };
