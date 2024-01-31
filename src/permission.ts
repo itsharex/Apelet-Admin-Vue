@@ -22,6 +22,7 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
             next({ path: '/' });
         } else {
             if (permissionStore.allRoutes?.length === 0) {
+                // TODO 待换为用户信息判断
                 const rewriteRoutes = await permissionStore.getAsyncRoutes();
                 (rewriteRoutes as unknown as RouteRecordRaw[]).forEach(route => {
                     router.addRoute(route);
@@ -30,7 +31,6 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
                 const redirect = decodeURIComponent(redirectPath as string);
                 const nextRoute = to.path === redirect ? { ...to, replace: true } : { path: redirect };
                 next(nextRoute);
-                next();
             } else {
                 next();
             }

@@ -6,7 +6,7 @@
                     <component :is="item.meta?.icon" />
                 </el-icon>
                 <!-- truncate 多行溢出省略号 -->
-                <span class="truncate">{{ $t(`menus.${item.meta?.title}`) }}</span>
+                <span class="truncate">{{ $t(`${item.meta?.title}`) }}</span>
             </template>
             <sub-menu :menu-list="item.children" />
         </el-sub-menu>
@@ -16,15 +16,15 @@
                 <component :is="item.meta?.icon" />
             </el-icon>
             <template #title>
-                <span class="truncate">{{ $t(`menus.${item.meta?.title}`) }}</span>
+                <span class="truncate">{{ $t(`${item.meta?.title}`) }}</span>
             </template>
         </el-menu-item>
     </template>
 </template>
 
 <script setup lang="ts" name="SubMenu">
-defineProps<{ menuList: Menu.SubMenuOptions[] }>();
-const filterOneChildrenRoutes = (routes: Menu.SubMenuOptions[]): Menu.SubMenuOptions[] => {
+defineProps<{ menuList: SubMenuRouteRecordRaw[] }>();
+const filterOneChildrenRoutes = (routes: SubMenuRouteRecordRaw[]): SubMenuRouteRecordRaw[] => {
     return routes
         .filter(menu => !menu.meta?.hidden) // 去除需要隐藏的路由
         .map(menu => {

@@ -14,7 +14,7 @@
                         @contextmenu.prevent="handleContextMenu($event as PointerEvent, menu.path, menu.isFixed)"
                     >
                         <Icon v-show="menu.icon && tabsIcon" :name="`el-icon-${menu.icon}`" />
-                        <span class="pl-2">{{ $t(`menus.${menu.title}`) }}</span>
+                        <span class="pl-2">{{ $t(`${menu.title}`) }}</span>
                     </span>
                 </template>
             </el-tab-pane>
@@ -60,7 +60,7 @@ const initTabs = () => {
     flatTabsRoutes.value.forEach(menu => {
         if (menu.meta?.isFixed && !menu.meta.hidden) {
             const tabParams: TabsMenuState = {
-                title: menu.meta.title,
+                title: menu.meta.title as string,
                 name: menu.name as string,
                 path: menu.path,
                 icon: menu.meta.icon as string,
@@ -74,7 +74,7 @@ const initTabs = () => {
 const addTabs = () => {
     currTabMenu.value = route.fullPath;
     const tabParams: TabsMenuState = {
-        title: route.meta.title,
+        title: route.meta.title as string,
         name: route.name as string,
         path: route.fullPath,
         icon: route.meta.icon as string,

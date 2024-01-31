@@ -29,7 +29,7 @@ export default defineComponent({
             default: true
         },
         menuList: {
-            type: Array as PropType<Menu.RightMenuOptions[]>,
+            type: Array as PropType<RightMenuOptions[]>,
             default: () => []
         }
     },

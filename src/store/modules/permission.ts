@@ -14,7 +14,7 @@ import { getRouters } from '@/api/login';
 
 const modules = import.meta.glob('../../views/**/*.vue');
 
-type MenuType = Menu.SubMenuOptions;
+type MenuType = SubMenuRouteRecordRaw;
 
 export const usePermissionStore = defineStore(
     'permission',
@@ -42,8 +42,8 @@ export const usePermissionStore = defineStore(
                 let cloneRewriteRoutes = deepClone(asyncRoutes);
                 const rewriteRoutes = handleFilterAsyncRoute(cloneRewriteRoutes);
                 const sideBarRoutes = handleFilterAsyncRoute(cloneAsyncRoutes);
-                allRoutes.value = (constantRoutes as MenuType[]).concat(rewriteRoutes);
-                asideBarRoutes.value = (constantRoutes as MenuType[]).concat(sideBarRoutes);
+                allRoutes.value = constantRoutes.concat(rewriteRoutes);
+                asideBarRoutes.value = constantRoutes.concat(sideBarRoutes);
                 flatTabsRoutes.value = flatTreeToArray(deepClone(asideBarRoutes.value));
                 copyMenuRoutes.value = deepClone(allRoutes.value);
                 rewriteRoutes.push({

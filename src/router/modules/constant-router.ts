@@ -1,4 +1,3 @@
-import { RouteRecordRaw } from 'vue-router';
 import Layout from '@/layouts/index.vue';
 
 /**
@@ -32,7 +31,7 @@ import Layout from '@/layouts/index.vue';
  }
  **/
 
-export const constantRoutes: Array<RouteRecordRaw> = [
+export const constantRoutes: Array<SubMenuRouteRecordRaw> = [
     {
         path: '/',
         redirect: '/index',
@@ -45,7 +44,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
                 meta: {
                     icon: 'HomeFilled',
                     hidden: false,
-                    title: 'homepage',
+                    title: 'menus.homepage',
                     isCache: true,
                     isFixed: true
                 }
@@ -60,7 +59,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
         meta: {
             icon: 'Platform',
             hidden: false,
-            title: 'workbench'
+            title: 'menus.workbench'
         },
         children: [
             {
@@ -70,7 +69,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
                 meta: {
                     icon: 'Odometer',
                     hidden: false,
-                    title: 'dashboard',
+                    title: 'menus.dashboard',
                     isCache: true
                 }
             },
@@ -81,7 +80,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
                 meta: {
                     icon: 'PieChart',
                     hidden: false,
-                    title: 'analysis',
+                    title: 'menus.analysis',
                     isCache: true
                 }
             }
@@ -98,7 +97,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     }
 ];
 
-export const errorRoutes: Array<RouteRecordRaw> = [
+export const errorRoutes: Array<SubMenuRouteRecordRaw> = [
     {
         path: '/404',
         name: '404',

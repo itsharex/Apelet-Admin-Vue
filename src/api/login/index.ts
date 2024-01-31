@@ -74,7 +74,7 @@ export const reqCheck = (data: RequestCheckBlockAndClickCaptcha) => {
  * @returns
  */
 export const getRouters = () => {
-    return request<Menu.SubMenuOptions[]>({
+    return request<SubMenuRouteRecordRaw[]>({
         url: '/getRouters',
         method: 'get'
     });

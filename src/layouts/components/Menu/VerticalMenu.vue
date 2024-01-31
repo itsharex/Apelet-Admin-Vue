@@ -11,7 +11,7 @@
             popper-effect="dark"
         >
             <template v-for="menu in horizontalMenu" :key="menu.name">
-                <el-tooltip :content="$t(`menus.${menu.meta?.title}`)" placement="right" effect="dark">
+                <el-tooltip :content="$t(`${menu.meta?.title}`)" placement="right" effect="dark">
                     <el-menu-item @click="changeMenu" :index="menu.name">
                         <el-icon v-if="menu.meta?.icon">
                             <component :is="menu.meta?.icon" />

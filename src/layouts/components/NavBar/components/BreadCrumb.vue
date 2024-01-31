@@ -10,7 +10,7 @@
                     <el-icon v-show="breadcrumbsIcon">
                         <component :is="item.meta.icon" />
                     </el-icon>
-                    <span>{{ $t(`menus.${item.meta.title}`) }}</span>
+                    <span>{{ $t(`${item.meta.title}`) }}</span>
                 </div>
             </el-breadcrumb-item>
         </el-breadcrumb>

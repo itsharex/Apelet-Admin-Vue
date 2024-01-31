@@ -14,7 +14,7 @@ export const useTabContextMenu = () => {
     const route = useRoute();
 
     // 菜单列表
-    const contextMenuOptions = reactive<Menu.ContextMenuOptions[]>(contextMenu);
+    const contextMenuOptions = reactive<ContextMenuOptions[]>(contextMenu);
 
     /**
      *

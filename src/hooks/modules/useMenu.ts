@@ -21,13 +21,13 @@ export const useMenu = () => {
     });
     let currName = ref<string | undefined>(currParentRouteName.value);
     // 根据子级查询对应所有父级
-    const findFatherByChild = (data: Menu.SubMenuOptions[], target: string): Menu.SubMenuOptions[] | undefined => {
+    const findFatherByChild = (data: SubMenuRouteRecordRaw[], target: string): SubMenuRouteRecordRaw[] | undefined => {
         for (let i in data) {
             if (data[i].name === target) {
                 return [data[i]];
             }
             if (data[i].children?.length) {
-                let node = findFatherByChild(data[i].children, target);
+                let node = findFatherByChild(data[i].children as SubMenuRouteRecordRaw[], target);
                 if (node !== undefined) {
                     return node.concat(data[i]);
                 }

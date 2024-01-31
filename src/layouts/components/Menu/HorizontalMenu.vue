@@ -7,7 +7,7 @@
                 :data-name="menu.name"
                 :class="['menu-item', { active: menu.name === currName }]"
             >
-                {{ $t(`menus.${menu.meta?.title}`) }}
+                {{ $t(`${menu.meta?.title}`) }}
             </div>
         </div>
     </horizontal-scroll>
