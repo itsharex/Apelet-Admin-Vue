@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
 import { constantRoutes } from '@/router/modules/constant-router';
-// import asyncRoutes from '@/routers.json';
 import Layout from '@/layouts/index.vue';
 import { piniaPersist } from '@/config/piniaPersist';
 // 在 Vue3 中, 以hook函数引入 import { useRouter, useRoute } from 'vue-router'; 没有任何问题。
@@ -49,6 +48,7 @@ export const usePermissionStore = defineStore(
                 rewriteRoutes.push({
                     path: '/:pathMatch(.*)*',
                     redirect: '/404',
+                    name: 'PathMatch',
                     meta: { hidden: true }
                 });
                 resolve(rewriteRoutes);

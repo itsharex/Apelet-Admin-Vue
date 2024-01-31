@@ -35,6 +35,7 @@ export const constantRoutes: Array<SubMenuRouteRecordRaw> = [
     {
         path: '/',
         redirect: '/index',
+        name: 'Index',
         component: Layout,
         children: [
             {
