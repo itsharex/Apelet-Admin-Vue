@@ -2,7 +2,6 @@ import { defineStore } from 'pinia';
 import { piniaPersist } from '@/config/piniaPersist';
 import themeConfig from '@/config/theme';
 import { GlobalState } from '@/config/interface';
-import { ObjKeyOfArray } from '../interface';
 export const useLayoutStore = defineStore(
     'layout',
     () => {

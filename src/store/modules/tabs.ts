@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia';
-import { TabsMenuState } from '@/store/interface';
 import router from '@/router';
 import { useLayoutStore } from '@/store';
 import { setStorage, getStorage, removeStorage } from '@/utils/storage';
