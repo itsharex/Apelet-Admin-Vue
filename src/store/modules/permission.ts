@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { constantRoutes } from '@/router/modules/constant-router';
 import Layout from '@/layouts/index.vue';
+import asyncRoutes from '@/routers.json';
 import { piniaPersist } from '@/config/piniaPersist';
 // 在 Vue3 中, 以hook函数引入 import { useRouter, useRoute } from 'vue-router'; 没有任何问题。
 // 但是在 JavaScript 或者 TypeScript 中，需引入使用我们导出的实例 router
@@ -13,8 +14,6 @@ import { getRouters } from '@/api/login';
 
 const modules = import.meta.glob('../../views/**/*.vue');
 
-type MenuType = SubMenuRouteRecordRaw;
-
 export const usePermissionStore = defineStore(
     'permission',
     () => {
@@ -22,21 +21,21 @@ export const usePermissionStore = defineStore(
         const route = router.currentRoute.value;
 
         // 所有路由
-        let allRoutes = ref<MenuType[]>([]);
+        let allRoutes = ref<SubMenuRouteRecordRaw[]>([]);
         // 侧边栏路由
-        let asideBarRoutes = ref<MenuType[]>([]);
+        let asideBarRoutes = ref<SubMenuRouteRecordRaw[]>([]);
         // 需要扁平化的标签路由
-        let flatTabsRoutes = ref<MenuType[]>([]);
+        let flatTabsRoutes = ref<SubMenuRouteRecordRaw[]>([]);
         // 当前选中的最外层父级路由Name
         let currParentRouteName = ref<string>();
         // 复制一份菜单路由做备用
-        let copyMenuRoutes = ref<MenuType[]>([]);
+        let copyMenuRoutes = ref<SubMenuRouteRecordRaw[]>([]);
 
         // 获取异步路由
         const getAsyncRoutes = () => {
-            return new Promise(async resolve => {
+            return new Promise<SubMenuRouteRecordRaw[]>(async resolve => {
                 // 后续从服务器获取路由
-                const asyncRoutes = (await getRouters()).data;
+                // const asyncRoutes = (await getRouters()).data;
                 let cloneAsyncRoutes = deepClone(asyncRoutes);
                 let cloneRewriteRoutes = deepClone(asyncRoutes);
                 const rewriteRoutes = handleFilterAsyncRoute(cloneRewriteRoutes);
@@ -45,12 +44,6 @@ export const usePermissionStore = defineStore(
                 asideBarRoutes.value = constantRoutes.concat(sideBarRoutes);
                 flatTabsRoutes.value = flatTreeToArray(deepClone(asideBarRoutes.value));
                 copyMenuRoutes.value = deepClone(allRoutes.value);
-                rewriteRoutes.push({
-                    path: '/:pathMatch(.*)*',
-                    redirect: '/404',
-                    name: 'PathMatch',
-                    meta: { hidden: true }
-                });
                 resolve(rewriteRoutes);
             });
         };
@@ -76,7 +69,7 @@ export const usePermissionStore = defineStore(
         };
 
         // 获取当前路由树第一个父级的最后一级的子路由
-        const getCurrRouteLastChild = (currRoute: MenuType) => {
+        const getCurrRouteLastChild = (currRoute: SubMenuRouteRecordRaw) => {
             if (currRoute.children?.length) {
                 return getCurrRouteLastChild(currRoute.children[0]);
             }
@@ -84,7 +77,7 @@ export const usePermissionStore = defineStore(
         };
 
         // 处理异步加载路由
-        const handleFilterAsyncRoute = (asyncRoutes: MenuType[], parentRoute?: MenuType) => {
+        const handleFilterAsyncRoute = (asyncRoutes: SubMenuRouteRecordRaw[], parentRoute?: SubMenuRouteRecordRaw) => {
             if (!asyncRoutes || asyncRoutes.length === 0) return [];
             asyncRoutes.map(route => {
                 if (route.component === 'Layout') {
@@ -104,7 +97,7 @@ export const usePermissionStore = defineStore(
         };
 
         // 处理目录redirect
-        const handleRedirectRoutes = (route: MenuType, children?: MenuType[]) => {
+        const handleRedirectRoutes = (route: SubMenuRouteRecordRaw, children?: SubMenuRouteRecordRaw[]) => {
             if (children?.length) {
                 children.map((el, index) => {
                     if (index === 0) route.redirect = generateRoutePath(route.path, el.path);

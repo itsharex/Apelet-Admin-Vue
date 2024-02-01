@@ -4,6 +4,7 @@ import { start, done } from '@/config/nprogress';
 // 单独导入，如果小仓库在大仓库外面，无法获取，需要有大仓库
 import { useUserStore, usePermissionStore } from '@/store';
 import { settingConfig } from '@/config/settings';
+import { errorRoutes } from '@/router/modules/constant-router';
 
 // 白名单
 const whiteList = ['/login'];
@@ -21,16 +22,14 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
         if (to.path === '/login') {
             next({ path: '/' });
         } else {
-            if (permissionStore.allRoutes?.length === 0) {
+            if (userStore.userInfo.roles.length === 0) {
+                userStore.userInfo.roles = ['1'];
                 // TODO 待换为用户信息判断
                 const rewriteRoutes = await permissionStore.getAsyncRoutes();
-                (rewriteRoutes as unknown as RouteRecordRaw[]).forEach(route => {
-                    router.addRoute(route);
+                rewriteRoutes.forEach(route => {
+                    router.addRoute(route as unknown as RouteRecordRaw);
                 });
-                const redirectPath = from.query.redirect || to.path;
-                const redirect = decodeURIComponent(redirectPath as string);
-                const nextRoute = to.path === redirect ? { ...to, replace: true } : { path: redirect };
-                next(nextRoute);
+                next({ ...to, replace: true });
             } else {
                 next();
             }

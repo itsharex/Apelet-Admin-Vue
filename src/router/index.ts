@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory, Router, RouteRecordRaw } from 'vue-router';
 
-import { constantRoutes, errorRoutes } from './modules/constant-router';
+import { constantRoutes } from './modules/constant-router';
 import { dynamicRoutes } from './modules/dynamic-touter';
 
 const router: Router = createRouter({
-    history: createWebHistory(),
-    routes: [...constantRoutes, ...dynamicRoutes, ...errorRoutes] as RouteRecordRaw[],
+    history: createWebHistory(import.meta.env.BASE_URL),
+    strict: true,
+    routes: [...constantRoutes, ...dynamicRoutes] as RouteRecordRaw[],
     scrollBehavior: () => ({ top: 0, left: 0 })
 });
 

@@ -107,5 +107,15 @@ export const errorRoutes: Array<SubMenuRouteRecordRaw> = [
             hidden: true,
             title: '404'
         }
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        redirect: '/404',
+        name: 'PathMatch',
+        component: () => import('@/views/error/404.vue'),
+        meta: {
+            hidden: true,
+            title: '页面不见了！'
+        }
     }
 ];
