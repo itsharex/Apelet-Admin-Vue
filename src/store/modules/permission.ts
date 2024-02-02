@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
+// 未对常量路由做path拼接
 import { constantRoutes } from '@/router/modules/constant-router';
-import Layout from '@/layouts/index.vue';
 import asyncRoutes from '@/routers.json';
 import { piniaPersist } from '@/config/piniaPersist';
 // 在 Vue3 中, 以hook函数引入 import { useRouter, useRoute } from 'vue-router'; 没有任何问题。
@@ -13,6 +13,7 @@ import { useAppStore } from '@/store';
 import { getRouters } from '@/api/login';
 
 const modules = import.meta.glob('../../views/**/*.vue');
+const Layout = () => import('@/layouts/index.vue');
 
 export const usePermissionStore = defineStore(
     'permission',
@@ -81,7 +82,7 @@ export const usePermissionStore = defineStore(
             if (!asyncRoutes || asyncRoutes.length === 0) return [];
             asyncRoutes.map(route => {
                 if (route.component === 'Layout') {
-                    route.component = markRaw(Layout as any);
+                    route.component = markRaw(Layout);
                 } else {
                     route.component = resolveView(route.component as string);
                 }

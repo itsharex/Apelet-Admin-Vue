@@ -24,6 +24,8 @@ import router from '@/router';
 // i18n
 import i18n, { asyncI18nFunc } from '@/i18n';
 
+console.log(564);
+
 // 权限认证
 import './permission';
 
@@ -35,6 +37,8 @@ const setupApp = async () => {
     install(app);
 
     app.use(i18n);
+
+    console.log(123);
 
     app.use(router);
 

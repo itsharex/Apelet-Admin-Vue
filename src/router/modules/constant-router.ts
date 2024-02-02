@@ -1,5 +1,4 @@
-import Layout from '@/layouts/index.vue';
-
+const Layout = () => import('@/layouts/index.vue');
 /**
  * name:'routerName'          	设定路由的名字，一定要填写不然使用<keep-alive>时会出现各种问题
  * meta : {
@@ -39,7 +38,7 @@ export const constantRoutes: Array<SubMenuRouteRecordRaw> = [
         component: Layout,
         children: [
             {
-                path: 'index',
+                path: '/index',
                 name: 'HomePage',
                 component: () => import('@/views/home/index.vue'),
                 meta: {
@@ -48,41 +47,6 @@ export const constantRoutes: Array<SubMenuRouteRecordRaw> = [
                     title: 'menus.homepage',
                     isCache: true,
                     isFixed: true
-                }
-            }
-        ]
-    },
-    {
-        path: '/workbench',
-        name: 'WorkBench',
-        redirect: '/workbench/dashboard',
-        component: Layout,
-        meta: {
-            icon: 'Platform',
-            hidden: false,
-            title: 'menus.workbench'
-        },
-        children: [
-            {
-                path: 'dashboard',
-                name: 'DashBoard',
-                component: () => import('@/views/workbench/dashboard/index.vue'),
-                meta: {
-                    icon: 'Odometer',
-                    hidden: false,
-                    title: 'menus.dashboard',
-                    isCache: true
-                }
-            },
-            {
-                path: 'analysis',
-                name: 'Analysis',
-                component: () => import('@/views/workbench/analysis/index.vue'),
-                meta: {
-                    icon: 'PieChart',
-                    hidden: false,
-                    title: 'menus.analysis',
-                    isCache: true
                 }
             }
         ]
@@ -110,8 +74,7 @@ export const errorRoutes: Array<SubMenuRouteRecordRaw> = [
     },
     {
         path: '/:pathMatch(.*)*',
-        redirect: '/404',
-        name: 'PathMatch',
+        name: 'NotMatch',
         component: () => import('@/views/error/404.vue'),
         meta: {
             hidden: true,
