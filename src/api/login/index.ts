@@ -1,12 +1,13 @@
 import request from '@/utils/request';
 import {
-    LoginForm,
+    RequesLoginForm,
     LoginResponse,
-    GraphCaptcha,
+    GraphCaptchaRespone,
     RequestBlockAndClickCaptcha,
     RequestCheckBlockAndClickCaptcha,
-    CheckBlockAndClickCaptcha,
-    BlockAndClickCaptcha
+    CheckBlockAndClickCaptchaResponse,
+    BlockAndClickCaptchaResponse,
+    UserResponse
 } from './types';
 
 /**
@@ -14,7 +15,7 @@ import {
  * @param data
  * @returns
  */
-export const login = (data: LoginForm) => {
+export const login = (data: RequesLoginForm) => {
     return request<LoginResponse>({
         url: '/login',
         method: 'POST',
@@ -23,11 +24,23 @@ export const login = (data: LoginForm) => {
 };
 
 /**
+ * 获取用户信息
+ * @param data
+ * @returns
+ */
+export const getLoginUserInfo = () => {
+    return request<UserResponse>({
+        url: '/getLoginUserInfo',
+        method: 'get'
+    });
+};
+
+/**
  * 获取验证码类别
  * @returns
  */
 export const getCaptchaType = () => {
-    return request<GraphCaptcha>({
+    return request<GraphCaptchaRespone>({
         url: '/reCaptcha/type',
         method: 'get'
     });
@@ -38,7 +51,7 @@ export const getCaptchaType = () => {
  * @returns
  */
 export const getCaptchaImage = () => {
-    return request<GraphCaptcha>({
+    return request<GraphCaptchaRespone>({
         url: '/captchaImage',
         method: 'get'
     });
@@ -49,7 +62,7 @@ export const getCaptchaImage = () => {
  * @returns
  */
 export const reqGet = (data: RequestBlockAndClickCaptcha) => {
-    return request<BlockAndClickCaptcha>({
+    return request<BlockAndClickCaptchaResponse>({
         url: '/reCaptcha/get',
         method: 'post',
         data
@@ -62,7 +75,7 @@ export const reqGet = (data: RequestBlockAndClickCaptcha) => {
  * @returns
  */
 export const reqCheck = (data: RequestCheckBlockAndClickCaptcha) => {
-    return request<CheckBlockAndClickCaptcha>({
+    return request<CheckBlockAndClickCaptchaResponse>({
         url: '/reCaptcha/check',
         method: 'post',
         data
@@ -76,6 +89,17 @@ export const reqCheck = (data: RequestCheckBlockAndClickCaptcha) => {
 export const getRouters = () => {
     return request<SubMenuRouteRecordRaw[]>({
         url: '/getRouters',
+        method: 'get'
+    });
+};
+
+/**
+ * 获取所有i18n 信息
+ * @returns
+ */
+export const getInternational = () => {
+    return request<LocalesOptions[]>({
+        url: '/getInternational',
         method: 'get'
     });
 };

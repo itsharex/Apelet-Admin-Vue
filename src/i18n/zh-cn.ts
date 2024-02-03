@@ -42,6 +42,7 @@ export default {
         monitor: '系统监控',
         onlineUser: '在线用户',
         serviceMonitor: '服务监控',
+        tool: '系统工具',
         404: '404'
     },
     tools: {

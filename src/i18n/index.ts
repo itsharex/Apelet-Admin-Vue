@@ -1,7 +1,7 @@
 import { createI18n } from 'vue-i18n';
 import messages from './locales';
 import { getStorage } from '@/utils/storage';
-import request from '@/utils/request';
+import { getInternational } from '@/api/login';
 
 const i18n = createI18n({
     globalInjection: true, //全局生效$t
@@ -11,5 +11,12 @@ const i18n = createI18n({
     legacy: false // 如果要支持compositionAPI，此项必须设置为false;
 });
 
-export const asyncI18nFunc = async () => {};
+export const asyncI18nFunc = async () => {
+    const { data } = await getInternational();
+    data.forEach(item => {
+        const { localsLabel, localsZhValue, localsEnValue } = item;
+        i18n.global.mergeLocaleMessage('en', { [`${localsLabel}`]: localsEnValue });
+        i18n.global.mergeLocaleMessage('zh-CN', { [`${localsLabel}`]: localsZhValue });
+    });
+};
 export default i18n;

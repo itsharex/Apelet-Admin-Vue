@@ -1,7 +1,5 @@
 /// <reference types="vite/client" />
 
-import { UserInfo } from '@/api/login/types';
-
 declare global {
     interface TabsMenuState {
         icon: string;
@@ -21,6 +19,36 @@ declare global {
 
     interface UserState {
         token: string;
+        roleKey: string;
         userInfo: UserInfo;
+        permissions: string[];
     }
+}
+
+// 用户信息类型
+export interface UserInfo {
+    userId: number;
+    postId: number;
+    postName: string;
+    roleId: number;
+    roleName: string;
+    deptId: number;
+    deptName: string;
+    username: string;
+    nickname: string;
+    userType: number;
+    email: string;
+    phoneNumber: string;
+    sex: number;
+    avatar: string;
+    status: number;
+    loginIp: string;
+    loginDate: string;
+    creatorId?: number;
+    creatorName?: string;
+    createTime?: string;
+    updaterId?: number;
+    updaterName?: string;
+    updateTime?: string;
+    remark?: string;
 }

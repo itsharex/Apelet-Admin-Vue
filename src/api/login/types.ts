@@ -1,8 +1,11 @@
+import { UserInfo } from '@/typings/store';
+
 /**
  * 请求类型
  */
+
 // 登录携带参数类型
-export interface LoginForm {
+export interface RequesLoginForm {
     username: string;
     password: string;
     verifyCode?: string;
@@ -29,18 +32,17 @@ export interface RequestCheckBlockAndClickCaptcha {
 // 登录响应返回
 export interface LoginResponse {
     token: string;
-    currentUser: UserInfo;
 }
 
-// 用户信息
-export interface UserInfo {
-    username: string;
-    roles: string[];
+//用户信息响应返回
+export interface UserResponse {
     permissions: string[];
+    roleKey: string;
+    userInfo: UserInfo;
 }
 
 // 图形验证码
-export interface GraphCaptcha {
+export interface GraphCaptchaRespone {
     isCaptchaOn: boolean;
     captchaCategory: string;
     captchaCodeKey: string;
@@ -48,7 +50,7 @@ export interface GraphCaptcha {
 }
 
 // 滑块点击验证码响应
-export interface BlockAndClickCaptcha {
+export interface BlockAndClickCaptchaResponse {
     captchaId?: string;
     projectCode?: string;
     captchaType?: string;
@@ -71,7 +73,7 @@ export interface BlockAndClickCaptcha {
 }
 
 // 核验滑块点击验证码
-export interface CheckBlockAndClickCaptcha {
+export interface CheckBlockAndClickCaptchaResponse {
     captchaType: string;
     token: string;
     result: boolean;

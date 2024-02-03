@@ -36,7 +36,6 @@ import TabContextMenu from './components/TabContextMenu.vue';
 import TabTools from './components/TabTools.vue';
 import { usePermissionStore, useTabsStore, useLayoutStore } from '@/store';
 import { useRoute, useRouter } from 'vue-router';
-import { TabsMenuState } from '@/store/interface';
 import { TabPaneName, TabsPaneContext } from 'element-plus';
 import { useTabContextMenu } from '@/hooks';
 import mittBus from '@/utils/mittBus';

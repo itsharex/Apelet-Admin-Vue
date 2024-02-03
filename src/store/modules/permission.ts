@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 // 未对常量路由做path拼接
 import { constantRoutes } from '@/router/modules/constant-router';
-import asyncRoutes from '@/routers.json';
+// import asyncRoutes from '@/routers.json';
 import { piniaPersist } from '@/config/piniaPersist';
 // 在 Vue3 中, 以hook函数引入 import { useRouter, useRoute } from 'vue-router'; 没有任何问题。
 // 但是在 JavaScript 或者 TypeScript 中，需引入使用我们导出的实例 router
@@ -36,7 +36,7 @@ export const usePermissionStore = defineStore(
         const getAsyncRoutes = () => {
             return new Promise<SubMenuRouteRecordRaw[]>(async resolve => {
                 // 后续从服务器获取路由
-                // const asyncRoutes = (await getRouters()).data;
+                const asyncRoutes = (await getRouters()).data;
                 let cloneAsyncRoutes = deepClone(asyncRoutes);
                 let cloneRewriteRoutes = deepClone(asyncRoutes);
                 const rewriteRoutes = handleFilterAsyncRoute(cloneRewriteRoutes);

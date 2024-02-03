@@ -22,23 +22,16 @@ import pinia from '@/store';
 // router
 import router from '@/router';
 // i18n
-import i18n, { asyncI18nFunc } from '@/i18n';
-
-console.log(564);
+import i18n from '@/i18n';
 
 // 权限认证
 import './permission';
 
 const setupApp = async () => {
     const app = createApp(App);
-
-    await asyncI18nFunc();
-
     install(app);
 
     app.use(i18n);
-
-    console.log(123);
 
     app.use(router);
 

@@ -61,6 +61,15 @@ declare global {
         tips?: string;
         hidden?: boolean;
         disabled?: boolean;
-        children?: MenuOptions[];
+        children?: SubMenuRouteRecordRaw[];
+    }
+
+    // 菜单国际化
+    interface LocalesOptions {
+        localsId: number;
+        menuId: number;
+        localsLabel: string;
+        localsZhValue: string;
+        localsEnValue: string;
     }
 }
