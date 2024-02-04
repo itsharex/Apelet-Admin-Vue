@@ -180,7 +180,7 @@ const canvasClick = e => {
                     if (mode.value == 'pop') {
                         setTimeout(() => {
                             proxy.$parent.clickShow = false;
-                            refresh();
+                            // refresh();
                         }, 1500);
                     }
                     proxy.$parent.$emit('success', { captchaVerification });
