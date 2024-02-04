@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { piniaPersist } from '@/config/piniaPersist';
 import { getLoginUserInfo, login } from '@/api/login';
-import { RequesLoginForm } from '@/api/login/types';
+import { RequestLoginForm } from '@/api/login/types';
 import { rsaEncrypt } from '@/utils/encrypt';
 import { deepClone } from '@/utils/common';
 import { asyncI18nFunc } from '@/i18n';
@@ -37,7 +37,7 @@ export const useUserStore = defineStore('user', {
         }
     },
     actions: {
-        async loginAction(form: RequesLoginForm) {
+        async loginAction(form: RequestLoginForm) {
             let cloneForm = deepClone(form);
             cloneForm.password = rsaEncrypt(cloneForm.password);
             const { data } = await login(cloneForm);

@@ -1,4 +1,4 @@
-import { LoginForm } from '@/api/login/types';
+import { RequestLoginForm } from '@/api/login/types';
 import { getCookie, removeCookie, setCookie } from '@/utils/cookie';
 import { rsaEncrypt, rsaDecrypt } from '@/utils/encrypt';
 import { ElNotification, FormInstance, FormRules } from 'element-plus';
@@ -13,13 +13,13 @@ export const useLoginForm = () => {
     const userStore = useUserStore();
     const router = useRouter();
     const route = useRoute();
-    const rules = reactive<FormRules<LoginForm>>({
+    const rules = reactive<FormRules<RequestLoginForm>>({
         username: [{ required: true, message: t(`login.usernamePlaceholder`), trigger: 'blur' }],
         password: [{ required: true, message: t(`login.passwordPlaceholder`), trigger: 'blur' }]
         // verifyCode: [{ required: true, message: t(`login.verifyCodePlaceholder`), trigger: 'blur' }]
     });
 
-    const loginForm = reactive<LoginForm>({
+    const loginForm = reactive<RequestLoginForm>({
         username: 'admin',
         password: '123456'
     });
@@ -60,11 +60,10 @@ export const useLoginForm = () => {
                 await userStore.loginAction(loginForm);
                 rememberPass();
                 router.push((route.query?.redirect || '') as string);
-                await userStore.getUserInfo();
                 ElNotification({
                     title: '登录成功!',
                     type: 'success',
-                    message: `欢迎回来，${userStore.userInfo.username}`
+                    message: `欢迎回来，${userStore.userName}`
                 });
             } else {
                 throw new Error('校验失败');

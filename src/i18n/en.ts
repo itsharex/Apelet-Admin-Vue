@@ -35,15 +35,7 @@ export default {
         workbench: 'WorkBench',
         dashboard: 'DashBoard',
         analysis: 'Analysis',
-        internal: 'Internal',
         login: 'Login',
-        system: 'System Manage',
-        user: 'User Manage',
-        role: 'Role Manage',
-        menu: 'Menu Manage',
-        monitor: 'Monitor',
-        onlineUser: 'OnlineUser',
-        serviceMonitor: 'ServiceMonitor',
         404: '404'
     },
     tools: {

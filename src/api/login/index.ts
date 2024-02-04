@@ -1,6 +1,6 @@
 import request from '@/utils/request';
 import {
-    RequesLoginForm,
+    RequestLoginForm,
     LoginResponse,
     GraphCaptchaRespone,
     RequestBlockAndClickCaptcha,
@@ -15,7 +15,7 @@ import {
  * @param data
  * @returns
  */
-export const login = (data: RequesLoginForm) => {
+export const login = (data: RequestLoginForm) => {
     return request<LoginResponse>({
         url: '/login',
         method: 'POST',

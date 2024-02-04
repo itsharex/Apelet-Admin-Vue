@@ -33,16 +33,7 @@ export default {
         workbench: '工作台',
         dashboard: '仪表盘',
         analysis: '分析页',
-        internal: '字典管理',
         login: '登录',
-        system: '系统管理',
-        user: '用户管理',
-        role: '角色管理',
-        menu: '菜单管理',
-        monitor: '系统监控',
-        onlineUser: '在线用户',
-        serviceMonitor: '服务监控',
-        tool: '系统工具',
         404: '404'
     },
     tools: {

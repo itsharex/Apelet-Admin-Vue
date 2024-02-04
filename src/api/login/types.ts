@@ -5,7 +5,7 @@ import { UserInfo } from '@/typings/store';
  */
 
 // 登录携带参数类型
-export interface RequesLoginForm {
+export interface RequestLoginForm {
     username: string;
     password: string;
     verifyCode?: string;
