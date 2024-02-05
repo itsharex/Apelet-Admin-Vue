@@ -24,7 +24,6 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
         if (to.path === '/login') {
             next({ path: '/' });
         } else {
-            // TODO 待换为用户信息判断
             if (!userStore.userName) {
                 await userStore.getUserInfo();
                 const rewriteRoutes = await permissionStore.getAsyncRoutes();

@@ -47,6 +47,7 @@ export default {
         verification: 'Please complete security verification',
         point: 'Please click on them one by one',
         slide: 'Swipe right to complete verification',
+        fail: 'Verification failed',
         success: 'Verification successful'
     },
     login: {

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { piniaPersist } from '@/config/piniaPersist';
-import { getLoginUserInfo, login } from '@/api/login';
+import { getLoginUserInfo, login, logout } from '@/api/login';
 import { RequestLoginForm } from '@/api/login/types';
 import { rsaEncrypt } from '@/utils/encrypt';
 import { deepClone } from '@/utils/common';
@@ -50,6 +50,13 @@ export const useUserStore = defineStore('user', {
             this.permissions = data.permissions;
             Object.assign(this.userInfo, data.userInfo);
             asyncI18nFunc();
+        },
+
+        async logout() {
+            await logout();
+            this.token = '';
+            this.permissions = [];
+            this.roleKey = '';
         }
     },
     persist: piniaPersist({ key: 'user', paths: ['token'] })

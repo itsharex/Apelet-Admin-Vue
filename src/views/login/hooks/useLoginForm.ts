@@ -1,5 +1,5 @@
 import { RequestLoginForm } from '@/api/login/types';
-import { getCookie, removeCookie, setCookie } from '@/utils/cookie';
+import { getCookie, removeCookie, setCookie } from '@/utils/storage';
 import { rsaEncrypt, rsaDecrypt } from '@/utils/encrypt';
 import { ElNotification, FormInstance, FormRules } from 'element-plus';
 import { useI18n } from 'vue-i18n';
@@ -21,7 +21,7 @@ export const useLoginForm = () => {
 
     const loginForm = reactive<RequestLoginForm>({
         username: 'admin',
-        password: '123456'
+        password: 'admin123'
     });
 
     // 记住密码
@@ -59,11 +59,12 @@ export const useLoginForm = () => {
             if (valid) {
                 await userStore.loginAction(loginForm);
                 rememberPass();
-                router.push((route.query?.redirect || '') as string);
+                // "??" 运算符只会在左侧的值为 null 或 undefined 时返回默认值
+                router.push((route.query?.redirect ?? '/') as string);
                 ElNotification({
-                    title: '登录成功!',
+                    title: '登录成功',
                     type: 'success',
-                    message: `欢迎回来，${userStore.userName}`
+                    message: `欢迎回来！`
                 });
             } else {
                 throw new Error('校验失败');

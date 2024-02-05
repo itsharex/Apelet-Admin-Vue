@@ -1,4 +1,3 @@
-import { ContextMenuOptins } from '@/hooks/interface';
 import { SettingConfig, LayoutModeConfig } from './interface';
 export const settingConfig: SettingConfig = {
     // 系统标题
@@ -12,7 +11,7 @@ export const settingConfig: SettingConfig = {
 };
 
 // 右键菜单配置项
-export const contextMenu: Array<ContextMenuOptins> = [
+export const contextMenu: Array<ContextMenuOptions> = [
     {
         icon: 'local-icon-refresh',
         label: '刷新页面',

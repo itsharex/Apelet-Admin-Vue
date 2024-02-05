@@ -24,6 +24,17 @@ export const login = (data: RequestLoginForm) => {
 };
 
 /**
+ * 退出登录
+ * @returns
+ */
+export const logout = () => {
+    return request({
+        url: '/logout',
+        method: 'POST'
+    });
+};
+
+/**
  * 获取用户信息
  * @param data
  * @returns

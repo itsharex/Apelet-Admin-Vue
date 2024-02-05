@@ -172,7 +172,7 @@ const canvasClick = e => {
                 token: backToken.value
             };
             reqCheck(data).then(res => {
-                if (res.code == 0) {
+                if (res.code == 0 && res.data) {
                     barAreaColor.value = '#4cae4c';
                     barAreaBorderColor.value = '#5cb85c';
                     text.value = t('captcha.success');
