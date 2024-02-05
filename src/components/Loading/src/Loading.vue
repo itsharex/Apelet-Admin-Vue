@@ -1,0 +1,12 @@
+<script lang="tsx" name="Loading">
+import { defineComponent } from 'vue';
+export default defineComponent({
+    setup() {
+        return () => (
+            <div>
+                <div></div>
+            </div>
+        );
+    }
+});
+</script>

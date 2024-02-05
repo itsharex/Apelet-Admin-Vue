@@ -14,19 +14,24 @@ interface RequestInterceptorsConfig extends RequestConfig {
     // 请求拦截器使用
     headers: RequestHeader;
 }
-
+axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8';
 const service = axios.create({
     baseURL: import.meta.env.VITE_APP_BASE_API,
     timeout: 5000
 });
 
-service.interceptors.request.use((config: RequestInterceptorsConfig) => {
-    const userStore = useUserStore();
-    if (userStore.token) {
-        config.headers['Authorization'] = userStore.token;
+service.interceptors.request.use(
+    (config: RequestInterceptorsConfig) => {
+        const userStore = useUserStore();
+        if (userStore.token) {
+            config.headers['Authorization'] = userStore.token;
+        }
+        return config;
+    },
+    error => {
+        Promise.reject(error);
     }
-    return config;
-});
+);
 
 service.interceptors.response.use(
     (response: AxiosResponse) => {
