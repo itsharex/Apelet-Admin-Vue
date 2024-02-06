@@ -3,12 +3,176 @@
   <head>
     <meta charset="UTF-8" />
     <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  	<meta name="renderer" content="webkit">
+  	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="icon" href="/vite.svg">
     <title>Apelet Admin</title>
+	<style>
+		html,
+		body,
+		#app {
+		height: 100%;
+		padding: 0;
+		margin: 0;
+		}
+		.loading-spin {
+			position: fixed;
+			inset: 0;
+			z-index: 9999;
+			display: none;
+			width: 100%;
+			height: 100%;
+			font-size: 18px;
+			font-weight: bold;
+			color: #1890ff;
+			text-align: center;
+			list-style: none;
+			background-color: rgb(0 0 0 / 10%);
+			opacity: 0;
+			transition: transform 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+		}
+		.loading-spin-spinning {
+			position: static;
+			display: inline-block;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			opacity: 1;
+		}
+		.loading-spin-container {
+			position: relative;
+			transition: opacity 0.3s;
+		}
+		.loading-spin-container::after {
+			position: fixed;
+			inset: 0;
+			z-index: 10;
+			display: none;
+			width: 100%;
+			height: 100%;
+			pointer-events: none;
+			content: '';
+			background: #ffffff;
+			opacity: 0;
+			transition: all 0.3s;
+		}
+		.loading-spin-blur {
+			clear: both;
+			pointer-events: none;
+			user-select: none;
+			opacity: 0.5;
+		}
+		.loading-spin-blur::after {
+			pointer-events: auto;
+			opacity: 0.4;
+		}
+		.loading-spin-tip {
+			color: #00000073;
+		}
+
+		/* 旋转的点 */
+		.loading-spin-dot {
+			position: relative;
+			display: inline-block;
+			width: 3em;
+			height: 3em;
+			margin: 20px;
+			font-size: 20px;
+		}
+		.loading-spin-dot-item {
+			position: absolute;
+			display: block;
+			width: 20px;
+			height: 20px;
+			background-color: #1890ff;
+			border-radius: 100%;
+			opacity: 0.3;
+			transform: scale(0.75);
+			transform-origin: 50% 50%;
+			animation: loading-spin-move 1s infinite linear alternate;
+		}
+		.loading-spin-dot-item:nth-child(1) {
+			top: 0;
+			left: 0;
+		}
+		.loading-spin-dot-item:nth-child(2) {
+			top: 0;
+			right: 0;
+			animation-delay: 0.4s;
+		}
+		.loading-spin-dot-item:nth-child(3) {
+			right: 0;
+			bottom: 0;
+			animation-delay: 0.8s;
+		}
+		.loading-spin-dot-item:nth-child(4) {
+			bottom: 0;
+			left: 0;
+			animation-delay: 1.2s;
+		}
+		.loading-spin-dot-spin {
+			transform: rotate(45deg);
+			animation: loading-rotate 1.2s infinite linear;
+		}
+		.loading-spin-sm .loading-spin-dot {
+			font-size: 14px;
+		}
+		.loading-spin-sm .loading-spin-dot i {
+			width: 6px;
+			height: 6px;
+		}
+		.loading-spin-lg .loading-spin-dot {
+			font-size: 32px;
+		}
+		.loading-spin-lg .loading-spin-dot i {
+			width: 14px;
+			height: 14px;
+		}
+		.loading-spin.loading-spin-show-text .loading-spin-text {
+			display: block;
+		}
+
+		@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+			.loading-spin-blur {
+				background: #ffffff;
+				opacity: 0.5;
+			}
+		}
+		.loading-spin-rtl {
+			direction: rtl;
+		}
+		.loading-spin-rtl .loading-spin-dot-spin {
+			transform: rotate(-45deg);
+			animation-name: loadingRotateRtl;
+		}
+
+		@keyframes loading-spin-move {
+			to {
+				opacity: 1;
+			}
+		}
+
+		@keyframes loading-rotate {
+			to {
+				transform: rotate(405deg);
+			}
+		}
+	  </style>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+		<div class="loading-spin loading-spin-spinning">
+			<span class="loading-spin-dot loading-spin-dot-spin">
+				<i class="loading-spin-dot-item"></i>
+				<i class="loading-spin-dot-item"></i>
+				<i class="loading-spin-dot-item"></i>
+				<i class="loading-spin-dot-item"></i>
+			</span>
+			<div class="loading-spin-text">加载中...</div>
+		</div>
+	</div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

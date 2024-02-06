@@ -14,12 +14,11 @@
 </template>
 
 <script setup lang="ts">
-import { ContextMenuOptins } from '@/hooks/interface';
 import { StyleValue } from 'vue';
 import { useTabsStore, useAppStore } from '@/store';
 
 interface PropsType {
-    options: ContextMenuOptins[];
+    options: ContextMenuOptions[];
     showContextMenu: boolean;
     currTabMenu: string;
     menuStyle: StyleValue;
