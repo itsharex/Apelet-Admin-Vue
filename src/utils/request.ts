@@ -1,6 +1,6 @@
 import axios, { AxiosResponse, AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
 import { useUserStore } from '@/store';
-import { ElNotification } from 'element-plus';
+import { ElMessageBox, ElNotification } from 'element-plus';
 
 // 自定义请求接口headers头参数类型
 type RequestHeader = AxiosRequestHeaders & { token?: string };
@@ -39,7 +39,21 @@ service.interceptors.response.use(
         const code = response.data.code || 0;
         // 获取错误信息
         const msg = response.data.msg;
-        if (code !== 0) {
+        if (code === 106) {
+            ElNotification.error({ title: '会话过期或失效，请重新登录！' });
+            ElMessageBox.confirm('登录状态已过期，请重新登录', '系统提示', {
+                confirmButtonText: '重新登录',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                useUserStore()
+                    .logout()
+                    .then(() => {
+                        location.href = '/';
+                    });
+            });
+            return Promise.reject(msg);
+        } else if (code !== 0) {
             ElNotification.error({ title: msg });
             return Promise.reject('error');
         } else {
@@ -47,6 +61,7 @@ service.interceptors.response.use(
         }
     },
     (err: AxiosResponse) => {
+        console.log(123, err);
         return Promise.reject(err);
     }
 );
