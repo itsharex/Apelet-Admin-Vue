@@ -2,7 +2,7 @@ import request from '@/utils/request';
 import {
     RequestLoginForm,
     LoginResponse,
-    GraphCaptchaRespone,
+    GraphCaptchaResponse,
     RequestBlockAndClickCaptcha,
     RequestCheckBlockAndClickCaptcha,
     CheckBlockAndClickCaptchaResponse,
@@ -51,7 +51,7 @@ export const getLoginUserInfo = () => {
  * @returns
  */
 export const getCaptchaType = () => {
-    return request<GraphCaptchaRespone>({
+    return request<GraphCaptchaResponse>({
         url: '/reCaptcha/type',
         method: 'get'
     });
@@ -62,7 +62,7 @@ export const getCaptchaType = () => {
  * @returns
  */
 export const getCaptchaImage = () => {
-    return request<GraphCaptchaRespone>({
+    return request<GraphCaptchaResponse>({
         url: '/captchaImage',
         method: 'get'
     });

@@ -1,5 +1,3 @@
-import { UserInfo } from '@/typings/store';
-
 /**
  * 请求类型
  */
@@ -42,7 +40,7 @@ export interface UserResponse {
 }
 
 // 图形验证码
-export interface GraphCaptchaRespone {
+export interface GraphCaptchaResponse {
     isCaptchaOn: boolean;
     captchaCategory: string;
     captchaCodeKey: string;

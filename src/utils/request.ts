@@ -14,6 +14,7 @@ interface RequestInterceptorsConfig extends RequestConfig {
     // 请求拦截器使用
     headers: RequestHeader;
 }
+
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8';
 const service = axios.create({
     baseURL: import.meta.env.VITE_APP_BASE_API,
@@ -61,7 +62,6 @@ service.interceptors.response.use(
         }
     },
     (err: AxiosResponse) => {
-        console.log(123, err);
         return Promise.reject(err);
     }
 );

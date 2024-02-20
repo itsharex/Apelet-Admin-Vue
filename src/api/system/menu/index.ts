@@ -8,7 +8,7 @@ import request from '@/utils/request';
 export const getMenuList = <T>(params: T) => {
     return request({
         url: '/system/menus',
-        method: 'POST',
+        method: 'get',
         params
     });
 };
