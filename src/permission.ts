@@ -17,7 +17,7 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
     const { title } = settingConfig;
 
     if (to.meta.title) {
-        document.title = title + '-' + to.meta.title;
+        document.title = to.meta.title + '-' + title;
     }
     start();
     if (userStore.token) {

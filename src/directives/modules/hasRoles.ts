@@ -6,14 +6,14 @@ import { useUserStore } from '@/store';
  * 自定义指令-角色权限处理
  */
 const hasRoles: DirectiveOptions<'vHasRoles'> = {
-    name: 'HasRoles',
+    name: 'hasroles',
     directive: {
         mounted(el: HTMLElement, binding: DirectiveBinding) {
             const userStore = useUserStore();
             // 所有权限
             const allRole = 'admin';
             const { value } = binding;
-            const roles = userStore.userInfo.roles;
+            const roles = userStore.roles;
             if (!value) throw new Error(`请设置角色权限值`);
             if (!(Array.isArray(value) && value.length)) throw new Error(`角色权限值格式有误！格式：[*]`);
             const hasRole = roles.some(role => {
