@@ -12,6 +12,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
 
     return {
         root,
+        base: './',
         resolve: {
             alias: {
                 '~/': `${path.resolve(__dirname, 'src')}/`,
