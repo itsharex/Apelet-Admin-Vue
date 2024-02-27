@@ -6,7 +6,7 @@ export const useMenu = () => {
     const permissionStore = usePermissionStore();
     const appStore = useAppStore();
     const route = useRoute();
-    const { allRoutes, currParentRouteName } = storeToRefs(permissionStore);
+    const { allRoutes, currParentRouteName, copyMenuRoutes } = storeToRefs(permissionStore);
     const timer = ref();
     const horizontalMenu = computed(() => {
         return allRoutes.value
@@ -55,7 +55,7 @@ export const useMenu = () => {
                 // 优化为等到侧边栏完全隐藏再触发,解决渐变布局侧边栏隐藏动画卡顿效果
                 clearTimeout(timer.value);
                 timer.value = setTimeout(() => {
-                    permissionStore.$patch({ asideBarRoutes: permissionStore.copyMenuRoutes });
+                    permissionStore.$patch({ asideBarRoutes: copyMenuRoutes.value });
                 }, 300);
             } else {
                 initRoutes(currName.value);

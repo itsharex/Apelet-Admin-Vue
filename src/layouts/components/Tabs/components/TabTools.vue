@@ -22,11 +22,10 @@
 </template>
 
 <script setup lang="ts">
-import { ContextMenuOptins } from '@/hooks/interface';
 import { useTabsStore, useAppStore } from '@/store';
 
 interface PropsType {
-    options: ContextMenuOptins[];
+    options: ContextMenuOptions[];
     currTabMenu: string;
 }
 

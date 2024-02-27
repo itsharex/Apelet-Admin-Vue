@@ -35,6 +35,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
         },
         // command === 'serve' 表示serve独有配置     command === 'build' 表示 build 独有配置
         plugins: createVitePlugins(env, command === 'build'),
+        // 服务代理
         server: {
             port: 80,
             host: '0.0.0.0',
@@ -46,6 +47,28 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
                     rewrite: api => api.replace(/^\/dev-api/, '')
                 }
             }
+        },
+        // 打包构建
+        build: {
+            rollupOptions: {
+                // 将js，css这些资源目录分别打包到对应的文件夹下
+                output: {
+                    chunkFileNames: 'js/[name]-[hash].js', // 引入文件名的名称
+                    entryFileNames: 'js/[name]-[hash].js', // 包的入口文件名称
+                    assetFileNames: '[ext]/[name]-[hash].[ext]', // 资源文件像 字体，图片等
+
+                    // js最小拆分包
+                    manualChunks(id) {
+                        if (id.includes('node_modules')) {
+                            return id.toString().split('node_modules/')[1].split('/')[0].toString();
+                        }
+                    }
+                }
+            }
+        },
+        esbuild: {
+            pure: ['console.log'], // 删除 console.log
+            drop: ['debugger'] // 删除 debugger
         }
     };
 });

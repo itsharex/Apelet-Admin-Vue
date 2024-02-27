@@ -19,7 +19,7 @@
         "noEmit": true, // 是否生成编译后的文件，默认：false。
         "sourceMap": false, // 用来指定编译时是否生成.map文件
         "jsx": "preserve", // 指定jsx代码用于的开发环境
-        // "allowJs": true, // 允许编译JS
+        "allowJs": true, // 允许编译JS
         // "checkJs": true, // 允许在JS文件中报错，通常与allowJS一起使用
         "baseUrl": "./",
         "paths": {
