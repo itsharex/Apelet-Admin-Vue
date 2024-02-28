@@ -1,8 +1,7 @@
 import type { App } from 'vue';
-import { ProgressType } from './interface';
 import Nprogress from '@/config/nprogress';
 export default {
-    install(app: App, options: ProgressType) {
+    install(app: App, options: ProgressConfig) {
         const handleProgress = () => {
             // 获取滚动的高度
             const scrollTop = document.documentElement.scrollTop;

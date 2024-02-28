@@ -2,31 +2,29 @@
 
 export {};
 declare global {
-    interface TabsMenuState {
+    type TabsMenuState = {
         icon: string;
         name: string;
         path: string;
         title: string;
         isFixed?: boolean;
         isCache?: boolean;
-    }
+    };
 
-    interface AppState {
+    type AppState = {
         isCollapse: boolean;
         isMobile: boolean;
         reload: boolean;
         language: string;
-    }
+    };
 
-    interface UserState {
+    type UserState = {
         token: string;
         roleKey: string;
         userInfo: UserInfo;
         permissions: string[];
-    }
-}
+    };
 
-declare global {
     // 用户信息类型
     type UserInfo = {
         userId: number;

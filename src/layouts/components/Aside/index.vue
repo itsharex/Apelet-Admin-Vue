@@ -30,3 +30,4 @@ const collapseWidth = computed(() => {
     @apply py-2 flex-col-stretch bg-background border-r-1 border-solid border-[var(--el-color-info-light-8)] transition-width duration-300;
 }
 </style>
+@/config/modules/settings

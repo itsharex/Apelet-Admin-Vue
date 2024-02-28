@@ -1,4 +1,3 @@
-import { DirectiveOptions } from '../interface/type';
 import { DirectiveBinding } from 'vue';
 import { useUserStore } from '@/store';
 

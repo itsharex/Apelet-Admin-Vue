@@ -1,5 +1,4 @@
 import type { StorageLike, PersistedStateOptions } from 'pinia-plugin-persistedstate';
-import { PersistConfig } from './interface';
 // 持久化加密
 import SecureLS from 'secure-ls';
 

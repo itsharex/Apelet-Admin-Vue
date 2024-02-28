@@ -1,4 +1,3 @@
-import { SettingConfig, LayoutModeConfig } from './interface';
 export const settingConfig: SettingConfig = {
     // 系统标题
     title: 'Apelet Admin',

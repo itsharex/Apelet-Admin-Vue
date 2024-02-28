@@ -1,6 +1,7 @@
 /// <reference types="vite/client" />
 
 export {};
+
 declare global {
     // keyof是取得对象的key值组成的联合类型
     // in 一般搭配联合类型进行迭代

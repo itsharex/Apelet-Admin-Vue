@@ -1,4 +1,3 @@
-import { GlobalState } from './interface';
 // 默认值
 export const defaultTheme = {
     /**

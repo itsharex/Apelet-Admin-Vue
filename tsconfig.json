@@ -43,8 +43,8 @@
         "src/**/*.vue",
         "vite/**/*.ts",
         "vite/**/*.d.ts",
-        "typings/**/*.ts",
-        "typings/**/*.d.ts",
+        "types/**/*.ts",
+        "types/**/*.d.ts",
         "vite.config.ts",
         "src/components/VeriyCode/verifition/utils/util.js"
     ],

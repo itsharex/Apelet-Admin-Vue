@@ -4,6 +4,7 @@ import { createVitePlugins } from './vite/plugins/index';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
+    // process.cwd() 方法返回的是当前Nodejs进程的工作目录
     const root = process.cwd();
     // Vite 默认是不加载 .env 文件的，因为这些文件需要在执行完 Vite 配置后才能确定加载哪一个
     // 根据当前工作目录中的 `mode` 加载 .env 文件
@@ -12,10 +13,15 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
 
     return {
         root,
-        base: './',
+        // 部署生产环境和开发环境下的URL。
+        // 默认情况下，vite 会假设你的应用是被部署在一个域名的根路径上, 就需要用这个选项指定这个子路径。
+        // 如果你的应用被部署在 https://www.xxx.com/admin/，则设置 base 为 /admin/。
+        base: command === 'build' ? '/' : '/',
         resolve: {
             alias: {
-                '~/': `${path.resolve(__dirname, 'src')}/`,
+                // 设置路径  __dirname返回的是当前脚本所在的目录的绝对路径。
+                // './' 返回的是当前路径下所有的文件路径  C:\Users\xxx\Desktop\xxx项目\
+                '~/': path.resolve(__dirname, './'),
                 '@': path.resolve(__dirname, 'src')
                 // 需要把项目嵌入electron中，采用下列别名替换方式，防止windows解析路径错误
                 // '@': path.posix.resolve(__dirname, 'src')

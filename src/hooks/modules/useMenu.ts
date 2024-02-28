@@ -55,6 +55,7 @@ export const useMenu = () => {
                 // 优化为等到侧边栏完全隐藏再触发,解决渐变布局侧边栏隐藏动画卡顿效果
                 clearTimeout(timer.value);
                 timer.value = setTimeout(() => {
+                    // 可能有循环递归问题
                     permissionStore.$patch({ asideBarRoutes: copyMenuRoutes.value });
                 }, 300);
             } else {
