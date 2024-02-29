@@ -13,6 +13,7 @@ import LayoutLattice from './LayoutLattice/index.vue';
 import LayoutGradient from './LayoutGradient/index.vue';
 import { LayoutConfig } from '@/types/config';
 import { useLayoutStore } from '@/store';
+// Record<Keys, Type> 将一种类型的属性映射到另一种类型
 const layoutComponent: Record<LayoutConfig, Component> = {
     vertical: LayoutVertical,
     basic: LayoutBasic,

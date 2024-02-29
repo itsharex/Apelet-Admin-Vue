@@ -10,4 +10,12 @@ declare global {
     type ObjKeyOfArray<T> = {
         [k in keyof T]: [k, T[k]]; // [k in keyof T] 对应属性   [k, T[K]] 表示数组，类型为 k, T[K] 对应的类型
     }[keyof T]; // [keyof T] 表示取值的类型为 T 的 属性名
+
+    // 传入泛型约束返回数据类型
+    // ApiResponse 主体后端返回格式
+    interface ApiResponse<T = any> {
+        code: number;
+        msg: string;
+        data: T; // 这里定义请求返回data数据类型
+    }
 }
