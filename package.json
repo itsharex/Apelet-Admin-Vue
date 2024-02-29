@@ -6,10 +6,10 @@
   "scripts": {
     "dev": "vite --host",
     "serve": "vite --host",
-    "build:tsc": "vue-tsc && vite build --mode production",
     "build:dev": "vite build --mode development",
     "build:test": "vite build --mode test",
     "build:prod": "vite build --mode production",
+	"tsc": "vue-tsc",
     "check": "vue-tsc --noEmit --skipLibCheck",
     "lint:eslint": "eslint src",
     "lint:fix": "eslint src --fix",
