@@ -4,13 +4,13 @@ import { createVitePlugins } from './vite/plugins/index';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
-    // process.cwd() 方法返回的是当前Nodejs进程的工作目录
+    // process.cwd() 方法返回的是当前Nodejs进程的工作目录  F:\study\vue\github\Apelet-Admin-Vue
     const root = process.cwd();
     // Vite 默认是不加载 .env 文件的，因为这些文件需要在执行完 Vite 配置后才能确定加载哪一个
     // 根据当前工作目录中的 `mode` 加载 .env 文件
     // loadEnv的第三个参数为 '' 来加载所有环境变量，而不管是否有 `VITE_` 前缀。
     const env = loadEnv(mode, root);
-    const { VITE_APP_HOST } = env;
+    const { VITE_APP_HOST, VITE_APP_BASE_API } = env;
 
     return {
         root,
@@ -21,8 +21,8 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
         resolve: {
             alias: {
                 // 设置路径  __dirname返回的是当前脚本所在的目录的绝对路径。
-                // './' 返回的是当前路径下所有的文件路径  C:\Users\xxx\Desktop\xxx项目\
-                '~/': path.resolve(__dirname, './'),
+                // './' 返回的是当前路径下所有的文件路径  则 ./src ==> F:\study\vue\github\Apelet-Admin-Vue\src
+                '~': path.resolve(__dirname, './src'),
                 '@': path.resolve(__dirname, 'src')
                 // 需要把项目嵌入electron中，采用下列别名替换方式，防止windows解析路径错误
                 // '@': path.posix.resolve(__dirname, 'src')
@@ -49,7 +49,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
             host: VITE_APP_HOST,
             open: false,
             proxy: {
-                '/dev-api': {
+                [VITE_APP_BASE_API]: {
                     target: 'http://localhost:8080',
                     changeOrigin: true,
                     rewrite: api => api.replace(/^\/dev-api/, '')
