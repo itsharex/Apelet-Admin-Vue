@@ -4,7 +4,6 @@ import type { StorageLike, PersistedStateOptions } from 'pinia-plugin-persisteds
 
 export type LayoutConfig = 'basic' | 'vertical' | 'lattice' | 'horizontal' | 'gradient';
 
-export {};
 declare global {
     // 是否开启滚动条加载进度跟随
     interface ProgressConfig {

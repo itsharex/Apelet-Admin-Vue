@@ -3,7 +3,6 @@ import 'vue-router';
 import { defineComponent } from 'vue';
 import { RouteRecordRaw } from 'vue-router';
 
-export {};
 declare module 'vue-router' {
     interface RouteMeta extends Record<string | number | symbol, unknown> {
         // 菜单图标

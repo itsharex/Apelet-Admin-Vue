@@ -1,5 +1,7 @@
 /// <reference types="vite/client" />
 
+// JavaScript 规范声明任何没有 import 声明、export 或顶层 await 的 JavaScript 文件都应被视为脚本而不是模块。
+// 若需要 将其视为模块 添加 export {};
 export {};
 
 declare global {
