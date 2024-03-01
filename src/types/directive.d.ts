@@ -2,7 +2,6 @@
 
 import type { Directive } from 'vue';
 
-export {};
 declare global {
     interface Directives {
         vHasPerms: Directive;

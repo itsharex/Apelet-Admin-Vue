@@ -24,7 +24,7 @@ export function deepClone<T>(value: T): T {
 }
 
 /**
- * 树结构转为数组
+ * 树结构转为数组 (扁平化)
  * @param array 树型
  * @returns
  */
