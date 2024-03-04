@@ -121,6 +121,7 @@ import { Moon, Sunny } from '@element-plus/icons-vue';
 import { useTheme } from '@/hooks';
 import { useLayoutStore, useTabsStore, usePermissionStore } from '@/store';
 import { animateMode, tabsStyle, layoutMode } from '@/config/settings';
+import { deepClone } from '@/utils/common';
 
 const layoutStore = useLayoutStore();
 const permissionStore = usePermissionStore();
@@ -142,7 +143,7 @@ const changeMenuMode = () => setMenuMode();
 
 // 切换布局对应的操作
 const handleLayout = () => {
-    permissionStore.$patch({ asideBarRoutes: permissionStore.copyMenuRoutes });
+    permissionStore.$patch({ asideBarRoutes: deepClone(permissionStore.copyMenuRoutes) });
 };
 </script>
 
