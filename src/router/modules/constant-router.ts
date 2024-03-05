@@ -57,7 +57,7 @@ export const constantRoutes: Array<SubMenuRouteRecordRaw> = [
         component: () => import('@/views/login/index.vue'),
         meta: {
             hidden: true,
-            title: 'login'
+            title: 'login.login'
         }
     }
 ];

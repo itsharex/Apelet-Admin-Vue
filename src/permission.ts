@@ -8,8 +8,6 @@ import { settingConfig } from '@/config/settings';
 
 // 白名单
 const whiteList = ['/login'];
-// 判断路由是否已经添加
-const registerRouteFresh = ref(true);
 
 router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
     // pinia搭配路由使用时，必须放在守卫里才行，不然外面pinia先加载会失效
@@ -31,7 +29,6 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
                 rewriteRoutes.forEach(route => {
                     router.addRoute(route as unknown as RouteRecordRaw);
                 });
-                registerRouteFresh.value = false;
                 next({ path: to.path });
                 // 增加 router.isReady() ， 使用下面语句 刷新会导致空白页面
                 // next({ ...to, replace: true });

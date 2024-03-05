@@ -19,10 +19,10 @@ import { install } from './plugins';
 import App from './App.vue';
 // pinia
 import pinia from '@/store';
-// router
-import router from '@/router';
 // i18n
 import i18n from '@/i18n';
+// router
+import router from '@/router';
 
 // 权限认证
 import './permission';

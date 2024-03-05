@@ -5,7 +5,7 @@ import type { Directive } from 'vue';
 declare global {
     interface Directives {
         vHasPerms: Directive;
-        vHasRoles: Directive;
+        vHasRole: Directive;
     }
 
     // keys = 'vHasPerms' | 'vHasRoles'

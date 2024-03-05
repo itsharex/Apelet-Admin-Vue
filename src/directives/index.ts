@@ -1,8 +1,9 @@
 import type { App } from 'vue';
 
 import hasPerms from './modules/hasPerms';
+import hasRole from './modules/hasRole';
 
-const directiveList = [hasPerms];
+const directiveList = [hasPerms, hasRole];
 
 const directives = {
     install: function (app: App<Element>) {

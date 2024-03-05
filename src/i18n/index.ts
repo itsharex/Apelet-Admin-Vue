@@ -19,4 +19,5 @@ export const asyncI18nFunc = async () => {
         i18n.global.mergeLocaleMessage('zh-CN', { [`${localsLabel}`]: localsZhValue });
     });
 };
+
 export default i18n;
