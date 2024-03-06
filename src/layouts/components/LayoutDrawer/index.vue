@@ -126,7 +126,6 @@ import { deepClone } from '@/utils/common';
 const layoutStore = useLayoutStore();
 const permissionStore = usePermissionStore();
 const { handlePersistTabs } = useTabsStore();
-
 const { switchDark, setThemeColor, setGrayMode, setWeakNessMode, setMenuMode, setGradientTextColor } = useTheme();
 
 // 主题颜色
@@ -143,7 +142,8 @@ const changeMenuMode = () => setMenuMode();
 
 // 切换布局对应的操作
 const handleLayout = () => {
-    permissionStore.$patch({ asideBarRoutes: deepClone(permissionStore.copyMenuRoutes) });
+    const copyMenuRoutes = deepClone(permissionStore.copyMenuRoutes);
+    permissionStore.$patch({ asideBarRoutes: copyMenuRoutes });
 };
 </script>
 

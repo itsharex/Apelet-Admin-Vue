@@ -23,7 +23,6 @@ import { MainApp, Tabs, AppMask, Aside, Logo } from '../components';
 import { useAppStore } from '@/store';
 import { deviceDetection } from '../helpers/deviceDetection';
 import { settingConfig } from '@/config/settings';
-import { SettingConfig } from '@/config/interface';
 
 const appStore = useAppStore();
 const containerRef = ref<HTMLElement>();

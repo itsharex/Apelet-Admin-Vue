@@ -1,12 +1,13 @@
 import { useRoute } from 'vue-router';
 import { usePermissionStore, useAppStore } from '@/store';
+import { deepClone } from '@/utils/common';
 
 // 垂直、横向菜单hooks
 export const useMenu = () => {
     const permissionStore = usePermissionStore();
     const appStore = useAppStore();
     const route = useRoute();
-    const { allRoutes, currParentRouteName, copyMenuRoutes } = storeToRefs(permissionStore);
+    const { allRoutes, currParentRouteName } = storeToRefs(permissionStore);
     const timer = ref();
     const horizontalMenu = computed(() => {
         return allRoutes.value
@@ -55,8 +56,9 @@ export const useMenu = () => {
                 // 优化为等到侧边栏完全隐藏再触发,解决渐变布局侧边栏隐藏动画卡顿效果
                 clearTimeout(timer.value);
                 timer.value = setTimeout(() => {
-                    // 可能有循环递归问题
-                    permissionStore.$patch({ asideBarRoutes: copyMenuRoutes.value });
+                    const copyMenuRoutes = deepClone(permissionStore.copyMenuRoutes);
+                    // 直接使用store.xxx  ts提示可能有循环递归问题
+                    permissionStore.$patch({ asideBarRoutes: copyMenuRoutes });
                 }, 300);
             } else {
                 initRoutes(currName.value);
