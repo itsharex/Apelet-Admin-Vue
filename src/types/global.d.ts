@@ -10,4 +10,9 @@ declare global {
     type ObjKeyOfArray<T> = {
         [k in keyof T]: [k, T[k]]; // [k in keyof T] 对应属性   [k, T[K]] 表示数组，类型为 k, T[K] 对应的类型
     }[keyof T]; // [keyof T] 表示取值的类型为 T 的 属性名
+
+    // 全局导入模块类型
+    type importModules<T> = {
+        default: T;
+    };
 }

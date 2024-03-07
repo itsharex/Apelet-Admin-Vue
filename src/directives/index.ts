@@ -1,15 +1,12 @@
 import type { App } from 'vue';
 
-import hasPerms from './modules/hasPerms';
-import hasRole from './modules/hasRole';
-
-const directiveList = [hasPerms, hasRole];
-
+const directModules = import.meta.glob('./modules/*.ts');
 const directives = {
-    install: function (app: App<Element>) {
-        directiveList.forEach(direct => {
-            app.directive(direct.name, direct.directive);
-        });
+    install: async function (app: App<Element>) {
+        for (const key in directModules) {
+            const direct = <importModules<DirectiveOptions<Keys>>>await directModules[key]();
+            app.directive(direct.default.name, direct.default.directive);
+        }
     }
 };
 

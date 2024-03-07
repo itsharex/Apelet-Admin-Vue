@@ -5,7 +5,7 @@ import { useUserStore } from '@/store';
  * 自定义指令-操作权限处理
  */
 const hasRole: DirectiveOptions<'vHasRole'> = {
-    name: 'hasrole',
+    name: 'hasRole',
     directive: {
         mounted(el: HTMLElement, binding: DirectiveBinding<string>) {
             const userStore = useUserStore();
