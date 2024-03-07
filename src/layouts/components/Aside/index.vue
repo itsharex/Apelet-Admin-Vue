@@ -10,7 +10,6 @@ import Logo from './logo.vue';
 import Menu from '../Menu/index.vue';
 import { useAppStore, useLayoutStore } from '@/store';
 import { settingConfig } from '@/config/settings';
-import { SettingConfig } from '@/config/interface';
 
 const appStore = useAppStore();
 const layoutStore = useLayoutStore();

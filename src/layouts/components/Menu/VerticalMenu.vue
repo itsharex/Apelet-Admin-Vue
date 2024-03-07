@@ -29,7 +29,6 @@ import { useMenu } from '@/hooks';
 import { MenuItemClicked } from 'element-plus';
 import mittBus from '@/utils/mittBus';
 import { settingConfig } from '@/config/settings';
-import { SettingConfig } from '@/config/interface';
 import { useAppStore } from '@/store';
 
 const route = useRoute();
