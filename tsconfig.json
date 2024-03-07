@@ -36,7 +36,15 @@
         "extendedDiagnostics": false, //是否查看 TS 在编译时花费的时间
         "noEmitOnError": true //有错误时不进行编译
     },
-    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "vite.config.ts"],
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.d.ts",
+        "src/**/*.tsx",
+        "src/**/*.vue",
+        "vite/**/*.ts",
+        "vite/**/*.d.ts",
+        "vite.config.ts"
+    ],
     "exclude": ["node_modules", "dist", "**/*.js"],
     "references": [{ "path": "./tsconfig.node.json" }]
 }
