@@ -1,5 +1,5 @@
 <template>
-    <div>Menu</div>
+    <div>开发中</div>
 </template>
 
 <script setup lang="ts"></script>
