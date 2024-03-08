@@ -7,8 +7,8 @@ import components from '@/components/index';
 // 粒子动画
 import Particles from 'particles.vue3';
 
-export const initInstall = (app: App) => {
+export const initInstall = async (app: App) => {
+    await directives(app);
     app.use(components);
-    app.use(directives);
     app.use(Particles);
 };

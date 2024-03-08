@@ -29,7 +29,7 @@ import './permission';
 
 const setupApp = async () => {
     const app = createApp(App);
-    install(app);
+    await install(app);
 
     app.use(i18n);
 
