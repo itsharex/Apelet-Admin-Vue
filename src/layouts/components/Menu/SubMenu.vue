@@ -2,7 +2,7 @@
     <template v-for="item in filterOneChildrenRoutes(menuList)" :key="item.name">
         <el-sub-menu v-if="item.children?.length" :index="item.path">
             <template #title>
-                <el-icon v-if="item.meta?.icon">
+                <el-icon>
                     <component :is="item.meta?.icon" />
                 </el-icon>
                 <!-- truncate 多行溢出省略号 -->
@@ -12,7 +12,7 @@
         </el-sub-menu>
         <el-menu-item v-else :index="item.path">
             <!-- 只有一个子路由时，需要将icon写在title外面，否则无法显示，具体查看官网 -->
-            <el-icon v-if="item.meta?.icon">
+            <el-icon>
                 <component :is="item.meta?.icon" />
             </el-icon>
             <template #title>
