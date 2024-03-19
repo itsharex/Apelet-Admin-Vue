@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import router from '@/router';
+import { useRouter, useRoute } from 'vue-router';
 import { useLayoutStore } from '@/store';
 import { setStorage, getStorage, removeStorage } from '@/utils/storage';
 
@@ -12,7 +12,8 @@ export const useTabsStore = defineStore('tabs', () => {
 
     const layoutStore = useLayoutStore();
     const { tabsCache } = toRefs(layoutStore);
-    const route = router.currentRoute.value;
+    const router = useRouter();
+    const route = useRoute();
 
     // 添加tabs
     const addTabs = (tabsMenu: TabsMenuState) => {
