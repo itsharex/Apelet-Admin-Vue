@@ -4,8 +4,8 @@ import { useUserStore } from '@/store';
 /**
  * 自定义指令-操作权限处理
  */
-const hasRole: DirectiveOptions<'vHasRole'> = {
-    name: 'hasRole',
+const hasRole: DirectiveOptions<'vAuth'> = {
+    name: 'auth',
     directive: {
         mounted(el: HTMLElement, binding: DirectiveBinding<string>) {
             const userStore = useUserStore();

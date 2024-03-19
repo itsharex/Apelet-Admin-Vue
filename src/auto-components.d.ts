@@ -51,6 +51,7 @@ declare module 'vue' {
     Icon: typeof import('./components/Icon/src/Icon.vue')['default']
     Loading: typeof import('./components/Loading/src/Loading.vue')['default']
     MultiUpload: typeof import('./components/MultiUpload/src/MultiUpload.vue')['default']
+    ProTable: typeof import('./components/ProTable/src/ProTable.vue')['default']
     RightMenu: typeof import('./components/RightMenu/src/RightMenu.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
