@@ -7,7 +7,6 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    CustomTable: typeof import('./components/CustomTable/src/CustomTable.vue')['default']
     Echarts: typeof import('./components/Echarts/src/Echarts.vue')['default']
     ElAlert: typeof import('element-plus/es')['ElAlert']
     ElAside: typeof import('element-plus/es')['ElAside']

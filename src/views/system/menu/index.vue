@@ -1,6 +1,6 @@
 <template>
     <div>
-        <custom-table :table-data="ArticleList">
+        <el-custom-table :table-data="ArticleList">
             <template #operateButton>
                 <el-button type="primary">Primary</el-button>
                 <el-button type="success">Success</el-button>
@@ -10,13 +10,13 @@
             </template>
             <el-table-column prop="title" label="文章标题"></el-table-column>
             <el-table-column prop="body" label="文章内容"></el-table-column>
-        </custom-table>
+        </el-custom-table>
     </div>
 </template>
 
 <script setup lang="ts">
 import axios from 'axios';
-import { CustomTable } from '@/components/CustomTable';
+import { ElCustomTable } from '@/components/ElCustomTable';
 
 type Article = {
     body: string;
