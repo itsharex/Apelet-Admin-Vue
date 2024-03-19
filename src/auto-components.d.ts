@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    CustomTable: typeof import('./components/CustomTable/src/CustomTable.vue')['default']
     Echarts: typeof import('./components/Echarts/src/Echarts.vue')['default']
     ElAlert: typeof import('element-plus/es')['ElAlert']
     ElAside: typeof import('element-plus/es')['ElAside']
@@ -43,6 +44,8 @@ declare module 'vue' {
     ElSelect: typeof import('element-plus/es')['ElSelect']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
+    ElTable: typeof import('element-plus/es')['ElTable']
+    ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElText: typeof import('element-plus/es')['ElText']
@@ -51,6 +54,7 @@ declare module 'vue' {
     Icon: typeof import('./components/Icon/src/Icon.vue')['default']
     Loading: typeof import('./components/Loading/src/Loading.vue')['default']
     MultiUpload: typeof import('./components/MultiUpload/src/MultiUpload.vue')['default']
+    ProTable: typeof import('./components/ProTable/src/ProTable.vue')['default']
     RightMenu: typeof import('./components/RightMenu/src/RightMenu.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

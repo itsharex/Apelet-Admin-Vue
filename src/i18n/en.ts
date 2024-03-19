@@ -55,7 +55,8 @@ export default {
         // systemAPI: 'System Interface',
         // officialWebsite: 'Official WebsiteI',
         login: 'Login',
-        404: '404'
+        404: '404',
+        noFound: 'Page No Found'
     },
     tools: {
         dataScreen: 'Data Screen',

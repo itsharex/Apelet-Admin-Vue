@@ -53,7 +53,8 @@ export default {
         // systemAPI: '系统接口',
         // officialWebsite: 'Apelet Admin官网',
         login: '登录',
-        404: '404'
+        404: '404',
+        noFound: '页面不见了'
     },
     tools: {
         dataScreen: '数据大屏',

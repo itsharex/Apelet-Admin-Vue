@@ -78,7 +78,7 @@ export const errorRoutes: Array<SubMenuRouteRecordRaw> = [
         component: () => import('@/views/error/404.vue'),
         meta: {
             hidden: true,
-            title: '页面不见了！'
+            title: 'menus.noFound'
         }
     }
 ];
