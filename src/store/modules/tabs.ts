@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { useRouter, useRoute } from 'vue-router';
 import { useLayoutStore } from '@/store';
 import { setStorage, getStorage, removeStorage } from '@/utils/storage';
+import { TabsMenuState } from '../interface';
 
 // 标签栏持久化key
 const persistKey = 'tabs';

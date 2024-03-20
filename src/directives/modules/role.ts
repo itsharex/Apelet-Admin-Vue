@@ -1,5 +1,6 @@
 import { DirectiveBinding } from 'vue';
 import { useUserStore } from '@/store';
+import { DirectiveOptions } from '../interface';
 
 /**
  * 自定义指令-操作权限处理

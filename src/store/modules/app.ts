@@ -1,6 +1,7 @@
 import { LocaleKey } from '@/i18n/locales';
 import { defineStore } from 'pinia';
 import { getStorage, setStorage } from '@/utils/storage';
+import { AppState } from '../interface';
 
 export const useAppStore = defineStore('app', {
     state: (): AppState => ({

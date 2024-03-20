@@ -5,6 +5,7 @@ import { RequestLoginForm } from '@/api/login/types';
 import { rsaEncrypt } from '@/utils/encrypt';
 import { deepClone } from '@/utils/common';
 import { asyncI18nFunc } from '@/i18n';
+import { UserState } from '../interface';
 
 export const useUserStore = defineStore('user', {
     state: (): UserState => ({
