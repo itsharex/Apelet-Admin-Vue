@@ -24,4 +24,9 @@ declare global {
         msg: string;
         data: T; // 这里定义请求返回data数据类型
     }
+
+    interface BaseRequestType {
+        pageNum: number;
+        pageSize: number;
+    }
 }

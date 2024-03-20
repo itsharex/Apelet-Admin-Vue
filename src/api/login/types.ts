@@ -2,6 +2,8 @@
  * 请求类型
  */
 
+import { UserInfo } from '@/store/interface';
+
 // 登录携带参数类型
 export interface RequestLoginForm {
     username: string;
