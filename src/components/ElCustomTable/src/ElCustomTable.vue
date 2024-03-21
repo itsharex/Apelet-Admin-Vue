@@ -27,22 +27,29 @@
             <!-- 循环处理columns列 -->
             <template v-for="column in columnList" :key="column">
                 <el-table-column
-                    v-if="column.type && columnTypes.includes(column.type)"
+                    v-if="column.type"
                     v-bind="column"
                     :align="column.align ?? 'center'"
                     :reserve-selection="column.type === 'selection'"
                 >
-                    <!-- scope 类型为 RendererType -->
-                    <!-- <template #default="scope">
+                    <template #default="scope">
                         <template v-if="column.type === 'expand'">
                             <component :is="column.renderer" v-bind="scope" v-if="column.renderer" />
-                            <solt v-else :name="column.type" v-bind="scope"></solt>
+                            <slot v-else :name="column.type" v-bind="scope"></slot>
                         </template>
+                        <!-- 拖拽排序 -->
                         <el-tag v-if="column.type === 'sortable'">
                             <el-icon><DCaret /></el-icon>
                         </el-tag>
-                    </template> -->
+                    </template>
                 </el-table-column>
+                <!-- 自定义column -->
+                <el-custom-table-column v-if="!column.type && column.prop" :column>
+                    <!-- 用于自定义单元格插槽 -->
+                    <template v-for="slot in Object.keys($slots)" :key="slot" #[slot]="scope">
+                        <slot :name="slot" v-bind="scope"></slot>
+                    </template>
+                </el-custom-table-column>
             </template>
         </el-table>
     </el-card>
@@ -50,11 +57,12 @@
 
 <script setup lang="ts">
 import { Refresh, Search } from '@element-plus/icons-vue';
-import { ColumnProps, ColumnType, SearchColType } from '@/components/ElCustomTable';
+import ElCustomTableColumn from './ElCustomTableColumn.vue';
+import { ColumnProps, SearchColType } from '@/components/ElCustomTable';
 
 export interface CustomTableProps {
-    columns: ColumnProps[]; // 表格列 => 必传
-    tableData?: any[]; // 表格数据 => 必传
+    tableColumns: ColumnProps[]; // 表格列 => 必传
+    tableData: any[]; // 表格数据 => 必传
     pagination?: boolean; // 是否开启分页插件
     toolButton?: boolean; // 是否开启右上角工具栏
     highlightCurrentRow?: boolean; // 是否单选
@@ -64,8 +72,6 @@ export interface CustomTableProps {
 }
 
 const props = withDefaults(defineProps<CustomTableProps>(), {
-    columns: () => [],
-    tableData: () => [],
     pagination: true,
     highlightCurrentRow: false,
     border: true,
@@ -74,7 +80,5 @@ const props = withDefaults(defineProps<CustomTableProps>(), {
     searchCol: () => ({ xs: 24, sm: 12, md: 12, lg: 6, xl: 6 })
 });
 
-const columnTypes: ColumnType[] = ['sortable', 'selection', 'index', 'expand'];
-
-const columnList = computed<ColumnProps[]>(() => props.columns);
+const columnList = computed<ColumnProps[]>(() => props.tableColumns);
 </script>

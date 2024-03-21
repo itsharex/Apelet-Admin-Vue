@@ -45,7 +45,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
         plugins: createVitePlugins(env, command === 'build'),
         // 服务代理
         server: {
-            port: 80,
+            port: 9000,
             host: VITE_APP_HOST,
             open: false,
             proxy: {

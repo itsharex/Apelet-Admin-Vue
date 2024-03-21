@@ -1,12 +1,21 @@
 <template>
-    <el-custom-table ref="customTableRef" :columns="columns" :table-data="menuList">
-        <template #operateButton>
-            <el-button type="primary">新增</el-button>
-            <el-button type="success">修改</el-button>
-            <el-button type="warning">导出</el-button>
-            <el-button type="danger">删除</el-button>
-        </template>
-    </el-custom-table>
+    <!-- 解决 Component inside `＜Transition＞` renders non-element root node that cannot be animated 问题 -->
+    <div>
+        <el-custom-table ref="customTableRef" :table-columns="tableColumns" :table-data="menuList">
+            <template #operateButton>
+                <el-button type="primary">新增</el-button>
+                <el-button type="success">修改</el-button>
+                <el-button type="warning">导出</el-button>
+                <el-button type="danger">删除</el-button>
+            </template>
+            <template #routerName="scope">
+                <el-button>{{ scope.row.routerName }}</el-button>
+            </template>
+            <template #routerNameHeader="scope">
+                <el-button>{{ scope.column.label }}</el-button>
+            </template>
+        </el-custom-table>
+    </div>
 </template>
 
 <script setup lang="tsx">
@@ -21,7 +30,7 @@ let queryParams = reactive<RequestMenu>({
 
 let menuList = ref<ResponseMenu[]>([]);
 
-const columns = reactive<Array<ColumnProps<ResponseMenu>>>([
+const tableColumns = reactive<ColumnProps<ResponseMenu>[]>([
     { type: 'selection', fixed: 'left', width: 70 },
     { type: 'sortable', label: '拖拽排序', width: 100 },
     { type: 'expand', label: '展开', width: 85 },
@@ -47,6 +56,8 @@ const columns = reactive<Array<ColumnProps<ResponseMenu>>>([
         }
     }
 ]);
+
+// const columns = reactive<Array<ColumnProps<ResponseMenu>>>();
 
 const getList = async () => {
     let { data } = await getMenuList(queryParams);

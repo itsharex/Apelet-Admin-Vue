@@ -24,21 +24,6 @@ export type SearchColType = Partial<
     Record<ColTypeProp, number | { span?: number; offset?: number; pull?: number; push?: number }>
 >;
 
-// 头部插槽类型
-export type HeaderRendererType<T> = {
-    $index: number;
-    column: TableColumnCtx<T>;
-    [key: string]: any;
-};
-
-// 单元格内容插槽类型
-export type RendererType<T> = {
-    row: T;
-    column: TableColumnCtx<T>;
-    $index: number;
-    [key: string]: any;
-};
-
 export type SearchProps = {
     el?: `el-${SearchType}`; // 搜索框类别
     label?: string;
@@ -52,6 +37,21 @@ export type SearchProps = {
     renderer?: (scope: any) => VNode; // 自定义渲染 搜索栏
 };
 
+// 头部插槽类型
+export type HeaderRendererType<T> = {
+    $index: number;
+    column: TableColumnCtx<T>;
+    [key: string]: any;
+};
+
+// 单元格内容插槽类型
+export type ContentRendererType<T> = {
+    row: T;
+    column: TableColumnCtx<T>;
+    $index: number;
+    [key: string]: any;
+};
+
 // 继承列类型TableColumnCtx， 进行二次拓展
 export interface ColumnProps<T = any>
     extends Partial<Omit<TableColumnCtx<T>, 'type' | 'prop' | 'children' | 'renderCell' | 'renderHeader'>> {
@@ -61,7 +61,7 @@ export interface ColumnProps<T = any>
     search?: SearchProps; // 搜索栏
     dict?: any[]; // 字典，用于回显单元格内容
     headerRenderer?: (scope: HeaderRendererType<T>) => VNode; // 自定义渲染头部内容
-    renderer?: (scope: RendererType<T>) => VNode; // 自定义渲染单元格内容
+    renderer?: (scope: ContentRendererType<T>) => VNode; // 自定义渲染单元格内容
     children?: ColumnProps<T>; // 多级表头
 }
 
