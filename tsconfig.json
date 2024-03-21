@@ -30,7 +30,7 @@
         "noUnusedLocals": true, //是否检查未使用的局部变量
         "noUnusedParameters": true, //是否检查未使用的参数
         "noFallthroughCasesInSwitch": true, //检查switch中是否含有case没有使用break跳出
-        // "strictNullChecks": true, // 对值为 null 或 undefined 的进行空检查
+        "strictNullChecks": true, // 对值为 null 或 undefined 的进行空检查
 
         // 高级部分
         "extendedDiagnostics": false, //是否查看 TS 在编译时花费的时间

@@ -1,18 +1,15 @@
 <template>
     <!-- 解决 Component inside `＜Transition＞` renders non-element root node that cannot be animated 问题 -->
     <div>
-        <el-custom-table ref="customTableRef" :table-columns="tableColumns" :table-data="menuList">
+        <el-custom-table ref="customTableRef" :tableColumns="tableColumns" :table-data="menuList">
             <template #operateButton>
                 <el-button type="primary">新增</el-button>
                 <el-button type="success">修改</el-button>
                 <el-button type="warning">导出</el-button>
                 <el-button type="danger">删除</el-button>
             </template>
-            <template #routerName="scope">
-                <el-button>{{ scope.row.routerName }}</el-button>
-            </template>
             <template #routerNameHeader="scope">
-                <el-button>{{ scope.column.label }}</el-button>
+                <el-button type="success">{{ scope.column.label }}</el-button>
             </template>
         </el-custom-table>
     </div>
@@ -50,14 +47,13 @@ const tableColumns = reactive<ColumnProps<ResponseMenu>[]>([
                         active-text={scope.row.status ? '正常' : '禁用'}
                         active-value={1}
                         inactive-value={0}
+                        onChange={(value: number) => (scope.row.status = value)}
                     />
                 </>
             );
         }
     }
 ]);
-
-// const columns = reactive<Array<ColumnProps<ResponseMenu>>>();
 
 const getList = async () => {
     let { data } = await getMenuList(queryParams);

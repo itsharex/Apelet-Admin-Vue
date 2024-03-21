@@ -8,7 +8,7 @@ module.exports = {
     env: {
         browser: true, //浏览器端
         node: true, // Node.js 全局变量和 Node.js 作用域
-        es2021: true
+        ESNext: true
     },
     // 指定如何解析语法
     parser: 'vue-eslint-parser',

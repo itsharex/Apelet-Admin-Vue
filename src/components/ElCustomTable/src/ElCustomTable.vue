@@ -28,14 +28,14 @@
             <template v-for="column in columnList" :key="column">
                 <el-table-column
                     v-if="column.type"
-                    v-bind="column"
+                    v-bind="column as any"
                     :align="column.align ?? 'center'"
                     :reserve-selection="column.type === 'selection'"
                 >
                     <template #default="scope">
                         <template v-if="column.type === 'expand'">
                             <component :is="column.renderer" v-bind="scope" v-if="column.renderer" />
-                            <slot v-else :name="column.type" v-bind="scope"></slot>
+                            <!-- <slot v-else :name="column.type" v-bind="scope"></slot> -->
                         </template>
                         <!-- 拖拽排序 -->
                         <el-tag v-if="column.type === 'sortable'">
@@ -46,23 +46,28 @@
                 <!-- 自定义column -->
                 <el-custom-table-column v-if="!column.type && column.prop" :column>
                     <!-- 用于自定义单元格插槽 -->
-                    <template v-for="slot in Object.keys($slots)" :key="slot" #[slot]="scope">
+                    <template v-for="slot in slotsToArray()" :key="slot" #[slot]="scope">
                         <slot :name="slot" v-bind="scope"></slot>
                     </template>
                 </el-custom-table-column>
             </template>
+
+            <!-- append -->
+            <template name="append"> </template>
+            <!-- empty -->
+            <template name="empty"> </template>
         </el-table>
     </el-card>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" name="ElCustomTable">
 import { Refresh, Search } from '@element-plus/icons-vue';
 import ElCustomTableColumn from './ElCustomTableColumn.vue';
 import { ColumnProps, SearchColType } from '@/components/ElCustomTable';
 
 export interface CustomTableProps {
     tableColumns: ColumnProps[]; // 表格列 => 必传
-    tableData: any[]; // 表格数据 => 必传
+    tableData?: any[]; // 表格数据 => 必传
     pagination?: boolean; // 是否开启分页插件
     toolButton?: boolean; // 是否开启右上角工具栏
     highlightCurrentRow?: boolean; // 是否单选
@@ -72,6 +77,8 @@ export interface CustomTableProps {
 }
 
 const props = withDefaults(defineProps<CustomTableProps>(), {
+    tableColumns: () => [],
+    tableData: () => [],
     pagination: true,
     highlightCurrentRow: false,
     border: true,
@@ -80,5 +87,9 @@ const props = withDefaults(defineProps<CustomTableProps>(), {
     searchCol: () => ({ xs: 24, sm: 12, md: 12, lg: 6, xl: 6 })
 });
 
+// 自定义列
 const columnList = computed<ColumnProps[]>(() => props.tableColumns);
+
+const slots = useSlots();
+const slotsToArray = () => Object.keys(slots);
 </script>

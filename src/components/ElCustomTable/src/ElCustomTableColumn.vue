@@ -5,7 +5,7 @@
 <script setup lang="tsx" name="ElCustomTableColumn">
 import { ColumnProps, ContentRendererType, HeaderRendererType } from '@/components/ElCustomTable';
 
-// 与上下文的 $slots 一样, 里面包含了当前使用该组件的自定义的插槽集
+// 与上下文的 $slots 一样, 里面包含了父组件向当前组件传递的插槽集
 const slots = useSlots();
 
 defineProps<{
@@ -16,7 +16,7 @@ const ElCustomTableColumn = (prop: ColumnProps) => {
     return (
         <>
             <el-table-column {...prop} align={prop.align ?? 'center'}>
-                {/* 在 ElCustomTableColumn 父组件中渲染 el-table-column 子组件的作用域插槽  */}
+                {/* 在 ElCustomTableColumn 父组件中使用 el-table-column 子组件的作用域插槽  */}
                 {{
                     default: (scope: ContentRendererType<any>) => {
                         if (prop.renderer) return prop.renderer(scope);
