@@ -1,17 +1,12 @@
 <template>
-    <div>
-        <el-custom-table ref="customTableRef" :columns="columns" :table-data="menuList" border>
-            <template #operateButton>
-                <el-button type="primary">Primary</el-button>
-                <el-button type="success">Success</el-button>
-                <el-button type="info">Info</el-button>
-                <el-button type="warning">Warning</el-button>
-                <el-button type="danger">Danger</el-button>
-            </template>
-            <el-table-column prop="menuName" label="文章标题"></el-table-column>
-            <el-table-column prop="menuTypeStr" label="文章内容"></el-table-column>
-        </el-custom-table>
-    </div>
+    <el-custom-table ref="customTableRef" :columns="columns" :table-data="menuList">
+        <template #operateButton>
+            <el-button type="primary">新增</el-button>
+            <el-button type="success">修改</el-button>
+            <el-button type="warning">导出</el-button>
+            <el-button type="danger">删除</el-button>
+        </template>
+    </el-custom-table>
 </template>
 
 <script setup lang="tsx">
@@ -26,10 +21,10 @@ let queryParams = reactive<RequestMenu>({
 
 let menuList = ref<ResponseMenu[]>([]);
 
-const columns = reactive<ColumnProps<ResponseMenu>[]>([
-    { type: 'selection ', fixed: 'left', width: 70 },
-    { type: 'sortable', label: 'Sort', width: 80 },
-    { type: 'expand', label: 'Expand', width: 85 },
+const columns = reactive<Array<ColumnProps<ResponseMenu>>>([
+    { type: 'selection', fixed: 'left', width: 70 },
+    { type: 'sortable', label: '拖拽排序', width: 100 },
+    { type: 'expand', label: '展开', width: 85 },
     { prop: 'id', label: '菜单id' },
     { prop: 'menuName', label: '菜单名称' },
     { prop: 'path', label: '菜单路径' },

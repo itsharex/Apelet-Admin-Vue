@@ -1,9 +1,8 @@
 import { TableColumnCtx } from 'element-plus';
-import { ComponentPublicInstance, VNode } from 'vue';
 import { ElCustomTable, type CustomTableProps } from '@/components/ElCustomTable';
 
 // 列的类型   索引、单选（高亮当前行）、多选、排序、展开
-export type ColumnType = 'index' | 'highlight-current-row' | 'selection ' | 'sortable' | 'expand';
+export type ColumnType = 'index' | 'selection' | 'sortable' | 'expand';
 
 // 搜索框类别
 export type SearchType =
