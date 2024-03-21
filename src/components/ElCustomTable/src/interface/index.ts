@@ -53,7 +53,7 @@ export type ContentRendererType<T> = {
 };
 
 // 继承列类型TableColumnCtx， 进行二次拓展
-export interface ColumnProps<T = any>
+interface ColumnPropsType<T>
     extends Partial<Omit<TableColumnCtx<T>, 'type' | 'prop' | 'children' | 'renderCell' | 'renderHeader'>> {
     type?: ColumnType; // 列的类型
     prop?: keyof T;
@@ -62,9 +62,10 @@ export interface ColumnProps<T = any>
     dict?: any[]; // 字典，用于回显单元格内容
     headerRenderer?: (scope: HeaderRendererType<T>) => VNode; // 自定义渲染头部内容
     renderer?: (scope: ContentRendererType<T>) => VNode; // 自定义渲染单元格内容
-    children?: ColumnProps<T>; // 多级表头
+    children?: ColumnPropsType<T>; // 多级表头
 }
 
+export type ColumnProps<T = any> = ColumnPropsType<T>;
 // 导出表格类型
 export type CustomTableInstance = Omit<
     InstanceType<typeof ElCustomTable>,

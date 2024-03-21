@@ -1,7 +1,7 @@
 <template>
     <!-- 解决 Component inside `＜Transition＞` renders non-element root node that cannot be animated 问题 -->
     <div>
-        <el-custom-table ref="customTableRef" :tableColumns="tableColumns" :table-data="menuList">
+        <el-custom-table ref="customTableRef" :table-columns="tableColumns" :table-data="menuList">
             <template #operateButton>
                 <el-button type="primary">新增</el-button>
                 <el-button type="success">修改</el-button>
