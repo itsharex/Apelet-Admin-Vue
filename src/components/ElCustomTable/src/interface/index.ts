@@ -53,10 +53,11 @@ export type SearchProps = {
     renderer?: (scope: any) => VNode; // 自定义渲染 搜索栏
 };
 
-// 继承TableColumnCtx， 进行二次拓展
+// 继承列类型TableColumnCtx， 进行二次拓展
 export interface ColumnProps<T = any>
-    extends Partial<Omit<TableColumnCtx<T>, 'type' | 'children' | 'renderCell' | 'renderHeader'>> {
+    extends Partial<Omit<TableColumnCtx<T>, 'type' | 'prop' | 'children' | 'renderCell' | 'renderHeader'>> {
     type?: ColumnType; // 列的类型
+    prop?: keyof T;
     tag?: boolean | Ref<Boolean>; // 是否标签显示
     search?: SearchProps; // 搜索栏
     dict?: any[]; // 字典，用于回显单元格内容
