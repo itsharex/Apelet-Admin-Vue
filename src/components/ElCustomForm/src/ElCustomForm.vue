@@ -4,12 +4,14 @@
             <el-row :gutter>
                 <el-col v-for="item in searchColumns" :key="item.prop" v-bind="getColLayout(item)">
                     <el-form-item>
+                        <!-- label 区域 -->
                         <template #label>
                             <span>{{ item.search?.label ?? item.label }}</span>
                             <el-tooltip v-if="item.search?.tooltip" effect="dark" :content="item.search?.tooltip">
                                 <el-icon><InfoFilled /></el-icon>
                             </el-tooltip>
                         </template>
+                        <!-- 表单区域 -->
                         <el-custom-form-item :column="item" :query-params />
                     </el-form-item>
                 </el-col>

@@ -14,7 +14,13 @@ export type SearchType =
 export type ColTypeProp = 'gutter' | 'span' | 'offset' | 'push' | 'pull' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type SearchColType = Partial<Record<ColTypeProp, number>>;
 
-export type SearchProps = {
+// tsx 渲染组件接受的 属性
+export type SearchRendderProps<T> = {
+    queryParams: { [k in keyof T]: string } & { [key: string]: any };
+    options: any[];
+};
+
+export type SearchProps<T = any> = {
     el?: `el-${SearchType}`; // 搜索框类别
     props?: { [key: string]: any }; // 搜索项属性，与 element plus 文档中的 配置项一致
     // 选择上面两个配置可不用使用 renderer， 反之使用renderder
@@ -23,5 +29,5 @@ export type SearchProps = {
     tooltip?: string; // 搜索提示
     order?: number; // 搜索项排序
     cols?: Omit<SearchColType, 'gutter'>; // 搜索栏排列栅格
-    renderer?: (scope: any) => VNode; // 自定义渲染 搜索栏
+    renderer?: (scope: SearchRendderProps<T>) => VNode; // 自定义渲染 搜索栏
 };

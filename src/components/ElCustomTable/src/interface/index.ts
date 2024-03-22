@@ -31,7 +31,7 @@ export interface ColumnProps<T = any>
     type?: ColumnType; // 列的类型
     prop?: keyof T;
     tag?: boolean | Ref<Boolean>; // 是否标签显示
-    search?: SearchProps; // 搜索栏
+    search?: SearchProps<T>; // 搜索栏
     dict?: any[]; // 字典，用于回显单元格内容
     limitLine?: boolean | Ref<Boolean>; // 是否限制在特定行数   目前只支持 没有 插槽和tsx 渲染的返回内容
     lineClamp?: LineClampType; // 限制在特定行数类名
