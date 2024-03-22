@@ -1,4 +1,5 @@
-export interface RequestMenu extends BaseRequest {}
+// 请求
+export interface RequestMenu extends PageRequest {}
 
 // 响应
 export interface ResponseMenu {

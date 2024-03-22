@@ -29,3 +29,12 @@ export const flatTreeToArray = <T extends { children?: T[] }>(array: T[]): T[] =
         return arr.concat(item as T, children && children.length ? flatTreeToArray(children) : []);
     }, []);
 };
+
+/**
+ * 类型守卫null和undefined联合检查
+ * @param object 任意对象
+ * @returns
+ */
+export function isNullOrUndefined<T>(object: T | undefined | null): object is T {
+    return object !== undefined && object !== null;
+}

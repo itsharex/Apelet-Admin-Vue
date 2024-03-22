@@ -1,41 +1,17 @@
 import { TableColumnCtx } from 'element-plus';
 import { ElCustomTable, type CustomTableProps } from '@/components/ElCustomTable';
+import { SearchProps } from '@/components/ElCustomForm';
 
 // 列的类型   索引、多选、排序、展开
 export type ColumnType = 'index' | 'selection' | 'sortable' | 'expand';
 
-// 搜索框类别
-export type SearchType =
-    | 'input'
-    | 'input-number'
-    | 'select'
-    | 'select-v2'
-    | 'tree-select'
-    | 'cascader'
-    | 'date-picker'
-    | 'time-picker'
-    | 'time-select'
-    | 'switch'
-    | 'slider';
-
-// 搜索区域类型
-export type ColTypeProp = 'span' | 'offset' | 'push' | 'pull' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-export type SearchColType = Partial<
-    Record<ColTypeProp, number | { span?: number; offset?: number; pull?: number; push?: number }>
->;
-
-export type SearchProps = {
-    el?: `el-${SearchType}`; // 搜索框类别
-    label?: string;
-    props?: any; // 搜索项参数，与 element plus 文档中的 配置项一致
-    Key?: string; // 自定义key
-    tooltip?: string; // 搜索提示
-    overflow?: boolean; // 文字过长是否单行显示
-    order?: number; // 搜索项排序
-    cols?: SearchColType; // 搜索栏排列栅格
-    defaultValue?: any | any[]; // 默认值
-    renderer?: (scope: any) => VNode; // 自定义渲染 搜索栏
-};
+export type LineClampType =
+    | 'line-clamp-1'
+    | 'line-clamp-2'
+    | 'line-clamp-3'
+    | 'line-clamp-4'
+    | 'line-clamp-5'
+    | 'line-clamp-6';
 
 // 头部插槽类型
 export interface HeaderRendererType<T> {
@@ -57,6 +33,9 @@ export interface ColumnProps<T = any>
     tag?: boolean | Ref<Boolean>; // 是否标签显示
     search?: SearchProps; // 搜索栏
     dict?: any[]; // 字典，用于回显单元格内容
+    limitLine?: boolean | Ref<Boolean>; // 是否限制在特定行数   目前只支持 没有 插槽和tsx 渲染的返回内容
+    lineClamp?: LineClampType; // 限制在特定行数类名
+    popoverWidth?: number; // popover 弹出框宽度
     headerRenderer?: (scope: HeaderRendererType<T>) => VNode; // 自定义渲染头部内容
     renderer?: (scope: ContentRendererType<T>) => VNode; // 自定义渲染单元格内容
     children?: ColumnProps<T>; // 多级表头

@@ -1,7 +1,9 @@
 <template>
-    <el-card class="mb-4" shadow="hover"> </el-card>
+    <el-card class="mb-4" shadow="hover">
+        <el-custom-form :search-columns :search-col />
+    </el-card>
     <el-card shadow="hover">
-        <el-row class="flex-between flex-wrap custom-table">
+        <el-row class="flex-between flex-wrap">
             <div>
                 <slot name="operateButton"></slot>
             </div>
@@ -17,9 +19,9 @@
             ref="tableRef"
             v-bind="$attrs"
             :data="tableData"
-            :border="border"
-            :row-key="rowKey"
-            :highlight-current-row="highlightCurrentRow"
+            :border
+            :row-key
+            :highlight-current-row
             style="width: 100%"
         >
             <!-- 循环处理columns列 -->
@@ -69,9 +71,10 @@
 </template>
 
 <script setup lang="ts" name="ElCustomTable">
-import { Refresh, Search } from '@element-plus/icons-vue';
 import ElCustomTableColumn from './ElCustomTableColumn.vue';
-import { ColumnProps, SearchColType } from '@/components/ElCustomTable';
+import { ElCustomForm, SearchColType } from '@/components/ElCustomForm';
+import { Refresh, Search } from '@element-plus/icons-vue';
+import { ColumnProps } from '@/components/ElCustomTable';
 
 export interface CustomTableProps {
     tableColumns: ColumnProps[]; // 表格列 => 必传
@@ -91,14 +94,25 @@ const props = withDefaults(defineProps<CustomTableProps>(), {
     highlightCurrentRow: false,
     border: true,
     toolButton: true,
-    rowKey: 'id',
-    searchCol: () => ({ xs: 24, sm: 12, md: 12, lg: 6, xl: 6 })
+    rowKey: 'id'
 });
 
-// 自定义列
-const columnList = computed<ColumnProps[]>(() => props.tableColumns);
+// 设定 inheritAttrs: false 和使用 v-bind="$attrs" 来实现深层组件属性透传
+defineOptions({
+    inheritAttrs: false
+});
 
 const slots = useSlots();
 const slotsToArray = (column: ColumnProps) =>
     Object.keys(slots).filter(item => item === column.prop || item === `${column.prop as string}Header`);
+
+// 自定义列
+const columnList = computed<ColumnProps[]>(() => props.tableColumns);
+
+// 处理搜索栏参数
+const searchColumns = computed(() => {
+    return columnList.value
+        .filter(item => item.search?.el || item.search?.renderer)
+        .sort((pre, next) => pre.search?.order! - next.search?.order!);
+});
 </script>

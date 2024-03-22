@@ -27,7 +27,22 @@ const ElCustomTableColumn = (props: ColumnProps) => {
                     default: (scope: ContentRendererType<any>) => {
                         if (props.renderer) return props.renderer(scope);
                         if (slots[props.prop as string]) return slots[props.prop as string]!(scope);
-                        return scope.row[props.prop!];
+                        return (
+                            <>
+                                {props.limitLine ? (
+                                    <el-popover placement="top" width={props.popoverWidth} trigger="hover">
+                                        {{
+                                            default: () => <span>{scope.row[props.prop!]}</span>,
+                                            reference: () => (
+                                                <span class={props.lineClamp}>{scope.row[props.prop!]}</span>
+                                            )
+                                        }}
+                                    </el-popover>
+                                ) : (
+                                    scope.row[props.prop!]
+                                )}
+                            </>
+                        );
                     },
                     header: (scope: HeaderRendererType<any>) => {
                         if (props.headerRenderer) return props.headerRenderer(scope);
@@ -41,3 +56,4 @@ const ElCustomTableColumn = (props: ColumnProps) => {
     );
 };
 </script>
+<style lang="scss" scoped></style>
