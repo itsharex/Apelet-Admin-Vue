@@ -77,7 +77,7 @@ export interface CustomTableProps {
 }
 
 const props = withDefaults(defineProps<CustomTableProps>(), {
-    // tableColumns: () => [],
+    tableColumns: () => [],
     tableData: () => [],
     pagination: true,
     highlightCurrentRow: false,

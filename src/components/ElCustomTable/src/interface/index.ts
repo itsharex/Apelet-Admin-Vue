@@ -1,7 +1,7 @@
 import { TableColumnCtx } from 'element-plus';
 import { ElCustomTable, type CustomTableProps } from '@/components/ElCustomTable';
 
-// 列的类型   索引、单选（高亮当前行）、多选、排序、展开
+// 列的类型   索引、多选、排序、展开
 export type ColumnType = 'index' | 'selection' | 'sortable' | 'expand';
 
 // 搜索框类别
@@ -32,28 +32,25 @@ export type SearchProps = {
     tooltip?: string; // 搜索提示
     overflow?: boolean; // 文字过长是否单行显示
     order?: number; // 搜索项排序
-    cols: SearchColType; // 搜索栏排列栅格
+    cols?: SearchColType; // 搜索栏排列栅格
     defaultValue?: any | any[]; // 默认值
     renderer?: (scope: any) => VNode; // 自定义渲染 搜索栏
 };
 
 // 头部插槽类型
-export type HeaderRendererType<T> = {
+export interface HeaderRendererType<T> {
     $index: number;
     column: TableColumnCtx<T>;
     [key: string]: any;
-};
+}
 
 // 单元格内容插槽类型
-export type ContentRendererType<T> = {
+export interface ContentRendererType<T> extends HeaderRendererType<T> {
     row: T;
-    column: TableColumnCtx<T>;
-    $index: number;
-    [key: string]: any;
-};
+}
 
 // 继承列类型TableColumnCtx， 进行二次拓展
-interface ColumnPropsType<T>
+export interface ColumnProps<T = any>
     extends Partial<Omit<TableColumnCtx<T>, 'type' | 'prop' | 'children' | 'renderCell' | 'renderHeader'>> {
     type?: ColumnType; // 列的类型
     prop?: keyof T;
@@ -62,10 +59,9 @@ interface ColumnPropsType<T>
     dict?: any[]; // 字典，用于回显单元格内容
     headerRenderer?: (scope: HeaderRendererType<T>) => VNode; // 自定义渲染头部内容
     renderer?: (scope: ContentRendererType<T>) => VNode; // 自定义渲染单元格内容
-    children?: ColumnPropsType<T>; // 多级表头
+    children?: ColumnProps<T>; // 多级表头
 }
 
-export type ColumnProps<T = any> = ColumnPropsType<T>;
 // 导出表格类型
 export type CustomTableInstance = Omit<
     InstanceType<typeof ElCustomTable>,
