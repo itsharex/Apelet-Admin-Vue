@@ -24,7 +24,6 @@ declare module 'vue' {
     ElContainer: typeof import('element-plus/es')['ElContainer']
     ElCustomForm: typeof import('./components/ElCustomForm/src/ElCustomForm.vue')['default']
     ElCustomFormItem: typeof import('./components/ElCustomForm/src/ElCustomFormItem.vue')['default']
-    ElCustomSearchForm: typeof import('element-plus/es')['ElCustomSearchForm']
     ElCustomTable: typeof import('./components/ElCustomTable/src/ElCustomTable.vue')['default']
     ElCustomTableColumn: typeof import('./components/ElCustomTable/src/ElCustomTableColumn.vue')['default']
     ElDivider: typeof import('element-plus/es')['ElDivider']

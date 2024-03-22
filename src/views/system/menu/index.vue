@@ -1,7 +1,7 @@
 <template>
     <!-- 解决 Component inside `＜Transition＞` renders non-element root node that cannot be animated 问题 -->
     <div>
-        <el-custom-table ref="customTableRef" :table-columns="tableColumns" :table-data="menuList">
+        <el-custom-table ref="customTableRef" :table-data="menuList" :table-columns :query-params>
             <template #operateButton>
                 <el-button type="primary" plain>新 增</el-button>
                 <el-button type="success" plain>修 改</el-button>
@@ -15,6 +15,7 @@
                 <template #default="scope">
                     <el-button type="primary" link>修 改</el-button>
                     <el-button type="primary" link>删 除</el-button>
+                    <el-button type="primary" link>{{ scope.row.id }}</el-button>
                 </template>
             </el-table-column>
         </el-custom-table>
@@ -22,16 +23,9 @@
 </template>
 
 <script setup lang="tsx">
-import { getMenuList } from '@/api/system/menu';
-import { RequestMenu, ResponseMenu } from '@/api/system/menu/types';
+import { ResponseMenu } from '@/api/system/menu/types';
 import { ColumnProps, ElCustomTable, ElCustomTableInstance } from '@/components/ElCustomTable';
-
-let queryParams = reactive<RequestMenu>({
-    pageNum: 1,
-    pageSize: 10
-});
-
-let menuList = ref<ResponseMenu[]>([]);
+import { useMenu } from './hooks/useMenu';
 
 let customTableRef = ref<ElCustomTableInstance | null>(null);
 
@@ -61,9 +55,10 @@ const tableColumns: ColumnProps<ResponseMenu>[] = reactive([
         label: '菜单名称',
         search: {
             el: 'el-input',
-            props: 'text',
-            order: 2,
-            defaultValue: ''
+            props: {
+                type: 'text'
+            },
+            order: 2
         }
     },
     { prop: 'path', label: '菜单路径' },
@@ -75,24 +70,38 @@ const tableColumns: ColumnProps<ResponseMenu>[] = reactive([
         lineClamp: 'line-clamp-2',
         search: {
             el: 'el-input',
-            props: 'text',
-            order: 1,
-            defaultValue: ''
+            props: {
+                type: 'text'
+            },
+            order: 1
         }
     },
     { prop: 'menuTypeStr', label: '菜单类型' },
     {
         prop: 'status',
         label: '菜单状态',
+        search: {
+            // el: 'el-select',
+            order: 3,
+            // Vue3 的 TSX中可直接使用 v-model v-model={[queryParams.status, ['trim']] 为 v-model 的修饰符
+            renderer: ({ queryParams }) => {
+                return (
+                    <>
+                        <el-select v-model={[queryParams.status, ['trim']]} clearable>
+                            <el-option value={'value'} label={'label'}></el-option>
+                        </el-select>
+                    </>
+                );
+            }
+        },
         renderer: scope => {
             return (
                 <>
                     <el-switch
-                        model-value={scope.row.status}
+                        v-model={scope.row.status}
                         active-text={scope.row.status ? '正常' : '禁用'}
                         active-value={1}
                         inactive-value={0}
-                        onChange={(value: number) => (scope.row.status = value)}
                     />
                 </>
             );
@@ -100,12 +109,5 @@ const tableColumns: ColumnProps<ResponseMenu>[] = reactive([
     }
 ]);
 
-const getList = async () => {
-    let { data } = await getMenuList(queryParams);
-    menuList.value = data;
-};
-
-onMounted(async () => {
-    getList();
-});
+const { queryParams, menuList } = useMenu();
 </script>

@@ -1,6 +1,6 @@
 <template>
     <el-card class="mb-4" shadow="hover">
-        <el-custom-form :search-columns :search-col />
+        <el-custom-form :search-columns :query-params :search-col />
     </el-card>
     <el-card shadow="hover">
         <el-row class="flex-between flex-wrap custom-table">
@@ -79,6 +79,7 @@ import { ColumnProps } from '@/components/ElCustomTable';
 export interface CustomTableProps {
     tableColumns: ColumnProps[]; // 表格列 => 必传
     tableData?: any[]; // 表格数据 => 必传
+    queryParams?: { [key: string]: any };
     pagination?: boolean; // 是否开启分页插件
     toolButton?: boolean; // 是否开启右上角工具栏
     highlightCurrentRow?: boolean; // 是否单选

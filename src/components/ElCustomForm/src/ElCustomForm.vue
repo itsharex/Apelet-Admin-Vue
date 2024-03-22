@@ -4,9 +4,13 @@
             <el-row :gutter>
                 <el-col v-for="item in searchColumns" :key="item.prop" v-bind="getColLayout(item)">
                     <el-form-item>
-                        <template #default>
+                        <template #label>
                             <span>{{ item.search?.label ?? item.label }}</span>
+                            <el-tooltip v-if="item.search?.tooltip" effect="dark" :content="item.search?.tooltip">
+                                <el-icon><InfoFilled /></el-icon>
+                            </el-tooltip>
                         </template>
+                        <el-custom-form-item :column="item" :query-params />
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -18,7 +22,8 @@
     </div>
 </template>
 
-<script setup lang="tsx">
+<script setup lang="ts">
+import ElCustomFormItem from './ElCustomFormItem.vue';
 import { ElForm } from 'element-plus';
 import { ColumnProps } from '@/components/ElCustomTable';
 import { SearchColType } from '@/components/ElCustomForm';
@@ -27,20 +32,22 @@ import { isNullOrUndefined } from '@/utils/common';
 interface CustomSearchProps {
     searchColumns: ColumnProps[]; // 搜索参数列 => 必传
     queryParams?: { [key: string]: any }; // 搜索参数
-    searchCol?: SearchColType;
+    searchCol?: SearchColType; // 搜索栏布局
 }
 
 const props = withDefaults(defineProps<CustomSearchProps>(), {
-    searchCol: () => ({ gutter: 10, xs: 24, sm: 12, md: 12, lg: 6, xl: 6 })
+    searchCol: () => ({ gutter: 20, xs: 24, sm: 12, md: 12, lg: 6, xl: 6 })
 });
 
+const { searchCol } = toRefs(props);
+
 // el-row 布局
-const { gutter } = toRefs(props.searchCol!);
+const gutter = computed(() => searchCol.value.gutter!);
 
 // el-col 布局
 const getColLayout = (column: ColumnProps) => {
     let cols = column.search?.cols!;
-    if (!isNullOrUndefined(cols)) cols = props.searchCol!;
+    if (!isNullOrUndefined(cols)) cols = searchCol.value!;
     return {
         span: cols.span,
         offset: cols.offset ?? 0,
