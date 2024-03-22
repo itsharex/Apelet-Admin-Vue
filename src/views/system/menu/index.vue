@@ -11,6 +11,13 @@
             <template #routerNameHeader="scope">
                 <el-button type="success">{{ scope.column.label }}</el-button>
             </template>
+            <!-- <template #expand="{row}">
+				<el-text class="mx-1" type="success">插槽渲染：</el-text>
+				{{ row }}
+            </template> -->
+            <template #expandHeader="scope">
+                <el-text class="mx-1" type="success">插槽渲染：{{ scope.column.label }}</el-text>
+            </template>
         </el-custom-table>
     </div>
 </template>
@@ -18,7 +25,7 @@
 <script setup lang="tsx">
 import { getMenuList } from '@/api/system/menu';
 import { RequestMenu, ResponseMenu } from '@/api/system/menu/types';
-import { ColumnProps, ElCustomTable } from '@/components/ElCustomTable';
+import { ColumnProps, ElCustomTable, ElCustomTableInstance } from '@/components/ElCustomTable';
 
 let queryParams = reactive<RequestMenu>({
     pageNum: 1,
@@ -27,12 +34,28 @@ let queryParams = reactive<RequestMenu>({
 
 let menuList = ref<ResponseMenu[]>([]);
 
+let customTableRef = ref<ElCustomTableInstance | null>(null);
+
 // 不推荐使用 reactive() 的泛型参数，因为处理了深层次 ref 解包的返回值与泛型参数的类型不同, 而且也会导致TS类型报错。
+// const tableColumns: Ref<ColumnProps<ResponseMenu>[]> = ref([})
 const tableColumns: ColumnProps<ResponseMenu>[] = reactive([
     { type: 'index', label: '序号', width: 55 },
     { type: 'selection', fixed: 'left', width: 70 },
     { type: 'sortable', label: '拖拽排序', width: 100 },
-    { type: 'expand', label: '展开', width: 85 },
+    {
+        type: 'expand',
+        label: '展开',
+        width: 85,
+        renderer: scope => {
+            return (
+                <>
+                    <el-text class="mx-1" type="success">
+                        tsx渲染：{JSON.stringify(scope.row)}
+                    </el-text>
+                </>
+            );
+        }
+    },
     { prop: 'id', label: '菜单id' },
     { prop: 'menuName', label: '菜单名称' },
     { prop: 'path', label: '菜单路径' },

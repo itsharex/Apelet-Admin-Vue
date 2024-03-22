@@ -63,7 +63,7 @@ export interface ColumnProps<T = any>
 }
 
 // 导出表格类型
-export type CustomTableInstance = Omit<
+export type ElCustomTableInstance = Omit<
     InstanceType<typeof ElCustomTable>,
     keyof ComponentPublicInstance | keyof CustomTableProps
 >;

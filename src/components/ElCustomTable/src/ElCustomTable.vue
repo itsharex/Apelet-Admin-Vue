@@ -22,8 +22,6 @@
             :highlight-current-row="highlightCurrentRow"
             style="width: 100%"
         >
-            <!-- 默认插槽 支持el-table 的columns -->
-            <slot />
             <!-- 循环处理columns列 -->
             <template v-for="column in columnList" :key="column">
                 <el-table-column
@@ -35,27 +33,37 @@
                     <template #default="scope">
                         <template v-if="column.type === 'expand'">
                             <component :is="column.renderer" v-bind="scope" v-if="column.renderer" />
-                            <!-- <slot v-else :name="column.type" v-bind="scope"></slot> -->
+                            <slot v-else :name="column.type" v-bind="scope"></slot>
                         </template>
                         <!-- 拖拽排序 -->
                         <el-tag v-if="column.type === 'sortable'">
                             <el-icon><DCaret /></el-icon>
                         </el-tag>
                     </template>
+                    <template #header="scope">
+                        <component :is="column.headerRenderer" v-bind="scope" v-if="column.headerRenderer" />
+                        <slot v-else :name="`${column.type}Header`" v-bind="scope"></slot>
+                    </template>
                 </el-table-column>
                 <!-- 自定义column -->
                 <el-custom-table-column v-if="!column.type && column.prop" :column>
                     <!-- 用于自定义单元格插槽 -->
-                    <template v-for="slot in slotsToArray()" :key="slot" #[slot]="scope">
+                    <template v-for="slot in slotsToArray(column)" :key="slot" #[slot]="scope">
                         <slot :name="slot" v-bind="scope"></slot>
                     </template>
                 </el-custom-table-column>
             </template>
 
+            <!-- 默认插槽 支持el-table 的columns -->
+            <slot />
             <!-- append -->
-            <template name="append"> </template>
+            <template #append>
+                <slot name="append"></slot>
+            </template>
             <!-- empty -->
-            <template name="empty"> </template>
+            <template #empty>
+                <el-empty description="暂无数据" />
+            </template>
         </el-table>
     </el-card>
 </template>
@@ -91,5 +99,6 @@ const props = withDefaults(defineProps<CustomTableProps>(), {
 const columnList = computed<ColumnProps[]>(() => props.tableColumns);
 
 const slots = useSlots();
-const slotsToArray = () => Object.keys(slots);
+const slotsToArray = (column: ColumnProps) =>
+    Object.keys(slots).filter(item => item === column.prop || item === `${column.prop as string}Header`);
 </script>

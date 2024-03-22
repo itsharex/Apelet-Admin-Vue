@@ -12,21 +12,28 @@ defineProps<{
     column: ColumnProps;
 }>();
 
-const ElCustomTableColumn = (prop: ColumnProps) => {
+/**
+ *	根据条件渲染对应的插槽内容
+	1. tsx渲染
+	2. 插槽渲染
+ * @param prop 父组件传递的 props 值
+ */
+const ElCustomTableColumn = (props: ColumnProps) => {
     return (
         <>
-            <el-table-column {...prop} align={prop.align ?? 'center'}>
+            <el-table-column {...props} align={props.align ?? 'center'}>
                 {/* 在 ElCustomTableColumn 父组件中使用 el-table-column 子组件的作用域插槽  */}
                 {{
                     default: (scope: ContentRendererType<any>) => {
-                        if (prop.renderer) return prop.renderer(scope);
-                        if (slots[prop.prop as string]) return slots[prop.prop as string]!(scope);
-                        return scope.row[prop.prop!];
+                        if (props.renderer) return props.renderer(scope);
+                        if (slots[props.prop as string]) return slots[props.prop as string]!(scope);
+                        return scope.row[props.prop!];
                     },
                     header: (scope: HeaderRendererType<any>) => {
-                        if (prop.headerRenderer) return prop.headerRenderer(scope);
-                        if (slots[`${prop.prop as string}Header`]) return slots[`${prop.prop as string}Header`]!(scope);
-                        return prop.label;
+                        if (props.headerRenderer) return props.headerRenderer(scope);
+                        if (slots[`${props.prop as string}Header`])
+                            return slots[`${props.prop as string}Header`]!(scope);
+                        return props.label;
                     }
                 }}
             </el-table-column>
