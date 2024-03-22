@@ -3,7 +3,7 @@
         <el-custom-form :search-columns :search-col />
     </el-card>
     <el-card shadow="hover">
-        <el-row class="flex-between flex-wrap">
+        <el-row class="flex-between flex-wrap custom-table">
             <div>
                 <slot name="operateButton"></slot>
             </div>
