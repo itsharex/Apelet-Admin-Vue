@@ -14,6 +14,7 @@
 </template>
 
 <script setup lang="ts">
+import mittBus from '@/utils/mittBus';
 import { useRoute } from 'vue-router';
 import { useAppStore } from '@/store';
 import { useMenu } from '@/hooks';
@@ -27,6 +28,17 @@ const changeMenu = (e: Event) => {
     if (!routeName || route.name === routeName) return;
     initRoutes(routeName);
 };
+
+onMounted(() => {
+    // 点击tab标签和面包屑修改路由选中
+    mittBus.on('recoverMenuEvent', (value: any) => {
+        initRoutes(value as string);
+    });
+});
+
+onUnmounted(() => {
+    mittBus.off('recoverMenuEvent');
+});
 </script>
 
 <style scoped lang="scss">

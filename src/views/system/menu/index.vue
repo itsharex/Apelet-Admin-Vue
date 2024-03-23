@@ -68,10 +68,25 @@ const tableColumns: ColumnProps<ResponseMenu>[] = reactive([
         limitLine: true,
         popoverWidth: 200,
         lineClamp: 'line-clamp-2',
+        dicts: [
+            {
+                label: '测试',
+                value: 'ceshi'
+            },
+            {
+                label: '测试2哦',
+                value: 'ceshi2'
+            }
+        ],
         search: {
-            el: 'el-input',
+            el: 'el-select',
+            tooltip: '路由名称，例如：MenuName',
             props: {
-                type: 'text'
+                clearable: true
+                // 如果是级联框， 可以配置 props
+                // props: {
+                //     value: 'dictValue'
+                // }
             },
             order: 1
         }
@@ -80,15 +95,30 @@ const tableColumns: ColumnProps<ResponseMenu>[] = reactive([
     {
         prop: 'status',
         label: '菜单状态',
+        dicts: [
+            {
+                dictValue: '0',
+                dictLabel: '正常'
+            },
+            {
+                dictValue: '1',
+                dictLabel: '禁用'
+            }
+        ],
         search: {
-            // el: 'el-select',
             order: 3,
             // Vue3 的 TSX中可直接使用 v-model v-model={[queryParams.status, ['trim']] 为 v-model 的修饰符
-            renderer: ({ queryParams }) => {
+            renderer: ({ queryParams, dicts }) => {
                 return (
                     <>
-                        <el-select v-model={[queryParams.status, ['trim']]} clearable>
-                            <el-option value={'value'} label={'label'}></el-option>
+                        <el-select v-model={queryParams.status} clearable>
+                            {dicts.map(item => (
+                                <el-option
+                                    key={item.dictValue}
+                                    value={item.dictValue}
+                                    label={item.dictLabel}
+                                ></el-option>
+                            ))}
                         </el-select>
                     </>
                 );

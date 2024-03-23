@@ -6,8 +6,7 @@ import { piniaPersist } from '@/config/piniaPersist';
 // 在 Vue3 中, 以hook函数引入 import { useRouter, useRoute } from 'vue-router'; 没有任何问题。
 // 但是在 JavaScript 或者 TypeScript 中，需引入使用我们导出的实例 router
 // 由于现在路由时异步的，在useRouter或useRoute一定要放在setup方法内的顶层，否则作用域改变useRouter()执行返回的是undefined。
-// import { useRouter, useRoute } from 'vue-router';
-import router from '@/router';
+import { useRouter, useRoute } from 'vue-router';
 import { deepClone, flatTreeToArray } from '@/utils/common';
 import { useAppStore } from '@/store';
 import { getRouters } from '@/api/login';
@@ -19,7 +18,8 @@ export const usePermissionStore = defineStore(
     'permission',
     () => {
         const appStore = useAppStore();
-        const route = router.currentRoute.value;
+        const router = useRouter();
+        const route = useRoute();
 
         // 所有路由
         let allRoutes = ref<SubMenuRouteRecordRaw[]>([]);

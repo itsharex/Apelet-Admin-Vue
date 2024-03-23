@@ -24,10 +24,10 @@
 </template>
 
 <script setup lang="ts">
+import mittBus from '@/utils/mittBus';
 import { useRoute } from 'vue-router';
 import { useMenu } from '@/hooks';
 import { MenuItemClicked } from 'element-plus';
-import mittBus from '@/utils/mittBus';
 import { settingConfig } from '@/config/settings';
 import { useAppStore } from '@/store';
 
@@ -44,13 +44,13 @@ const changeMenu = (instance: MenuItemClicked) => {
 
 onMounted(() => {
     // 点击tab标签和面包屑修改路由选中
-    mittBus.on('latticeEvent', (value: any) => {
+    mittBus.on('recoverMenuEvent', (value: any) => {
         initRoutes(value as string);
     });
 });
 
 onUnmounted(() => {
-    mittBus.off('latticeEvent');
+    mittBus.off('recoverMenuEvent');
 });
 </script>
 
@@ -59,4 +59,3 @@ onUnmounted(() => {
     @apply py-2 flex-col-stretch bg-background  border-r-1  border-[var(--el-color-info-light-8)] transition-width duration-300;
 }
 </style>
-@/config/modules/settings

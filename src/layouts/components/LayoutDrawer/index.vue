@@ -3,7 +3,7 @@
         <el-divider>{{ $t('setting.layoutSetting') }}</el-divider>
         <div class="drawer-item">
             <span>{{ $t('setting.layout') }} </span>
-            <el-select v-model="layoutStore.layout" class="w-35" @change="handleLayout">
+            <el-select v-model="layoutStore.layout" class="w-34" @change="handleLayout">
                 <el-option v-for="item in layoutMode" :key="item.value" :label="item.label" :value="item.value" />
             </el-select>
         </div>
@@ -143,22 +143,23 @@ const changeMenuMode = () => setMenuMode();
 // 切换布局对应的操作
 const handleLayout = () => {
     const copyMenuRoutes = deepClone(permissionStore.copyMenuRoutes);
+    // @ts-ignore
     permissionStore.$patch({ asideBarRoutes: copyMenuRoutes });
 };
 </script>
 
 <style scoped lang="scss">
-.drawer {
-    &-item {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 5px 0;
+.drawer-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 0;
+    padding-right: 10px;
+    text-align: center;
+    & > span {
         padding-right: 10px;
-        text-align: center;
-        & > span {
-            opacity: 0.7;
-        }
+        white-space: nowrap;
+        opacity: 0.7;
     }
 }
 </style>

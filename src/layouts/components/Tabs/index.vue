@@ -39,6 +39,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { TabPaneName, TabsPaneContext } from 'element-plus';
 import { useTabContextMenu } from '@/hooks';
 import mittBus from '@/utils/mittBus';
+import { TabsMenuState } from '@/store/interface';
 
 const route = useRoute();
 const router = useRouter();
@@ -85,10 +86,10 @@ const addTabs = () => {
 // 点击标签跳转
 const changeTab = (pane: TabsPaneContext) => {
     const routePath = pane.paneName as string;
-    // 如果是lattice布局，需要第一个栅格菜单联动
-    if (layout.value === 'lattice') {
+    // 如果是lattice 或 gradient 布局，需要栅格和横向菜单联动
+    if (layout.value === 'lattice' || layout.value === 'gradient') {
         const currName = tabsMenuList.value.find(el => el.path === routePath)?.name;
-        mittBus.emit('latticeEvent', currName as string);
+        mittBus.emit('recoverMenuEvent', currName as string);
     }
     router.push(routePath);
 };

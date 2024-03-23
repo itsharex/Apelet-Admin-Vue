@@ -20,6 +20,7 @@ export const useMenu = () => {
                 return menu;
             });
     });
+
     let currName = ref<string | undefined>(currParentRouteName.value);
     // 根据子级查询对应所有父级
     const findFatherByChild = (data: SubMenuRouteRecordRaw[], target: string): SubMenuRouteRecordRaw[] | undefined => {
@@ -58,6 +59,7 @@ export const useMenu = () => {
                     () => {
                         const copyMenuRoutes = deepClone(permissionStore.copyMenuRoutes);
                         // ts提示可能有循环递归问题
+                        // @ts-ignore
                         permissionStore.$patch({ asideBarRoutes: copyMenuRoutes });
                     },
                     300,

@@ -11,7 +11,7 @@ export const useMenu = () => {
 
     const getList = async () => {
         let { data } = await getMenuList(queryParams);
-        menuList.value = data;
+        menuList.value = data.splice(0, 10);
     };
 
     onMounted(async () => {
