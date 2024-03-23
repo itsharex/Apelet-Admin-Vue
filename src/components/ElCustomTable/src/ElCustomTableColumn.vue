@@ -56,4 +56,3 @@ const ElCustomTableColumn = (props: ColumnProps) => {
     );
 };
 </script>
-<style lang="scss" scoped></style>
