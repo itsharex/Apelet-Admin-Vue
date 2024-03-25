@@ -1,15 +1,15 @@
 <template>
-    <!-- 
-        配置项： options （el-select-v2、el-cascader)
-                data (el-tree-select)
-
-        根据组件名默认动态渲染只有基础功能，若需要高度自定义搜索栏 请使用 render 函数渲染
-     -->
     <component
         :is="column.search?.renderer ?? ElComponentObj[column.search?.el!]"
         v-model.trim="queryParams[column.search?.Key ?? (column.prop as string)]"
         v-bind="{ ...column.search?.props, dicts: column.dicts, queryParams }"
     >
+        <!-- 
+            配置项： options （el-select-v2、el-cascader)
+                    data (el-tree-select)
+
+            根据组件名默认动态渲染只有基础功能，若需要高度自定义搜索栏 请使用 render 函数渲染
+        -->
         <template v-if="column.search?.el === 'el-select'">
             <component
                 :is="ElOption"
