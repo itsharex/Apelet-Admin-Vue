@@ -4,7 +4,6 @@ import { getLoginUserInfo, login, logout } from '@/api/login';
 import { RequestLoginForm } from '@/api/login/types';
 import { rsaEncrypt } from '@/utils/encrypt';
 import { deepClone } from '@/utils/common';
-import { asyncI18nFunc } from '@/i18n';
 import { UserState } from '../interface';
 
 export const useUserStore = defineStore('user', {
@@ -50,7 +49,6 @@ export const useUserStore = defineStore('user', {
             this.roleKey = data.roleKey;
             this.permissions = data.permissions;
             Object.assign(this.userInfo, data.userInfo);
-            asyncI18nFunc();
         },
 
         async logout() {
