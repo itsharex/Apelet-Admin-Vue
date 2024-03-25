@@ -20,7 +20,7 @@ import App from './App.vue';
 // pinia
 import pinia from '@/store';
 // i18n
-import i18n, { asyncI18nFunc } from '@/i18n';
+import i18n from '@/i18n';
 // router
 import router from '@/router';
 
@@ -36,9 +36,6 @@ const setupApp = async () => {
     app.use(router);
 
     app.use(pinia);
-
-    // 等待pinia加载完毕 获取 i18n
-    await asyncI18nFunc();
 
     await router.isReady();
 

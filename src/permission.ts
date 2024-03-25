@@ -1,5 +1,5 @@
 import router from '@/router';
-import i18n from '@/i18n';
+import i18n, { asyncI18nFunc } from '@/i18n';
 import { NavigationGuardNext, RouteLocationNormalized, RouteRecordRaw } from 'vue-router';
 import { start, done } from '@/config/nprogress';
 // 单独导入，如果小仓库在大仓库外面，无法获取，需要有大仓库
@@ -24,6 +24,7 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
             next({ path: '/' });
         } else {
             if (!userStore.userName) {
+                await asyncI18nFunc();
                 await userStore.getUserInfo();
                 const rewriteRoutes = await permissionStore.getAsyncRoutes();
                 rewriteRoutes.forEach(route => {

@@ -8,7 +8,9 @@
                     <template #default="{ Component, route }">
                         <el-backtop title="回到顶部" />
                         <transition :name="layoutStore.animateMode" mode="out-in" appear>
-                            <component :is="Component" :key="route.fullPath" v-if="appStore.reload" />
+                            <keep-alive>
+                                <component :is="Component" :key="route.fullPath" v-if="appStore.reload" />
+                            </keep-alive>
                         </transition>
                     </template>
                 </router-view>
