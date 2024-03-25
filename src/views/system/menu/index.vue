@@ -1,6 +1,7 @@
 <template>
-    <!-- 解决 Component inside `＜Transition＞` renders non-element root node that cannot be animated 问题 -->
     <div>
+        <!-- 解决 Component inside `＜Transition＞` renders non-element root node that cannot be animated 问题 -->
+        <!-- 切勿将注释写在最外层下，否则vue会将该注释当做 fragment 格式 渲染，从而导致页面空白 -->
         <el-custom-table ref="customTableRef" :table-data="menuList" :table-columns :query-params>
             <template #operateButton>
                 <el-button type="primary" plain>新 增</el-button>

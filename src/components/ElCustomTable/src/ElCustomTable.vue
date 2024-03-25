@@ -1,11 +1,8 @@
 <template>
-    <!-- 搜索区域 -->
     <el-card class="mb-4" shadow="hover">
         <el-custom-form :search-columns :query-params :search-col />
     </el-card>
-    <!-- 自定义统计区域 -->
     <slot name="statistics"></slot>
-    <!-- 表格区域 -->
     <el-card shadow="hover">
         <el-row class="flex-between flex-wrap custom-table">
             <div>
