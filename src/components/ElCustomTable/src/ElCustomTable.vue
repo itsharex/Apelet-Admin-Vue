@@ -18,12 +18,12 @@
         </el-row>
         <el-table
             ref="tableRef"
+            v-table-height
             v-bind="$attrs"
             :data="tableData"
             :border
             :row-key
             :highlight-current-row
-            style="width: 100%"
         >
             <!-- 循环处理columns列 -->
             <template v-for="column in columnList" :key="column">

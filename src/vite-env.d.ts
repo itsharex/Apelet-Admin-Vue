@@ -5,6 +5,7 @@ declare module 'colorthief';
 declare module 'particles.vue3';
 
 import { Component } from 'vue';
+import { Directives } from '@/directives/interface';
 declare module '*.vue' {
     import type { DefineComponent } from 'vue';
     const component: DefineComponent<{}, {}, any>;

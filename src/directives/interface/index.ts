@@ -1,8 +1,14 @@
 import type { Directive } from 'vue';
 
-interface Directives {
+export interface CustomTableHeight {
+    // 底部预留高度
+    height: number;
+}
+
+export interface Directives {
     vPerms: Directive<any, string[]>;
     vRole: Directive<any, string>;
+    vTableHeight: Directive<any, CustomTableHeight>;
 }
 
 // keys = 'vHasPerms' | 'vHasRoles'
@@ -14,6 +20,7 @@ export type Keys = keyof Directives;
  *
  */
 type LowerDirectiveName<T extends Keys> = T extends `v${infer V}` ? Uncapitalize<V> : never;
+
 // 指令对象类型
 export interface DirectiveOptions<T extends Keys> {
     name: LowerDirectiveName<T>;

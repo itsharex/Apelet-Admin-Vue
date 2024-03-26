@@ -32,6 +32,7 @@ let customTableRef = ref<ElCustomTableInstance | null>(null);
 
 // 不推荐使用 reactive() 的泛型参数，因为处理了深层次 ref 解包的返回值与泛型参数的类型不同, 而且也会导致TS类型报错。
 // const tableColumns: Ref<ColumnProps<ResponseMenu>[]> = ref([})
+
 const tableColumns: ColumnProps<ResponseMenu>[] = reactive([
     { type: 'index', label: '序号', width: 55 },
     { type: 'selection', fixed: 'left', width: 70 },
