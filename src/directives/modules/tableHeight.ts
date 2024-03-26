@@ -11,7 +11,7 @@ const doResize = (el: HTMLElement, binding: DirectiveBinding<CustomTableHeight>)
     useTimeoutFn(() => {
         const top = Math.floor(el.getBoundingClientRect().top);
         // DOM距离底部的 自定义距离
-        const bottom = binding.value.height || 72;
+        const bottom = (binding.value && binding.value.height) || 72;
         el.style.height = window.innerHeight - top - bottom + 'px';
     }, 500);
 };

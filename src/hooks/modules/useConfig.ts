@@ -5,9 +5,9 @@ export const useConfig = () => {
     const layoutStore = useLayoutStore();
 
     // 内容区滚动条滚动加载条跟随
-    const useProgress = (el: Event) => {
+    const useProgress = (dom: HTMLElement) => {
         if (!layoutStore.isOpenProgress) return;
-        let dom = el.target as HTMLDivElement;
+        // let dom = el.target as HTMLDivElement;
         // 获取滚动的高度
         const scrollTop = dom.scrollTop;
         // 滚动的最大高度 = 元素的内容高度 - 视口高度

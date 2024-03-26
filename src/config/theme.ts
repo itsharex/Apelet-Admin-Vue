@@ -12,7 +12,7 @@ const themeConfig: GlobalState = {
     // 布局切换
     layout: 'vertical',
     // 内容区滚动条加载进度
-    isOpenProgress: false,
+    isOpenProgress: true,
     // 菜单栏模式(light|dark)
     menuMode: 'light',
     // 暗黑模式
