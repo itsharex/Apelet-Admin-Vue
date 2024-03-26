@@ -39,10 +39,13 @@ const scrollbarRef = ref<InstanceType<typeof ElScrollbar>>();
 const handleScorll = () => useProgress(scrollbarRef.value?.wrapRef!);
 
 // 更新滚动条位置和滚动条状态
-watch(route, () => {
-    scrollbarRef.value?.setScrollTop(0);
-    scrollbarRef.value?.update();
-});
+watch(
+    () => route.path,
+    () => {
+        scrollbarRef.value?.setScrollTop(0);
+        scrollbarRef.value?.update();
+    }
+);
 </script>
 
 <style scoped lang="scss"></style>

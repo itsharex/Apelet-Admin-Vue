@@ -16,58 +16,60 @@
                 <slot name="toolButton"> </slot>
             </div>
         </el-row>
-        <el-table
-            ref="tableRef"
-            v-table-height
-            v-bind="$attrs"
-            :data="tableData"
-            :border
-            :row-key
-            :highlight-current-row
-        >
-            <!-- 循环处理columns列 -->
-            <template v-for="column in columnList" :key="column">
-                <el-table-column
-                    v-if="column.type"
-                    v-bind="column as any"
-                    :align="column.align ?? 'center'"
-                    :reserve-selection="column.type === 'selection'"
-                >
-                    <template #default="scope">
-                        <template v-if="column.type === 'expand'">
-                            <component :is="column.renderer" v-bind="scope" v-if="column.renderer" />
-                            <slot v-else :name="column.type" v-bind="scope"></slot>
+        <div v-table-height>
+            <el-table
+                ref="tableRef"
+                v-bind="$attrs"
+                :data="tableData"
+                :border
+                :row-key
+                :highlight-current-row
+                class="h-full!"
+            >
+                <!-- 循环处理columns列 -->
+                <template v-for="column in columnList" :key="column">
+                    <el-table-column
+                        v-if="column.type"
+                        v-bind="column as any"
+                        :align="column.align ?? 'center'"
+                        :reserve-selection="column.type === 'selection'"
+                    >
+                        <template #default="scope">
+                            <template v-if="column.type === 'expand'">
+                                <component :is="column.renderer" v-bind="scope" v-if="column.renderer" />
+                                <slot v-else :name="column.type" v-bind="scope"></slot>
+                            </template>
+                            <!-- 拖拽排序 -->
+                            <el-tag v-if="column.type === 'sortable'">
+                                <el-icon><DCaret /></el-icon>
+                            </el-tag>
                         </template>
-                        <!-- 拖拽排序 -->
-                        <el-tag v-if="column.type === 'sortable'">
-                            <el-icon><DCaret /></el-icon>
-                        </el-tag>
-                    </template>
-                    <template #header="scope">
-                        <component :is="column.headerRenderer" v-bind="scope" v-if="column.headerRenderer" />
-                        <slot v-else :name="`${column.type}Header`" v-bind="scope"></slot>
-                    </template>
-                </el-table-column>
-                <!-- 自定义column -->
-                <el-custom-table-column v-if="!column.type && column.prop" :column>
-                    <!-- 用于自定义单元格插槽 -->
-                    <template v-for="slot in slotsToArray(column)" :key="slot" #[slot]="scope">
-                        <slot :name="slot" v-bind="scope"></slot>
-                    </template>
-                </el-custom-table-column>
-            </template>
+                        <template #header="scope">
+                            <component :is="column.headerRenderer" v-bind="scope" v-if="column.headerRenderer" />
+                            <slot v-else :name="`${column.type}Header`" v-bind="scope"></slot>
+                        </template>
+                    </el-table-column>
+                    <!-- 自定义column -->
+                    <el-custom-table-column v-if="!column.type && column.prop" :column>
+                        <!-- 用于自定义单元格插槽 -->
+                        <template v-for="slot in slotsToArray(column)" :key="slot" #[slot]="scope">
+                            <slot :name="slot" v-bind="scope"></slot>
+                        </template>
+                    </el-custom-table-column>
+                </template>
 
-            <!-- 默认插槽 支持el-table 的columns -->
-            <slot />
-            <!-- append -->
-            <template #append>
-                <slot name="append"></slot>
-            </template>
-            <!-- empty -->
-            <template #empty>
-                <el-empty description="暂无数据" />
-            </template>
-        </el-table>
+                <!-- 默认插槽 支持el-table 的columns -->
+                <slot />
+                <!-- append -->
+                <template #append>
+                    <slot name="append"></slot>
+                </template>
+                <!-- empty -->
+                <template #empty>
+                    <el-empty description="暂无数据" />
+                </template>
+            </el-table>
+        </div>
     </el-card>
 </template>
 
