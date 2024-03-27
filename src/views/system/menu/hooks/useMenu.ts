@@ -20,6 +20,7 @@ export const useMenu = () => {
 
     return {
         queryParams,
-        menuList
+        menuList,
+        getList
     };
 };

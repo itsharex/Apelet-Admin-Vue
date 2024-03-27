@@ -2,7 +2,7 @@
     <div>
         <!-- 解决 Component inside `＜Transition＞` renders non-element root node that cannot be animated 问题 -->
         <!-- 切勿将注释写在最外层下，否则vue会将该注释当做 fragment 格式 渲染，从而导致页面空白 -->
-        <el-custom-table ref="customTableRef" :table-data="menuList" :table-columns :query-params>
+        <el-custom-table ref="customTableRef" :table-data="menuList" :table-columns :query-params @get-list="getList">
             <template #operateButton>
                 <el-button type="primary" plain>新 增</el-button>
                 <el-button type="success" plain>修 改</el-button>
@@ -32,7 +32,6 @@ let customTableRef = ref<ElCustomTableInstance | null>(null);
 
 // 不推荐使用 reactive() 的泛型参数，因为处理了深层次 ref 解包的返回值与泛型参数的类型不同, 而且也会导致TS类型报错。
 // const tableColumns: Ref<ColumnProps<ResponseMenu>[]> = ref([})
-
 const tableColumns: ColumnProps<ResponseMenu>[] = reactive([
     { type: 'index', label: '序号', width: 55 },
     { type: 'selection', fixed: 'left', width: 70 },
@@ -141,5 +140,5 @@ const tableColumns: ColumnProps<ResponseMenu>[] = reactive([
     }
 ]);
 
-const { queryParams, menuList } = useMenu();
+const { queryParams, menuList, getList } = useMenu();
 </script>

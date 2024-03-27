@@ -70,14 +70,22 @@
                 </template>
             </el-table>
         </div>
+        <Pagination
+            v-model:current-page="queryParams!.pageNum"
+            v-model:page-size="queryParams!.pageSize"
+            :total="50"
+            @get-list="getList"
+        />
     </el-card>
 </template>
 
 <script setup lang="ts" name="ElCustomTable">
 import ElCustomTableColumn from './ElCustomTableColumn.vue';
 import { ElCustomForm, SearchColType } from '@/components/ElCustomForm';
+import { Pagination } from '@/components/Pagination';
 import { Refresh, Search } from '@element-plus/icons-vue';
 import { ColumnProps } from '@/components/ElCustomTable';
+import { ElTable } from 'element-plus';
 
 export interface CustomTableProps {
     tableColumns: ColumnProps[]; // 表格列 => 必传
@@ -106,6 +114,12 @@ defineOptions({
     inheritAttrs: false
 });
 
+const emit = defineEmits<{
+    (event: 'getList'): void;
+}>();
+
+const tableRef = ref<InstanceType<typeof ElTable>>();
+
 const slots = useSlots();
 const slotsToArray = (column: ColumnProps) =>
     Object.keys(slots).filter(item => item === column.prop || item === `${column.prop as string}Header`);
@@ -119,4 +133,7 @@ const searchColumns = computed(() => {
         .filter(item => item.search?.el || item.search?.renderer)
         .sort((pre, next) => pre.search?.order! - next.search?.order!);
 });
+
+// 分页重新刷新列表
+const getList = () => emit('getList');
 </script>
