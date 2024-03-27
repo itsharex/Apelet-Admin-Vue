@@ -14,7 +14,7 @@ export const useMenu = () => {
         menuList.value = data.splice(0, 10);
     };
 
-    onMounted(async () => {
+    onMounted(() => {
         getList();
     });
 

@@ -1,5 +1,6 @@
 import { DirectiveBinding } from 'vue';
 import { DirectiveOptions, CustomTableHeight } from '../interface';
+import { useTimeoutFn } from '@vueuse/core';
 
 interface CustomTableElement extends HTMLElement {
     onResize: (...args: any) => void;
@@ -7,10 +8,13 @@ interface CustomTableElement extends HTMLElement {
 
 const doResize = (el: HTMLElement, binding: DirectiveBinding<CustomTableHeight>) => {
     // 指令作用于DOM距离顶部的距离 https://developer.mozilla.org/zh-CN/docs/Web/API/Element/getBoundingClientRect
-    const top = Math.floor(el.getBoundingClientRect().top);
-    // DOM距离底部的 自定义距离
-    const bottom = (binding.value && binding.value.height) || 86;
-    el.style.height = window.innerHeight - top - bottom + 'px';
+    useTimeoutFn(() => {
+        //     const { top } = useElementBounding(el);
+        const top = Math.floor(el.getBoundingClientRect().top);
+        // DOM距离底部的 自定义距离
+        const bottom = (binding.value && binding.value.height) || 86;
+        el.style.height = window.innerHeight - top - bottom + 'px';
+    }, 300);
 };
 
 /**
@@ -19,6 +23,7 @@ const doResize = (el: HTMLElement, binding: DirectiveBinding<CustomTableHeight>)
 const tableHeight: DirectiveOptions<'vTableHeight'> = {
     name: 'tableHeight',
     directive: {
+        // 初始化时 注册事件
         mounted(el: CustomTableElement, binding: DirectiveBinding<CustomTableHeight>) {
             el.onResize = () => {
                 doResize(el, binding);

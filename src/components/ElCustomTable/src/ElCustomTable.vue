@@ -118,8 +118,10 @@ const emit = defineEmits<{
     (event: 'getList'): void;
 }>();
 
+// 表格实例
 const tableRef = ref<InstanceType<typeof ElTable>>();
 
+// 该组件的插槽集
 const slots = useSlots();
 const slotsToArray = (column: ColumnProps) =>
     Object.keys(slots).filter(item => item === column.prop || item === `${column.prop as string}Header`);
