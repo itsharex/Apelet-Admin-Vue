@@ -27,8 +27,9 @@
             </el-col>
         </el-row>
         <el-row class="flex flex-wrap">
-            <el-button type="primary"> 搜索 </el-button>
-            <el-button> 重置 </el-button>
+            <el-button type="primary" @click="handleSearch"> 搜 索 </el-button>
+            <el-button @click="handleReset"> 重 置 </el-button>
+            <el-button type="success" plain> 展 开 </el-button>
         </el-row>
     </el-form>
 </template>
@@ -44,6 +45,8 @@ interface CustomSearchProps {
     searchColumns?: ColumnProps[]; // 搜索参数列 => 必传
     queryParams?: { [key: string]: any }; // 搜索参数
     searchCol?: SearchColType; // 搜索栏布局
+    _search?: () => void;
+    _reset?: () => void;
 }
 
 const props = withDefaults(defineProps<CustomSearchProps>(), {
@@ -74,4 +77,7 @@ const getColLayout = (column: ColumnProps) => {
 };
 
 const formRef = ref<InstanceType<typeof ElForm>>();
+
+const handleSearch = () => props._search?.();
+const handleReset = () => props._reset?.();
 </script>
