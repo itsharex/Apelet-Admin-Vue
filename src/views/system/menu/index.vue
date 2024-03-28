@@ -2,7 +2,15 @@
     <div>
         <!-- 解决 Component inside `＜Transition＞` renders non-element root node that cannot be animated 问题 -->
         <!-- 切勿将注释写在最外层下，否则vue会将该注释当做 fragment 格式 渲染，从而导致页面空白 -->
-        <el-custom-table ref="customTableRef" :table-data="menuList" :table-columns :query-params @get-list="getList">
+        <el-custom-table
+            ref="customTableRef"
+            :table-data="menuList"
+            :table-columns
+            :query-params
+            @handle-search="handleSearch"
+            @handle-reset="handleReset"
+            @get-list="getList"
+        >
             <template #operateButton>
                 <el-button type="primary" plain>新 增</el-button>
                 <el-button type="success" plain>修 改</el-button>
@@ -62,7 +70,17 @@ const tableColumns: ColumnProps<ResponseMenu>[] = reactive([
             order: 2
         }
     },
-    { prop: 'path', label: '菜单路径' },
+    {
+        prop: 'path',
+        label: '菜单路径',
+        search: {
+            el: 'el-input',
+            props: {
+                type: 'text'
+            },
+            order: 4
+        }
+    },
     {
         prop: 'routerName',
         label: '路由名称',
@@ -81,7 +99,7 @@ const tableColumns: ColumnProps<ResponseMenu>[] = reactive([
         ],
         search: {
             el: 'el-select',
-            tooltip: '路由名称，例如：MenuName',
+            // tooltip: '路由名称，例如：MenuName',
             props: {
                 clearable: true
                 // 如果是级联框， 可以配置 props
@@ -92,7 +110,17 @@ const tableColumns: ColumnProps<ResponseMenu>[] = reactive([
             order: 1
         }
     },
-    { prop: 'menuTypeStr', label: '菜单类型' },
+    {
+        prop: 'menuTypeStr',
+        label: '菜单类型',
+        search: {
+            el: 'el-select',
+            props: {
+                clearable: true
+            },
+            order: 5
+        }
+    },
     {
         prop: 'status',
         label: '菜单状态',
@@ -140,5 +168,5 @@ const tableColumns: ColumnProps<ResponseMenu>[] = reactive([
     }
 ]);
 
-const { queryParams, menuList, getList } = useMenu();
+const { queryParams, menuList, handleSearch, handleReset, getList } = useMenu();
 </script>

@@ -14,6 +14,18 @@ export const useMenu = () => {
         menuList.value = data.splice(0, 10);
     };
 
+    const handleSearch = () => {
+        getList();
+    };
+
+    const handleReset = () => {
+        queryParams = {
+            pageNum: 1,
+            pageSize: 10
+        };
+        handleSearch();
+    };
+
     onMounted(() => {
         getList();
     });
@@ -21,6 +33,8 @@ export const useMenu = () => {
     return {
         queryParams,
         menuList,
+        handleSearch,
+        handleReset,
         getList
     };
 };

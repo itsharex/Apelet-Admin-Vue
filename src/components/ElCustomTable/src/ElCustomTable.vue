@@ -1,6 +1,13 @@
 <template>
     <el-card class="mb-4" shadow="hover">
-        <el-custom-form :search-columns :query-params :search-col />
+        <el-custom-form
+            :search-columns
+            :query-params
+            :search-col
+            :search="handleSearch"
+            :reset="handleReset"
+            :resize="handleResize"
+        />
     </el-card>
     <slot name="statistics"></slot>
     <el-card shadow="hover">
@@ -16,7 +23,7 @@
                 <slot name="toolButton"> </slot>
             </div>
         </el-row>
-        <div v-table-height>
+        <div ref="adaptRef">
             <el-table
                 ref="tableRef"
                 v-bind="$attrs"
@@ -71,6 +78,7 @@
             </el-table>
         </div>
         <Pagination
+            v-if="pagination"
             v-model:current-page="queryParams!.pageNum"
             v-model:page-size="queryParams!.pageSize"
             :total="50"
@@ -86,6 +94,8 @@ import { Pagination } from '@/components/Pagination';
 import { Refresh, Search } from '@element-plus/icons-vue';
 import { ColumnProps } from '@/components/ElCustomTable';
 import { ElTable } from 'element-plus';
+import { useAdaptive } from './hooks';
+import { DebouncedFunc } from 'lodash-es';
 
 export interface CustomTableProps {
     tableColumns: ColumnProps[]; // 表格列 => 必传
@@ -116,10 +126,13 @@ defineOptions({
 
 const emit = defineEmits<{
     (event: 'getList'): void;
+    (event: 'handleSearch'): void;
+    (event: 'handleReset'): void;
 }>();
 
 // 表格实例
 const tableRef = ref<InstanceType<typeof ElTable>>();
+const adaptRef = ref<HTMLElement>();
 
 // 该组件的插槽集
 const slots = useSlots();
@@ -138,4 +151,15 @@ const searchColumns = computed(() => {
 
 // 分页重新刷新列表
 const getList = () => emit('getList');
+// 搜索\重置
+const handleSearch = () => emit('handleSearch');
+const handleReset = () => emit('handleReset');
+
+// 表格高度自适应
+let handleResize = ref<DebouncedFunc<() => Promise<void>>>();
+// 需要等待DOM挂在完毕之后执行该Hook
+onMounted(() => {
+    const { doResize } = useAdaptive(adaptRef.value!);
+    handleResize.value = doResize;
+});
 </script>

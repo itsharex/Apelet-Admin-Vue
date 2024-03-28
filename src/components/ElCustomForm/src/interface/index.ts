@@ -26,7 +26,8 @@ export type SearchProps<T = any> = {
     el?: `el-${SearchType}`; // 搜索框类别
     props?: { [key: string]: any }; // 搜索项配置属性，与 element plus 文档中 Attributes 的 配置项一致
     // 选择上面两个配置可不用使用 renderer， 反之使用renderder
-    label?: string; // 自定义搜索名
+    label?: string; // 自定义搜索名称
+    width?: number; // label宽度
     Key?: string; // 自定义搜索字段 prop , 未设置 则默认使用 列表prop
     tooltip?: string; // 搜索提示
     order?: number; // 搜索项排序

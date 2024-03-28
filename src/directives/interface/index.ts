@@ -1,14 +1,8 @@
 import type { Directive } from 'vue';
 
-export interface CustomTableHeight {
-    // 底部预留高度
-    height: number;
-}
-
 export interface Directives {
     vPerms: Directive<any, string[]>;
     vRole: Directive<any, string>;
-    vTableHeight: Directive<any, CustomTableHeight>;
 }
 
 // keys = 'vHasPerms' | 'vHasRoles'

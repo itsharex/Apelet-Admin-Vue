@@ -7,7 +7,7 @@
                 <div :class="['p-4', { 'py-0': isGradient }]">
                     <router-view>
                         <template #default="{ Component, route }">
-                            <el-backtop title="回到顶部" />
+                            <el-backtop target=".el-main div .el-scrollbar__wrap" title="回到顶部" />
                             <transition :name="layoutStore.animateMode" mode="out-in" appear>
                                 <keep-alive>
                                     <component :is="Component" :key="route.fullPath" v-if="appStore.reload" />
