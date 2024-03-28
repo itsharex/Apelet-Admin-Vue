@@ -4,27 +4,25 @@
         <!-- 切勿将注释写在最外层下，否则vue会将该注释当做 fragment 格式 渲染，从而导致页面空白 -->
         <el-custom-table
             ref="customTableRef"
-            :table-data="menuList"
             :table-columns
             :query-params
+            :table-data="menuList"
             @handle-search="handleSearch"
             @handle-reset="handleReset"
-            @get-list="getList"
         >
             <template #operateButton>
-                <el-button type="primary" plain>新 增</el-button>
-                <el-button type="success" plain>修 改</el-button>
-                <el-button type="warning" plain>导 出</el-button>
-                <el-button type="danger" plain>删 除</el-button>
+                <el-button type="primary" plain :icon="Plus">新 增</el-button>
+                <el-button type="success" plain :icon="EditPen">修 改</el-button>
+                <el-button type="warning" plain :icon="Download">导 出</el-button>
+                <el-button type="danger" plain :icon="Delete">删 除</el-button>
             </template>
             <template #routerNameHeader="scope">
                 <el-button type="success">{{ scope.column.label }}</el-button>
             </template>
-            <el-table-column label="操作" align="center">
+            <el-table-column fixed="right" label="操作" align="center" width="150">
                 <template #default="scope">
-                    <el-button type="primary" link>修 改</el-button>
-                    <el-button type="primary" link>删 除</el-button>
-                    <el-button type="primary" link>{{ scope.row.id }}</el-button>
+                    <el-button type="primary" size="small" link :icon="EditPen">修 改</el-button>
+                    <el-button type="primary" size="small" link :icon="Delete">删 除</el-button>
                 </template>
             </el-table-column>
         </el-custom-table>
@@ -32,6 +30,7 @@
 </template>
 
 <script setup lang="tsx">
+import { Plus, EditPen, Delete, Download } from '@element-plus/icons-vue';
 import { ResponseMenu } from '@/api/system/menu/types';
 import { ColumnProps, ElCustomTable, ElCustomTableInstance } from '@/components/ElCustomTable';
 import { useMenu } from './hooks/useMenu';
@@ -168,5 +167,5 @@ const tableColumns: ColumnProps<ResponseMenu>[] = reactive([
     }
 ]);
 
-const { queryParams, menuList, handleSearch, handleReset, getList } = useMenu();
+const { queryParams, menuList, handleSearch, handleReset } = useMenu();
 </script>

@@ -77,13 +77,16 @@
                 </template>
             </el-table>
         </div>
-        <Pagination
-            v-if="pagination"
-            v-model:current-page="queryParams!.pageNum"
-            v-model:page-size="queryParams!.pageSize"
-            :total="50"
-            @get-list="getList"
-        />
+        <!-- 分页插槽 -->
+        <slot name="pagination">
+            <Pagination
+                v-if="pagination"
+                v-model:current-page="queryParams!.pageNum"
+                v-model:page-size="queryParams!.pageSize"
+                :total="50"
+                @get-list="handleSearch"
+            />
+        </slot>
     </el-card>
 </template>
 
@@ -125,7 +128,6 @@ defineOptions({
 });
 
 const emit = defineEmits<{
-    (event: 'getList'): void;
     (event: 'handleSearch'): void;
     (event: 'handleReset'): void;
 }>();
@@ -149,8 +151,6 @@ const searchColumns = computed(() => {
         .sort((pre, next) => pre.search?.order! - next.search?.order!);
 });
 
-// 分页重新刷新列表
-const getList = () => emit('getList');
 // 搜索\重置
 const handleSearch = () => emit('handleSearch');
 const handleReset = () => emit('handleReset');
