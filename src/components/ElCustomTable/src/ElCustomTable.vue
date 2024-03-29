@@ -23,11 +23,11 @@
                 <slot name="toolButton"> </slot>
             </div>
         </el-row>
-        <div ref="adaptRef">
+        <div ref="adaptRef" v-adaptive>
             <el-table
                 ref="tableRef"
                 v-bind="$attrs"
-                :data="tableData"
+                :data="computedData"
                 :border
                 :row-key
                 :highlight-current-row
@@ -81,10 +81,10 @@
         <slot name="pagination">
             <Pagination
                 v-if="pagination"
-                v-model:current-page="queryParams!.pageNum"
-                v-model:page-size="queryParams!.pageSize"
-                :total="50"
-                @get-list="handleSearch"
+                v-model:current-page="queryParams.pageNum"
+                v-model:page-size="queryParams.pageSize"
+                :total="total"
+                @get-list="getPageList"
             />
         </slot>
     </el-card>
@@ -97,24 +97,25 @@ import { Pagination } from '@/components/Pagination';
 import { Refresh, Search } from '@element-plus/icons-vue';
 import { ColumnProps } from '@/components/ElCustomTable';
 import { ElTable } from 'element-plus';
-import { useAdaptive } from './hooks';
-import { DebouncedFunc } from 'lodash-es';
+import { useTable } from './hooks';
+import { updateTableHeight } from './helpers/adaptive';
 
 export interface CustomTableProps {
     tableColumns: ColumnProps[]; // 表格列 => 必传
-    tableData?: any[]; // 表格数据 => 必传
-    queryParams?: { [key: string]: any };
-    pagination?: boolean; // 是否开启分页插件
+    tableData?: any[]; // 表格数据， 存在则不调用 requestApi => 非必传
+    initParams?: { [key: string]: any }; // 初始化参数，有用户自定义
+    pagination?: boolean; // 是否开启分页插件, 关闭分页请重新设置 表格自适应高度 （useAdaptive)
+    requestApi?: (...args: any) => Promise<ApiResponse<any>>; // 数据请求接口
     toolButton?: boolean; // 是否开启右上角工具栏
     highlightCurrentRow?: boolean; // 是否单选
     border?: boolean; // 是否显示边框
     rowKey?: string; // 行数据的 Key，用来优化 Table 的渲染；显示树形数据时，该属性是必填的
     searchCol?: SearchColType;
+    dataCallback?: (...args: any) => any;
 }
 
 const props = withDefaults(defineProps<CustomTableProps>(), {
     tableColumns: () => [],
-    tableData: () => [],
     pagination: true,
     highlightCurrentRow: false,
     border: true,
@@ -127,11 +128,6 @@ defineOptions({
     inheritAttrs: false
 });
 
-const emit = defineEmits<{
-    (event: 'handleSearch'): void;
-    (event: 'handleReset'): void;
-}>();
-
 // 表格实例
 const tableRef = ref<InstanceType<typeof ElTable>>();
 const adaptRef = ref<HTMLElement>();
@@ -141,8 +137,27 @@ const slots = useSlots();
 const slotsToArray = (column: ColumnProps) =>
     Object.keys(slots).filter(item => item === column.prop || item === `${column.prop as string}Header`);
 
+// table hook
+const { total, data, queryParams, handleReset, handleSearch } = useTable(
+    props.requestApi,
+    props.initParams,
+    props.pagination,
+    props.dataCallback
+);
+
 // 自定义列
 const columnList = computed<ColumnProps[]>(() => props.tableColumns);
+// 表格数据
+const computedData = computed(() => {
+    if (!props.tableData) return data.value;
+    return props.tableData;
+});
+
+// 分页获取新的数据
+const getPageList = () => {
+    handleSearch();
+    updateTableHeight(adaptRef.value!);
+};
 
 // 处理搜索栏参数
 const searchColumns = computed(() => {
@@ -151,15 +166,6 @@ const searchColumns = computed(() => {
         .sort((pre, next) => pre.search?.order! - next.search?.order!);
 });
 
-// 搜索\重置
-const handleSearch = () => emit('handleSearch');
-const handleReset = () => emit('handleReset');
-
-// 表格高度自适应
-let handleResize = ref<DebouncedFunc<() => Promise<void>>>();
-// 需要等待DOM挂在完毕之后执行该Hook
-onMounted(() => {
-    const { doResize } = useAdaptive(adaptRef.value!);
-    handleResize.value = doResize;
-});
+// 更新表格高度
+const handleResize = () => updateTableHeight(adaptRef.value!);
 </script>

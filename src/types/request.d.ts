@@ -23,6 +23,7 @@ declare global {
         code: number;
         msg: string;
         data: T; // 这里定义请求返回data数据类型
+        total: number;
     }
 
     interface PageRequest {

@@ -4,11 +4,10 @@
         <!-- 切勿将注释写在最外层下，否则vue会将该注释当做 fragment 格式 渲染，从而导致页面空白 -->
         <el-custom-table
             ref="customTableRef"
-            :table-columns
-            :query-params
-            :table-data="menuList"
-            @handle-search="handleSearch"
-            @handle-reset="handleReset"
+            :init-params="initParams"
+            :table-columns="tableColumns"
+            :request-api="getMenuList"
+            :data-callback="dataCallBack"
         >
             <template #operateButton>
                 <el-button type="primary" plain :icon="Plus">新 增</el-button>
@@ -31,9 +30,9 @@
 
 <script setup lang="tsx">
 import { Plus, EditPen, Delete, Download } from '@element-plus/icons-vue';
-import { ResponseMenu } from '@/api/system/menu/types';
+import { RequestMenu, ResponseMenu } from '@/api/system/menu/types';
 import { ColumnProps, ElCustomTable, ElCustomTableInstance } from '@/components/ElCustomTable';
-import { useMenu } from './hooks/useMenu';
+import { getMenuList } from '@/api/system/menu';
 
 let customTableRef = ref<ElCustomTableInstance | null>(null);
 
@@ -167,5 +166,14 @@ const tableColumns: ColumnProps<ResponseMenu>[] = reactive([
     }
 ]);
 
-const { queryParams, menuList, handleSearch, handleReset } = useMenu();
+let initParams = ref<RequestMenu>({
+    pageNum: 1,
+    pageSize: 10
+});
+
+// 接口成功回调
+const dataCallBack = (data: ApiResponse<any>) => {
+    console.log('我是成功回调哦！数据在这里 --->', data);
+    return data;
+};
 </script>

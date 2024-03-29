@@ -1,5 +1,5 @@
 import type { App } from 'vue';
-import { DirectiveOptions, Keys } from './interface';
+import { DirectiveOptions } from './interface';
 
 const directModules = import.meta.glob('./modules/*.ts');
 const directives = {
