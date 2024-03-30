@@ -13,7 +13,6 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
     const { VITE_APP_HOST, VITE_APP_BASE_API } = env;
 
     return {
-        root,
         // 部署生产环境和开发环境下的URL。
         // 默认情况下，vite 会假设你的应用是被部署在一个域名的根路径上, 就需要用这个选项指定这个子路径。
         // 如果你的应用被部署在 https://www.xxx.com/admin/，则设置 base 为 /admin/。
