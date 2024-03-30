@@ -9,32 +9,47 @@
             :request-api="getMenuList"
             :data-callback="dataCallBack"
         >
-            <template #operateButton>
-                <el-button type="primary" plain :icon="Plus">新 增</el-button>
-                <el-button type="success" plain :icon="EditPen">修 改</el-button>
+            <template #operateButton="scope">
+                <el-button type="primary" plain :icon="Plus" @click="openDialog('新增')">新 增</el-button>
+                <el-button
+                    type="success"
+                    plain
+                    :icon="EditPen"
+                    :disabled="scope.mutiple"
+                    @click="openDialog('修改', scope.rows[0])"
+                    >修 改</el-button
+                >
                 <el-button type="warning" plain :icon="Download">导 出</el-button>
-                <el-button type="danger" plain :icon="Delete">删 除</el-button>
+                <el-button type="danger" plain :icon="Delete" :disabled="scope.single">删 除</el-button>
             </template>
             <template #routerNameHeader="scope">
                 <el-button type="success">{{ scope.column.label }}</el-button>
             </template>
             <el-table-column fixed="right" label="操作" align="center" width="150">
                 <template #default="scope">
-                    <el-button type="primary" size="small" link :icon="EditPen">修 改</el-button>
+                    <el-button type="primary" size="small" link :icon="EditPen" @click="openDialog('查看', scope.row)"
+                        >查 看</el-button
+                    >
+                    <el-button type="primary" size="small" link :icon="EditPen" @click="openDialog('修改', scope.row)"
+                        >修 改</el-button
+                    >
                     <el-button type="primary" size="small" link :icon="Delete">删 除</el-button>
                 </template>
             </el-table-column>
         </el-custom-table>
+        <!-- 新增/修改 -->
+        <MenuDialog ref="menuDialogRef" />
     </div>
 </template>
 
 <script setup lang="tsx">
+import MenuDialog from './components/MenuDialog.vue';
 import { Plus, EditPen, Delete, Download } from '@element-plus/icons-vue';
 import { RequestMenu, ResponseMenu } from '@/api/system/menu/types';
 import { ColumnProps, ElCustomTable, ElCustomTableInstance } from '@/components/ElCustomTable';
 import { getMenuList } from '@/api/system/menu';
 
-let customTableRef = ref<ElCustomTableInstance | null>(null);
+const customTableRef = ref<ElCustomTableInstance>();
 
 // 不推荐使用 reactive() 的泛型参数，因为处理了深层次 ref 解包的返回值与泛型参数的类型不同, 而且也会导致TS类型报错。
 // const tableColumns: Ref<ColumnProps<ResponseMenu>[]> = ref([})
@@ -172,8 +187,21 @@ let initParams = ref<RequestMenu>({
 });
 
 // 接口成功回调
-const dataCallBack = (data: ApiResponse<any>) => {
+const dataCallBack = (data: any) => {
     console.log('我是成功回调哦！数据在这里 --->', data);
     return data;
+};
+
+// 弹窗操作
+const menuDialogRef = ref<InstanceType<typeof MenuDialog>>();
+const openDialog = (title?: string, row?: ResponseMenu) => {
+    let params = {
+        title,
+        view: title === '查看',
+        row: { ...row },
+        getList: customTableRef.value?.getList,
+        close: customTableRef.value?.clearSelection
+    };
+    menuDialogRef.value?.open(params);
 };
 </script>

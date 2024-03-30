@@ -1,5 +1,5 @@
 <template>
-    <el-card class="mb-4" shadow="hover">
+    <el-card v-show="isShowSearch" class="mb-4" shadow="hover">
         <el-custom-form
             :search-columns
             :query-params
@@ -13,12 +13,12 @@
     <el-card shadow="hover">
         <el-row class="flex-between flex-wrap custom-table">
             <div>
-                <slot name="operateButton"></slot>
+                <slot name="operateButton" v-bind="selectionScope"></slot>
             </div>
             <div>
                 <template v-if="toolButton">
-                    <el-button circle :icon="Search" />
-                    <el-button circle :icon="Refresh" />
+                    <el-button circle :icon="Search" @click="showAndHindenSearch" />
+                    <el-button circle :icon="Refresh" @click="handleSearch" />
                 </template>
                 <slot name="toolButton"> </slot>
             </div>
@@ -26,12 +26,14 @@
         <div ref="adaptRef" v-adaptive>
             <el-table
                 ref="tableRef"
+                class="h-full!"
+                v-loading="loading"
                 v-bind="$attrs"
                 :data="computedData"
                 :border
                 :row-key
                 :highlight-current-row
-                class="h-full!"
+                @selection-change="selectionChange"
             >
                 <!-- 循环处理columns列 -->
                 <template v-for="column in columnList" :key="column">
@@ -97,7 +99,7 @@ import { Pagination } from '@/components/Pagination';
 import { Refresh, Search } from '@element-plus/icons-vue';
 import { ColumnProps } from '@/components/ElCustomTable';
 import { ElTable } from 'element-plus';
-import { useTable } from './hooks';
+import { useTable, useSelection, useTableTool } from './hooks';
 import { updateTableHeight } from './helpers/adaptive';
 
 export interface CustomTableProps {
@@ -111,7 +113,7 @@ export interface CustomTableProps {
     border?: boolean; // 是否显示边框
     rowKey?: string; // 行数据的 Key，用来优化 Table 的渲染；显示树形数据时，该属性是必填的
     searchCol?: SearchColType;
-    dataCallback?: (...args: any) => any;
+    dataCallback?: (params: any) => any;
 }
 
 const props = withDefaults(defineProps<CustomTableProps>(), {
@@ -137,13 +139,19 @@ const slots = useSlots();
 const slotsToArray = (column: ColumnProps) =>
     Object.keys(slots).filter(item => item === column.prop || item === `${column.prop as string}Header`);
 
-// table hook
-const { total, data, queryParams, handleReset, handleSearch } = useTable(
+// table request hook
+const { total, data, loading, queryParams, handleReset, handleSearch, getList } = useTable(
     props.requestApi,
     props.initParams,
     props.pagination,
     props.dataCallback
 );
+
+// table selection hook
+const { selectionScope, selectionChange } = useSelection(props.rowKey);
+
+// table rightTool hook
+const { isShowSearch, handleShowSearch } = useTableTool();
 
 // 自定义列
 const columnList = computed<ColumnProps[]>(() => props.tableColumns);
@@ -156,7 +164,7 @@ const computedData = computed(() => {
 // 分页获取新的数据
 const getPageList = () => {
     handleSearch();
-    updateTableHeight(adaptRef.value!);
+    handleResize();
 };
 
 // 处理搜索栏参数
@@ -168,4 +176,16 @@ const searchColumns = computed(() => {
 
 // 更新表格高度
 const handleResize = () => updateTableHeight(adaptRef.value!);
+
+// 搜索栏显示/隐藏方法
+const showAndHindenSearch = () => {
+    queryParams.value.pageSize = isShowSearch.value ? 20 : 10;
+    handleShowSearch();
+    getPageList();
+};
+
+defineExpose({
+    getList,
+    ...tableRef.value
+});
 </script>
