@@ -20,7 +20,9 @@
                     >修 改</el-button
                 >
                 <el-button type="warning" plain :icon="Download">导 出</el-button>
-                <el-button type="danger" plain :icon="Delete" :disabled="scope.single">删 除</el-button>
+                <el-button type="danger" plain :icon="Delete" :disabled="scope.single" @click="handleDelete(scope.rows)"
+                    >删 除</el-button
+                >
             </template>
             <template #routerNameHeader="scope">
                 <el-button type="success">{{ scope.column.label }}</el-button>
@@ -33,7 +35,9 @@
                     <el-button type="primary" size="small" link :icon="EditPen" @click="openDialog('修改', scope.row)"
                         >修 改</el-button
                     >
-                    <el-button type="primary" size="small" link :icon="Delete">删 除</el-button>
+                    <el-button type="primary" size="small" link :icon="Delete" @click="handleDelete(scope.row)"
+                        >删 除</el-button
+                    >
                 </template>
             </el-table-column>
         </el-custom-table>
@@ -48,6 +52,7 @@ import { Plus, EditPen, Delete, Download } from '@element-plus/icons-vue';
 import { RequestMenu, ResponseMenu } from '@/api/system/menu/types';
 import { ColumnProps, ElCustomTable, ElCustomTableInstance } from '@/components/ElCustomTable';
 import { getMenuList } from '@/api/system/menu';
+import { useConfirm } from '@/hooks';
 
 const customTableRef = ref<ElCustomTableInstance>();
 
@@ -199,9 +204,15 @@ const openDialog = (title?: string, row?: ResponseMenu) => {
         title,
         view: title === '查看',
         row: { ...row },
-        getList: customTableRef.value?.getList,
-        close: customTableRef.value?.clearSelection
+        getList: customTableRef.value?.getList
     };
     menuDialogRef.value?.open(params);
+};
+
+// 删除
+const handleDelete = async (row: ResponseMenu | ResponseMenu[]) => {
+    let menuNames = Array.isArray(row) ? row.map(item => item.menuName).toString() : row.menuName;
+    await useConfirm(getMenuList, {}, `删除名称为 ${menuNames} 的菜单`);
+    customTableRef.value?.getList();
 };
 </script>

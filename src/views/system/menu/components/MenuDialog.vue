@@ -34,7 +34,6 @@ type ParamsType = {
     row: Partial<ResponseMenu>;
     api?: (params: any) => Promise<ApiResponse<ResponseMenu[]>>;
     getList?: () => void;
-    close?: () => void;
 };
 
 const form = ref<ParamsType>({
@@ -59,8 +58,8 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     if (!formEl) return;
     await formEl.validate((valid, fields) => {
         if (valid) {
-            console.log('submit!');
-            dialogVisible.value = false;
+            handleClose();
+            form.value.getList && form.value.getList();
         } else {
             console.log('error submit!', fields);
         }
@@ -75,7 +74,6 @@ const resetForm = () => {
 
 const handleClose = () => {
     resetForm();
-    form.value.close?.();
 };
 
 defineExpose({
