@@ -6,9 +6,12 @@ import directives from '@/directives';
 import components from '@/components/index';
 // 粒子动画
 import Particles from 'particles.vue3';
+// vxe-table
+import VxeTable from 'vxe-table';
 
 export const initInstall = async (app: App) => {
     app.use(directives);
     app.use(components);
     app.use(Particles);
+    app.use(VxeTable);
 };

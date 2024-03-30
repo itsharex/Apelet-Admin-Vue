@@ -45,7 +45,9 @@
     "tsparticles-slim": "^2.12.0",
     "vue": "^3.4.21",
     "vue-i18n": "^9.10.2",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "vxe-table": "^4.5.21",
+    "xe-utils": "^3.5.22"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.2.1",

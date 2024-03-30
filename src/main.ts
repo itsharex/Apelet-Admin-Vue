@@ -11,6 +11,8 @@ import 'virtual:svg-icons-register';
 import 'nprogress/nprogress.css';
 // animate.css  animate版本是4.x，使用时要注意对应的所有类名都以animate__开头，并且还要配合animate__animated一起使用！
 import 'animate.css';
+// vxe-table
+import 'vxe-table/lib/style.css';
 
 import { createApp } from 'vue';
 
