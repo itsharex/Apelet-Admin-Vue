@@ -16,7 +16,6 @@ export const useLoginForm = () => {
     const rules = reactive<FormRules<RequestLoginForm>>({
         username: [{ required: true, message: t(`login.usernamePlaceholder`), trigger: 'blur' }],
         password: [{ required: true, message: t(`login.passwordPlaceholder`), trigger: 'blur' }]
-        // verifyCode: [{ required: true, message: t(`login.verifyCodePlaceholder`), trigger: 'blur' }]
     });
 
     const loginForm = reactive<RequestLoginForm>({
@@ -30,8 +29,6 @@ export const useLoginForm = () => {
     let captchaEnabled = ref(false);
     // 验证码类别 滑块、点选
     let captchaType = ref('');
-    // 图片验证码base64图片
-    let captchaUrl = ref<string>('');
 
     const verifyRef = ref();
 
@@ -118,7 +115,6 @@ export const useLoginForm = () => {
         loginForm,
         rememberPassword,
         captchaEnabled,
-        captchaUrl,
         captchaType,
         getCode,
         getCaptchaCode,
