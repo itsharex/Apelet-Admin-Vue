@@ -286,7 +286,7 @@ const end = () => {
             token: backToken.value
         };
         reqCheck(data).then(res => {
-            if (res.code == 0) {
+            if (res.code == 200) {
                 moveBlockBackgroundColor.value = '#5cb85c';
                 leftBarBorderColor.value = '#5cb85c';
                 iconColor.value = '#fff';
@@ -363,7 +363,7 @@ const getPictrue = async () => {
         captchaType: captchaType.value
     };
     const res = await reqGet(data);
-    if (res.code == 0) {
+    if (res.code == 200) {
         backImgBase.value = res.data.originalImageBase64;
         blockBackImgBase.value = res.data.jigsawImageBase64;
         backToken.value = res.data.token;
