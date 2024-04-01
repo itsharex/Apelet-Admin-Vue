@@ -27,7 +27,7 @@ service.interceptors.response.use(
     (response: AxiosResponse) => {
         const userStore = useUserStore();
         // 设置默认状态码
-        const code = response.data.code || 200;
+        const code = response.data.code || 0;
         // 获取错误信息
         const msg = response.data.msg;
         if (code === 106) {
@@ -35,7 +35,7 @@ service.interceptors.response.use(
             userStore.logout();
             location.href = '/';
             return Promise.reject(msg);
-        } else if (code !== 200) {
+        } else if (code !== 0) {
             ElNotification.error({ title: msg });
             return Promise.reject('error');
         } else {

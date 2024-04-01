@@ -2,12 +2,12 @@ import request from '@/utils/request';
 import {
     RequestLoginForm,
     LoginResponse,
+    GraphCaptchaResponse,
     RequestBlockAndClickCaptcha,
     RequestCheckBlockAndClickCaptcha,
     CheckBlockAndClickCaptchaResponse,
     BlockAndClickCaptchaResponse,
-    UserResponse,
-    IsCaptchaOnResponse
+    UserResponse
 } from './types';
 
 /**
@@ -47,13 +47,23 @@ export const getLoginUserInfo = () => {
 };
 
 /**
- * 验证码是否开启
- * @param data
+ * 获取验证码类别
  * @returns
  */
-export const getIsCaptchaOn = () => {
-    return request<IsCaptchaOnResponse>({
-        url: '/isCaptchaOn',
+export const getCaptchaType = () => {
+    return request<GraphCaptchaResponse>({
+        url: '/reCaptcha/type',
+        method: 'get'
+    });
+};
+
+/**
+ * 获取图形验证码
+ * @returns
+ */
+export const getCaptchaImage = () => {
+    return request<GraphCaptchaResponse>({
+        url: '/captchaImage',
         method: 'get'
     });
 };
@@ -64,7 +74,7 @@ export const getIsCaptchaOn = () => {
  */
 export const reqGet = (data: RequestBlockAndClickCaptcha) => {
     return request<BlockAndClickCaptchaResponse>({
-        url: '/ajCaptcha/get',
+        url: '/reCaptcha/get',
         method: 'post',
         data
     });
@@ -77,7 +87,7 @@ export const reqGet = (data: RequestBlockAndClickCaptcha) => {
  */
 export const reqCheck = (data: RequestCheckBlockAndClickCaptcha) => {
     return request<CheckBlockAndClickCaptchaResponse>({
-        url: '/ajCaptcha/check',
+        url: '/reCaptcha/check',
         method: 'post',
         data
     });
@@ -90,6 +100,17 @@ export const reqCheck = (data: RequestCheckBlockAndClickCaptcha) => {
 export const getRouters = () => {
     return request<SubMenuRouteRecordRaw[]>({
         url: '/getRouters',
+        method: 'get'
+    });
+};
+
+/**
+ * 获取所有i18n 信息
+ * @returns
+ */
+export const getInternational = () => {
+    return request<LocalesOptions[]>({
+        url: '/getInternational',
         method: 'get'
     });
 };

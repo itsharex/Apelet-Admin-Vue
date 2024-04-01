@@ -41,10 +41,12 @@ export interface UserResponse {
     userInfo: UserInfo;
 }
 
-// 验证码是否开启
-export interface IsCaptchaOnResponse {
+// 图形验证码
+export interface GraphCaptchaResponse {
     isCaptchaOn: boolean;
-    captchaType: string;
+    captchaCategory: string;
+    captchaCodeKey: string;
+    captchaCodeImg: string;
 }
 
 // 滑块点击验证码响应
