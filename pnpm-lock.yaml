@@ -14,6 +14,9 @@ dependencies:
   animate.css:
     specifier: ^4.1.1
     version: registry.npmmirror.com/animate.css@4.1.1
+  array-to-tree:
+    specifier: ^3.3.2
+    version: 3.3.2
   axios:
     specifier: ^1.6.8
     version: registry.npmmirror.com/axios@1.6.8
@@ -529,6 +532,14 @@ packages:
     resolution: {integrity: sha512-Ccy0NlLkzr0Ex2FKvh2X+OyERHXJ88XJ1MXtsI9y9fGexlaXaVTPzBCRBwIxFkORuOb+uBqeu+RqnpgYTEZRUQ==}
     dev: false
 
+  /array-to-tree@3.3.2:
+    resolution: {integrity: sha512-EmWeZgl7Kkb9eeaBi9GZq4X4wyxpW2UC8YsmSShx1cX19n7H1R59CszyC5+nERYgpCQi9EBSDgCZ9fWUyXCHyQ==}
+    engines: {node: '>=4'}
+    dependencies:
+      lodash.keyby: 4.6.0
+      nested-property: 0.0.7
+    dev: false
+
   /dom-zindex@1.0.1:
     resolution: {integrity: sha512-M/MERVDZ8hguvjl6MAlLWSLYLS7PzEyXaTb5gEeJ+SF+e9iUC0sdvlzqe91MMDHBoy+nqw7wKcUOrDSyvMCrRg==}
     dev: false
@@ -546,6 +557,14 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /lodash.keyby@4.6.0:
+    resolution: {integrity: sha512-PRe4Cn20oJM2Sn6ljcZMeKgyhTHpzvzFmdsp9rK+6K0eJs6Tws0MqgGFpfX/o2HjcoQcBny1Eik9W7BnVTzjIQ==}
+    dev: false
+
+  /nested-property@0.0.7:
+    resolution: {integrity: sha512-XamePAu09Y95kcimkF+CXDf69Iov+qaM+GyXCw5Ysoa8Q5r7RgehRn99bkxyYHpXs3ZcZdm7QyjRV52nYpNw5Q==}
+    dev: false
 
   /vxe-table@4.5.21(vue@3.4.21)(xe-utils@3.5.22):
     resolution: {integrity: sha512-yp+BNGCy61lk7ayf0LI3UNcR2fRmipGSiIAh3lNOIdyW1nAobf/GwIx3rXghjzFb0a6NNJeYxv2NM+gwXxtmww==}

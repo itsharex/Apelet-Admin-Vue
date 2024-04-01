@@ -53,6 +53,7 @@ import { RequestMenu, ResponseMenu } from '@/api/system/menu/types';
 import { ColumnProps, ElCustomTable, ElCustomTableInstance } from '@/components/ElCustomTable';
 import { getMenuList } from '@/api/system/menu';
 import { useConfirm } from '@/hooks';
+import arrayToTree from 'array-to-tree';
 
 const customTableRef = ref<ElCustomTableInstance>();
 
@@ -192,9 +193,12 @@ let initParams = ref<RequestMenu>({
 });
 
 // 接口成功回调
-const dataCallBack = (data: any) => {
+const dataCallBack = (data: ResponseMenu[]) => {
     console.log('我是成功回调哦！数据在这里 --->', data);
-    return data;
+    return arrayToTree(data, {
+        parentProperty: 'parentId',
+        customID: 'id'
+    });
 };
 
 // 弹窗操作

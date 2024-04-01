@@ -30,8 +30,8 @@
                 v-loading="loading"
                 v-bind="$attrs"
                 :data="computedData"
+                :row-key="rowKey"
                 :border
-                :row-key
                 :highlight-current-row
                 @selection-change="selectionChange"
             >
