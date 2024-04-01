@@ -5,7 +5,7 @@ import { ElNotification, FormInstance, FormRules } from 'element-plus';
 import { useI18n } from 'vue-i18n';
 import { useUserStore } from '@/store';
 import { useRouter, useRoute } from 'vue-router';
-import { getCaptchaImage, getCaptchaType } from '@/api/login';
+import { getIsCaptchaOn } from '@/api/login';
 
 export const useLoginForm = () => {
     const { t } = useI18n();
@@ -16,7 +16,6 @@ export const useLoginForm = () => {
     const rules = reactive<FormRules<RequestLoginForm>>({
         username: [{ required: true, message: t(`login.usernamePlaceholder`), trigger: 'blur' }],
         password: [{ required: true, message: t(`login.passwordPlaceholder`), trigger: 'blur' }]
-        // verifyCode: [{ required: true, message: t(`login.verifyCodePlaceholder`), trigger: 'blur' }]
     });
 
     const loginForm = reactive<RequestLoginForm>({
@@ -30,8 +29,6 @@ export const useLoginForm = () => {
     let captchaEnabled = ref(false);
     // 验证码类别 滑块、点选
     let captchaType = ref('');
-    // 图片验证码base64图片
-    let captchaUrl = ref<string>('');
 
     const verifyRef = ref();
 
@@ -98,18 +95,11 @@ export const useLoginForm = () => {
 
     // 获取滑块、点选验证码
     const getCaptchaCode = async () => {
-        let res = await getCaptchaType();
+        let res = await getIsCaptchaOn();
         captchaEnabled.value = res.data.isCaptchaOn;
         if (captchaEnabled.value) {
-            captchaType.value = res.data.captchaCategory;
+            captchaType.value = res.data.captchaType;
         }
-        // 图形验证码
-        // let res = await getCaptchaImage();
-        // captchaEnabled.value = res.data.isCaptchaOn;
-        // if (captchaEnabled.value) {
-        //     captchaUrl.value = 'data:image/gif;base64,' + res.data.captchaCodeImg;
-        //     loginForm.captchaCodeKey = res.data.captchaCodeKey;
-        // }
     };
 
     getCaptchaCode();
@@ -125,7 +115,6 @@ export const useLoginForm = () => {
         loginForm,
         rememberPassword,
         captchaEnabled,
-        captchaUrl,
         captchaType,
         getCode,
         getCaptchaCode,
