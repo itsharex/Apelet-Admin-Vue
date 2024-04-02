@@ -6,9 +6,12 @@
             ref="customTableRef"
             :init-params="initParams"
             :table-columns="tableColumns"
+            :pagination="false"
+            :offsetHeight="38"
             :request-api="getMenuList"
             :data-callback="dataCallBack"
-        >
+            :tree-props="{ children: 'children' }"
+            default-expand-all>
             <template #operateButton="scope">
                 <el-button type="primary" plain :icon="Plus" @click="openDialog('新增')">新 增</el-button>
                 <el-button
@@ -19,13 +22,9 @@
                     @click="openDialog('修改', scope.rows[0])"
                     >修 改</el-button
                 >
-                <el-button type="warning" plain :icon="Download">导 出</el-button>
                 <el-button type="danger" plain :icon="Delete" :disabled="scope.single" @click="handleDelete(scope.rows)"
                     >删 除</el-button
                 >
-            </template>
-            <template #routerNameHeader="scope">
-                <el-button type="success">{{ scope.column.label }}</el-button>
             </template>
             <el-table-column fixed="right" label="操作" align="center" width="150">
                 <template #default="scope">
@@ -35,9 +34,7 @@
                     <el-button type="primary" size="small" link :icon="EditPen" @click="openDialog('修改', scope.row)"
                         >修 改</el-button
                     >
-                    <el-button type="primary" size="small" link :icon="Delete" @click="handleDelete(scope.row)"
-                        >删 除</el-button
-                    >
+                    <el-button type="primary" size="small" link :icon="Delete" @click="handleDelete(scope.row)">删 除</el-button>
                 </template>
             </el-table-column>
         </el-custom-table>
@@ -48,12 +45,12 @@
 
 <script setup lang="tsx">
 import MenuDialog from './components/MenuDialog.vue';
-import { Plus, EditPen, Delete, Download } from '@element-plus/icons-vue';
+import arrayToTree from 'array-to-tree';
+import { Plus, EditPen, Delete } from '@element-plus/icons-vue';
 import { RequestMenu, ResponseMenu } from '@/api/system/menu/types';
 import { ColumnProps, ElCustomTable, ElCustomTableInstance } from '@/components/ElCustomTable';
 import { getMenuList } from '@/api/system/menu';
 import { useConfirm } from '@/hooks';
-import arrayToTree from 'array-to-tree';
 
 const customTableRef = ref<ElCustomTableInstance>();
 
@@ -62,25 +59,10 @@ const customTableRef = ref<ElCustomTableInstance>();
 const tableColumns: ColumnProps<ResponseMenu>[] = reactive([
     { type: 'index', label: '序号', width: 55 },
     { type: 'selection', fixed: 'left', width: 70 },
-    { type: 'sortable', label: '拖拽排序', width: 100 },
-    {
-        type: 'expand',
-        label: '展开',
-        width: 85,
-        renderer: scope => {
-            return (
-                <>
-                    <el-text class="mx-1" type="success">
-                        tsx渲染：{JSON.stringify(scope.row)}
-                    </el-text>
-                </>
-            );
-        }
-    },
-    { prop: 'id', label: '菜单id' },
     {
         prop: 'menuName',
         label: '菜单名称',
+        align: 'left',
         search: {
             el: 'el-input',
             props: {
@@ -90,22 +72,26 @@ const tableColumns: ColumnProps<ResponseMenu>[] = reactive([
         }
     },
     {
-        prop: 'path',
-        label: '菜单路径',
+        prop: 'routerName',
+        label: '路由名称',
         search: {
             el: 'el-input',
             props: {
                 type: 'text'
             },
-            order: 4
+            order: 3
         }
     },
     {
-        prop: 'routerName',
-        label: '路由名称',
+        prop: 'permission',
+        label: '按钮权限',
         limitLine: true,
         popoverWidth: 200,
-        lineClamp: 'line-clamp-2',
+        lineClamp: 'line-clamp-2'
+    },
+    {
+        prop: 'menuSort',
+        label: '菜单类别',
         dicts: [
             {
                 label: '测试',
@@ -118,7 +104,6 @@ const tableColumns: ColumnProps<ResponseMenu>[] = reactive([
         ],
         search: {
             el: 'el-select',
-            // tooltip: '路由名称，例如：MenuName',
             props: {
                 clearable: true
                 // 如果是级联框， 可以配置 props
@@ -137,8 +122,12 @@ const tableColumns: ColumnProps<ResponseMenu>[] = reactive([
             props: {
                 clearable: true
             },
-            order: 5
+            order: 4
         }
+    },
+    {
+        prop: 'rank',
+        label: '排序'
     },
     {
         prop: 'status',
@@ -154,18 +143,14 @@ const tableColumns: ColumnProps<ResponseMenu>[] = reactive([
             }
         ],
         search: {
-            order: 3,
+            order: 5,
             // Vue3 的 TSX中可直接使用 v-model v-model={[queryParams.status, ['trim']] 为 v-model 的修饰符
             renderer: ({ queryParams, dicts }) => {
                 return (
                     <>
                         <el-select v-model={queryParams.status} clearable>
                             {dicts.map(item => (
-                                <el-option
-                                    key={item.dictValue}
-                                    value={item.dictValue}
-                                    label={item.dictLabel}
-                                ></el-option>
+                                <el-option key={item.dictValue} value={item.dictValue} label={item.dictLabel}></el-option>
                             ))}
                         </el-select>
                     </>

@@ -5,7 +5,7 @@
  */
 module.exports = {
     // 指定最大换行长度  在代码样式指南中，最大行长度规则通常设置为 100 或 120
-    printWidth: 120,
+    printWidth: 130,
     // 缩进制表符宽度 | 空格数
     tabWidth: 4,
     // 使用制表符而不是空格缩进行 (true：制表符，false：空格)
@@ -28,7 +28,7 @@ module.exports = {
     // 在对象，数组括号与文字之间加空格 "{ foo: bar }" (true：有，false：没有)
     bracketSpacing: true,
     // 将 > 多行元素放在最后一行的末尾，而不是单独放在下一行 (true：放末尾，false：单独一行)
-    bracketSameLine: false,
+    bracketSameLine: true,
     // (x) => {} 箭头函数参数只有一个时是否要有小括号 (avoid：省略括号，always：不省略括号)
     arrowParens: 'avoid',
     // 这两个选项可用于格式化以给定字符偏移量（分别包括和不包括）开始和结束的代码 (rangeStart：开始，rangeEnd：结束)

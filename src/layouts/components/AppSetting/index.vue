@@ -3,8 +3,7 @@
         <el-card shadow="never" :body-style="{ padding: '8px' }">
             <div
                 class="p-2 bg-[var(--el-color-primary-light-9)] b-rounded flex-col-center"
-                @click="settingVisible = !settingVisible"
-            >
+                @click="settingVisible = !settingVisible">
                 <Icon name="el-icon-setting" size="16" color="var(--el-color-primary)" />
                 <span class="text-primary text-3">系统设置</span>
             </div>
@@ -35,8 +34,7 @@
         v-model="settingVisible"
         :title="$t('setting.settings')"
         size="320px"
-        direction="rtl"
-    >
+        direction="rtl">
         <layout-drawer />
     </el-drawer>
 </template>
@@ -50,8 +48,8 @@ import FullScreen from '../NavBar/components/FullScreen.vue';
 import LayoutDrawer from '@/layouts/components/LayoutDrawer/index.vue';
 const settingVisible = ref<boolean>(false);
 // 生产模式不需要可自行修改
-const isShow = import.meta.env.DEV || import.meta.env.VITE_APP_SETTING === 'Y';
-// const isShow = false;
+// const isShow = import.meta.env.DEV || import.meta.env.VITE_APP_SETTING === 'Y';
+const isShow = false;
 
 const clearCache = () => {
     localStorage.clear();

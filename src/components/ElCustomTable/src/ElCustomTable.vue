@@ -6,8 +6,7 @@
             :search-col
             :search="handleSearch"
             :reset="handleReset"
-            :resize="handleResize"
-        />
+            :resize="handleResize" />
     </el-card>
     <slot name="statistics"></slot>
     <el-card shadow="hover">
@@ -23,7 +22,7 @@
                 <slot name="toolButton"> </slot>
             </div>
         </el-row>
-        <div ref="adaptRef" v-adaptive>
+        <div ref="adaptRef" v-adaptive="{ offsetHeight }">
             <el-table
                 ref="tableRef"
                 class="h-full!"
@@ -33,16 +32,14 @@
                 :row-key="rowKey"
                 :border
                 :highlight-current-row
-                @selection-change="selectionChange"
-            >
+                @selection-change="selectionChange">
                 <!-- 循环处理columns列 -->
                 <template v-for="column in columnList" :key="column">
                     <el-table-column
                         v-if="column.type"
                         v-bind="column as any"
                         :align="column.align ?? 'center'"
-                        :reserve-selection="column.type === 'selection'"
-                    >
+                        :reserve-selection="column.type === 'selection'">
                         <template #default="scope">
                             <template v-if="column.type === 'expand'">
                                 <component :is="column.renderer" v-bind="scope" v-if="column.renderer" />
@@ -86,8 +83,7 @@
                 v-model:current-page="queryParams.pageNum"
                 v-model:page-size="queryParams.pageSize"
                 :total="total"
-                @get-list="getPageList"
-            />
+                @get-list="getPageList" />
         </slot>
     </el-card>
 </template>
@@ -107,6 +103,7 @@ export interface CustomTableProps {
     tableData?: any[]; // 表格数据， 存在则不调用 requestApi => 非必传
     initParams?: { [key: string]: any }; // 初始化参数，有用户自定义
     pagination?: boolean; // 是否开启分页插件, 关闭分页请重新设置 表格自适应高度 （useAdaptive)
+    offsetHeight?: number; // 表格距离底部高度
     requestApi?: (...args: any) => Promise<ApiResponse<any>>; // 数据请求接口
     toolButton?: boolean; // 是否开启右上角工具栏
     highlightCurrentRow?: boolean; // 是否单选
@@ -119,6 +116,7 @@ export interface CustomTableProps {
 const props = withDefaults(defineProps<CustomTableProps>(), {
     tableColumns: () => [],
     pagination: true,
+    offsetHeight: 86,
     highlightCurrentRow: false,
     border: true,
     toolButton: true,
@@ -175,7 +173,7 @@ const searchColumns = computed(() => {
 });
 
 // 更新表格高度
-const handleResize = () => updateTableHeight(adaptRef.value!);
+const handleResize = () => updateTableHeight(adaptRef.value!, props.offsetHeight);
 
 // 搜索栏显示/隐藏方法
 const showAndHindenSearch = () => {

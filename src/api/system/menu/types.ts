@@ -11,6 +11,8 @@ export interface ResponseMenu {
     rank: number;
     menuType: number;
     menuTypeStr: string;
+    menuSort: number;
+    permission: string;
     isButton: boolean;
     status: number;
     statusStr: string;
