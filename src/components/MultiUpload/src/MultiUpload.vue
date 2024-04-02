@@ -15,8 +15,7 @@
         :before-remove="beforeRemove"
         :on-success="handleSuccess"
         :on-error="handleError"
-        :on-exceed="handleExceed"
-    >
+        :on-exceed="handleExceed">
         <el-button type="primary" :size="size" :disabled="disabled">{{ btnText }}</el-button>
         <template #tip>
             <div class="el-upload__tip">
@@ -90,10 +89,7 @@ const beforeUpload: UploadProps['beforeUpload'] = (rawFile: UploadRawFile) => {
     console.log(rawFile);
 };
 // 删除文件之前的钩子
-const beforeRemove: UploadProps['beforeRemove'] = (
-    uploadFile: UploadFile,
-    uploadFiles: UploadFiles
-): Awaitable<boolean> => {
+const beforeRemove: UploadProps['beforeRemove'] = (uploadFile: UploadFile, uploadFiles: UploadFiles): Awaitable<boolean> => {
     return ElMessageBox.confirm(`Cancel the transfer of ${uploadFile.name} ${uploadFiles} ?`).then(
         () => true,
         () => false

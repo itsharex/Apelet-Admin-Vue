@@ -29,10 +29,7 @@ declare module 'vue-router' {
 }
 
 // 定义组件类型
-type Component<T = any> =
-    | ReturnType<typeof defineComponent>
-    | (() => Promise<typeof import('*.vue')>)
-    | (() => Promise<T>);
+type Component<T = any> = ReturnType<typeof defineComponent> | (() => Promise<typeof import('*.vue')>) | (() => Promise<T>);
 
 declare global {
     interface SubMenuRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {

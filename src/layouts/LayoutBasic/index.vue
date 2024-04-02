@@ -5,8 +5,7 @@
             <Logo v-show="!appStore.isMobile" :style="{ width: asideMaxWidth }" />
             <NavBar
                 :style="{ width: !appStore.isMobile ? `calc(100% - ${asideMaxWidth})` : '100%' }"
-                class="!h-full !border-none"
-            />
+                class="!h-full !border-none" />
         </el-header>
         <el-container class="relative !h-[calc(100%-60px)]">
             <Aside />

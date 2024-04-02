@@ -9,8 +9,7 @@
             label-width="auto"
             label-position="left"
             label-suffix=":"
-            status-icon
-        >
+            status-icon>
             <el-form-item label="菜单名称" prop="menuName">
                 <el-input v-model="form.row.menuName" />
             </el-form-item>

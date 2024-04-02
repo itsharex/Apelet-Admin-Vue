@@ -6,12 +6,7 @@
             </div>
             <template #dropdown>
                 <el-dropdown-menu>
-                    <el-dropdown-item
-                        v-for="item in options"
-                        :key="item.prop"
-                        :disabled="item.disabled"
-                        :command="item.prop"
-                    >
+                    <el-dropdown-item v-for="item in options" :key="item.prop" :disabled="item.disabled" :command="item.prop">
                         <Icon :name="item.icon" />
                         {{ item.label }}
                     </el-dropdown-item>

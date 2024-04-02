@@ -10,8 +10,7 @@
                 }"
                 @mouseenter="handleMouseEnter(index)"
                 @mouseleave="handleMouseLeave"
-                @click="handleChange($event.target)"
-            />
+                @click="handleChange($event.target)" />
         </div>
     </div>
 </template>

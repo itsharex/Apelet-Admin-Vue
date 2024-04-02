@@ -7,9 +7,7 @@
                         <img src="@/assets/images/avatar.jpg" class="w-20 rounded-full p-3" alt="avatar" />
                         <div class="flex-col justify-around">
                             <h3 class="font-bold text-lg">Admin, 欢迎你!</h3>
-                            <span class="text-gray text-sm">
-                                一天写点，天天写点，不知道写了个啥，今天在下雪，天气很冷!
-                            </span>
+                            <span class="text-gray text-sm"> 一天写点，天天写点，不知道写了个啥，今天在下雪，天气很冷! </span>
                         </div>
                     </div>
                 </el-col>
@@ -81,11 +79,7 @@
                             <div class="w-full h-50 py-4">
                                 <el-scrollbar>
                                     <div v-for="(_, index) in 10" :key="index" class="flex w-full items-center">
-                                        <img
-                                            src="@/assets/images/avatar.jpg"
-                                            class="w-15 rounded-full p-3"
-                                            alt="avatar"
-                                        />
+                                        <img src="@/assets/images/avatar.jpg" class="w-15 rounded-full p-3" alt="avatar" />
                                         <div class="flex-col h-full">
                                             <span class="font-500 subpixel-antialiased truncate <sm:w-75"
                                                 >林冬冬 在 特怪小分队 新建项目 xxxxxxxxxxxxxxxxxxxxxxxxxx</span
@@ -107,8 +101,7 @@
                                     <div
                                         v-for="(item, index) in messageList"
                                         :key="index"
-                                        class="flex w-full p-3 flex-nowrap items-center"
-                                    >
+                                        class="flex w-full p-3 flex-nowrap items-center">
                                         <span :class="echoDictColor(messageType, item.type)" class="flex-none">{{
                                             echoDictLabel(messageType, item.type)
                                         }}</span>

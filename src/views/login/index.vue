@@ -1,11 +1,6 @@
 <template>
     <div class="login-container">
-        <vue-particles
-            id="tsparticles"
-            :particles-init="particlesInit"
-            :particles-loaded="particlesLoaded"
-            :options="options"
-        />
+        <vue-particles id="tsparticles" :particles-init="particlesInit" :particles-loaded="particlesLoaded" :options="options" />
         <top-nav />
         <el-card class="w-100 !bg-transparent !rounded-4% !border-none <sm:w-83">
             <h3 class="text-center mt-6 font-500 text-primary text-6">{{ $t(`login.login`) }}</h3>
@@ -15,8 +10,7 @@
                         v-model="loginForm.username"
                         size="large"
                         :placeholder="$t(`login.usernamePlaceholder`)"
-                        :suffix-icon="User"
-                    />
+                        :suffix-icon="User" />
                 </el-form-item>
                 <el-form-item prop="password">
                     <el-input
@@ -24,8 +18,7 @@
                         show-password
                         size="large"
                         :placeholder="$t(`login.passwordPlaceholder`)"
-                        @keyup.enter="getCode()"
-                    />
+                        @keyup.enter="getCode()" />
                 </el-form-item>
                 <el-form-item v-if="captchaEnabled">
                     <!-- <el-input
@@ -46,8 +39,7 @@
                         :captcha-type="captchaType"
                         :img-size="{ width: '400px', height: '200px' }"
                         mode="pop"
-                        @success="successVerify"
-                    />
+                        @success="successVerify" />
                 </el-form-item>
                 <el-form-item>
                     <div class="w-full flex-between">
@@ -80,17 +72,8 @@ import { useLoginForm } from './hooks/useLoginForm';
 const { options } = toRefs(particles);
 const { particlesInit, particlesLoaded } = useParticles();
 
-const {
-    ruleFormRef,
-    verifyRef,
-    rules,
-    loginForm,
-    rememberPassword,
-    captchaEnabled,
-    captchaType,
-    successVerify,
-    getCode
-} = useLoginForm();
+const { ruleFormRef, verifyRef, rules, loginForm, rememberPassword, captchaEnabled, captchaType, successVerify, getCode } =
+    useLoginForm();
 </script>
 
 <style scoped lang="scss">

@@ -33,9 +33,7 @@ const ElCustomTableColumn = (props: ColumnProps) => {
                                     <el-popover placement="top" width={props.popoverWidth} trigger="hover">
                                         {{
                                             default: () => <span>{scope.row[props.prop!]}</span>,
-                                            reference: () => (
-                                                <span class={props.lineClamp}>{scope.row[props.prop!]}</span>
-                                            )
+                                            reference: () => <span class={props.lineClamp}>{scope.row[props.prop!]}</span>
                                         }}
                                     </el-popover>
                                 ) : (
@@ -46,8 +44,7 @@ const ElCustomTableColumn = (props: ColumnProps) => {
                     },
                     header: (scope: HeaderRendererType<any>) => {
                         if (props.headerRenderer) return props.headerRenderer(scope);
-                        if (slots[`${props.prop as string}Header`])
-                            return slots[`${props.prop as string}Header`]!(scope);
+                        if (slots[`${props.prop as string}Header`]) return slots[`${props.prop as string}Header`]!(scope);
                         return props.label;
                     }
                 }}

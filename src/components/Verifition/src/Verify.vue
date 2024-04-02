@@ -22,8 +22,7 @@
                     :img-size="imgSize"
                     :mode="mode"
                     :type="verifyType"
-                    :v-space="vSpace"
-                />
+                    :v-space="vSpace" />
             </div>
         </div>
     </div>

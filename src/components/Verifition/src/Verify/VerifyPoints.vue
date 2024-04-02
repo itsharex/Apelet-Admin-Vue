@@ -8,8 +8,7 @@
                     'background-size': setSize.imgWidth + ' ' + setSize.imgHeight,
                     'margin-bottom': vSpace + 'px'
                 }"
-                class="verify-img-panel"
-            >
+                class="verify-img-panel">
                 <div v-show="showRefresh" class="verify-refresh" style="z-index: 3" @click="refresh">
                     <i class="iconfont icon-refresh"></i>
                 </div>
@@ -18,8 +17,7 @@
                     :src="'data:image/png;base64,' + pointBackImgBase"
                     alt=""
                     style="display: block; width: 100%; height: 100%"
-                    @click="bindingClick ? canvasClick($event) : undefined"
-                />
+                    @click="bindingClick ? canvasClick($event) : undefined" />
 
                 <div
                     v-for="(tempPoint, index) in tempPoints"
@@ -37,8 +35,7 @@
                         top: parseInt(tempPoint.y - 10) + 'px',
                         left: parseInt(tempPoint.x - 10) + 'px'
                     }"
-                    class="point-area"
-                >
+                    class="point-area">
                     {{ index + 1 }}
                 </div>
             </div>
@@ -51,8 +48,7 @@
                 'border-color': barAreaBorderColor,
                 'line-height': barSize.height
             }"
-            class="verify-bar-area"
-        >
+            class="verify-bar-area">
             <span class="verify-msg">{{ text }}</span>
         </div>
     </div>

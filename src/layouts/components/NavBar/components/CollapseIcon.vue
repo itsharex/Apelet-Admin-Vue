@@ -1,8 +1,5 @@
 <template>
-    <div
-        :class="['flex-center h-18 p-2.5 cursor-pointer', !isGradient && '!h-14 hover:bg-fill']"
-        @click="triggerCollapse"
-    >
+    <div :class="['flex-center h-18 p-2.5 cursor-pointer', !isGradient && '!h-14 hover:bg-fill']" @click="triggerCollapse">
         <Icon :name="alignArrow" size="20" :color="alignArrowColor" />
     </div>
 </template>

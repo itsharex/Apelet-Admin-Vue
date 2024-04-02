@@ -1,18 +1,11 @@
 <template>
     <div v-if="tabsHidden" :class="`${tabStyle}-tabs`" class="bg-[var(--el-bg-color)] flex-y-center">
-        <el-tabs
-            v-model="currTabMenu"
-            type="card"
-            class="w-[calc(100%-40px)]"
-            @tab-click="changeTab"
-            @tab-remove="removeTab"
-        >
+        <el-tabs v-model="currTabMenu" type="card" class="w-[calc(100%-40px)]" @tab-click="changeTab" @tab-remove="removeTab">
             <el-tab-pane v-for="menu in tabsMenuList" :key="menu.name" :closable="!menu.isFixed" :name="menu.path">
                 <template #label>
                     <span
                         class="tab-item flex-center h-full pl-20px"
-                        @contextmenu.prevent="handleContextMenu($event as PointerEvent, menu.path, menu.isFixed)"
-                    >
+                        @contextmenu.prevent="handleContextMenu($event as PointerEvent, menu.path, menu.isFixed)">
                         <Icon v-show="menu.icon && tabsIcon" :name="`el-icon-${menu.icon}`" />
                         <span class="pl-2">{{ $t(`${menu.title}`) }}</span>
                     </span>
@@ -26,8 +19,7 @@
             :show-context-menu="showContextMenu"
             :curr-tab-menu="clickTabMenu"
             :options="contextMenuOptions"
-            :menu-style="menuStyle"
-        />
+            :menu-style="menuStyle" />
     </div>
 </template>
 

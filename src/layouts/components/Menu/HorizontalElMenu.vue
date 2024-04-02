@@ -7,8 +7,7 @@
             :ellipsis="false"
             mode="horizontal"
             :unique-opened="menuUnique"
-            :collapse-transition="false"
-        >
+            :collapse-transition="false">
             <SubMenu :menu-list="menuList" />
         </el-menu>
     </horizontal-scroll>

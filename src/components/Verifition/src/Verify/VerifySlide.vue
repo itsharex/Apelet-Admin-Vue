@@ -1,16 +1,8 @@
 <template>
     <div style="position: relative">
-        <div
-            v-if="type === '2'"
-            :style="{ height: parseInt(setSize.imgHeight) + vSpace + 'px' }"
-            class="verify-img-out"
-        >
+        <div v-if="type === '2'" :style="{ height: parseInt(setSize.imgHeight) + vSpace + 'px' }" class="verify-img-out">
             <div :style="{ width: setSize.imgWidth, height: setSize.imgHeight }" class="verify-img-panel">
-                <img
-                    :src="'data:image/png;base64,' + backImgBase"
-                    alt=""
-                    style="display: block; width: 100%; height: 100%"
-                />
+                <img :src="'data:image/png;base64,' + backImgBase" alt="" style="display: block; width: 100%; height: 100%" />
                 <div v-show="showRefresh" class="verify-refresh" @click="refresh">
                     <i class="iconfont icon-refresh"></i>
                 </div>
@@ -22,10 +14,7 @@
             </div>
         </div>
         <!-- 公共部分 -->
-        <div
-            :style="{ width: setSize.imgWidth, height: barSize.height, 'line-height': barSize.height }"
-            class="verify-bar-area"
-        >
+        <div :style="{ width: setSize.imgWidth, height: barSize.height, 'line-height': barSize.height }" class="verify-bar-area">
             <span class="verify-msg" v-text="text"></span>
             <div
                 :style="{
@@ -34,8 +23,7 @@
                     'border-color': leftBarBorderColor,
                     transaction: transitionWidth
                 }"
-                class="verify-left-bar"
-            >
+                class="verify-left-bar">
                 <span class="verify-msg" v-text="finishText"></span>
                 <div
                     :style="{
@@ -47,8 +35,7 @@
                     }"
                     class="verify-move-block"
                     @mousedown="start"
-                    @touchstart="start"
-                >
+                    @touchstart="start">
                     <i :class="['verify-icon iconfont', iconClass]" :style="{ color: iconColor }"></i>
                     <div
                         v-if="type === '2'"
@@ -58,13 +45,11 @@
                             top: '-' + (parseInt(setSize.imgHeight) + vSpace) + 'px',
                             'background-size': setSize.imgWidth + ' ' + setSize.imgHeight
                         }"
-                        class="verify-sub-block"
-                    >
+                        class="verify-sub-block">
                         <img
                             :src="'data:image/png;base64,' + blockBackImgBase"
                             alt=""
-                            style="display: block; width: 100%; height: 100%; -webkit-user-drag: none"
-                        />
+                            style="display: block; width: 100%; height: 100%; -webkit-user-drag: none" />
                     </div>
                 </div>
             </div>
@@ -303,10 +288,7 @@ const end = () => {
                 tipWords.value = `${((endMovetime.value - startMoveTime.value) / 1000).toFixed(2)}s
             ${t('captcha.success')}`;
                 let captchaVerification = secretKey.value
-                    ? aesEncrypt(
-                          backToken.value + '---' + JSON.stringify({ x: moveLeftDistance, y: 5.0 }),
-                          secretKey.value
-                      )
+                    ? aesEncrypt(backToken.value + '---' + JSON.stringify({ x: moveLeftDistance, y: 5.0 }), secretKey.value)
                     : backToken.value + '---' + JSON.stringify({ x: moveLeftDistance, y: 5.0 });
                 setTimeout(() => {
                     tipWords.value = '';

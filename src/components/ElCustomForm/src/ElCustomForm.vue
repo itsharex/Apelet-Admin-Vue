@@ -7,12 +7,7 @@
                     <template #label>
                         <div class="flex items-center">
                             <span>{{ item.search?.label ?? item.label }}</span>
-                            <el-tooltip
-                                v-if="item.search?.tooltip"
-                                placement="top"
-                                effect="dark"
-                                :content="item.search?.tooltip"
-                            >
+                            <el-tooltip v-if="item.search?.tooltip" placement="top" effect="dark" :content="item.search?.tooltip">
                                 <el-icon class="ml-1"> <InfoFilled /></el-icon>
                             </el-tooltip>
                         </div>
@@ -34,8 +29,7 @@
                                     v-if="item.search?.tooltip"
                                     placement="top"
                                     effect="dark"
-                                    :content="item.search?.tooltip"
-                                >
+                                    :content="item.search?.tooltip">
                                     <el-icon class="ml-1"> <InfoFilled /></el-icon>
                                 </el-tooltip>
                             </div>

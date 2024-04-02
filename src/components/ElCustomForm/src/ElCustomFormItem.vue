@@ -2,8 +2,7 @@
     <component
         :is="column.search?.renderer ?? ElComponentObj[column.search?.el!]"
         v-model.trim="queryParams[column.search?.Key ?? (column.prop as string)]"
-        v-bind="{ ...column.search?.props, dicts: column.dicts, queryParams }"
-    >
+        v-bind="{ ...column.search?.props, dicts: column.dicts, queryParams }">
         <!-- 
             配置项： options （el-select-v2、el-cascader)
                     data (el-tree-select)
@@ -16,8 +15,7 @@
                 v-for="dict in column.dicts"
                 :key="dict.value! || dict.dictValue!"
                 :label="dict.label || dict.dictLabel"
-                :value="dict.value! || dict.dictValue!"
-            >
+                :value="dict.value! || dict.dictValue!">
             </component>
         </template>
     </component>

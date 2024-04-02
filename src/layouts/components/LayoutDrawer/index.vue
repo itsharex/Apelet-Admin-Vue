@@ -15,8 +15,7 @@
                 v-model="layoutStore.themeColor"
                 color-format="hex"
                 :predefine="predefineColors"
-                @change="setThemeColor"
-            />
+                @change="setThemeColor" />
         </div>
         <!-- 暗黑主题 -->
         <div class="drawer-item">
@@ -26,8 +25,7 @@
                 inline-prompt
                 :active-action-icon="Moon"
                 :inactive-action-icon="Sunny"
-                @change="switchDark"
-            />
+                @change="switchDark" />
         </div>
         <!-- 渐变文字 -->
         <div class="drawer-item">
@@ -36,8 +34,7 @@
                 v-model="layoutStore.gradientTextColor"
                 color-format="hex"
                 :predefine="predefineGradientColors"
-                @change="setGradientTextColor"
-            />
+                @change="setGradientTextColor" />
         </div>
         <el-divider> {{ $t('setting.interfaceSetting') }} </el-divider>
         <!-- 深色菜单栏 -->
@@ -49,8 +46,7 @@
                 inactive-value="light"
                 :disabled="layoutStore.layout === 'horizontal'"
                 inline-prompt
-                @change="changeMenuMode"
-            />
+                @change="changeMenuMode" />
         </div>
         <!-- 菜单手风琴模式 -->
         <div class="drawer-item">
@@ -77,12 +73,7 @@
         <!-- 标签页持久化 -->
         <div class="drawer-item">
             <span>{{ $t('setting.tabsCache') }}</span>
-            <el-switch
-                v-model="layoutStore.tabsCache"
-                :disabled="isGradient"
-                inline-prompt
-                @change="handlePersistTabs"
-            />
+            <el-switch v-model="layoutStore.tabsCache" :disabled="isGradient" inline-prompt @change="handlePersistTabs" />
         </div>
         <!-- 面包屑 -->
         <div class="drawer-item">

@@ -7,8 +7,7 @@
             class="m-2 text-center flex-center cursor-pointer"
             v-for="(item, index) in toolList"
             :key="index"
-            @click="item.handle"
-        >
+            @click="item.handle">
             <el-icon color="var(--al-gradient-text-color)" size="16">
                 <component :is="item.icon" />
             </el-icon>

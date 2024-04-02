@@ -5,13 +5,7 @@ import { SearchProps } from '@/components/ElCustomForm';
 // 列的类型   索引、多选、排序、展开
 export type ColumnType = 'index' | 'selection' | 'sortable' | 'expand';
 
-export type LineClampType =
-    | 'line-clamp-1'
-    | 'line-clamp-2'
-    | 'line-clamp-3'
-    | 'line-clamp-4'
-    | 'line-clamp-5'
-    | 'line-clamp-6';
+export type LineClampType = 'line-clamp-1' | 'line-clamp-2' | 'line-clamp-3' | 'line-clamp-4' | 'line-clamp-5' | 'line-clamp-6';
 
 // 头部插槽类型
 export interface HeaderRendererType<T> {

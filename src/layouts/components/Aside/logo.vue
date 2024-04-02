@@ -4,8 +4,7 @@
         <h3
             v-show="!displayTitle"
             :class="isGradient && '!text-[var(--al-gradient-text-color)]'"
-            class="ml-2 text-4 text-primary truncate font-bold"
-        >
+            class="ml-2 text-4 text-primary truncate font-bold">
             Apelet Admin
         </h3>
     </div>

@@ -2,11 +2,7 @@
     <div v-if="breadcrumbs && !appStore.isMobile" class="breadcrumb mask-image-right">
         <el-breadcrumb :separator-icon="ArrowRight">
             <el-breadcrumb-item v-for="item in breadcrumbsMenu" :key="item.path">
-                <div
-                    class="breadcrumb-inner"
-                    :class="{ pointer: pointerCondition(item) }"
-                    @click.prevent="handleLink(item)"
-                >
+                <div class="breadcrumb-inner" :class="{ pointer: pointerCondition(item) }" @click.prevent="handleLink(item)">
                     <el-icon v-show="breadcrumbsIcon">
                         <component :is="item.meta.icon" />
                     </el-icon>
@@ -33,10 +29,7 @@ const handleBreadCrumb = () => {
     let matched = route.matched.filter(item => item.meta?.title && item.name);
     // 添加首页面包屑
     if (matched[0].name !== 'HomePage') {
-        matched = [
-            { path: '/', meta: { title: 'menus.homepage', icon: 'HomeFilled' } } as RouteLocationMatched,
-            ...matched
-        ];
+        matched = [{ path: '/', meta: { title: 'menus.homepage', icon: 'HomeFilled' } } as RouteLocationMatched, ...matched];
     }
     breadcrumbsMenu.value = matched;
 };

@@ -10,8 +10,7 @@
                 inline-prompt
                 :active-action-icon="Moon"
                 :inactive-action-icon="Sunny"
-                @change="switchDark"
-            />
+                @change="switchDark" />
             <el-dropdown trigger="click" @command="handleCommand">
                 <div class="flex-center w-10 cursor-pointer hover:text-primary transition-base">
                     <svg-icon name="language" width="20" height="20" />

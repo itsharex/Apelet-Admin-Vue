@@ -7,8 +7,7 @@
             :unique-opened="menuUnique"
             :collapse="isCollapse"
             :collapse-transition="false"
-            popper-effect="dark"
-        >
+            popper-effect="dark">
             <SubMenu :menu-list="menuList" />
         </el-menu>
     </el-scrollbar>

@@ -5,8 +5,7 @@
                 v-for="menu in horizontalMenu"
                 :key="menu.name"
                 :data-name="menu.name"
-                :class="['menu-item', { active: menu.name === currName }]"
-            >
+                :class="['menu-item', { active: menu.name === currName }]">
                 {{ $t(`${menu.meta?.title}`) }}
             </div>
         </div>

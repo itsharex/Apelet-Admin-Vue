@@ -43,15 +43,10 @@ export const useTheme = () => {
             '--el-color-primary-dark-2': getThemeLightOrDarkHexColor(val as string, 0.1, colour) as string,
             // 设置 自定义主题下 hover 颜色
             ...Array.from({ length: 9 }, (_: unknown, i: number) => ({
-                [`--el-color-primary-light-${i + 1}`]: getThemeLightOrDarkHexColor(
-                    val as string,
-                    i / 10,
-                    colour
-                ) as string
+                [`--el-color-primary-light-${i + 1}`]: getThemeLightOrDarkHexColor(val as string, i / 10, colour) as string
             })).reduce((acc, curr) => ({ ...acc, ...curr }), {})
         };
-        const theme =
-            (layoutStore.isDark ? 'html.dark' : ':root') + JSON.stringify(colors).replace(/,/g, ';').replace(/"/g, '');
+        const theme = (layoutStore.isDark ? 'html.dark' : ':root') + JSON.stringify(colors).replace(/,/g, ';').replace(/"/g, '');
 
         // 将主题style挂到head上
         let style = document.getElementById('theme-var');
