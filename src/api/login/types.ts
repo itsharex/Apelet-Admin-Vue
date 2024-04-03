@@ -38,15 +38,13 @@ export interface LoginResponse {
 export interface UserResponse {
     permissions: string[];
     roleKey: string;
-    userInfo: UserInfo;
+    user: UserInfo;
 }
 
-// 图形验证码
-export interface GraphCaptchaResponse {
+// 验证码是否开启
+export interface IsCaptchaOnResponse {
     isCaptchaOn: boolean;
-    captchaCategory: string;
-    captchaCodeKey: string;
-    captchaCodeImg: string;
+    captchaType: string;
 }
 
 // 滑块点击验证码响应

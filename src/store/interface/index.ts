@@ -14,7 +14,7 @@ export type UserInfo = {
     roleName: string;
     deptId: number;
     deptName: string;
-    username: string;
+    userName: string;
     nickname: string;
     userType: number;
     email: string;

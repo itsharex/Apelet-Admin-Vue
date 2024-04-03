@@ -21,19 +21,6 @@
                         @keyup.enter="getCode()" />
                 </el-form-item>
                 <el-form-item v-if="captchaEnabled">
-                    <!-- <el-input
-                        v-model="loginForm.verifyCode"
-                        size="large"
-                        class="!w-60 <sm:!w-52"
-                        :placeholder="$t(`login.verifyCodePlaceholder`)"
-                        @keyup.enter="getCode()"
-                    >
-                        <template #suffix>
-                            <Icon name="local-icon-verifyCode" size="14" />
-                        </template>
-                    </el-input>
-                    <img :src="captchaUrl" @click="getCaptchaCode" class="w-28 b-rounded ml-2 <sm:w-20" /> -->
-                    <!-- 滑动、点击验证码 -->
                     <VerifyCode
                         ref="verifyRef"
                         :captcha-type="captchaType"

@@ -14,7 +14,7 @@ service.interceptors.request.use(
     (config: RequestInterceptorsConfig) => {
         const userStore = useUserStore();
         if (userStore.token) {
-            config.headers['Authorization'] = userStore.token;
+            config.headers['Authorization'] = 'Bearer ' + userStore.token;
         }
         return config;
     },
@@ -30,7 +30,7 @@ service.interceptors.response.use(
         const code = response.data.code || 200;
         // 获取错误信息
         const msg = response.data.msg;
-        if (code === 106) {
+        if (code === 401) {
             ElNotification.error({ title: '会话过期或失效，请重新登录！' });
             userStore.logout();
             location.href = '/';

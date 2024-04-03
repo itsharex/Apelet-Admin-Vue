@@ -13,7 +13,7 @@ export const useUserStore = defineStore('user', {
         userInfo: {
             userId: 0,
             nickname: '',
-            username: '',
+            userName: '',
             userType: 0,
             avatar: '',
             roleId: 0,
@@ -33,7 +33,7 @@ export const useUserStore = defineStore('user', {
     }),
     getters: {
         userName(): string {
-            return this.userInfo.username;
+            return this.userInfo.userName;
         }
     },
     actions: {
@@ -48,7 +48,7 @@ export const useUserStore = defineStore('user', {
             const { data } = await getLoginUserInfo();
             this.roleKey = data.roleKey;
             this.permissions = data.permissions;
-            Object.assign(this.userInfo, data.userInfo);
+            Object.assign(this.userInfo, data.user);
         },
 
         async logout() {

@@ -8,7 +8,7 @@ export interface ResponseMenu {
     menuName: string;
     routerName: string;
     path: string;
-    rank: number;
+    orderNum: number;
     menuType: number;
     menuTypeStr: string;
     menuSort: number;

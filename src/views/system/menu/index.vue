@@ -4,6 +4,7 @@
         <!-- 切勿将注释写在最外层下，否则vue会将该注释当做 fragment 格式 渲染，从而导致页面空白 -->
         <el-custom-table
             ref="customTableRef"
+            row-key="menuId"
             :init-params="initParams"
             :table-columns="tableColumns"
             :pagination="false"
@@ -12,9 +13,9 @@
             :data-callback="dataCallBack"
             :tree-props="{ children: 'children' }"
             default-expand-all>
-            <template #operateButton="scope">
-                <el-button type="primary" plain :icon="Plus" @click="openDialog('新增')">新 增</el-button>
-                <el-button
+            <template #operateButton>
+                <el-button type="primary" plain :icon="Plus" @click="openDialog('新增')">菜单新增</el-button>
+                <!-- <el-button
                     type="success"
                     plain
                     :icon="EditPen"
@@ -24,11 +25,14 @@
                 >
                 <el-button type="danger" plain :icon="Delete" :disabled="scope.single" @click="handleDelete(scope.rows)"
                     >删 除</el-button
-                >
+                > -->
             </template>
             <el-table-column fixed="right" label="操作" align="center" width="150">
                 <template #default="scope">
-                    <el-button type="primary" size="small" link :icon="EditPen" @click="openDialog('查看', scope.row)"
+                    <el-button type="primary" size="small" link :icon="Plus" @click="openDialog('修改', scope.row)"
+                        >新 增</el-button
+                    >
+                    <el-button type="primary" size="small" link :icon="View" @click="openDialog('查看', scope.row)"
                         >查 看</el-button
                     >
                     <el-button type="primary" size="small" link :icon="EditPen" @click="openDialog('修改', scope.row)"
@@ -46,7 +50,7 @@
 <script setup lang="tsx">
 import MenuDialog from './components/MenuDialog.vue';
 import arrayToTree from 'array-to-tree';
-import { Plus, EditPen, Delete } from '@element-plus/icons-vue';
+import { Plus, EditPen, Delete, View } from '@element-plus/icons-vue';
 import { RequestMenu, ResponseMenu } from '@/api/system/menu/types';
 import { ColumnProps, ElCustomTable, ElCustomTableInstance } from '@/components/ElCustomTable';
 import { getMenuList } from '@/api/system/menu';
@@ -57,8 +61,6 @@ const customTableRef = ref<ElCustomTableInstance>();
 // 不推荐使用 reactive() 的泛型参数，因为处理了深层次 ref 解包的返回值与泛型参数的类型不同, 而且也会导致TS类型报错。
 // const tableColumns: Ref<ColumnProps<ResponseMenu>[]> = ref([})
 const tableColumns: ColumnProps<ResponseMenu>[] = reactive([
-    { type: 'index', label: '序号', width: 55 },
-    { type: 'selection', fixed: 'left', width: 70 },
     {
         prop: 'menuName',
         label: '菜单名称',
@@ -115,7 +117,7 @@ const tableColumns: ColumnProps<ResponseMenu>[] = reactive([
         }
     },
     {
-        prop: 'menuTypeStr',
+        prop: 'menuType',
         label: '菜单类型',
         search: {
             el: 'el-select',
@@ -126,7 +128,7 @@ const tableColumns: ColumnProps<ResponseMenu>[] = reactive([
         }
     },
     {
-        prop: 'rank',
+        prop: 'orderNum',
         label: '排序'
     },
     {
@@ -182,7 +184,7 @@ const dataCallBack = (data: ResponseMenu[]) => {
     console.log('我是成功回调哦！数据在这里 --->', data);
     return arrayToTree(data, {
         parentProperty: 'parentId',
-        customID: 'id'
+        customID: 'menuId'
     });
 };
 
