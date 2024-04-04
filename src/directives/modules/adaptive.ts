@@ -14,6 +14,7 @@ export const doResize = debounce((el: HTMLElement, binding: DirectiveBinding<{ o
     const height = window.innerHeight - top - offsetHeight;
     el.style.transition = 'height 0.3s';
     el.style.height = height + 'px';
+    console.log(112, '调用了', height);
 }, 500);
 
 /**
