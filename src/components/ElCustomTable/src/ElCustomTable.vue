@@ -183,6 +183,7 @@ const showAndHindenSearch = () => {
 };
 
 defineExpose({
-    getList
+    getList,
+    ...tableRef.value
 });
 </script>
