@@ -1,5 +1,5 @@
 import request from '@/utils/request';
-import { RequestMenu, ResponseMenu } from './types';
+import { ResponseMenu } from './types';
 const baseUrl = '/system/menu/';
 
 /**
@@ -7,9 +7,22 @@ const baseUrl = '/system/menu/';
  * @param params
  * @returns
  */
-export const getMenuList = (params: RequestMenu) => {
+export const getMenuList = (params: PageRequest) => {
     return request<ResponseMenu[]>({
         url: baseUrl + 'list',
+        method: 'get',
+        params
+    });
+};
+
+/**
+ * 获取菜单下拉树列表
+ * @param params
+ * @returns
+ */
+export const menuTreeselect = (params?: PageRequest) => {
+    return request<ResponseMenu[]>({
+        url: baseUrl + 'treeselect',
         method: 'get',
         params
     });

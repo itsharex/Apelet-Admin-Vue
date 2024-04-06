@@ -13,18 +13,24 @@ declare module 'vue-router' {
         hidden: boolean;
         // 跳转到子级菜单是否选中父级菜单
         activeMenu?: string;
-        // 是否是外链
+        // 是否外链
         isLink?: boolean;
+        // 外链地址
+        linkSrc?: string;
         // 是否固定标签页
         isFixed?: boolean;
         // 是否缓存
         isCache?: boolean;
+        // 是否内嵌
+        isFrame?: boolean;
         // 需要内嵌的iframe链接地址
         iframeSrc?: string;
         // 页面级别权限设置
         roles?: string[];
         // 按钮级别权限设置
         auths?: string[];
+        // 页面是否缓存
+        keepAlive?: boolean;
     }
 }
 

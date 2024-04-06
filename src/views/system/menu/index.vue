@@ -51,7 +51,7 @@
 import MenuDialog from './components/MenuDialog.vue';
 import arrayToTree from 'array-to-tree';
 import { Plus, EditPen, Delete, View } from '@element-plus/icons-vue';
-import { RequestMenu, ResponseMenu } from '@/api/system/menu/types';
+import { ResponseMenu } from '@/api/system/menu/types';
 import { ColumnProps, ElCustomTable, ElCustomTableInstance } from '@/components/ElCustomTable';
 import { getMenuList } from '@/api/system/menu';
 import { useConfirm } from '@/hooks';
@@ -174,14 +174,14 @@ const tableColumns: ColumnProps<ResponseMenu>[] = reactive([
     }
 ]);
 
-let initParams = ref<RequestMenu>({
+let initParams = ref<PageRequest>({
     pageNum: 1,
     pageSize: 10
 });
 
 // 接口成功回调
 const dataCallBack = (data: ResponseMenu[]) => {
-    console.log('我是成功回调哦！数据在这里 --->', data);
+    // console.log('我是成功回调哦！数据在这里 --->', data);
     return arrayToTree(data, {
         parentProperty: 'parentId',
         customID: 'menuId'

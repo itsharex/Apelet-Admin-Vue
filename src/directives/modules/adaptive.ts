@@ -31,7 +31,7 @@ const adaptive: DirectiveOptions<'vAdaptive'> = {
         },
         // 如果搜索栏是可以展开收起的，用此方法更新
         updated(el: CustomTableElement, binding: DirectiveBinding<{ offsetHeight: number }>) {
-            doResize(el, binding);
+            nextTick(() => doResize(el, binding));
         },
         unmounted(el: CustomTableElement) {
             window.removeEventListener('resize', el.onResize);

@@ -29,5 +29,6 @@ declare global {
     interface PageRequest {
         pageNum: number;
         pageSize: number;
+        [key: string]: any;
     }
 }
