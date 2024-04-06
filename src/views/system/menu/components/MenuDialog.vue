@@ -1,5 +1,5 @@
 <template>
-    <el-dialog v-model="dialogVisible" :title="form.title" width="60%" @close="handleClose">
+    <el-dialog v-model="dialogVisible" :title="form.title" width="60%" lose="handleClose">
         <el-form
             ref="ruleFormRef"
             :model="form.row"
@@ -10,6 +10,9 @@
             label-position="left"
             label-suffix=":"
             status-icon>
+            <el-form-item label="菜单类别" prop="menuSort">
+                <el-select v-model="form.row.menuSort"> </el-select>
+            </el-form-item>
             <el-form-item label="上级目录" prop="parentId">
                 <el-tree-select
                     v-model="form.row.parentId"
@@ -24,14 +27,65 @@
             </el-form-item>
             <el-form-item label="菜单类型" prop="menuType">
                 <el-radio-group v-model="form.row.menuType">
-                    <el-radio :value="1">目录</el-radio>
-                    <el-radio :value="2">菜单</el-radio>
+                    <el-radio :value="2">目录</el-radio>
+                    <el-radio :value="1">菜单</el-radio>
                     <el-radio :value="0">按钮</el-radio>
                 </el-radio-group>
             </el-form-item>
-            <el-form-item label="菜单名称" prop="menuName">
-                <el-input v-model="form.row.menuName" />
-            </el-form-item>
+            <el-row :gutter="20">
+                <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+                    <el-form-item label="菜单名称" prop="menuName">
+                        <el-input v-model="form.row.menuName" />
+                    </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+                    <el-form-item label="路由名称" prop="routerName">
+                        <el-input v-model="form.row.routerName" />
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutter="20">
+                <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+                    <el-form-item label="是否外链" prop="isLink">
+                        <el-radio-group v-model="form.row.isLink">
+                            <el-radio :value="true">是</el-radio>
+                            <el-radio :value="false">否</el-radio>
+                        </el-radio-group>
+                    </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+                    <el-form-item label="外链地址" prop="linkSrc">
+                        <el-input v-model="form.row.linkSrc" />
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutter="20">
+                <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+                    <el-form-item label="路由地址" prop="path">
+                        <el-input v-model="form.row.path" />
+                    </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+                    <el-form-item label="组件路径" prop="component">
+                        <el-input v-model="form.row.component" />
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutter="20">
+                <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+                    <el-form-item label="是否内嵌iframe" prop="isFrame">
+                        <el-radio-group v-model="form.row.isFrame">
+                            <el-radio :value="true">是</el-radio>
+                            <el-radio :value="false">否</el-radio>
+                        </el-radio-group>
+                    </el-form-item>
+                </el-col>
+                <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+                    <el-form-item label="内嵌iframe地址" prop="iframeSrc">
+                        <el-input v-model="form.row.iframeSrc" />
+                    </el-form-item>
+                </el-col>
+            </el-row>
         </el-form>
         <template #footer>
             <div class="dialog-footer">
