@@ -18,9 +18,7 @@
             </template>
             <el-table-column fixed="right" label="操作" align="center" width="150">
                 <template #default="scope">
-                    <el-button type="primary" size="small" link :icon="Plus" @click="openDialog('修改', scope.row)"
-                        >新 增</el-button
-                    >
+                    <el-button type="primary" size="small" link :icon="Plus" @click="openDialog('新增')">新 增</el-button>
                     <el-button type="primary" size="small" link :icon="View" @click="openDialog('查看', scope.row)"
                         >查 看</el-button
                     >
