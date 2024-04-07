@@ -1,5 +1,5 @@
 <template>
-    <el-dialog v-model="dialogVisible" :title="form.title" width="60%" lose="handleClose">
+    <el-dialog v-model="dialogVisible" :title="form.title" width="90%" lose="handleClose">
         <el-form
             ref="ruleFormRef"
             :model="form.row"
@@ -100,6 +100,7 @@
 import { ResponseMenu } from '@/api/system/menu/types';
 import type { FormInstance, FormRules } from 'element-plus';
 import { menuTreeselect } from '@/api/system/menu';
+import { useWindowSize } from '@vueuse/core';
 
 type ParamsType = {
     title?: string;
@@ -163,6 +164,9 @@ const resetForm = () => {
 const handleClose = () => {
     resetForm();
 };
+
+// 视口宽高
+const { width, height } = useWindowSize();
 
 onMounted(() => {
     getMenuTreeSelect();

@@ -95,7 +95,7 @@ import { Pagination } from '@/components/Pagination';
 import { Refresh, Search } from '@element-plus/icons-vue';
 import { ColumnProps } from '@/components/ElCustomTable';
 import { ElTable } from 'element-plus';
-import { useTable, useSelection, useTableTool } from './hooks';
+import { useTableData, useSelection, useTableTool } from './hooks';
 import { updateTableHeight } from './helpers/adaptive';
 
 export interface CustomTableProps {
@@ -138,7 +138,7 @@ const slotsToArray = (column: ColumnProps) =>
     Object.keys(slots).filter(item => item === column.prop || item === `${column.prop as string}Header`);
 
 // table request hook
-const { total, data, loading, queryParams, handleReset, handleSearch, getList } = useTable(
+const { total, data, loading, queryParams, handleReset, handleSearch, getList } = useTableData(
     props.requestApi,
     props.initParams,
     props.pagination,

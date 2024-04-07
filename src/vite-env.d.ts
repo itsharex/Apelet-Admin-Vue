@@ -20,9 +20,11 @@ declare module 'vue' {
 interface ImportMetaEnv {
     readonly VITE_APP_TITLE: string;
     readonly VITE_APP_PORT: number;
+    readonly VITE_APP_CONTEXT_PATH: string;
     readonly VITE_APP_HOST: string;
     readonly VITE_APP_BASE_API: string;
     readonly VITE_APP_ENV: string;
+    readonly VITE_APP_SETTING: string;
     // 更多环境变量...
 }
 

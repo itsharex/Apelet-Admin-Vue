@@ -37,7 +37,7 @@ export interface LoginResponse {
 //用户信息响应返回
 export interface UserResponse {
     permissions: string[];
-    roleKey: string;
+    roles: string[];
     user: UserInfo;
 }
 

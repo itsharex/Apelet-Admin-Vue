@@ -26,21 +26,17 @@ import i18n from '@/i18n';
 // router
 import router from '@/router';
 
+const app = createApp(App);
+
 // 权限认证
 import './permission';
 
 const setupApp = async () => {
-    const app = createApp(App);
     await install(app);
-
     app.use(i18n);
-
-    app.use(router);
-
     app.use(pinia);
-
+    app.use(router);
     await router.isReady();
-
     app.mount('#app');
 };
 

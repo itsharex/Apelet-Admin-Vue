@@ -23,13 +23,13 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
         if (to.path === '/login') {
             next({ path: '/' });
         } else {
-            if (!userStore.userName) {
+            if (!permissionStore.asideBarRoutes?.length) {
                 await userStore.getUserInfo();
                 const rewriteRoutes = await permissionStore.getAsyncRoutes();
                 rewriteRoutes.forEach(route => {
                     router.addRoute(route as unknown as RouteRecordRaw);
                 });
-                next({ path: to.path });
+                next({ path: to.fullPath });
                 // 增加 router.isReady() ， 使用下面语句 刷新会导致空白页面
                 // next({ ...to, replace: true });
             } else {

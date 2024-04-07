@@ -6,7 +6,7 @@
  * @param dataCallBack 接口返回成功回调
  * @returns
  */
-export const useTable = (
+export const useTableData = (
     api?: (...args: any) => Promise<ApiResponse<any>>,
     initParams?: { [key: string]: any },
     pagination?: boolean, // 是否开启分页插件

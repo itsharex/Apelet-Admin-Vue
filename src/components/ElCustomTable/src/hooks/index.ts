@@ -1,5 +1,5 @@
-import { useTable } from './useTable';
+import { useTableData } from './useTableData';
 import { useSelection } from './useSelection';
 import { useTableTool } from './useTableTool';
 
-export { useTable, useSelection, useTableTool };
+export { useTableData, useSelection, useTableTool };

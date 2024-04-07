@@ -15,17 +15,6 @@
             default-expand-all>
             <template #operateButton>
                 <el-button type="primary" plain :icon="Plus" @click="openDialog('新增')">菜单新增</el-button>
-                <!-- <el-button
-                    type="success"
-                    plain
-                    :icon="EditPen"
-                    :disabled="scope.mutiple"
-                    @click="openDialog('修改', scope.rows[0])"
-                    >修 改</el-button
-                >
-                <el-button type="danger" plain :icon="Delete" :disabled="scope.single" @click="handleDelete(scope.rows)"
-                    >删 除</el-button
-                > -->
             </template>
             <el-table-column fixed="right" label="操作" align="center" width="150">
                 <template #default="scope">

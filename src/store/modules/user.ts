@@ -9,23 +9,20 @@ import { UserState } from '../interface';
 export const useUserStore = defineStore('user', {
     state: (): UserState => ({
         token: '',
-        roleKey: '',
+        roles: [],
         userInfo: {
+            admin: false,
             userId: 0,
-            nickname: '',
+            nickName: '',
             userName: '',
-            userType: 0,
+            userType: '',
             avatar: '',
             roleId: 0,
-            roleName: '',
-            postId: 0,
-            postName: '',
-            phoneNumber: '',
+            phonenumber: '',
             deptId: 0,
-            deptName: '',
             email: '',
-            sex: 0,
-            status: 0,
+            sex: '',
+            status: '',
             loginIp: '',
             loginDate: ''
         },
@@ -46,7 +43,7 @@ export const useUserStore = defineStore('user', {
 
         async getUserInfo() {
             const { data } = await getLoginUserInfo();
-            this.roleKey = data.roleKey;
+            this.roles = data.roles;
             this.permissions = data.permissions;
             Object.assign(this.userInfo, data.user);
         },
@@ -55,7 +52,7 @@ export const useUserStore = defineStore('user', {
             await logout();
             this.token = '';
             this.permissions = [];
-            this.roleKey = '';
+            this.roles = [];
         }
     },
     persist: piniaPersist({ key: 'user', paths: ['token'] })
