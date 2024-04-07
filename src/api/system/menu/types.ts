@@ -2,11 +2,11 @@ import { RouteMeta } from 'vue-router';
 
 // 响应
 export interface ResponseMenu {
-    createBy: string;
-    createTime: string;
-    updateBy: string;
-    updateTime: string;
-    deleted: boolean;
+    createBy?: string;
+    createTime?: string;
+    updateBy?: string;
+    updateTime?: string;
+    deleted?: boolean;
     parentName?: string | null;
     parentId: number;
     children?: ResponseMenu[];
@@ -14,19 +14,18 @@ export interface ResponseMenu {
     menuName: string;
     menuType: number;
     routerName: string;
-    orderNum: number;
+    orderNum?: number;
     path: string;
     component: string;
-    isLink: boolean;
+    isLink?: boolean;
     linkSrc?: string | null;
-    isFrame: boolean;
+    isFrame?: boolean;
     iframeSrc?: string | null;
-    permission: string;
-    redirect: string;
+    permission?: string;
+    redirect?: string;
     metaInfo: RouteMeta;
     localesKey: string;
     menuSort: number;
     status: number;
-    menuIcon?: string;
     remark: string;
 }
