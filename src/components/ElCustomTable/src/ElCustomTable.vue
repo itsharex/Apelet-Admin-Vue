@@ -175,7 +175,7 @@ defineExpose({
 });
 </script>
 <style scoped lang="scss">
-::v-deep .el-card .el-card__body {
+:deep(.el-card .el-card__body) {
     display: flex;
     flex-direction: column;
     height: 100%;
