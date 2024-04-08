@@ -3,7 +3,6 @@ import type { Directive } from 'vue';
 export interface Directives {
     vPerms: Directive<any, string[]>;
     vRole: Directive<any, string>;
-    vAdaptive: Directive<any, { offsetHeight: number }>;
 }
 
 // keys = 'vHasPerms' | 'vHasRoles'

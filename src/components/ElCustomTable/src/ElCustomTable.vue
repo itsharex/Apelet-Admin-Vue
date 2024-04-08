@@ -1,31 +1,24 @@
 <template>
-    <el-card v-show="isShowSearch" class="mb-4" shadow="hover">
-        <el-custom-form
-            :search-columns
-            :query-params
-            :search-col
-            :search="handleSearch"
-            :reset="handleReset"
-            :resize="handleResize" />
-    </el-card>
-    <slot name="statistics"></slot>
-    <el-card shadow="hover">
-        <el-row class="flex-between flex-wrap custom-table">
-            <div>
-                <slot name="operateButton" v-bind="selectionScope"></slot>
-            </div>
-            <div>
-                <template v-if="toolButton">
-                    <el-button circle :icon="Search" @click="showAndHindenSearch" />
-                    <el-button circle :icon="Refresh" @click="handleSearch" />
-                </template>
-                <slot name="toolButton"> </slot>
-            </div>
-        </el-row>
-        <div ref="adaptRef" v-adaptive="{ offsetHeight }">
+    <div class="h-full flex-col">
+        <el-card v-show="isShowSearch" class="mb-4" shadow="hover">
+            <el-custom-form :search-columns :query-params :search-col :search="handleSearch" :reset="handleReset" />
+        </el-card>
+        <el-card shadow="hover" class="flex-1 h-full">
+            <el-row class="flex-between flex-wrap custom-table">
+                <div>
+                    <slot name="operateButton" v-bind="selectionScope"></slot>
+                </div>
+                <div>
+                    <template v-if="toolButton">
+                        <el-button circle :icon="Search" @click="showAndHindenSearch" />
+                        <el-button circle :icon="Refresh" @click="handleSearch" />
+                    </template>
+                    <slot name="toolButton"> </slot>
+                </div>
+            </el-row>
             <el-table
                 ref="tableRef"
-                class="h-full!"
+                class="flex-1 h-full!"
                 v-loading="loading"
                 v-bind="$attrs"
                 :data="computedData"
@@ -75,17 +68,17 @@
                     <el-empty description="暂无数据" />
                 </template>
             </el-table>
-        </div>
-        <!-- 分页插槽 -->
-        <slot name="pagination">
-            <Pagination
-                v-if="pagination"
-                v-model:current-page="queryParams.pageNum"
-                v-model:page-size="queryParams.pageSize"
-                :total="total"
-                @get-list="getPageList" />
-        </slot>
-    </el-card>
+            <!-- 分页插槽 -->
+            <slot name="pagination">
+                <Pagination
+                    v-if="pagination"
+                    v-model:current-page="queryParams.pageNum"
+                    v-model:page-size="queryParams.pageSize"
+                    :total="total"
+                    @get-list="getPageList" />
+            </slot>
+        </el-card>
+    </div>
 </template>
 
 <script setup lang="ts" name="ElCustomTable">
@@ -96,7 +89,6 @@ import { Refresh, Search } from '@element-plus/icons-vue';
 import { ColumnProps } from '@/components/ElCustomTable';
 import { ElTable } from 'element-plus';
 import { useTableData, useSelection, useTableTool } from './hooks';
-import { updateTableHeight } from './helpers/adaptive';
 
 export interface CustomTableProps {
     tableColumns: ColumnProps[]; // 表格列 => 必传
@@ -130,7 +122,6 @@ defineOptions({
 
 // 表格实例
 const tableRef = ref<InstanceType<typeof ElTable>>();
-const adaptRef = ref<HTMLElement>();
 
 // 该组件的插槽集
 const slots = useSlots();
@@ -162,7 +153,6 @@ const computedData = computed(() => {
 // 分页获取新的数据
 const getPageList = () => {
     handleSearch();
-    handleResize();
 };
 
 // 处理搜索栏参数
@@ -171,9 +161,6 @@ const searchColumns = computed(() => {
         .filter(item => item.search?.el || item.search?.renderer)
         .sort((pre, next) => pre.search?.order! - next.search?.order!);
 });
-
-// 更新表格高度
-const handleResize = () => updateTableHeight(adaptRef.value!, props.offsetHeight);
 
 // 搜索栏显示/隐藏方法
 const showAndHindenSearch = () => {
@@ -187,3 +174,10 @@ defineExpose({
     ...tableRef.value
 });
 </script>
+<style scoped lang="scss">
+::v-deep .el-card .el-card__body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+</style>

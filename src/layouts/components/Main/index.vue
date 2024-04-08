@@ -4,7 +4,7 @@
         <div class="h-full">
             <el-scrollbar ref="scrollbarRef">
                 <!-- 解决子元素超出父元素高度问题 -->
-                <div :class="['p-4', { 'py-0': isGradient }]">
+                <div :class="['p-4 h-full', { 'py-0': isGradient }]">
                     <router-view>
                         <template #default="{ Component, route }">
                             <el-backtop target=".el-main div .el-scrollbar__wrap" title="回到顶部" />

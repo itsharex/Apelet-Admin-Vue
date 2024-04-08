@@ -115,13 +115,6 @@
     height: 100%;
 }
 
-// customTable
-.custom-table {
-    .el-button {
-        margin-bottom: 12px;
-    }
-}
-
 // element-plus from
 .el-form .el-col {
     .el-select,
@@ -134,5 +127,12 @@
 .el-drawer {
     .el-drawer__header {
         margin: 0;
+    }
+}
+
+// custom-table
+.custom-table {
+    .el-button {
+        margin-bottom: 12px;
     }
 }

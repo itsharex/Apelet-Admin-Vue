@@ -13,6 +13,8 @@ export default defineConfig({
     presets: [presetUno({ dark: 'class' }), presetRemToPx()],
     // unoCss 转换器
     transformers: [transformerDirectives()],
+    // 规则
+    rules: [],
     // 自定义预设别名
     shortcuts: {
         'wh-full': 'w-full h-full',
