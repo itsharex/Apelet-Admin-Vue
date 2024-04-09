@@ -27,7 +27,7 @@ service.interceptors.request.use(
 service.interceptors.response.use(
     (response: AxiosResponse) => {
         const userStore = useUserStore();
-        const { fullPath, query } = router.currentRoute.value;
+        const { query } = router.currentRoute.value;
         // 设置默认状态码
         const code = response.data.code || 200;
         // 获取错误信息
@@ -36,7 +36,7 @@ service.interceptors.response.use(
             ElNotification.error({ title: '会话过期或失效，请重新登录！' });
             userStore.logout();
             router.push({
-                path: fullPath,
+                path: '/login',
                 query
             });
             return Promise.reject(msg);
