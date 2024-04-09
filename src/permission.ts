@@ -30,7 +30,6 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
                     router.addRoute(route as unknown as RouteRecordRaw);
                 });
                 next({ path: to.fullPath });
-                // 增加 router.isReady() ， 使用下面语句 刷新会导致空白页面
                 // next({ ...to, replace: true });
             } else {
                 next();

@@ -28,6 +28,8 @@ service.interceptors.response.use(
     (response: AxiosResponse) => {
         const userStore = useUserStore();
         const { fullPath, query } = router.currentRoute.value;
+        console.log(211, fullPath, query);
+
         // 设置默认状态码
         const code = response.data.code || 200;
         // 获取错误信息

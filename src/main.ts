@@ -32,7 +32,7 @@ const app = createApp(App);
 import './permission';
 
 const setupApp = async () => {
-    await install(app);
+    install(app);
     app.use(i18n);
     app.use(pinia);
     app.use(router);

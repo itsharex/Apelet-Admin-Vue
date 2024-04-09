@@ -29,7 +29,7 @@ export const usePermissionStore = defineStore(
         let flatTabsRoutes = ref<SubMenuRouteRecordRaw[]>([]);
         // 当前选中的最外层父级路由Name
         let currParentRouteName = ref<string>();
-        // 复制一份菜单路由做备用
+        // 备用路由
         let copyMenuRoutes = ref<SubMenuRouteRecordRaw[]>([]);
 
         // 获取异步路由
@@ -38,14 +38,12 @@ export const usePermissionStore = defineStore(
                 // 后续从服务器获取路由
                 const asyncRoutes = (await getRouters()).data;
                 let cloneAsyncRoutes = deepClone(asyncRoutes);
-                let cloneRewriteRoutes = deepClone(asyncRoutes);
-                const rewriteRoutes = handleFilterAsyncRoute(cloneRewriteRoutes);
-                const sideBarRoutes = handleFilterAsyncRoute(cloneAsyncRoutes);
-                allRoutes.value = constantRoutes.concat(rewriteRoutes);
-                asideBarRoutes.value = constantRoutes.concat(sideBarRoutes);
+                const routes = handleFilterAsyncRoute(cloneAsyncRoutes);
+                allRoutes.value = constantRoutes.concat(deepClone(routes));
+                asideBarRoutes.value = constantRoutes.concat(deepClone(routes));
                 flatTabsRoutes.value = flatTreeToArray(deepClone(asideBarRoutes.value));
                 copyMenuRoutes.value = deepClone(allRoutes.value);
-                resolve(rewriteRoutes);
+                resolve(routes);
             });
         };
 
@@ -97,7 +95,7 @@ export const usePermissionStore = defineStore(
             return asyncRoutes;
         };
 
-        // 处理目录redirect
+        // 处理所有目录的redirect
         const handleRedirectRoutes = (route: SubMenuRouteRecordRaw, children?: SubMenuRouteRecordRaw[]) => {
             if (children?.length) {
                 children.map((el, index) => {
