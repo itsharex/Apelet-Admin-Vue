@@ -14,11 +14,15 @@ const Layout = () => import('@/layouts/index.vue');
 
         icon: 'svg-name'          	设置该路由的图标
 
-        isCache: true             	如果设置为true，则不会被 <keep-alive> 缓存(默认 false)
+        keepAlive: true             	如果设置为true，则不会被 <keep-alive> 缓存(默认 false)
 
         isLink: false         		如果设置为true，则为外部链接
 
+		linkSrc: ''					外链地址 (https:// 或 http://)
+
         isFixed: true               如果设置为true，则会一直固定在tag项中(默认 false)
+
+		isFrame: false				是否内嵌iframe
 
         iframeSrc: ''          		需要内嵌的iframe链接地址
 
@@ -26,7 +30,7 @@ const Layout = () => import('@/layouts/index.vue');
 
         roles: []  					页面级别权限设置
 
-        auths: []               	按钮级别权限设置
+        perms: []               	按钮级别权限设置
  }
  **/
 

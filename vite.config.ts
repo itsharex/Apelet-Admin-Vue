@@ -10,6 +10,9 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
     // 根据当前工作目录中的 `mode` 加载 .env 文件
     // loadEnv的第三个参数为 '' 来加载所有环境变量，而不管是否有 `VITE_` 前缀。
     const env = loadEnv(mode, root);
+
+    console.log(11, env);
+
     const { VITE_APP_BASE_API, VITE_APP_CONTEXT_PATH } = env;
 
     return {

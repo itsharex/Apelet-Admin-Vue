@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
+import router from '@/router';
 import { useUserStore } from '@/store';
 import { ElNotification } from 'element-plus';
 
@@ -26,6 +27,7 @@ service.interceptors.request.use(
 service.interceptors.response.use(
     (response: AxiosResponse) => {
         const userStore = useUserStore();
+        const { fullPath, query } = router.currentRoute.value;
         // 设置默认状态码
         const code = response.data.code || 200;
         // 获取错误信息
@@ -33,7 +35,10 @@ service.interceptors.response.use(
         if (code === 401) {
             ElNotification.error({ title: '会话过期或失效，请重新登录！' });
             userStore.logout();
-            location.href = '/';
+            router.push({
+                path: fullPath,
+                query
+            });
             return Promise.reject(msg);
         } else if (code !== 200) {
             ElNotification.error({ title: msg });
@@ -47,7 +52,7 @@ service.interceptors.response.use(
     }
 );
 
-export default async function request<T>(config: RequestConfig) {
+export default async function request<T = any>(config: RequestConfig) {
     // axios实例的 request 接受的第一个泛型参数，就是返回数据data的类型
     return service.request<ApiResponse<T>>(config).then(res => res.data); // 返回axios的里data数据
 }

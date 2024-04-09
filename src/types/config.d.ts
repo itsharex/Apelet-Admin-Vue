@@ -31,26 +31,4 @@ declare global {
         label: string;
         value: LayoutConfig;
     }
-
-    // 布局类型
-    interface GlobalState {
-        layout: LayoutConfig;
-        menuMode: string;
-        isOpenProgress: boolean;
-        isDark: boolean;
-        themeColor: string;
-        isResetGradient: boolean;
-        hoverIndex: number;
-        gradientTextColor: string;
-        tabsHidden: boolean;
-        tabStyle: string;
-        tabsIcon: boolean;
-        tabsCache: boolean;
-        breadcrumbs: boolean;
-        breadcrumbsIcon: boolean;
-        menuUnique: boolean;
-        grayMode: boolean;
-        weakness: boolean;
-        animateMode: string;
-    }
 }

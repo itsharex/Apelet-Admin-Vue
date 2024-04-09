@@ -1,3 +1,5 @@
+import { GlobalState } from '@/store/interface';
+
 // 默认值
 export const defaultTheme = {
     /**

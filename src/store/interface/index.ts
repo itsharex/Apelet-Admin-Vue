@@ -1,3 +1,9 @@
+import { LayoutConfig } from '@/types/config';
+
+/**
+ * 系统默认类型，后续创建其他store，请重新创建类型文件， 其他模块同理
+ */
+
 // 用户store
 export type UserState = {
     token: string;
@@ -90,3 +96,25 @@ export type AppState = {
     reload: boolean;
     language: string;
 };
+
+// 布局类型
+export interface GlobalState {
+    layout: LayoutConfig;
+    menuMode: string;
+    isOpenProgress: boolean;
+    isDark: boolean;
+    themeColor: string;
+    isResetGradient: boolean;
+    hoverIndex: number;
+    gradientTextColor: string;
+    tabsHidden: boolean;
+    tabStyle: string;
+    tabsIcon: boolean;
+    tabsCache: boolean;
+    breadcrumbs: boolean;
+    breadcrumbsIcon: boolean;
+    menuUnique: boolean;
+    grayMode: boolean;
+    weakness: boolean;
+    animateMode: string;
+}

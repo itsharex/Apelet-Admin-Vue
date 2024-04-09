@@ -42,7 +42,7 @@ declare global {
         path: string;
         component?: Component | string;
         redirect?: string;
-        name: string;
+        name?: string;
         props?: Recordable;
         children?: SubMenuRouteRecordRaw[];
         meta?: RouteMeta;

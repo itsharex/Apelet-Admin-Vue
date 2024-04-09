@@ -48,8 +48,7 @@ import FullScreen from '../NavBar/components/FullScreen.vue';
 import LayoutDrawer from '@/layouts/components/LayoutDrawer/index.vue';
 const settingVisible = ref<boolean>(false);
 // 生产模式不需要可自行修改
-// const isShow = import.meta.env.DEV || import.meta.env.VITE_APP_SETTING === 'Y';
-const isShow = false;
+const isShow = import.meta.env.DEV && import.meta.env.VITE_APP_SETTING === 'Y';
 
 const clearCache = () => {
     localStorage.clear();

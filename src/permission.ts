@@ -23,7 +23,7 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
         if (to.path === '/login') {
             next({ path: '/' });
         } else {
-            if (!permissionStore.asideBarRoutes?.length) {
+            if (!userStore.roles?.length) {
                 await userStore.getUserInfo();
                 const rewriteRoutes = await permissionStore.getAsyncRoutes();
                 rewriteRoutes.forEach(route => {
@@ -42,7 +42,10 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
             // 在免登录白名单，直接进入
             next();
         } else {
-            next(`/login?redirect=${to.fullPath}`); // 否则全部重定向到登录页
+            next({
+                path: `/login`,
+                query: { redirect: to.fullPath }
+            }); // 否则全部重定向到登录页
         }
     }
 });
