@@ -66,8 +66,8 @@
                 <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
                     <el-form-item label="是否外链" prop="isLink">
                         <el-radio-group v-model="form.row.isLink">
-                            <el-radio :value="true">是</el-radio>
-                            <el-radio :value="false">否</el-radio>
+                            <el-radio :value="1">是</el-radio>
+                            <el-radio :value="0">否</el-radio>
                         </el-radio-group>
                     </el-form-item>
                 </el-col>
@@ -79,8 +79,8 @@
                 <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
                     <el-form-item label="是否内嵌iframe" prop="isFrame">
                         <el-radio-group v-model="form.row.isFrame">
-                            <el-radio :value="true">是</el-radio>
-                            <el-radio :value="false">否</el-radio>
+                            <el-radio :value="1">是</el-radio>
+                            <el-radio :value="0">否</el-radio>
                         </el-radio-group>
                     </el-form-item>
                 </el-col>
@@ -92,16 +92,16 @@
                 <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
                     <el-form-item label="是否隐藏" prop="hidden">
                         <el-radio-group v-model="form.row.hidden">
-                            <el-radio :value="true">是</el-radio>
-                            <el-radio :value="false">否</el-radio>
+                            <el-radio :value="1">是</el-radio>
+                            <el-radio :value="0">否</el-radio>
                         </el-radio-group>
                     </el-form-item>
                 </el-col>
                 <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
                     <el-form-item label="是否缓存" prop="keepAlive">
                         <el-radio-group v-model="form.row.keepAlive">
-                            <el-radio :value="true">是</el-radio>
-                            <el-radio :value="false">否</el-radio>
+                            <el-radio :value="1">是</el-radio>
+                            <el-radio :value="0">否</el-radio>
                         </el-radio-group>
                     </el-form-item>
                 </el-col>
@@ -136,8 +136,8 @@ import { menuTreeselect } from '@/api/system/menu';
 
 interface RowType extends ResponseMenu {
     menuIcon: string;
-    hidden: boolean;
-    keepAlive: boolean;
+    hidden: number;
+    keepAlive: number;
 }
 
 type ParamsType = {
@@ -152,12 +152,25 @@ type ParamsType = {
 const form = ref<ParamsType>({
     title: '',
     view: false,
-    row: {}
+    row: {
+        menuType: 2,
+        hidden: 0,
+        keepAlive: 1,
+        status: 0
+    }
 });
 
 // 校验规则
-const rules = reactive<FormRules<Omit<ResponseMenu, 'children'>>>({
-    menuName: [{ required: true, message: '请输入菜单名称', trigger: 'blur' }]
+const rules = reactive<FormRules<Omit<RowType, 'children'>>>({
+    menuSort: [{ required: true, message: '请选择菜单类别', trigger: 'change' }],
+    menuName: [{ required: true, message: '请输入菜单名称', trigger: 'blur' }],
+    menuType: [{ required: true, message: '请选择菜单类型', trigger: 'change' }],
+    menuSort: [{ required: true, message: '请选择菜单类别', trigger: 'change' }],
+    path: [{ required: true, message: '请输入路由地址', trigger: 'blur' }],
+    component: [{ required: true, message: '请输入组件路径', trigger: 'blur' }],
+    hidden: [{ required: true, message: '请选择是否隐藏', trigger: 'change' }],
+    keepAlive: [{ required: true, message: '请选择是否缓存', trigger: 'change' }],
+    status: [{ required: true, message: '请选择菜单状态', trigger: 'change' }]
 });
 
 let dialogVisible = ref(false);
@@ -165,7 +178,7 @@ const ruleFormRef = ref<FormInstance>();
 
 const open = (params: ParamsType) => {
     form.value = params;
-    form.value.row.menuType = form.value.row.menuType || 1;
+    Object.assign(form.value.row, params.row);
     dialogVisible.value = true;
 };
 

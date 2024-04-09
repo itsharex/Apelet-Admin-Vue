@@ -2,6 +2,7 @@
 
 // el-dialog 弹窗自适应宽度
 .el-dialog {
+    // 若组件内设置了宽度，以组件宽度为准
     width: 60%;
 
     @include responsive($width-large) {
