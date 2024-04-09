@@ -1,5 +1,5 @@
 <template>
-    <el-dialog v-model="dialogVisible" :title="form.title" width="90%" lose="handleClose">
+    <el-dialog v-model="dialogVisible" :title="form.title" lose="handleClose">
         <el-form
             ref="ruleFormRef"
             :model="form.row"

@@ -1,5 +1,3 @@
-import { LayoutConfig } from '@/types/config';
-
 /**
  * 系统默认类型，后续创建其他store，请重新创建类型文件， 其他模块同理
  */

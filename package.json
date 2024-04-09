@@ -60,6 +60,7 @@
     "@typescript-eslint/parser": "^7.4.0",
     "@unocss/preset-rem-to-px": "0.58.7",
     "@unocss/preset-uno": "^0.58.7",
+    "@unocss/reset": "0.58.7",
     "@unocss/transformer-directives": "^0.58.7",
     "@unocss/vite": "^0.58.7",
     "@vitejs/plugin-vue": "^5.0.4",

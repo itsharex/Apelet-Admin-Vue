@@ -1,0 +1,18 @@
+@import './mixins.scss';
+
+// el-dialog 弹窗自适应宽度
+.el-dialog {
+    width: 60%;
+
+    @include responsive($width-large) {
+        width: 60%;
+    }
+
+    @include responsive($width-medium) {
+        width: 86%;
+    }
+
+    @include responsive($width-small) {
+        width: 98%;
+    }
+}
