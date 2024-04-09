@@ -34,4 +34,3 @@ deviceDetection(containerRef);
 </script>
 
 <style lang="scss" scoped></style>
-@/config/modules/settings

@@ -281,7 +281,7 @@ const end = () => {
                 if (mode.value == 'pop') {
                     setTimeout(() => {
                         proxy.$parent.clickShow = false;
-                        refresh();
+                        // refresh();
                     }, 1500);
                 }
                 passFlag.value = true;
