@@ -1,5 +1,5 @@
 /**
- * 深度克隆  推荐使用 lodash-es 的 深克隆
+ * 深度克隆  推荐使用 radash 或 xe-utils 的 深克隆
  * @param value 需要深克隆的值
  * @returns
  */

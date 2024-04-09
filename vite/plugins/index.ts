@@ -7,6 +7,7 @@ import createCompression from './compression';
 import createVisualizer from './visualizer';
 import createSvgIcon from './svg-icon';
 import createAutoImport from './auto-import';
+import { createStyleImportPlugin, VxeTableResolve } from 'vite-plugin-style-import';
 
 /**
  * Vite注册所需插件
@@ -27,7 +28,11 @@ export function createVitePlugins(env: Record<string, string>, command: boolean)
         // svg 图标
         createSvgIcon(command),
         // 文件压缩
-        createCompression(env)
+        createCompression(env),
+        // Vxe-Table 按需引入
+        createStyleImportPlugin({
+            resolves: [VxeTableResolve()]
+        })
     ];
     return vitePlugins;
 }

@@ -1,7 +1,7 @@
 import { useRoute } from 'vue-router';
 import { usePermissionStore, useAppStore } from '@/store';
 import { deepClone } from '@/utils/common';
-import { debounce } from 'lodash-es';
+import { debounce } from 'xe-utils';
 
 // 垂直、横向菜单hooks
 export const useMenu = () => {
