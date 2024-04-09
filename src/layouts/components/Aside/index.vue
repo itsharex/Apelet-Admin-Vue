@@ -9,11 +9,11 @@
 import Logo from './logo.vue';
 import Menu from '../Menu/index.vue';
 import { useAppStore, useLayoutStore } from '@/store';
-import { settingConfig } from '@/config/settings';
+import { settingConfig, type SettingConfigType } from '@/config/settings';
 
 const appStore = useAppStore();
 const layoutStore = useLayoutStore();
-const { asideMaxWidth, asideMinWidth } = reactive<SettingConfig>(settingConfig);
+const { asideMaxWidth, asideMinWidth } = reactive<SettingConfigType>(settingConfig);
 const display = computed(() => ['vertical', 'lattice', 'horizontal'].includes(layoutStore.layout) || appStore.isMobile);
 const collapseWidth = computed(() => {
     if (appStore.isMobile || ['lattice', 'gradient'].includes(layoutStore.layout)) {

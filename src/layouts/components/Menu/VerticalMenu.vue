@@ -27,13 +27,13 @@ import mittBus from '@/utils/mittBus';
 import { useRoute } from 'vue-router';
 import { useMenu } from '@/hooks';
 import { MenuItemClicked } from 'element-plus';
-import { settingConfig } from '@/config/settings';
+import { settingConfig, type SettingConfigType } from '@/config/settings';
 import { useAppStore } from '@/store';
 
 const route = useRoute();
 const appStore = useAppStore();
 const { horizontalMenu, currName, initRoutes } = useMenu();
-const { asideMinWidth } = reactive<SettingConfig>(settingConfig);
+const { asideMinWidth } = reactive<SettingConfigType>(settingConfig);
 
 const changeMenu = (instance: MenuItemClicked) => {
     let routeName = instance.index;

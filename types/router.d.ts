@@ -1,4 +1,3 @@
-/// <reference types="vite/client" />
 import 'vue-router';
 import { defineComponent } from 'vue';
 import { RouteRecordRaw } from 'vue-router';

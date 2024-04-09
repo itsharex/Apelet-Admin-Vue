@@ -10,10 +10,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
     // 根据当前工作目录中的 `mode` 加载 .env 文件
     // loadEnv的第三个参数为 '' 来加载所有环境变量，而不管是否有 `VITE_` 前缀。
     const env = loadEnv(mode, root);
-
-    console.log(11, env, mode);
-
-    const { VITE_APP_BASE_API, VITE_APP_CONTEXT_PATH } = env;
+    const { VITE_APP_BASE_API, VITE_APP_CONTEXT_PATH, VITE_APP_PORT } = env as ImportMetaEnv;
 
     return {
         root,
@@ -48,7 +45,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
         plugins: createVitePlugins(env, command === 'build'),
         // 服务代理
         server: {
-            port: 8001,
+            port: VITE_APP_PORT,
             host: '0.0.0.0',
             open: false,
             proxy: {

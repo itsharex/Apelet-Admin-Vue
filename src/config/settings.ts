@@ -1,4 +1,18 @@
-export const settingConfig: SettingConfig = {
+// 配置类型
+type SettingConfigType = {
+    title: string;
+    screenSize: number;
+    asideMaxWidth: string;
+    asideMinWidth: string;
+};
+
+// 布局模式
+type LayoutModeConfigType = {
+    label: string;
+    value: LayoutConfig;
+};
+
+export const settingConfig: SettingConfigType = {
     // 系统标题
     title: 'Apelet Admin',
     // 侧边栏展开与搜索临界点
@@ -56,7 +70,7 @@ export const contextMenu: Array<ContextMenuOptions> = [
 ];
 
 // 布局模式
-export const layoutMode: LayoutModeConfig[] = [
+export const layoutMode: LayoutModeConfigType[] = [
     { label: '纵向', value: 'vertical' },
     { label: '经典', value: 'basic' },
     { label: '横向', value: 'horizontal' },
@@ -78,3 +92,5 @@ export const tabsStyle = [
     { label: '灵动', value: 'nimble' },
     { label: '圆滑', value: 'smooth' }
 ];
+
+export type { SettingConfigType, LayoutModeConfigType };

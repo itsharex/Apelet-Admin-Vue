@@ -2,6 +2,14 @@ import type { StorageLike, PersistedStateOptions } from 'pinia-plugin-persisteds
 // 持久化加密
 import SecureLS from 'secure-ls';
 
+// 持久化参数类型
+interface PersistConfig extends PersistedStateOptions {
+    key?: string;
+    paths?: string[];
+    storage?: StorageLike;
+    secureLs?: boolean;
+}
+
 const secureLS = new SecureLS({
     isCompression: false, // 是否数据压缩
     encodingType: 'AES', // 加密类型
