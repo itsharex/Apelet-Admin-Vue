@@ -6,6 +6,7 @@
             ref="customTableRef"
             :init-params="initParams"
             :table-columns="tableColumns"
+            :request-api="getUserList"
             :data-callback="dataCallBack"
             :tree-props="{ children: 'children' }"
             default-expand-all>
@@ -31,13 +32,73 @@
 <script setup lang="tsx">
 import { Plus, EditPen, Delete, View } from '@element-plus/icons-vue';
 import { ColumnProps, ElCustomTable, ElCustomTableInstance } from '@/components/ElCustomTable';
+import { getUserList } from '@/api/system/user';
 import { useConfirm } from '@/hooks';
+import { UserInfo } from '@/api/system/user/types';
 
 const customTableRef = ref<ElCustomTableInstance>();
 
 // 不推荐使用 reactive() 的泛型参数，因为处理了深层次 ref 解包的返回值与泛型参数的类型不同, 而且也会导致TS类型报错。
-// const tableColumns: Ref<ColumnProps<ResponseMenu>[]> = ref([})
-const tableColumns: ColumnProps<any>[] = reactive([]);
+// const tableColumns: Ref<ColumnProps<MenuInfo>[]> = ref([})
+const tableColumns: ColumnProps<UserInfo>[] = reactive([
+    {
+        type: 'selection',
+        fixed: 'left',
+        width: 55
+    },
+    {
+        prop: 'userName',
+        label: '用户名',
+        search: {
+            el: 'el-input',
+            width: 100
+        }
+    },
+    {
+        prop: 'nickName',
+        label: '用户昵称',
+        search: {
+            el: 'el-input',
+            width: 100
+        }
+    },
+    {
+        prop: 'deptName',
+        label: '部门名称',
+        search: {
+            el: 'el-select',
+            width: 100
+        }
+    },
+    {
+        prop: 'phonenumber',
+        label: '手机号',
+        search: {
+            el: 'el-input',
+            width: 100
+        }
+    },
+    {
+        prop: 'email',
+        label: '用户邮箱',
+        search: {
+            el: 'el-input',
+            width: 100
+        }
+    },
+    {
+        prop: 'status',
+        label: '状态',
+        search: {
+            el: 'el-select',
+            width: 100
+        }
+    },
+    {
+        prop: 'createTime',
+        label: '创建时间'
+    }
+]);
 
 let initParams = ref<PageRequest>({
     pageNum: 1,
@@ -45,16 +106,16 @@ let initParams = ref<PageRequest>({
 });
 
 // 接口成功回调
-const dataCallBack = (data: any[]) => {
-    return data;
+const dataCallBack = (data: UserInfo[]) => {
+    return data.map(item => ({ ...item, deptName: item.dept?.deptName }));
 };
 
-const openDialog = (title?: string, row?: any) => {};
+const openDialog = (title?: string, row?: UserInfo) => {};
 
 // 删除
-const handleDelete = async (row: any | any[]) => {
-    // let menuNames = Array.isArray(row) ? row.map(item => item.menuName).toString() : row.menuName;
-    // await useConfirm(getMenuList, {}, `删除名称为 ${menuNames} 的菜单`);
-    // customTableRef.value?.getList();
+const handleDelete = async (row: UserInfo | UserInfo[]) => {
+    let userNames = Array.isArray(row) ? row.map(item => item.nickName).toString() : row.nickName;
+    await useConfirm(getUserList, {}, `删除名称为 ${userNames} 的菜单`);
+    customTableRef.value?.getList();
 };
 </script>

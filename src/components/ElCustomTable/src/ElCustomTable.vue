@@ -5,6 +5,7 @@
                 :search-columns="searchColumns"
                 :query-params="queryParams"
                 :search-col="searchCol"
+                :labelPosition="labelPosition"
                 :search="handleSearch"
                 :reset="handleReset" />
         </el-card>
@@ -99,6 +100,7 @@ export interface CustomTableProps {
     tableColumns: ColumnProps[]; // 表格列 => 必传
     tableData?: any[]; // 表格数据， 存在则不调用 requestApi => 非必传
     initParams?: { [key: string]: any }; // 初始化参数，有用户自定义
+    labelPosition?: 'left' | 'right' | 'top'; // el-form 的表单域标签的位置
     pagination?: boolean; // 是否开启分页插件, 关闭分页请重新设置 表格自适应高度 （useAdaptive)
     requestApi?: (...args: any) => Promise<ApiResponse<any>>; // 数据请求接口
     toolButton?: boolean; // 是否开启右上角工具栏
@@ -113,6 +115,7 @@ const props = withDefaults(defineProps<CustomTableProps>(), {
     tableColumns: () => [],
     pagination: true,
     highlightCurrentRow: false,
+    labelPosition: 'left',
     border: true,
     toolButton: true,
     rowKey: 'id'

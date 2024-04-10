@@ -28,8 +28,9 @@ export const useTableData = (
         }
         loading.value = true;
         let response = await api(queryParams.value);
-        dataCallBack && (response.data = dataCallBack(response.data));
-        data.value = response.data;
+        let allData = response.data || response.rows;
+        dataCallBack && (allData = dataCallBack(allData));
+        data.value = allData;
         total.value = response.total;
         loading.value = false;
     };

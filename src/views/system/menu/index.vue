@@ -8,7 +8,7 @@
 <script setup lang="tsx">
 import MenuDialog from './components/MenuDialog.vue';
 import { Plus, EditPen, Delete, View } from '@element-plus/icons-vue';
-import { ResponseMenu } from '@/api/system/menu/types';
+import { MenuInfo } from '@/api/system/menu/types';
 import { ColumnProps, ElCustomTable, ElCustomTableInstance } from '@/components/ElCustomTable';
 import { getMenuList } from '@/api/system/menu';
 import { useConfirm } from '@/hooks';
@@ -16,8 +16,8 @@ import { useConfirm } from '@/hooks';
 const customTableRef = ref<ElCustomTableInstance>();
 
 // 不推荐使用 reactive() 的泛型参数，因为处理了深层次 ref 解包的返回值与泛型参数的类型不同, 而且也会导致TS类型报错。
-// const tableColumns: Ref<ColumnProps<ResponseMenu>[]> = ref([})
-const tableColumns: ColumnProps<ResponseMenu>[] = reactive([
+// const tableColumns: Ref<ColumnProps<MenuInfo>[]> = ref([})
+const tableColumns: ColumnProps<MenuInfo>[] = reactive([
     {
         prop: 'menuName',
         label: '菜单名称',

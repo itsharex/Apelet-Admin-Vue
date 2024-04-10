@@ -130,11 +130,11 @@
 </template>
 
 <script setup lang="ts">
-import { ResponseMenu } from '@/api/system/menu/types';
+import { MenuInfo } from '@/api/system/menu/types';
 import type { FormInstance, FormRules } from 'element-plus';
 import { menuTreeselect } from '@/api/system/menu';
 
-interface RowType extends ResponseMenu {
+interface RowType extends MenuInfo {
     menuIcon: string;
     hidden: number;
     keepAlive: number;
@@ -144,7 +144,7 @@ type ParamsType = {
     title?: string;
     view: boolean;
     row: Partial<RowType>;
-    api?: (params: any) => Promise<ApiResponse<ResponseMenu[]>>;
+    api?: (params: any) => Promise<ApiResponse<MenuInfo[]>>;
     getList?: () => void;
 };
 
@@ -183,7 +183,7 @@ const open = (params: ParamsType) => {
 };
 
 // 获取菜单下拉树
-let menuTrees = ref<ResponseMenu[]>([]);
+let menuTrees = ref<MenuInfo[]>([]);
 const defaultProps = reactive({
     value: 'id'
 });

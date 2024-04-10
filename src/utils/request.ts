@@ -1,5 +1,4 @@
 import axios, { AxiosResponse } from 'axios';
-import router from '@/router';
 import { useUserStore } from '@/store';
 import { ElNotification } from 'element-plus';
 
@@ -27,7 +26,6 @@ service.interceptors.request.use(
 service.interceptors.response.use(
     (response: AxiosResponse) => {
         const userStore = useUserStore();
-        const { query } = router.currentRoute.value;
         // 设置默认状态码
         const code = response.data.code || 200;
         // 获取错误信息
@@ -35,10 +33,7 @@ service.interceptors.response.use(
         if (code === 401) {
             ElNotification.error({ title: '会话过期或失效，请重新登录！' });
             userStore.logout();
-            router.push({
-                path: '/login',
-                query
-            });
+            location.href = '/';
             return Promise.reject(msg);
         } else if (code !== 200) {
             ElNotification.error({ title: msg });

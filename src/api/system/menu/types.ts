@@ -1,7 +1,7 @@
 import { RouteMeta } from 'vue-router';
 
 // 响应
-export interface ResponseMenu {
+export interface MenuInfo {
     createBy?: string;
     createTime?: string;
     updateBy?: string;
@@ -9,7 +9,7 @@ export interface ResponseMenu {
     deleted?: boolean;
     parentName?: string | null;
     parentId: number;
-    children?: ResponseMenu[];
+    children?: MenuInfo[];
     menuId: number;
     menuName: string;
     menuType: number;

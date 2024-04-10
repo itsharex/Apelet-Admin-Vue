@@ -1,5 +1,5 @@
 <template>
-    <el-form ref="formRef" :model="queryParams">
+    <el-form ref="formRef" :model="queryParams" :label-position="labelPosition">
         <el-row :gutter>
             <el-col v-for="item in searchColumns.slice(0, 4)" :key="item.prop" v-bind="getColLayout(item)">
                 <el-form-item :label-width="item.search?.width">
@@ -66,6 +66,7 @@ interface CustomSearchProps {
     searchColumns?: ColumnProps[]; // 搜索参数列 => 必传
     queryParams?: { [key: string]: any }; // 搜索参数
     searchCol?: SearchColType; // 搜索栏布局
+    labelPosition?: 'left' | 'right' | 'top';
     search?: () => void;
     reset?: () => void;
     resize?: () => void;

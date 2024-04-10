@@ -1,5 +1,5 @@
 import request from '@/utils/request';
-import { ResponseMenu } from './types';
+import { UserInfo } from './types';
 const baseUrl = '/system/user/';
 
 /**
@@ -8,7 +8,7 @@ const baseUrl = '/system/user/';
  * @returns
  */
 export const getUserList = (params: PageRequest) => {
-    return request<ResponseMenu[]>({
+    return request<UserInfo[]>({
         url: baseUrl + 'list',
         method: 'get',
         params
