@@ -17,25 +17,23 @@ import { createApp } from 'vue';
 import { install } from './plugins';
 
 import App from './App.vue';
+// router
+import router from '@/router';
 // pinia
 import pinia from '@/store';
 // i18n
 import i18n from '@/i18n';
-// router
-import router from '@/router';
 
 const app = createApp(App);
 
 // 权限认证
 import './permission';
 
-const setupApp = async () => {
-    install(app);
-    app.use(i18n);
-    app.use(pinia);
-    app.use(router);
-    await router.isReady();
-    app.mount('#app');
-};
+install(app);
+app.use(i18n);
+app.use(pinia);
+app.use(router);
 
-setupApp();
+router.isReady().then(() => {
+    app.mount('#app');
+});

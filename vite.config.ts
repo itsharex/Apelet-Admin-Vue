@@ -52,7 +52,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
                 [VITE_APP_BASE_API]: {
                     target: 'http://localhost:8080',
                     changeOrigin: true,
-                    rewrite: api => api.replace(/^\/dev-api/, '')
+                    rewrite: api => api.replace(new RegExp('^' + VITE_APP_BASE_API), '')
                 }
             },
             // 预热文件以提前转换和缓存结果，降低启动期间的初始页面加载时长并防止转换瀑布

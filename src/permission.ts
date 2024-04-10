@@ -24,13 +24,21 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
             next({ path: '/' });
         } else {
             if (!userStore.roles?.length) {
-                await userStore.getUserInfo();
-                const rewriteRoutes = await permissionStore.getAsyncRoutes();
-                rewriteRoutes.forEach(route => {
-                    router.addRoute(route as unknown as RouteRecordRaw);
-                });
-                next({ path: to.fullPath });
-                // next({ ...to, replace: true });
+                try {
+                    await userStore.getUserInfo();
+                    const rewriteRoutes = await permissionStore.getAsyncRoutes();
+                    rewriteRoutes.forEach(route => {
+                        router.addRoute(route as unknown as RouteRecordRaw);
+                    });
+                    next({ path: to.fullPath });
+                } catch (error) {
+                    // 退出token 并跳转登录页
+                    await userStore.logout();
+                    next({
+                        path: `/login`,
+                        query: { redirect: to.path }
+                    });
+                }
             } else {
                 next();
             }
@@ -43,7 +51,7 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
         } else {
             next({
                 path: `/login`,
-                query: { redirect: to.fullPath }
+                query: { redirect: to.path }
             }); // 否则全部重定向到登录页
         }
     }

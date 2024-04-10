@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { useUserStore } from '@/store';
-import { ElNotification } from 'element-plus';
+import { ElMessage, ElMessageBox, ElNotification } from 'element-plus';
 
 const service = axios.create({
     baseURL: import.meta.env.VITE_APP_BASE_API,
@@ -19,24 +19,32 @@ service.interceptors.request.use(
         return config;
     },
     error => {
-        Promise.reject(error);
+        return Promise.reject(error);
     }
 );
 
 service.interceptors.response.use(
-    (response: AxiosResponse) => {
+    async (response: AxiosResponse) => {
         const userStore = useUserStore();
         // 设置默认状态码
         const code = response.data.code || 200;
         // 获取错误信息
         const msg = response.data.msg;
         if (code === 401) {
-            ElNotification.error({ title: '会话过期或失效，请重新登录！' });
-            userStore.logout();
-            location.href = '/';
-            return Promise.reject(msg);
+            await userStore.logout();
+            ElMessageBox.confirm('登录状态已过期，是否重新登录！', '系统提示', {
+                confirmButtonText: '重新登录',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                location.href = import.meta.env.VITE_APP_CONTEXT_PATH;
+            });
+            return Promise.reject('会话过期或失效，请重新登录！');
         } else if (code !== 200) {
-            ElNotification.error({ title: msg });
+            ElMessage({
+                message: msg,
+                type: 'error'
+            });
             return Promise.reject('error');
         } else {
             return Promise.resolve(response);
