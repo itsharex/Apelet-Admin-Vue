@@ -40,7 +40,7 @@ const permissionStore = usePermissionStore();
 const layoutStore = useLayoutStore();
 
 const { tabsMenuList } = toRefs(tabsStore);
-const { flatTabsRoutes } = toRefs(permissionStore);
+const { getFlatTabsRoutes } = toRefs(permissionStore);
 const { tabsHidden, tabsIcon, layout, tabStyle } = toRefs(layoutStore);
 const { contextMenuOptions, showContextMenu, clickTabMenu, menuClientX, menuClientY, menuStyle, filterTabMenu } =
     useTabContextMenu();
@@ -49,7 +49,7 @@ let currTabMenu = ref<string>('');
 
 // 初始化tabs展示内容
 const initTabs = () => {
-    flatTabsRoutes.value.forEach(menu => {
+    getFlatTabsRoutes.value.forEach(menu => {
         if (menu.meta?.isFixed && !menu.meta.hidden) {
             const tabParams: TabsMenuState = {
                 title: menu.meta.title as string,

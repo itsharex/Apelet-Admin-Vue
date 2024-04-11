@@ -1,6 +1,5 @@
 import { useRoute } from 'vue-router';
 import { usePermissionStore, useAppStore } from '@/store';
-import { deepClone } from '@/utils/common';
 import { debounce } from 'xe-utils';
 
 // 垂直、横向菜单hooks
@@ -21,7 +20,7 @@ export const useMenu = () => {
             });
     });
 
-    let currName = ref<string | undefined>(currParentRouteName.value);
+    let currName = ref<string | undefined>(currParentRouteName!.value);
     // 根据子级查询对应所有父级
     const findFatherByChild = (data: SubMenuRouteRecordRaw[], target: string): SubMenuRouteRecordRaw[] | undefined => {
         for (let i in data) {
@@ -57,10 +56,9 @@ export const useMenu = () => {
                 // 优化为等到侧边栏完全隐藏再触发,解决渐变布局侧边栏隐藏动画卡顿效果
                 debounce(
                     () => {
-                        const copyMenuRoutes = deepClone(permissionStore.copyMenuRoutes);
                         // ts提示可能有循环递归问题
                         // @ts-ignore
-                        permissionStore.$patch({ asideBarRoutes: copyMenuRoutes });
+                        permissionStore.$patch({ addRoutes: permissionStore.getCopyMenuRoutes });
                     },
                     300,
                     { trailing: true }

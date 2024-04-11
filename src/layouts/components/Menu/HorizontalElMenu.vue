@@ -25,7 +25,7 @@ const route = useRoute();
 
 const menuUnique = computed(() => layoutStore.menuUnique);
 //菜单模式
-const menuList = computed<SubMenuRouteRecordRaw[]>(() => permissionStore.asideBarRoutes);
+const menuList = computed<SubMenuRouteRecordRaw[]>(() => permissionStore.getRouters);
 
 const activeMenu = computed<string>(() => {
     const { path, meta } = route;

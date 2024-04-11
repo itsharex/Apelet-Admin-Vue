@@ -77,7 +77,7 @@ export const errorRoutes: Array<SubMenuRouteRecordRaw> = [
         }
     },
     {
-        path: '/:pathMatch(.*)*',
+        path: '/:path(.*)*',
         name: 'NotMatch',
         component: () => import('@/views/error/404.vue'),
         meta: {

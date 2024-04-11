@@ -12,9 +12,7 @@ const whiteList = ['/login'];
 router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
     // pinia搭配路由使用时，必须放在守卫里才行，不然外面pinia先加载会失效
     const userStore = useUserStore();
-    const permissionStore = usePermissionStore();
     const { title } = settingConfig;
-
     if (to.meta.title) {
         document.title = i18n.global.t(to.meta.title) + '-' + title;
     }
@@ -25,12 +23,16 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
         } else {
             if (!userStore.roles?.length) {
                 try {
+                    const permissionStore = usePermissionStore();
                     await userStore.getUserInfo();
-                    const rewriteRoutes = await permissionStore.getAsyncRoutes();
-                    rewriteRoutes.forEach(route => {
+                    await permissionStore.getAsyncRoutes();
+                    permissionStore.getAddRouters.forEach(route => {
                         router.addRoute(route as unknown as RouteRecordRaw);
                     });
-                    next({ path: to.fullPath });
+                    const redirectPath = from.query.redirect || to.path;
+                    // 修复跳转时不带参数的问题
+                    const redirect = decodeURIComponent(redirectPath as string);
+                    next({ path: redirect, replace: true });
                 } catch (error) {
                     // 退出token 并跳转登录页
                     await userStore.logout();

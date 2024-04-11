@@ -7,44 +7,51 @@ import { piniaPersist } from '@/config/piniaPersist';
 // 但是在 JavaScript 或者 TypeScript 中，需引入使用我们导出的实例 router
 // 由于现在路由时异步的，在useRouter或useRoute一定要放在setup方法内的顶层，否则作用域改变useRouter()执行返回的是undefined。
 import { useRouter, useRoute } from 'vue-router';
-import { deepClone, flatTreeToArray } from '@/utils/common';
+import { flatTreeToArray } from '@/utils/common';
 import { useAppStore } from '@/store';
 import { getRouters } from '@/api/login';
-import routers from '@/routes.json';
+import { clone } from 'radash';
+import { RouteState } from '../interface';
 
 const modules = import.meta.glob('../../views/**/*.vue');
 const Layout = () => import('@/layouts/index.vue');
 
-type RouteState = {
-    allRoutes: SubMenuRouteRecordRaw[];
-    asideBarRoutes: SubMenuRouteRecordRaw[];
-    flatTabsRoutes: SubMenuRouteRecordRaw[];
-    currParentRouteName?: string;
-    copyMenuRoutes: SubMenuRouteRecordRaw[];
-};
-
 export const usePermissionStore = defineStore('permission', {
     state: (): RouteState => ({
         allRoutes: [],
-        asideBarRoutes: [],
-        flatTabsRoutes: [],
-        currParentRouteName: '',
-        copyMenuRoutes: []
+        addRoutes: [],
+        currParentRouteName: ''
     }),
-    getters: {},
+    getters: {
+        getRouters(): SubMenuRouteRecordRaw[] {
+            return this.allRoutes;
+        },
+        getAddRouters(): SubMenuRouteRecordRaw[] {
+            return clone(this.addRoutes);
+        },
+        getFlatTabsRoutes(): SubMenuRouteRecordRaw[] {
+            return flatTreeToArray(clone(this.allRoutes));
+        },
+        getCopyMenuRoutes(): SubMenuRouteRecordRaw[] {
+            return clone(this.allRoutes);
+        }
+    },
     actions: {
+        setAllRoutes(routes: SubMenuRouteRecordRaw[]) {
+            this.allRoutes = clone(constantRoutes).concat(routes);
+        },
+        setAddRoutes(routes: SubMenuRouteRecordRaw[]) {
+            this.addRoutes = routes;
+            this.setAllRoutes(routes);
+        },
         // 获取异步路由
         getAsyncRoutes() {
-            return new Promise<SubMenuRouteRecordRaw[]>(async resolve => {
+            return new Promise<void>(async resolve => {
                 // 后续从服务器获取路由
-                // const { data } = await getRouters();
-                let cloneAsyncRoutes = deepClone(routers);
-                const routes = this.handleFilterAsyncRoute(cloneAsyncRoutes);
-                this.allRoutes = constantRoutes.concat(deepClone(routes));
-                this.asideBarRoutes = constantRoutes.concat(deepClone(routes));
-                this.flatTabsRoutes = flatTreeToArray(deepClone(this.asideBarRoutes));
-                this.copyMenuRoutes = deepClone(this.allRoutes);
-                resolve(routes);
+                const { data } = await getRouters();
+                const routes = this.handleFilterAsyncRoute(data);
+                this.setAddRoutes(routes);
+                resolve();
             });
         },
 
@@ -61,11 +68,11 @@ export const usePermissionStore = defineStore('permission', {
                 currName = flatEveryRoutes.find(el => el.name === route.name)?.name;
                 // 如果不存在，则默认跳转第一个路由的最后一层的子路由
                 if (!currName) currName = this.getCurrRouteLastChild(children[0]);
-                // 把子路由复制给asideBarRoutes
-                this.asideBarRoutes = children;
+                // addRoutes
+                this.addRoutes = children;
                 appStore.$patch({ isCollapse: false });
             } else {
-                this.asideBarRoutes = [];
+                this.addRoutes = [];
                 appStore.$patch({ isCollapse: true });
             }
             router.push({ name: currName });
@@ -82,7 +89,8 @@ export const usePermissionStore = defineStore('permission', {
         // 处理异步加载路由
         handleFilterAsyncRoute(asyncRoutes: SubMenuRouteRecordRaw[], parentRoute?: SubMenuRouteRecordRaw) {
             if (!asyncRoutes || asyncRoutes.length === 0) return [];
-            asyncRoutes.map(route => {
+            const resRoutes: SubMenuRouteRecordRaw[] = [];
+            for (let route of asyncRoutes) {
                 if (route.component === 'Layout') {
                     route.component = markRaw(Layout);
                 } else {
@@ -91,25 +99,27 @@ export const usePermissionStore = defineStore('permission', {
                 // 处理路由path
                 route.path = this.generateRoutePath(parentRoute?.path, route.path);
                 if (route.children?.length) {
-                    // 处理目录redirect
-                    this.handleRedirectRoutes(route, route.children);
+                    // 处理redirect
+                    route.redirect = this.handleRedirectRoutes(route.path, route.children);
                     route.children = this.handleFilterAsyncRoute(route.children, route);
                 }
-            });
-            return asyncRoutes;
+                resRoutes.push(route);
+            }
+            return resRoutes;
         },
 
         // 处理所有目录的redirect
-        handleRedirectRoutes(route: SubMenuRouteRecordRaw, children?: SubMenuRouteRecordRaw[]) {
-            if (children?.length) {
-                children.map((el, index) => {
-                    if (index === 0) route.redirect = this.generateRoutePath(route.path, el.path);
-                    if (el.children?.length) this.handleRedirectRoutes(el, el.children);
-                });
+        handleRedirectRoutes(parentPath: string, children?: SubMenuRouteRecordRaw[]) {
+            if (!children || children.length === 0) return parentPath;
+            const redirectPath = this.generateRoutePath(parentPath, children[0].path);
+            if (children[0].children) {
+                return this.handleRedirectRoutes(redirectPath, children[0].children);
+            } else {
+                return redirectPath;
             }
         },
 
-        // 处理路由path
+        // 生成路由path
         generateRoutePath(parentPath: string = '', path: string) {
             if (parentPath.endsWith('/')) {
                 parentPath = parentPath.slice(0, -1);
@@ -126,5 +136,6 @@ export const usePermissionStore = defineStore('permission', {
             const path = Object.keys(modules).find(key => key.replaceAll(reg, '') === component) as string;
             return modules[path];
         }
-    }
+    },
+    persist: piniaPersist({ key: 'permission', paths: ['currParentRouteName'] })
 });

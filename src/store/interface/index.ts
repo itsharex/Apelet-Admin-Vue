@@ -27,6 +27,12 @@ export type AppState = {
     language: string;
 };
 
+export type RouteState = {
+    allRoutes: SubMenuRouteRecordRaw[];
+    addRoutes: SubMenuRouteRecordRaw[];
+    currParentRouteName?: string;
+};
+
 // 布局类型
 export interface GlobalState {
     layout: LayoutConfig;

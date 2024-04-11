@@ -38,3 +38,14 @@ export const flatTreeToArray = <T extends { children?: T[] }>(array: T[]): T[] =
 export function isNullOrUndefined<T>(object: T | undefined | null): object is T {
     return object !== undefined && object !== null;
 }
+
+/**
+ * 是否是https
+ * @param path
+ * @returns
+ */
+export const isUrl = (path: string): boolean => {
+    const reg =
+        /(((^https?:(?:\/\/)?)(?:[-:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&%@.\w_]*)#?(?:[\w]*))?)$/;
+    return reg.test(path);
+};
