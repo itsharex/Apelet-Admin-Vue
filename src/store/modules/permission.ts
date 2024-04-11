@@ -10,103 +10,107 @@ import { useRouter, useRoute } from 'vue-router';
 import { deepClone, flatTreeToArray } from '@/utils/common';
 import { useAppStore } from '@/store';
 import { getRouters } from '@/api/login';
+import routers from '@/routes.json';
 
 const modules = import.meta.glob('../../views/**/*.vue');
 const Layout = () => import('@/layouts/index.vue');
 
-export const usePermissionStore = defineStore(
-    'permission',
-    () => {
-        const appStore = useAppStore();
-        const router = useRouter();
-        const route = useRoute();
+type RouteState = {
+    allRoutes: SubMenuRouteRecordRaw[];
+    asideBarRoutes: SubMenuRouteRecordRaw[];
+    flatTabsRoutes: SubMenuRouteRecordRaw[];
+    currParentRouteName?: string;
+    copyMenuRoutes: SubMenuRouteRecordRaw[];
+};
 
-        // 所有路由
-        let allRoutes = ref<SubMenuRouteRecordRaw[]>([]);
-        // 侧边栏路由
-        let asideBarRoutes = ref<SubMenuRouteRecordRaw[]>([]);
-        // 需要扁平化的标签路由
-        let flatTabsRoutes = ref<SubMenuRouteRecordRaw[]>([]);
-        // 当前选中的最外层父级路由Name
-        let currParentRouteName = ref<string>();
-        // 备用路由
-        let copyMenuRoutes = ref<SubMenuRouteRecordRaw[]>([]);
-
+export const usePermissionStore = defineStore('permission', {
+    state: (): RouteState => ({
+        allRoutes: [],
+        asideBarRoutes: [],
+        flatTabsRoutes: [],
+        currParentRouteName: '',
+        copyMenuRoutes: []
+    }),
+    getters: {},
+    actions: {
         // 获取异步路由
-        const getAsyncRoutes = () => {
+        getAsyncRoutes() {
             return new Promise<SubMenuRouteRecordRaw[]>(async resolve => {
                 // 后续从服务器获取路由
-                const asyncRoutes = (await getRouters()).data;
-                let cloneAsyncRoutes = deepClone(asyncRoutes);
-                const routes = handleFilterAsyncRoute(cloneAsyncRoutes);
-                allRoutes.value = constantRoutes.concat(deepClone(routes));
-                asideBarRoutes.value = constantRoutes.concat(deepClone(routes));
-                flatTabsRoutes.value = flatTreeToArray(deepClone(asideBarRoutes.value));
-                copyMenuRoutes.value = deepClone(allRoutes.value);
+                // const { data } = await getRouters();
+                let cloneAsyncRoutes = deepClone(routers);
+                const routes = this.handleFilterAsyncRoute(cloneAsyncRoutes);
+                this.allRoutes = constantRoutes.concat(deepClone(routes));
+                this.asideBarRoutes = constantRoutes.concat(deepClone(routes));
+                this.flatTabsRoutes = flatTreeToArray(deepClone(this.asideBarRoutes));
+                this.copyMenuRoutes = deepClone(this.allRoutes);
                 resolve(routes);
             });
-        };
+        },
 
         // 处理点击顶部菜单后的一系列操作
-        const handleCopyRoutes = () => {
-            let currName = currParentRouteName.value;
-            const children = allRoutes.value.find(el => el.name === currName)?.children;
+        handleCopyRoutes() {
+            const appStore = useAppStore();
+            const route = useRoute();
+            const router = useRouter();
+            let currName = this.currParentRouteName;
+            const children = this.allRoutes.find(el => el.name === currName)?.children;
             if (children) {
                 // 扁平化所有子路由，查找当前路由是否在所有子路由中
                 let flatEveryRoutes = flatTreeToArray(children);
                 currName = flatEveryRoutes.find(el => el.name === route.name)?.name;
                 // 如果不存在，则默认跳转第一个路由的最后一层的子路由
-                if (!currName) currName = getCurrRouteLastChild(children[0]);
+                if (!currName) currName = this.getCurrRouteLastChild(children[0]);
                 // 把子路由复制给asideBarRoutes
-                asideBarRoutes.value = children;
+                this.asideBarRoutes = children;
                 appStore.$patch({ isCollapse: false });
             } else {
-                asideBarRoutes.value = [];
+                this.asideBarRoutes = [];
                 appStore.$patch({ isCollapse: true });
             }
             router.push({ name: currName });
-        };
+        },
 
         // 获取当前路由树第一个父级的最后一级的子路由
-        const getCurrRouteLastChild = (currRoute: SubMenuRouteRecordRaw) => {
+        getCurrRouteLastChild(currRoute: SubMenuRouteRecordRaw) {
             if (currRoute.children?.length) {
-                return getCurrRouteLastChild(currRoute.children[0]);
+                return this.getCurrRouteLastChild(currRoute.children[0]);
             }
             return currRoute.name;
-        };
+        },
 
         // 处理异步加载路由
-        const handleFilterAsyncRoute = (asyncRoutes: SubMenuRouteRecordRaw[], parentRoute?: SubMenuRouteRecordRaw) => {
+        handleFilterAsyncRoute(asyncRoutes: SubMenuRouteRecordRaw[], parentRoute?: SubMenuRouteRecordRaw) {
             if (!asyncRoutes || asyncRoutes.length === 0) return [];
             asyncRoutes.map(route => {
                 if (route.component === 'Layout') {
                     route.component = markRaw(Layout);
                 } else {
-                    route.component = resolveView(route.component as string);
+                    route.component = this.resolveView(route.component!);
                 }
                 // 处理路由path
-                route.path = generateRoutePath(parentRoute?.path, route.path);
+                route.path = this.generateRoutePath(parentRoute?.path, route.path);
                 if (route.children?.length) {
                     // 处理目录redirect
-                    handleRedirectRoutes(route, route.children);
-                    route.children = handleFilterAsyncRoute(route.children, route);
+                    this.handleRedirectRoutes(route, route.children);
+                    route.children = this.handleFilterAsyncRoute(route.children, route);
                 }
             });
             return asyncRoutes;
-        };
+        },
 
         // 处理所有目录的redirect
-        const handleRedirectRoutes = (route: SubMenuRouteRecordRaw, children?: SubMenuRouteRecordRaw[]) => {
+        handleRedirectRoutes(route: SubMenuRouteRecordRaw, children?: SubMenuRouteRecordRaw[]) {
             if (children?.length) {
                 children.map((el, index) => {
-                    if (index === 0) route.redirect = generateRoutePath(route.path, el.path);
-                    if (el.children?.length) handleRedirectRoutes(el, el.children);
+                    if (index === 0) route.redirect = this.generateRoutePath(route.path, el.path);
+                    if (el.children?.length) this.handleRedirectRoutes(el, el.children);
                 });
             }
-        };
+        },
 
         // 处理路由path
-        const generateRoutePath = (parentPath: string = '', path: string) => {
+        generateRoutePath(parentPath: string = '', path: string) {
             if (parentPath.endsWith('/')) {
                 parentPath = parentPath.slice(0, -1);
             }
@@ -114,26 +118,13 @@ export const usePermissionStore = defineStore(
                 path = '/' + path;
             }
             return parentPath + path;
-        };
+        },
 
         // 解析异步路由
-        const resolveView = (component: string): (() => Promise<unknown>) => {
+        resolveView(component: string): () => Promise<unknown> {
             let reg = /\..\/..\/views\/|.vue/g;
             const path = Object.keys(modules).find(key => key.replaceAll(reg, '') === component) as string;
             return modules[path];
-        };
-
-        return {
-            allRoutes,
-            asideBarRoutes,
-            flatTabsRoutes,
-            currParentRouteName,
-            copyMenuRoutes,
-            getAsyncRoutes,
-            handleCopyRoutes
-        };
-    },
-    {
-        persist: piniaPersist({ key: 'permission', paths: ['currParentRouteName'] })
+        }
     }
-);
+});

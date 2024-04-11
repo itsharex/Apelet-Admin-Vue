@@ -1,8 +1,6 @@
 /**
  * 环境变量
  */
-type Recordable<T = any> = Record<string, T>;
-
 interface ImportMetaEnv {
     readonly VITE_APP_TITLE: string;
     readonly VITE_APP_PORT: number;

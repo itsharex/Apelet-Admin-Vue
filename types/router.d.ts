@@ -27,7 +27,7 @@ declare module 'vue-router' {
         // 页面级别权限设置
         roles?: string[];
         // 按钮级别权限设置
-        auths?: string[];
+        perms?: string[];
         // 页面是否缓存
         keepAlive?: boolean;
     }
@@ -42,7 +42,7 @@ declare global {
         component?: Component | string;
         redirect?: string;
         name?: string;
-        props?: Recordable;
+        orderNum?: number;
         children?: SubMenuRouteRecordRaw[];
         meta?: RouteMeta;
     }
