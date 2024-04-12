@@ -14,7 +14,7 @@ export const useMenu = () => {
             .map(menu => {
                 // 只有一个子路由的时候，切父级路由没有title等信息时，需要使用子路由作为父级路由展示
                 if (!menu.meta?.title && menu.children?.length === 1) {
-                    menu = reactive({ ...menu.children[0] });
+                    menu = markRaw({ ...menu.children[0] });
                 }
                 return menu;
             });

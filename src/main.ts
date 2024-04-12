@@ -21,8 +21,6 @@ import App from './App.vue';
 import router from '@/router';
 // pinia
 import pinia from '@/store';
-// i18n
-import i18n from '@/i18n';
 
 const app = createApp(App);
 
@@ -30,7 +28,6 @@ const app = createApp(App);
 import './permission';
 
 install(app);
-app.use(i18n);
 app.use(pinia);
 app.use(router);
 
