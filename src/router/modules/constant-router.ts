@@ -75,14 +75,5 @@ export const errorRoutes: Array<SubMenuRouteRecordRaw> = [
             hidden: true,
             title: '404'
         }
-    },
-    {
-        path: '/:path(.*)*',
-        name: 'NotMatch',
-        component: () => import('@/views/error/404.vue'),
-        meta: {
-            hidden: true,
-            title: 'menus.noFound'
-        }
     }
 ];

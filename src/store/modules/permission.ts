@@ -50,7 +50,18 @@ export const usePermissionStore = defineStore('permission', {
                 // 后续从服务器获取路由
                 const { data } = await getRouters();
                 const routes = this.handleFilterAsyncRoute(data);
-                this.setAddRoutes(routes);
+                const addRoutes = routes.concat([
+                    {
+                        path: '/:path(.*)*',
+                        name: 'NotMatch',
+                        component: () => import('@/views/error/404.vue'),
+                        meta: {
+                            hidden: true,
+                            title: 'menus.noFound'
+                        }
+                    }
+                ]);
+                this.setAddRoutes(addRoutes);
                 resolve();
             });
         },
