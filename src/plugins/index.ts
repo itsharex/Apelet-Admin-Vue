@@ -11,9 +11,9 @@ import loadElementIcon from './element';
 import i18n from '@/i18n';
 
 export const install = (app: App) => {
-    // loadElementIcon(app);
     app.use(i18n);
     app.use(directives);
     app.use(Particles);
     app.use(useVxeTable);
+    loadElementIcon(app);
 };

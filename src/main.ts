@@ -7,14 +7,10 @@ import 'element-plus/dist/index.css';
 import 'element-plus/theme-chalk/dark/css-vars.css';
 // svg icons
 import 'virtual:svg-icons-register';
-// nprogress
-import 'nprogress/nprogress.css';
 // animate.css  animate版本是4.x，使用时要注意对应的所有类名都以animate__开头，并且还要配合animate__animated一起使用！
 import 'animate.css';
 
 import { createApp } from 'vue';
-
-import { install } from './plugins';
 
 import App from './App.vue';
 // router
@@ -23,6 +19,8 @@ import router from '@/router';
 import pinia from '@/store';
 
 const app = createApp(App);
+
+import { install } from './plugins';
 
 // 权限认证
 import './permission';
