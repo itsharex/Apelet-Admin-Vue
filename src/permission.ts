@@ -29,9 +29,6 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
                     permissionStore.getAddRouters.forEach(route => {
                         router.addRoute(route as unknown as RouteRecordRaw);
                     });
-                    const redirectPath = from.query.redirect || to.path;
-                    // 修复跳转时不带参数的问题
-                    // const redirect = decodeURIComponent(redirectPath as string);
                     next({ ...to, replace: true });
                 } catch (error) {
                     // 退出token 并跳转登录页
