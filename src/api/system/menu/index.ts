@@ -8,11 +8,11 @@ const baseUrl = '/system/menu/';
  * @returns
  */
 export const getMenuList = (params: PageRequest) => {
-    return request<MenuInfo[]>({
-        url: baseUrl + 'list',
-        method: 'get',
-        params
-    });
+	return request<MenuInfo[]>({
+		url: baseUrl + 'list',
+		method: 'get',
+		params,
+	});
 };
 
 /**
@@ -21,9 +21,9 @@ export const getMenuList = (params: PageRequest) => {
  * @returns
  */
 export const menuTreeselect = (params?: PageRequest) => {
-    return request<MenuInfo[]>({
-        url: baseUrl + 'treeselect',
-        method: 'get',
-        params
-    });
+	return request<MenuInfo[]>({
+		url: baseUrl + 'treeselect',
+		method: 'get',
+		params,
+	});
 };

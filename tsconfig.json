@@ -1,50 +1,52 @@
 {
-    "compilerOptions": {
-        "target": "ESNext", // 指定编译后的ECMAScript版本
-        "module": "ESNext", // 指定要使用的模板标准
-        "useDefineForClassFields": true, //将 class 声明中的字段语义从 [[Set]] 变更到 [[Define]]
-        "moduleResolution": "Node", //用于选择模块解析策略
-        "lib": ["ESNext", "DOM", "DOM.Iterable"],
-        // 定义类型  用来指定需要包含的模块，只有在这里列出的模块声明文件才会被加载进来
-        "types": ["node", "vite/client", "element-plus/global"],
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "ESNext",
+		//用于选择模块解析策略
+		"moduleResolution": "bundler",
+		//将 class 声明中的字段语义从 [[Set]] 变更到 [[Define]]
+		"useDefineForClassFields": true,
+		"lib": ["ESNext", "DOM", "DOM.Iterable"],
+		// 用来控制是否在编译时进行库文件检查的
+		"skipLibCheck": true,
+		"baseUrl": ".",
+		"strict": true,
+		//是否检查未使用的局部变量
+		"noUnusedLocals": true,
+		//是否检查未使用的参数
+		"noUnusedParameters": true,
+		//检查switch中是否含有case没有使用break跳出
+		"noFallthroughCasesInSwitch": true,
+		//为导入内容创建命名空间，实现CommonJS和ES模块之间的互操作性
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"resolveJsonModule": true,
+		// 用于 隔离（isolated）转译的功能 （具体原因请看 vite - TypeScript 编译器选项）
+		"isolatedModules": true,
+		"noEmit": true, // 是否生成编译后的文件，默认：false。
+		// 用来指定编译时是否生成.map文件
+		"sourceMap": false,
+		"jsx": "preserve",
+		"jsxImportSource": "vue",
+		"allowJs": false, // 允许编译JS
+		"extendedDiagnostics": false, //是否查看 TS 在编译时花费的时间
+		"noEmitOnError": true, //有错误时不进行编译
 
-        "strict": true, // 开启严格模式
-
-        "isolatedModules": true, // 用于 隔离（isolated）转译的功能 （具体原因请看 vite - TypeScript 编译器选项）
-        "skipLibCheck": true, // 用来控制是否在编译时进行库文件检查的
-
-        "esModuleInterop": true, //为导入内容创建命名空间，实现CommonJS和ES模块之间的互操作性
-        "resolveJsonModule": true, //包含导入的模块.json的扩展。
-        "noEmit": true, // 是否生成编译后的文件，默认：false。
-        "sourceMap": false, // 用来指定编译时是否生成.map文件
-        "jsx": "preserve", // 指定jsx代码用于的开发环境： 三种 JSX 模式：preserve、react 和 react-native
-        "jsxImportSource": "vue",
-        "allowJs": true, // 允许编译JS
-        // "checkJs": true, // 允许在JS文件中报错，通常与allowJS一起使用
-        "baseUrl": "./",
-        "paths": {
-            "@/*": ["src/*"]
-        },
-        /* Linting */
-        "noImplicitAny": false, // 不允许变量或函数参数具有隐式any类型  使用编译器标志 noImplicitAny 将任何隐式 any 标记为错误
-        "noUnusedLocals": true, //是否检查未使用的局部变量
-        "noUnusedParameters": true, //是否检查未使用的参数
-        "noFallthroughCasesInSwitch": true, //检查switch中是否含有case没有使用break跳出
-        "strictNullChecks": true, // 对值为 null 或 undefined 的进行空检查
-
-        // 高级部分
-        "extendedDiagnostics": false, //是否查看 TS 在编译时花费的时间
-        "noEmitOnError": true //有错误时不进行编译
-    },
-    "include": [
-        "src/**/*.ts",
-        "src/**/*.d.ts",
-        "src/**/*.tsx",
-        "src/**/*.vue",
-        "types/*.d.ts",
-        "vite/**/*.ts",
-        "vite/**/*.d.ts",
-        "vite.config.ts"
-    ],
-    "exclude": ["node_modules", "dist", "**/*.js"]
+		"paths": {
+			"@/*": ["src/*"]
+		},
+		// 定义类型  用来指定需要包含的模块，只有在这里列出的模块声明文件才会被加载进来
+		"types": ["node", "vite/client", "element-plus/global"]
+	},
+	"include": [
+		"src/**/*.ts",
+		"src/**/*.d.ts",
+		"src/**/*.tsx",
+		"src/**/*.vue",
+		"types/*.d.ts",
+		"vite/**/*.ts",
+		"vite/**/*.d.ts",
+		"vite.config.ts"
+	],
+	"exclude": ["dist", "**/*.js", "node_modules"]
 }

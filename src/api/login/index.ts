@@ -1,13 +1,13 @@
 import request from '@/utils/request';
 import {
-    RequestLoginForm,
-    LoginResponse,
-    RequestBlockAndClickCaptcha,
-    RequestCheckBlockAndClickCaptcha,
-    CheckBlockAndClickCaptchaResponse,
-    BlockAndClickCaptchaResponse,
-    UserResponse,
-    IsCaptchaOnResponse
+	RequestLoginForm,
+	LoginResponse,
+	RequestBlockAndClickCaptcha,
+	RequestCheckBlockAndClickCaptcha,
+	CheckBlockAndClickCaptchaResponse,
+	BlockAndClickCaptchaResponse,
+	UserResponse,
+	IsCaptchaOnResponse,
 } from './types';
 
 /**
@@ -16,11 +16,11 @@ import {
  * @returns
  */
 export const login = (data: RequestLoginForm) => {
-    return request<LoginResponse>({
-        url: '/login',
-        method: 'POST',
-        data
-    });
+	return request<LoginResponse>({
+		url: '/login',
+		method: 'POST',
+		data,
+	});
 };
 
 /**
@@ -28,10 +28,10 @@ export const login = (data: RequestLoginForm) => {
  * @returns
  */
 export const logout = () => {
-    return request({
-        url: '/logout',
-        method: 'POST'
-    });
+	return request({
+		url: '/logout',
+		method: 'POST',
+	});
 };
 
 /**
@@ -40,10 +40,10 @@ export const logout = () => {
  * @returns
  */
 export const getLoginUserInfo = () => {
-    return request<UserResponse>({
-        url: '/getInfo',
-        method: 'get'
-    });
+	return request<UserResponse>({
+		url: '/getInfo',
+		method: 'get',
+	});
 };
 
 /**
@@ -52,10 +52,10 @@ export const getLoginUserInfo = () => {
  * @returns
  */
 export const getIsCaptchaOn = () => {
-    return request<IsCaptchaOnResponse>({
-        url: '/isCaptchaOn',
-        method: 'get'
-    });
+	return request<IsCaptchaOnResponse>({
+		url: '/isCaptchaOn',
+		method: 'get',
+	});
 };
 
 /**
@@ -63,11 +63,11 @@ export const getIsCaptchaOn = () => {
  * @returns
  */
 export const reqGet = (data: RequestBlockAndClickCaptcha) => {
-    return request<BlockAndClickCaptchaResponse>({
-        url: '/ajCaptcha/get',
-        method: 'post',
-        data
-    });
+	return request<BlockAndClickCaptchaResponse>({
+		url: '/ajCaptcha/get',
+		method: 'post',
+		data,
+	});
 };
 
 /**
@@ -76,11 +76,11 @@ export const reqGet = (data: RequestBlockAndClickCaptcha) => {
  * @returns
  */
 export const reqCheck = (data: RequestCheckBlockAndClickCaptcha) => {
-    return request<CheckBlockAndClickCaptchaResponse>({
-        url: '/ajCaptcha/check',
-        method: 'post',
-        data
-    });
+	return request<CheckBlockAndClickCaptchaResponse>({
+		url: '/ajCaptcha/check',
+		method: 'post',
+		data,
+	});
 };
 
 /**
@@ -88,8 +88,8 @@ export const reqCheck = (data: RequestCheckBlockAndClickCaptcha) => {
  * @returns
  */
 export const getRouters = () => {
-    return request<SubMenuRouteRecordRaw[]>({
-        url: '/getRouters',
-        method: 'get'
-    });
+	return request<SubMenuRouteRecordRaw[]>({
+		url: '/getRouters',
+		method: 'get',
+	});
 };

@@ -1,8 +1,8 @@
 type SelectionType = {
-    mutiple: boolean;
-    single: boolean;
-    ids: number[];
-    rows: any[];
+	mutiple: boolean;
+	single: boolean;
+	ids: number[];
+	rows: any[];
 };
 
 /**
@@ -11,26 +11,26 @@ type SelectionType = {
  * @returns
  */
 export const useSelection = (rowKey: string = 'id') => {
-    const selectionScope = ref<SelectionType>({
-        mutiple: true,
-        single: true,
-        ids: [],
-        rows: []
-    });
+	const selectionScope = ref<SelectionType>({
+		mutiple: true,
+		single: true,
+		ids: [],
+		rows: [],
+	});
 
-    const { mutiple, single, ids, rows } = toRefs(selectionScope.value);
+	const { mutiple, single, ids, rows } = toRefs(selectionScope.value);
 
-    const selectionChange = (selection: any[]) => {
-        mutiple.value = selection.length !== 1;
-        single.value = !selection.length;
-        ids.value = selection.map(item => item[rowKey]);
-        rows.value = selection;
-    };
+	const selectionChange = (selection: any[]) => {
+		mutiple.value = selection.length !== 1;
+		single.value = !selection.length;
+		ids.value = selection.map((item) => item[rowKey]);
+		rows.value = selection;
+	};
 
-    return {
-        ids,
-        rows,
-        selectionScope,
-        selectionChange
-    };
+	return {
+		ids,
+		rows,
+		selectionScope,
+		selectionChange,
+	};
 };

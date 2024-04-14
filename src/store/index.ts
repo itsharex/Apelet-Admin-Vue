@@ -4,10 +4,10 @@ import { createPersistedState } from 'pinia-plugin-persistedstate';
 
 const pinia: Pinia = createPinia();
 pinia.use(
-    createPersistedState({
-        key: id => `__persisted__${id}`,
-        storage: localStorage
-    })
+	createPersistedState({
+		key: (id) => `__persisted__${id}`,
+		storage: localStorage,
+	}),
 );
 
 export * from './modules';

@@ -15,10 +15,10 @@ const PRIVATE_KEY = `MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAIvCE5HfZSU
  * @param data 需要加密的数据
  */
 export function rsaEncrypt(data: string) {
-    // 使用公钥加密
-    const encrypt = new JSEncrypt();
-    encrypt.setPublicKey(PUBLIC_KEY);
-    return encrypt.encrypt(data) as string;
+	// 使用公钥加密
+	const encrypt = new JSEncrypt();
+	encrypt.setPublicKey(PUBLIC_KEY);
+	return encrypt.encrypt(data) as string;
 }
 
 /**
@@ -26,9 +26,9 @@ export function rsaEncrypt(data: string) {
  * @param data 需要解密的数据
  */
 export function rsaDecrypt(data: string) {
-    const decrypt = new JSEncrypt();
-    decrypt.setPrivateKey(PRIVATE_KEY);
-    return decrypt.decrypt(data) as string;
+	const decrypt = new JSEncrypt();
+	decrypt.setPrivateKey(PRIVATE_KEY);
+	return decrypt.decrypt(data) as string;
 }
 
 /**
@@ -47,13 +47,13 @@ const SECRET_IV = CryptoJS.enc.Utf8.parse('1234123412341234');
  * @returns {string}
  */
 export const AES_Encrypt = (encryptStr: string): string => {
-    const dataHex = CryptoJS.enc.Utf8.parse(encryptStr.toString());
-    const encrypted = CryptoJS.AES.encrypt(dataHex, SECRET_KEY, {
-        iv: SECRET_IV,
-        mode: CryptoJS.mode.CBC,
-        padding: CryptoJS.pad.Pkcs7
-    });
-    return encrypted.ciphertext.toString();
+	const dataHex = CryptoJS.enc.Utf8.parse(encryptStr.toString());
+	const encrypted = CryptoJS.AES.encrypt(dataHex, SECRET_KEY, {
+		iv: SECRET_IV,
+		mode: CryptoJS.mode.CBC,
+		padding: CryptoJS.pad.Pkcs7,
+	});
+	return encrypted.ciphertext.toString();
 };
 
 /**
@@ -62,13 +62,13 @@ export const AES_Encrypt = (encryptStr: string): string => {
  * @returns {string}
  */
 export const AES_Decrypt = (decryptStr: string): string => {
-    // encrypted.ciphertext 形式的加密需要对decryptStr进行Hex解析
-    const encryptedHexStr = CryptoJS.enc.Hex.parse(decryptStr);
-    const str = CryptoJS.enc.Base64.stringify(encryptedHexStr);
-    const decrypt = CryptoJS.AES.decrypt(str, SECRET_KEY, {
-        iv: SECRET_IV,
-        mode: CryptoJS.mode.CBC,
-        padding: CryptoJS.pad.Pkcs7
-    });
-    return decrypt.toString(CryptoJS.enc.Utf8);
+	// encrypted.ciphertext 形式的加密需要对decryptStr进行Hex解析
+	const encryptedHexStr = CryptoJS.enc.Hex.parse(decryptStr);
+	const str = CryptoJS.enc.Base64.stringify(encryptedHexStr);
+	const decrypt = CryptoJS.AES.decrypt(str, SECRET_KEY, {
+		iv: SECRET_IV,
+		mode: CryptoJS.mode.CBC,
+		padding: CryptoJS.pad.Pkcs7,
+	});
+	return decrypt.toString(CryptoJS.enc.Utf8);
 };

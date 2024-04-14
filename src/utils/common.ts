@@ -4,19 +4,19 @@
  * @returns
  */
 export function deepClone<T extends object>(value: T): T {
-    // 判空
-    if (!value) return value;
-    // 这里判断数组不能用typeof，因为typeof Array 返回的是object
-    if (Array.isArray(value)) return value.map(item => deepClone(item)) as unknown as T;
-    // 判断是否是对象
-    if (typeof value === 'object') {
-        return Object.fromEntries(
-            Object.entries(value).map(([k, v]: [string, any]) => {
-                return [k, deepClone(v)];
-            })
-        ) as unknown as T;
-    }
-    return value;
+	// 判空
+	if (!value) return value;
+	// 这里判断数组不能用typeof，因为typeof Array 返回的是object
+	if (Array.isArray(value)) return value.map((item) => deepClone(item)) as unknown as T;
+	// 判断是否是对象
+	if (typeof value === 'object') {
+		return Object.fromEntries(
+			Object.entries(value).map(([k, v]: [string, any]) => {
+				return [k, deepClone(v)];
+			}),
+		) as unknown as T;
+	}
+	return value;
 }
 
 /**
@@ -25,9 +25,9 @@ export function deepClone<T extends object>(value: T): T {
  * @returns
  */
 export const flatTreeToArray = <T extends { children?: T[] }>(array: T[]): T[] => {
-    return array.reduce((arr: T[], { children, ...item }) => {
-        return arr.concat(item as T, children && children.length ? flatTreeToArray(children) : []);
-    }, []);
+	return array.reduce((arr: T[], { children, ...item }) => {
+		return arr.concat(item as T, children && children.length ? flatTreeToArray(children) : []);
+	}, []);
 };
 
 /**
@@ -36,7 +36,7 @@ export const flatTreeToArray = <T extends { children?: T[] }>(array: T[]): T[] =
  * @returns
  */
 export function isNullOrUndefined<T>(object: T | undefined | null): object is T {
-    return object !== undefined && object !== null;
+	return object !== undefined && object !== null;
 }
 
 /**
@@ -45,7 +45,7 @@ export function isNullOrUndefined<T>(object: T | undefined | null): object is T 
  * @returns
  */
 export const isUrl = (path: string): boolean => {
-    const reg =
-        /(((^https?:(?:\/\/)?)(?:[-:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&%@.\w_]*)#?(?:[\w]*))?)$/;
-    return reg.test(path);
+	const reg =
+		/(((^https?:(?:\/\/)?)(?:[-:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&%@.\w_]*)#?(?:[\w]*))?)$/;
+	return reg.test(path);
 };

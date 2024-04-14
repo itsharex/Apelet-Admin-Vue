@@ -1,8 +1,8 @@
 import type { Directive } from 'vue';
 
 export interface Directives {
-    vPerms: Directive<any, string[]>;
-    vRole: Directive<any, string>;
+	vPerms: Directive<any, string[]>;
+	vRole: Directive<any, string>;
 }
 
 // keys = 'vHasPerms' | 'vHasRoles'
@@ -17,6 +17,6 @@ type LowerDirectiveName<T extends Keys> = T extends `v${infer V}` ? Uncapitalize
 
 // 指令对象类型
 export interface DirectiveOptions<T extends Keys> {
-    name: LowerDirectiveName<T>;
-    directive: Directives[T];
+	name: LowerDirectiveName<T>;
+	directive: Directives[T];
 }

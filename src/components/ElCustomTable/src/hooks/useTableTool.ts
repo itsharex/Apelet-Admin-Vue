@@ -3,13 +3,13 @@
  * @returns
  */
 export const useTableTool = () => {
-    let isShowSearch = ref(true);
-    const handleShowSearch = () => {
-        isShowSearch.value = !isShowSearch.value;
-    };
+	let isShowSearch = ref(true);
+	const handleShowSearch = () => {
+		isShowSearch.value = !isShowSearch.value;
+	};
 
-    return {
-        isShowSearch,
-        handleShowSearch
-    };
+	return {
+		isShowSearch,
+		handleShowSearch,
+	};
 };

@@ -35,45 +35,45 @@ const Layout = () => import('@/layouts/index.vue');
  **/
 
 export const constantRoutes: Array<SubMenuRouteRecordRaw> = [
-    {
-        path: '/',
-        redirect: '/index',
-        name: 'Index',
-        component: Layout,
-        children: [
-            {
-                path: '/index',
-                name: 'HomePage',
-                component: () => import('@/views/home/index.vue'),
-                meta: {
-                    icon: 'HomeFilled',
-                    hidden: false,
-                    title: 'menus.homepage',
-                    isCache: true,
-                    isFixed: true
-                }
-            }
-        ]
-    },
-    {
-        path: '/login',
-        name: 'Login',
-        component: () => import('@/views/login/index.vue'),
-        meta: {
-            hidden: true,
-            title: 'login.login'
-        }
-    }
+	{
+		path: '/',
+		redirect: '/index',
+		name: 'Index',
+		component: Layout,
+		children: [
+			{
+				path: '/index',
+				name: 'HomePage',
+				component: () => import('@/views/home/index.vue'),
+				meta: {
+					icon: 'HomeFilled',
+					hidden: false,
+					title: 'menus.homepage',
+					isCache: true,
+					isFixed: true,
+				},
+			},
+		],
+	},
+	{
+		path: '/login',
+		name: 'Login',
+		component: () => import('@/views/login/index.vue'),
+		meta: {
+			hidden: true,
+			title: 'login.login',
+		},
+	},
 ];
 
 export const errorRoutes: Array<SubMenuRouteRecordRaw> = [
-    {
-        path: '/404',
-        name: '404',
-        component: () => import('@/views/error/404.vue'),
-        meta: {
-            hidden: true,
-            title: '404'
-        }
-    }
+	{
+		path: '/404',
+		name: '404',
+		component: () => import('@/views/error/404.vue'),
+		meta: {
+			hidden: true,
+			title: '404',
+		},
+	},
 ];

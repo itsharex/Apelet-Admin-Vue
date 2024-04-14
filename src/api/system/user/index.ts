@@ -8,9 +8,9 @@ const baseUrl = '/system/user/';
  * @returns
  */
 export const getUserList = (params: PageRequest) => {
-    return request<UserInfo[]>({
-        url: baseUrl + 'list',
-        method: 'get',
-        params
-    });
+	return request<UserInfo[]>({
+		url: baseUrl + 'list',
+		method: 'get',
+		params,
+	});
 };

@@ -7,58 +7,58 @@
  * @returns
  */
 export const useTableData = (
-    api?: (...args: any) => Promise<ApiResponse<any>>,
-    initParams?: { [key: string]: any },
-    pagination?: boolean, // 是否开启分页插件
-    dataCallBack?: (params: any) => any // 数据响应成功回调, 进行数据处理
+	api?: (...args: any) => Promise<ApiResponse<any>>,
+	initParams?: { [key: string]: any },
+	pagination?: boolean, // 是否开启分页插件
+	dataCallBack?: (params: any) => any, // 数据响应成功回调, 进行数据处理
 ) => {
-    let total = ref(0);
-    let data = ref<any>([]);
-    let loading = ref(false);
-    let queryParams = ref<{ [key: string]: any }>({
-        ...initParams
-    });
+	let total = ref(0);
+	let data = ref<any>([]);
+	let loading = ref(false);
+	let queryParams = ref<{ [key: string]: any }>({
+		...initParams,
+	});
 
-    // 获取数据
-    const getList = async () => {
-        if (!api) return;
-        if (!pagination) {
-            delete queryParams.value.pageNum;
-            delete queryParams.value.pageSize;
-        }
-        loading.value = true;
-        let response = await api(queryParams.value);
-        let allData = response.data || response.rows;
-        dataCallBack && (allData = dataCallBack(allData));
-        data.value = allData;
-        total.value = response.total;
-        loading.value = false;
-    };
+	// 获取数据
+	const getList = async () => {
+		if (!api) return;
+		if (!pagination) {
+			delete queryParams.value.pageNum;
+			delete queryParams.value.pageSize;
+		}
+		loading.value = true;
+		let response = await api(queryParams.value);
+		let allData = response.data || response.rows;
+		dataCallBack && (allData = dataCallBack(allData));
+		data.value = allData;
+		total.value = response.total;
+		loading.value = false;
+	};
 
-    // 搜索
-    const handleSearch = () => {
-        getList();
-    };
+	// 搜索
+	const handleSearch = () => {
+		getList();
+	};
 
-    // 重置
-    const handleReset = () => {
-        queryParams.value = {
-            ...initParams
-        };
-        handleSearch();
-    };
+	// 重置
+	const handleReset = () => {
+		queryParams.value = {
+			...initParams,
+		};
+		handleSearch();
+	};
 
-    onMounted(() => {
-        getList();
-    });
+	onMounted(() => {
+		getList();
+	});
 
-    return {
-        total,
-        data,
-        loading,
-        queryParams,
-        handleSearch,
-        handleReset,
-        getList
-    };
+	return {
+		total,
+		data,
+		loading,
+		queryParams,
+		handleSearch,
+		handleReset,
+		getList,
+	};
 };

@@ -7,15 +7,15 @@ import type { App } from 'vue';
 import { Icon } from './Icon';
 
 export default {
-    install(app: App) {
-        // 注册全局组件
-        // 由于有自动导入组件插件，这里不需要在全局导入，因此修改为按需引入形式
-        // Object.keys(modules).forEach((key: string) => {
-        //     let name = key.replaceAll(/\.\/|\/index.vue/g, '');
-        //     app.component(name, modules[key]);
-        // });
+	install(app: App) {
+		// 注册全局组件
+		// 由于有自动导入组件插件，这里不需要在全局导入，因此修改为按需引入形式
+		// Object.keys(modules).forEach((key: string) => {
+		//     let name = key.replaceAll(/\.\/|\/index.vue/g, '');
+		//     app.component(name, modules[key]);
+		// });
 
-        // 注册Svg图标组件
-        app.component('Icon', Icon);
-    }
+		// 注册Svg图标组件
+		app.component('Icon', Icon);
+	},
 };

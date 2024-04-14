@@ -8,12 +8,12 @@ import { useVxeTable } from './vxe-table';
 // 加载所有图标
 import loadElementIcon from './element';
 // i18n
-import i18n from '@/i18n';
+import i18n from '@/locales';
 
 export const install = (app: App) => {
-    app.use(i18n);
-    app.use(directives);
-    app.use(Particles);
-    app.use(useVxeTable);
-    loadElementIcon(app);
+	app.use(i18n);
+	app.use(directives);
+	app.use(Particles);
+	app.use(useVxeTable);
+	loadElementIcon(app);
 };
